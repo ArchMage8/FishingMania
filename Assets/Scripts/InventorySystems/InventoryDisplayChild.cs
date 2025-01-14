@@ -15,7 +15,7 @@ public class InventoryDisplayChild : MonoBehaviour
         descriptionHolder = descriptionHolderReference;
     }
 
-    public void OnButtonPressed()
+    public void DisplayStats()
     {
         if (item != null)
         {

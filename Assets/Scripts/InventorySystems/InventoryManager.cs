@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
@@ -86,6 +87,7 @@ public class InventoryManager : MonoBehaviour
             remainingQty -= addableQty;
         }
 
+        SortInventory();
         return true;
     }
 
@@ -144,14 +146,18 @@ public class InventoryManager : MonoBehaviour
     {
         string json = JsonUtility.ToJson(new InventoryData(inventory));
         string encryptedJson = Encrypt(json);
-        File.WriteAllText(Application.persistentDataPath + "/inventory.json", encryptedJson);
+
+        string filePath = Application.persistentDataPath + "/inventory.json";
+        File.WriteAllText(filePath, encryptedJson);
+        Debug.Log("File saved to: " + filePath);
+
         Debug.Log("Inventory saved successfully.");
     }
 
     private string Encrypt(string plainText)
     {
-        byte[] key = Encoding.UTF8.GetBytes("22032018"); // Replace with a secure key
-        byte[] iv = Encoding.UTF8.GetBytes("22032018"); // Replace with a secure IV
+        byte[] key = Encoding.UTF8.GetBytes("2203201822032018"); // Replace with a secure key
+        byte[] iv = Encoding.UTF8.GetBytes("2203201822032018"); // Replace with a secure IV
 
         using (Aes aes = Aes.Create())
         {
@@ -204,8 +210,8 @@ public class InventoryManager : MonoBehaviour
 
     private string Decrypt(string cipherText)
     {
-        byte[] key = Encoding.UTF8.GetBytes("22032018"); // Replace with a secure key
-        byte[] iv = Encoding.UTF8.GetBytes("22032018"); // Replace with a secure IV
+        byte[] key = Encoding.UTF8.GetBytes("2203201822032018"); // Replace with a secure key
+        byte[] iv = Encoding.UTF8.GetBytes("2203201822032018"); // Replace with a secure IV
 
         byte[] buffer = System.Convert.FromBase64String(cipherText);
 
@@ -229,6 +235,24 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void SortInventory()
+    {
+        
+        inventory.Sort((slot1, slot2) =>
+        {
+            // Handle null items to ensure no errors during comparison
+            if (slot1.item == null && slot2.item == null) return 0;
+            if (slot1.item == null) return 1; // Null items go to the end
+            if (slot2.item == null) return -1; // Null items go to the end
+
+            // Compare items by name (or another property unique to the item)
+            return string.Compare(slot1.item.name, slot2.item.name, StringComparison.Ordinal);
+        });
+
+        Debug.Log("Inventory sorted by item type.");
+    }
+
+
     [System.Serializable]
     public class InventorySlot
     {
@@ -244,6 +268,21 @@ public class InventoryManager : MonoBehaviour
         public InventoryData(List<InventorySlot> inventorySlots)
         {
             slots = new List<InventorySlot>(inventorySlots);
+        }
+    }
+
+    public void ClearInventorySave()
+    {
+        string path = Application.persistentDataPath + "/inventory.json";
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+            Debug.Log("Inventory save file cleared.");
+        }
+        else
+        {
+            Debug.LogWarning("No inventory save file found to clear.");
         }
     }
 }

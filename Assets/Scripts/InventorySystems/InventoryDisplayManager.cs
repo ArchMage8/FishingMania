@@ -29,6 +29,7 @@ public class InventoryDisplayManager : MonoBehaviour
     public void UpdateInventoryUI()
     {
         ClearTextHolders();
+        InventoryManager.Instance.SortInventory();
 
         for (int i = 0; i < inventoryButtons.Length; i++)
         {
@@ -73,6 +74,8 @@ public class InventoryDisplayManager : MonoBehaviour
 
     private void ToggleInventoryDisplay()
     {
+        UpdateInventoryUI();
+        
         isInventoryOpen = !isInventoryOpen;
         SetButtonsActive(isInventoryOpen);
 

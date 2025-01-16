@@ -26,7 +26,6 @@ public class InventoryManager : MonoBehaviour
                     DontDestroyOnLoad(singleton);
                 }
             }
-
             return _instance;
         }
     }
@@ -142,6 +141,24 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public bool RemoveFromSlot(int slotIndex, int quantity)
+    {
+        if (slotIndex < 0 || slotIndex >= inventory.Count) return false;
+
+        var slot = inventory[slotIndex];
+        if (slot.item == null || slot.quantity < quantity) return false;
+
+        slot.quantity -= quantity;
+
+        if (slot.quantity <= 0)
+        {
+            slot.item = null;
+            slot.quantity = 0;
+        }
+
+        return true;
+    }
+
     public void Save()
     {
         string json = JsonUtility.ToJson(new InventoryData(inventory));
@@ -175,7 +192,7 @@ public class InventoryManager : MonoBehaviour
                         sw.Write(plainText);
                     }
                 }
-                return System.Convert.ToBase64String(ms.ToArray());
+                return Convert.ToBase64String(ms.ToArray());
             }
         }
     }
@@ -213,7 +230,7 @@ public class InventoryManager : MonoBehaviour
         byte[] key = Encoding.UTF8.GetBytes("2203201822032018"); // Replace with a secure key
         byte[] iv = Encoding.UTF8.GetBytes("2203201822032018"); // Replace with a secure IV
 
-        byte[] buffer = System.Convert.FromBase64String(cipherText);
+        byte[] buffer = Convert.FromBase64String(cipherText);
 
         using (Aes aes = Aes.Create())
         {
@@ -237,7 +254,6 @@ public class InventoryManager : MonoBehaviour
 
     public void SortInventory()
     {
-        
         inventory.Sort((slot1, slot2) =>
         {
             // Handle null items to ensure no errors during comparison
@@ -252,25 +268,6 @@ public class InventoryManager : MonoBehaviour
         Debug.Log("Inventory sorted by item type.");
     }
 
-
-    [System.Serializable]
-    public class InventorySlot
-    {
-        public Item item;
-        public int quantity;
-    }
-
-    [System.Serializable]
-    public class InventoryData
-    {
-        public List<InventorySlot> slots;
-
-        public InventoryData(List<InventorySlot> inventorySlots)
-        {
-            slots = new List<InventorySlot>(inventorySlots);
-        }
-    }
-
     public void ClearInventorySave()
     {
         string path = Application.persistentDataPath + "/inventory.json";
@@ -283,6 +280,24 @@ public class InventoryManager : MonoBehaviour
         else
         {
             Debug.LogWarning("No inventory save file found to clear.");
+        }
+    }
+
+    [Serializable]
+    public class InventorySlot
+    {
+        public Item item;
+        public int quantity;
+    }
+
+    [Serializable]
+    public class InventoryData
+    {
+        public List<InventorySlot> slots;
+
+        public InventoryData(List<InventorySlot> inventorySlots)
+        {
+            slots = new List<InventorySlot>(inventorySlots);
         }
     }
 }

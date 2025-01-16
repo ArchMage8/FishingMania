@@ -7,6 +7,7 @@ public class InventoryDisplayManager : MonoBehaviour
     public Button[] inventoryButtons = new Button[36]; // Array of button UI objects
     public TMP_Text nameHolder;
     public TMP_Text descriptionHolder;
+    public Sprite emptySlot; // Sprite for empty slots
 
     private InventoryManager inventoryManager;
     private bool isInventoryOpen = false;
@@ -46,7 +47,7 @@ public class InventoryDisplayManager : MonoBehaviour
             }
             else
             {
-                buttonImage.sprite = null;
+                buttonImage.sprite = emptySlot; // Use emptySlot sprite for empty slots
                 buttonText.text = "";
             }
 
@@ -75,7 +76,7 @@ public class InventoryDisplayManager : MonoBehaviour
     private void ToggleInventoryDisplay()
     {
         UpdateInventoryUI();
-        
+
         isInventoryOpen = !isInventoryOpen;
         SetButtonsActive(isInventoryOpen);
 
@@ -89,4 +90,3 @@ public class InventoryDisplayManager : MonoBehaviour
         }
     }
 }
-

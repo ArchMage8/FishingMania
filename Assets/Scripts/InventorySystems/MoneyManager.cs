@@ -7,6 +7,9 @@ using System.Text;
 
 public class MoneyManager : MonoBehaviour
 {
+    [Header("Sales Money")]
+    public int tempMoney;
+
     private static MoneyManager _instance;
     public static MoneyManager Instance
     {
@@ -200,6 +203,24 @@ public class MoneyManager : MonoBehaviour
         }
     }
     #endregion
+
+    public void AddToTempMoney(int amount)
+    {
+        if (amount > 0)
+        {
+            tempMoney += amount;
+            Debug.Log($"Temp Money Increased: {tempMoney}");
+        }
+    }
+
+    public void TransferTempMoneyToPlayer()
+    {
+        money += tempMoney;
+        tempMoney = 0;
+        UpdateMoneyUI();
+        Debug.Log("Temp Money Transferred to Player");
+    }
+
 
     [Serializable]
     public class MoneyData

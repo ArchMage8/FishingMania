@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f43403055dff7114ca4bfa61f061c66f, type: 3}
-  m_Name: InventoryDatabase
+  m_Script: {fileID: 11500000, guid: 2a3b027ba78c1964cb5e272ef1580070, type: 3}
+  m_Name: Fish
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: 7aa77de177c28ee47b53f8f94b11b208, type: 2}
-  - {fileID: 11400000, guid: 55d0292db6fad234ea1661c8dd127b86, type: 2}
+  itemName: Fish
+  description: An aquatic animal
+  icon: {fileID: 21300000, guid: ba328755bd9b98d4b923f78447169258, type: 3}
+  price: 0

@@ -7,7 +7,7 @@ public class InventoryManager : MonoBehaviour
     public int maxSlots = 36;            // Maximum number of inventory slots
     public int maxStack = 9;            // Maximum quantity per slot
 
-    private List<InventorySlot> inventory = new List<InventorySlot>();
+    public List<InventorySlot> inventory = new List<InventorySlot>();
 
     private string saveFilePath;
 
@@ -217,7 +217,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private int GetTotalQuantity(Item item)
+    public int GetTotalQuantity(Item item)
     {
         // **Helper: Calculate the total quantity of an item in the inventory**
         int total = 0;
@@ -230,6 +230,20 @@ public class InventoryManager : MonoBehaviour
         }
         return total;
     }
+
+    public (Item, int) GetItemInSlot(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= inventory.Count)
+        {
+            return (null, 0); // Return empty if slot index is invalid
+        }
+
+        var slot = inventory[slotIndex];
+        return (slot.item, slot.quantity);
+    }
+
+    // Retrieves the total number of inventory slots
+    public int MaxSlots => maxSlots;
 }
 
 [System.Serializable]

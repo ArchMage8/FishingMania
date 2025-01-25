@@ -8,26 +8,14 @@ public class NPCDataManager : MonoBehaviour
     private List<NPCData> runtimeNPCList = new List<NPCData>();
 
     private string saveFilePath;
-    public static NPCDataManager Instance;
 
     private void Awake()
     {
         saveFilePath = Path.Combine(Application.persistentDataPath, "npcData.json");
 
-        if(Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-
-        else
-        {
-            Destroy(gameObject);
-        }
-
         if (File.Exists(saveFilePath))
         {
-           LoadNPCData();
+            LoadNPCData();
         }
         else
         {
@@ -35,9 +23,8 @@ public class NPCDataManager : MonoBehaviour
         }
     }
 
-    public void InitializeFromMasterList()
+    private void InitializeFromMasterList()
     {
-        // Populate runtime list from master list
         runtimeNPCList.Clear();
         foreach (var npc in masterList.npcList)
         {
@@ -45,7 +32,8 @@ public class NPCDataManager : MonoBehaviour
             {
                 npcName = npc.npcName,
                 friendshipLevel = npc.friendshipLevel,
-                hasBeenInteracted = npc.hasBeenInteracted
+                hasBeenInteracted = npc.hasBeenInteracted,
+                isFull = npc.isFull
             });
         }
     }
@@ -60,21 +48,32 @@ public class NPCDataManager : MonoBehaviour
                 return;
             }
         }
-
         Debug.LogWarning($"NPC with name {npcName} not found.");
     }
 
-    public void SetInteractionStatus(string npcName, bool status)
+    public void SetHasBeenInteracted(string npcName, bool value)
     {
         foreach (var npc in runtimeNPCList)
         {
             if (npc.npcName == npcName)
             {
-                npc.hasBeenInteracted = status;
+                npc.hasBeenInteracted = value;
                 return;
             }
         }
+        Debug.LogWarning($"NPC with name {npcName} not found.");
+    }
 
+    public void SetIsFull(string npcName, bool value)
+    {
+        foreach (var npc in runtimeNPCList)
+        {
+            if (npc.npcName == npcName)
+            {
+                npc.isFull = value;
+                return;
+            }
+        }
         Debug.LogWarning($"NPC with name {npcName} not found.");
     }
 
@@ -97,7 +96,8 @@ public class NPCDataManager : MonoBehaviour
             {
                 npcName = npc.npcName,
                 friendshipLevel = npc.friendshipLevel,
-                hasBeenInteracted = npc.hasBeenInteracted
+                hasBeenInteracted = npc.hasBeenInteracted,
+                isFull = npc.isFull
             });
         }
 
@@ -113,12 +113,11 @@ public class NPCDataManager : MonoBehaviour
                 return npc.friendshipLevel;
             }
         }
-
         Debug.LogWarning($"NPC with name {npcName} not found.");
         return -1;
     }
 
-    public bool GetInteractionStatus(string npcName)
+    public bool GetHasBeenInteracted(string npcName)
     {
         foreach (var npc in runtimeNPCList)
         {
@@ -127,22 +126,21 @@ public class NPCDataManager : MonoBehaviour
                 return npc.hasBeenInteracted;
             }
         }
-
         Debug.LogWarning($"NPC with name {npcName} not found.");
         return false;
     }
 
-    public NPCData GetNPCData(string npcName)
+    public bool GetIsFull(string npcName)
     {
-        foreach (var npcData in runtimeNPCList)
+        foreach (var npc in runtimeNPCList)
         {
-            if (npcData.npcName == npcName)
+            if (npc.npcName == npcName)
             {
-                return npcData;
+                return npc.isFull;
             }
         }
-        Debug.LogError($"NPC data not found for {npcName}.");
-        return null;
+        Debug.LogWarning($"NPC with name {npcName} not found.");
+        return false;
     }
 }
 
@@ -150,4 +148,13 @@ public class NPCDataManager : MonoBehaviour
 public class NPCSaveData
 {
     public List<NPCData> npcList = new List<NPCData>();
+}
+
+[System.Serializable]
+public class NPCData
+{
+    public string npcName;
+    public int friendshipLevel;
+    public bool hasBeenInteracted;
+    public bool isFull;
 }

@@ -9,6 +9,6 @@ public class NPCTest : MonoBehaviour
 
    public void AddLevel()
     {
-        manager.ModifyFriendshipLevel(TargetNPC, 1);
+        //manager.ModifyFriendshipLevel(TargetNPC, 1);
     }
 }

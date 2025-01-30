@@ -217,6 +217,20 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void DeleteSaveFile()
+    {
+        if (File.Exists(saveFilePath))
+        {
+            File.Delete(saveFilePath);
+            Debug.Log("File Delete Completed");
+        }
+
+        else
+        {
+            Debug.Log("File doesn't exists");
+        }
+    }
+
     public int GetTotalQuantity(Item item)
     {
         // **Helper: Calculate the total quantity of an item in the inventory**

@@ -4,33 +4,64 @@ using UnityEngine;
 
 public class NPCDataManager : MonoBehaviour
 {
-    public NPCMasterList masterList; // Reference to the default NPC data ScriptableObject
-    private List<NPCData> runtimeNPCList = new List<NPCData>();
+    public static NPCDataManager Instance { get; private set; }
 
     private string saveFilePath;
+    private List<NPCData> runtimeNPCData = new List<NPCData>();
+
+    [SerializeField] private NPCMasterList npcMasterList; // Reference to the master list ScriptableObject
 
     private void Awake()
     {
-        saveFilePath = Path.Combine(Application.persistentDataPath, "npcData.json");
+        // Ensure Singleton pattern
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Persist this object across scenes
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
+        saveFilePath = Path.Combine(Application.persistentDataPath, "npc_data.json");
+        //LoadNPCData();
+    }
+
+    public void LoadNPCData()
+    {
         if (File.Exists(saveFilePath))
         {
-            LoadNPCData();
+            string json = File.ReadAllText(saveFilePath);
+            runtimeNPCData = JsonUtility.FromJson<NPCDataListWrapper>(json).npcDataList;
+            Debug.Log("NPC data loaded successfully.");
         }
         else
         {
             InitializeFromMasterList();
+            SaveNPCData(); // Save immediately to establish the file for a new game
+            Debug.Log("No save file found. Initialized from master list.");
         }
+    }
+
+    public void SaveNPCData()
+    {
+        NPCDataListWrapper wrapper = new NPCDataListWrapper { npcDataList = runtimeNPCData };
+        string json = JsonUtility.ToJson(wrapper, true);
+
+        File.WriteAllText(saveFilePath, json);
+        Debug.Log($"NPC data saved to: {saveFilePath}");
     }
 
     private void InitializeFromMasterList()
     {
-        runtimeNPCList.Clear();
-        foreach (var npc in masterList.npcList)
+        runtimeNPCData.Clear();
+        foreach (var npc in npcMasterList.npcList)
         {
-            runtimeNPCList.Add(new NPCData
+            runtimeNPCData.Add(new NPCData
             {
-                npcName = npc.npcName,
+                name = npc.name,
                 friendshipLevel = npc.friendshipLevel,
                 hasBeenInteracted = npc.hasBeenInteracted,
                 isFull = npc.isFull
@@ -38,123 +69,71 @@ public class NPCDataManager : MonoBehaviour
         }
     }
 
-    public void ModifyFriendshipLevel(string npcName, int amount)
+    public List<NPCData> GetRuntimeNPCData()
     {
-        foreach (var npc in runtimeNPCList)
+        return runtimeNPCData;
+    }
+
+    public NPCData GetNPCDataByName(string npcName)
+    {
+        return runtimeNPCData.Find(npc => npc.name == npcName);
+    }
+
+    private void ModifyFriendshipLevel(string npcName, int amount)
+    {
+        NPCData npc = GetNPCDataByName(npcName);
+        if (npc != null)
         {
-            if (npc.npcName == npcName)
-            {
-                npc.friendshipLevel += amount;
-                return;
-            }
+            npc.friendshipLevel += amount;
+            Debug.Log($"{npcName}'s friendship level modified by {amount}. New level: {npc.friendshipLevel}");
         }
-        Debug.LogWarning($"NPC with name {npcName} not found.");
-    }
-
-    public void SetHasBeenInteracted(string npcName, bool value)
-    {
-        foreach (var npc in runtimeNPCList)
+        else
         {
-            if (npc.npcName == npcName)
-            {
-                npc.hasBeenInteracted = value;
-                return;
-            }
+            Debug.LogWarning($"NPC with name {npcName} not found.");
         }
-        Debug.LogWarning($"NPC with name {npcName} not found.");
     }
 
-    public void SetIsFull(string npcName, bool value)
+    public void UpdateNPCData(string npcName, int newFriendshipLevel, bool newHasBeenInteracted, bool newIsFull)
     {
-        foreach (var npc in runtimeNPCList)
+        NPCData npc = GetNPCDataByName(npcName);
+        if (npc != null)
         {
-            if (npc.npcName == npcName)
-            {
-                npc.isFull = value;
-                return;
-            }
+            npc.friendshipLevel = newFriendshipLevel;
+            npc.hasBeenInteracted = newHasBeenInteracted;
+            npc.isFull = newIsFull;
         }
-        Debug.LogWarning($"NPC with name {npcName} not found.");
-    }
-
-    public void SaveGame()
-    {
-        string json = JsonUtility.ToJson(new NPCSaveData { npcList = runtimeNPCList }, true);
-        File.WriteAllText(saveFilePath, json);
-        Debug.Log($"NPC data saved. File path: {saveFilePath}");
-    }
-
-    private void LoadNPCData()
-    {
-        string json = File.ReadAllText(saveFilePath);
-        NPCSaveData loadedData = JsonUtility.FromJson<NPCSaveData>(json);
-
-        runtimeNPCList.Clear();
-        foreach (var npc in loadedData.npcList)
+        else
         {
-            runtimeNPCList.Add(new NPCData
-            {
-                npcName = npc.npcName,
-                friendshipLevel = npc.friendshipLevel,
-                hasBeenInteracted = npc.hasBeenInteracted,
-                isFull = npc.isFull
-            });
+            Debug.LogWarning($"NPC {npcName} not found in runtime list.");
+        }
+    }
+
+    public void DeleteSaveFile()
+    {
+        if (File.Exists(saveFilePath))
+        {
+            File.Delete(saveFilePath);
+            Debug.Log("File Delete Completed");
         }
 
-        Debug.Log("NPC data loaded.");
-    }
-
-    public int GetFriendshipLevel(string npcName)
-    {
-        foreach (var npc in runtimeNPCList)
+        else
         {
-            if (npc.npcName == npcName)
-            {
-                return npc.friendshipLevel;
-            }
+            Debug.Log("File doesn't exists");
         }
-        Debug.LogWarning($"NPC with name {npcName} not found.");
-        return -1;
     }
-
-    public bool GetHasBeenInteracted(string npcName)
-    {
-        foreach (var npc in runtimeNPCList)
-        {
-            if (npc.npcName == npcName)
-            {
-                return npc.hasBeenInteracted;
-            }
-        }
-        Debug.LogWarning($"NPC with name {npcName} not found.");
-        return false;
-    }
-
-    public bool GetIsFull(string npcName)
-    {
-        foreach (var npc in runtimeNPCList)
-        {
-            if (npc.npcName == npcName)
-            {
-                return npc.isFull;
-            }
-        }
-        Debug.LogWarning($"NPC with name {npcName} not found.");
-        return false;
-    }
-}
-
-[System.Serializable]
-public class NPCSaveData
-{
-    public List<NPCData> npcList = new List<NPCData>();
 }
 
 [System.Serializable]
 public class NPCData
 {
-    public string npcName;
+    public string name;
     public int friendshipLevel;
     public bool hasBeenInteracted;
     public bool isFull;
+}
+
+[System.Serializable]
+public class NPCDataListWrapper
+{
+    public List<NPCData> npcDataList;
 }

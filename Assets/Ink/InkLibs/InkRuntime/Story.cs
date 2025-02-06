@@ -1781,6 +1781,7 @@ namespace Ink.Runtime
         /// </summary>
         public void ChooseChoiceIndex(int choiceIdx)
         {
+            
             var choices = currentChoices;
             Assert (choiceIdx >= 0 && choiceIdx < choices.Count, "choice out of range");
 

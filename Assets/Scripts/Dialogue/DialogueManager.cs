@@ -12,14 +12,18 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
 
-    public TextAsset inkJSON; //This is the ink file that stores the dialogue, its supposed to be passed from a trigger script to the manager script
-                              //But because its just testing, the script will be store the inkJSON directly
-    
+    public TextMeshProUGUI displayNameText;
+    public Animator NPCDialogueAnimator;
+
     private Story currentStory;
     private bool dialogueRunning;
 
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
+
+    private const string SPEAKER_TAG = "speaker";
+    private const string ANIMATION_TRIGGER = "trigger";
+
 
     private void Awake()
     {
@@ -49,10 +53,29 @@ public class DialogueManager : MonoBehaviour
             index++;
         }
     }
-    
-    public void EnterDialogueMode()
+
+    private void Update()
     {
-        currentStory = new Story(inkJSON.text);
+        if (!dialogueRunning)
+        {
+            return;
+        }
+
+        else
+        {
+            if (currentStory.currentChoices.Count == 0)
+            {
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+                {
+                    ContinueStory();
+                }
+            }
+        }
+    }
+
+    public void EnterDialogueMode(TextAsset NPCDialogue)
+    {
+        currentStory = new Story(NPCDialogue.text);
         dialogueRunning = true;
         dialoguePanel.SetActive(true);
 
@@ -72,6 +95,7 @@ public class DialogueManager : MonoBehaviour
         {
             dialogueText.text = currentStory.Continue();
             DisplayChoices();
+            HandleTags(currentStory.currentTags);
         }
         else
         {
@@ -102,7 +126,7 @@ public class DialogueManager : MonoBehaviour
             choices[i].gameObject.SetActive(false);
         }
 
-        StartCoroutine(SelectFirstChoice());
+        //StartCoroutine(SelectFirstChoice());
     } 
 
     private IEnumerator SelectFirstChoice()
@@ -117,6 +141,39 @@ public class DialogueManager : MonoBehaviour
 
     public void MakeChoice(int choiceIndex)
     {
+       
         currentStory.ChooseChoiceIndex(choiceIndex);
+        ContinueStory();
+        EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    private void HandleTags(List<string> currentTags)
+    {
+        foreach(string tag in currentTags)
+        {
+            string[] splitTag = tag.Split(':');
+            if(splitTag.Length != 2)
+            {
+                Debug.Log("Incorrect parsing on tag: " + tag);
+            }
+            string tagKey = splitTag[0].Trim();
+            string tagValue = splitTag[1].Trim();
+
+            switch (tagKey)
+            {
+                case SPEAKER_TAG:
+                    displayNameText.text = tagValue;
+                    break;
+
+                case ANIMATION_TRIGGER:
+                    Debug.Log("Call animation switch");
+                    NPCDialogueAnimator.SetTrigger("Next");
+                    break;
+
+                default:
+                    Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
+                    break;
+            }
+        }
     }
 }

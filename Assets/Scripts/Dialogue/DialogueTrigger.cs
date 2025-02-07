@@ -14,6 +14,15 @@ public class DialogueTrigger : MonoBehaviour
         {
             BeginDialogue();
         }
+
+        if (!DialogueManager.GetInstance().dialogueRunning)
+        {
+            NPCImages.gameObject.SetActive(false);
+        }
+        else
+        {
+            NPCImages.gameObject.SetActive(true);
+        }
     }
 
     private void BeginDialogue()

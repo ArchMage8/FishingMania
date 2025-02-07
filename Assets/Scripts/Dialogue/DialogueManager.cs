@@ -16,14 +16,19 @@ public class DialogueManager : MonoBehaviour
     public Animator NPCDialogueAnimator;
 
     private Story currentStory;
-    private bool dialogueRunning;
+    public bool dialogueRunning;
 
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
+    public float typingSpeed = 0.04f;
+
 
     private const string SPEAKER_TAG = "speaker";
     private const string ANIMATION_TRIGGER = "trigger";
 
+    private Coroutine displayLineCoroutine;
+
+    private bool canContinueToNextLine = false;
 
     private void Awake()
     {
@@ -63,7 +68,7 @@ public class DialogueManager : MonoBehaviour
 
         else
         {
-            if (currentStory.currentChoices.Count == 0)
+            if (currentStory.currentChoices.Count == 0 && canContinueToNextLine)
             {
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
@@ -89,12 +94,48 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = "";
     }
 
+    private IEnumerator DisplayLine(string line)
+    {
+        bool istyping = false;
+
+        
+
+        dialogueText.text = "";
+
+        HideChoices();
+        canContinueToNextLine = false;
+
+        foreach(char letter in line.ToCharArray())
+        {
+            if (istyping == true)
+            {
+                dialogueText.text = line;
+                break;
+            }
+
+            istyping = true;
+            dialogueText.text += letter;
+            yield return new WaitForSeconds(typingSpeed);
+            
+        }
+
+        DisplayChoices();
+        istyping = false;
+        canContinueToNextLine = true;
+    }
+
     public  void ContinueStory()
     {
         if (currentStory.canContinue)
         {
-            dialogueText.text = currentStory.Continue();
-            DisplayChoices();
+            if (displayLineCoroutine != null)
+            {
+                StartCoroutine(DisplayLine(currentStory.Continue()));
+            }
+            
+            displayLineCoroutine = StartCoroutine(DisplayLine(currentStory.Continue()));
+
+            
             HandleTags(currentStory.currentTags);
         }
         else
@@ -141,10 +182,12 @@ public class DialogueManager : MonoBehaviour
 
     public void MakeChoice(int choiceIndex)
     {
-       
-        currentStory.ChooseChoiceIndex(choiceIndex);
-        ContinueStory();
-        EventSystem.current.SetSelectedGameObject(null);
+        if (canContinueToNextLine)
+        {
+            currentStory.ChooseChoiceIndex(choiceIndex);
+            ContinueStory();
+            EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 
     private void HandleTags(List<string> currentTags)
@@ -174,6 +217,14 @@ public class DialogueManager : MonoBehaviour
                     Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
                     break;
             }
+        }
+    }
+
+    private void HideChoices()
+    {
+        foreach(GameObject choiceButton in choices)
+        {
+            choiceButton.SetActive(false);
         }
     }
 }

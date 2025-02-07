@@ -30,6 +30,7 @@ public class DialogueManager : MonoBehaviour
     private Coroutine displayLineCoroutine;
 
     private bool canContinueToNextLine = false;
+    private bool WantSkip = false;
 
     private void Awake()
     {
@@ -76,6 +77,14 @@ public class DialogueManager : MonoBehaviour
                     ContinueStory();
                 }
             }
+
+            else if (!canContinueToNextLine)
+            {
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+                {
+                    WantSkip = true;
+                }
+            }
         }
     }
 
@@ -105,20 +114,19 @@ public class DialogueManager : MonoBehaviour
 
         HideChoices();
         canContinueToNextLine = false;
-        for (int i = 0; i < line.Length; i++)
+        foreach (char letter in line.ToCharArray())
         {
             Debug.Log("call test 4");
 
-            // If skipping is allowed and input is detected, display the full line immediately
-            if (canSkip)
+            if (canSkip && WantSkip)
             {
                 Debug.Log("Call test 5");
                 dialogueText.text = line;
+                WantSkip = false;
                 break; // Exit the loop early
             }
 
-            // Append letter one-by-one
-            dialogueText.text += line[i];
+            dialogueText.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }
 

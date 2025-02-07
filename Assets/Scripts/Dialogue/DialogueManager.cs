@@ -20,7 +20,8 @@ public class DialogueManager : MonoBehaviour
 
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
-    public float typingSpeed = 0.04f;
+    private bool canSkip = false;
+    public float typingSpeed = 0.0001f;
 
 
     private const string SPEAKER_TAG = "speaker";
@@ -96,32 +97,35 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator DisplayLine(string line)
     {
-        bool istyping = false;
+        //bool istyping = false;
 
-        
+        StartCoroutine(CanSkip());
 
         dialogueText.text = "";
 
         HideChoices();
         canContinueToNextLine = false;
-
-        foreach(char letter in line.ToCharArray())
+        for (int i = 0; i < line.Length; i++)
         {
-            if (istyping == true)
+            Debug.Log("call test 4");
+
+            // If skipping is allowed and input is detected, display the full line immediately
+            if (canSkip)
             {
+                Debug.Log("Call test 5");
                 dialogueText.text = line;
-                break;
+                break; // Exit the loop early
             }
 
-            istyping = true;
-            dialogueText.text += letter;
+            // Append letter one-by-one
+            dialogueText.text += line[i];
             yield return new WaitForSeconds(typingSpeed);
-            
         }
 
+
         DisplayChoices();
-        istyping = false;
         canContinueToNextLine = true;
+        canSkip = false;
     }
 
     public  void ContinueStory()
@@ -130,12 +134,10 @@ public class DialogueManager : MonoBehaviour
         {
             if (displayLineCoroutine != null)
             {
-                StartCoroutine(DisplayLine(currentStory.Continue()));
+                StopCoroutine(displayLineCoroutine);
             }
             
             displayLineCoroutine = StartCoroutine(DisplayLine(currentStory.Continue()));
-
-            
             HandleTags(currentStory.currentTags);
         }
         else
@@ -226,5 +228,16 @@ public class DialogueManager : MonoBehaviour
         {
             choiceButton.SetActive(false);
         }
+    }
+
+    private IEnumerator CanSkip()
+    {
+        Debug.Log("call test 1");
+
+        canSkip = false;
+        yield return new WaitForSeconds(0.05f);
+
+        Debug.Log("call test 2");
+        canSkip = true;
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    public static InventoryManager Instance;
+
     public int maxSlots = 36;            // Maximum number of inventory slots
     public int maxStack = 9;            // Maximum quantity per slot
 
@@ -13,6 +15,8 @@ public class InventoryManager : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         // Initialize empty inventory
         for (int i = 0; i < maxSlots; i++)
         {

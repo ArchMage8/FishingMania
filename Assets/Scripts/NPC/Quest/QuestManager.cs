@@ -9,7 +9,7 @@ public class QuestManager : MonoBehaviour
 
     [HideInInspector] public int activeQuestID;
     private string activeQuestDescription;
-    private string activeQuestNPC;
+    [HideInInspector] public string activeQuestNPC;
     [HideInInspector] public bool activeQuestPresent;
 
     private string savePath => Path.Combine(Application.persistentDataPath, "ActiveQuest.json");

@@ -7,30 +7,46 @@ using UnityEngine.EventSystems;
 
 public class DialogueManager : MonoBehaviour
 {
+    // Singleton instance
     private static DialogueManager instance;
 
+
+    [Header("Dialogue Components")]
+    // UI Elements
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
-
     public TextMeshProUGUI displayNameText;
     public Animator NPCDialogueAnimator;
 
-    private Story currentStory;
-    public bool dialogueRunning;
-
+    [Space(15)]
+    // Choices UI
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
     private bool canSkip = false;
+
+    [Space(15)]
+    [Header("Extras")]
+
+    // Dialogue State
+    private Story currentStory;
+    public bool dialogueRunning;
+    private bool canContinueToNextLine = false;
+    private bool WantSkip = false;
+
+    
+
+    [Space(15)]
+    // Typing and Animation
     public float typingSpeed = 0.0001f;
-
-
     private const string SPEAKER_TAG = "speaker";
     private const string ANIMATION_TRIGGER = "trigger";
 
+    // Coroutine
     private Coroutine displayLineCoroutine;
 
-    private bool canContinueToNextLine = false;
-    private bool WantSkip = false;
+    // Quest Stuffs
+    private QuestSO DialogueQuest; // The quest of the NPC we are talking to
+
 
     private void Awake()
     {
@@ -88,8 +104,27 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void EnterDialogueMode(TextAsset NPCDialogue)
+    public void EnterDialogueMode_Quest(TextAsset NPCDialogue, QuestSO PassedQuest)
     {
+        //The dialogue trigger needs to also send the corresponding Quest Data
+
+        DialogueQuest = PassedQuest;
+
+        //Handling code side of the ink file
+        SetVariables_Before();
+        BindSubmit();
+
+        currentStory = new Story(NPCDialogue.text);
+        dialogueRunning = true;
+        dialoguePanel.SetActive(true);
+
+        ContinueStory();
+    }
+
+    public void EnterDialogueMode_Default(TextAsset NPCDialogue)
+    {
+        //The dialogue trigger needs to also send the corresponding Quest Data
+
         currentStory = new Story(NPCDialogue.text);
         dialogueRunning = true;
         dialoguePanel.SetActive(true);
@@ -236,5 +271,51 @@ public class DialogueManager : MonoBehaviour
 
         Debug.Log("call test 2");
         canSkip = true;
+    }
+
+    private void SetVariables_Before()
+    {
+        //This is used to determine how we start the dialogue
+        //and bind bools to the INK file bools
+
+        //1. Do we have an active quest
+
+        currentStory.variablesState["hasActiveQuest"] = QuestManager.Instance.activeQuestPresent;
+
+        //2. If 1. is true, are we talking to the NPC that quested us?
+        if(QuestManager.Instance.activeQuestID == DialogueQuest.questID)
+        {
+            currentStory.variablesState["correspondingNPC"] = true;
+        }
+
+        else
+        {
+            currentStory.variablesState["correspondingNPC"] = false;
+        }
+    }
+
+    private void SubmitQuest()
+    {
+        //Called when we are sending items to the inventoryManager
+        //So the ink file is the one triggering the submit
+
+        //1. Is the transaction completed? (Yes or No)
+
+        if (QuestManager.Instance.SubmitQuest(DialogueQuest.desiredItem, DialogueQuest.requiredQuantity) == true)
+        {
+            currentStory.variablesState["Success"] = true;
+        }
+
+        else if (QuestManager.Instance.SubmitQuest(DialogueQuest.desiredItem, DialogueQuest.requiredQuantity) == false)
+        {
+            currentStory.variablesState["Success"] = false;
+        }
+    }
+
+    private void BindSubmit()
+    {
+        currentStory.BindExternalFunction("SubmitQuest", (string variableName, int value) => {
+            SubmitQuest();
+        });
     }
 }

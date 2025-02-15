@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public bool canMove = true;
     private bool isMoving;
-    private float animX, animY;
+    [HideInInspector] public float animX, animY;
     private int directionInt;
 
     private Rigidbody2D rb;
@@ -16,6 +16,10 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        animX = 1;
+        animY = -1;
+            
     }
 
     void Update()

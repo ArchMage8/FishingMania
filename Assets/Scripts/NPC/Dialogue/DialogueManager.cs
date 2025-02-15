@@ -46,6 +46,7 @@ public class DialogueManager : MonoBehaviour
 
     // Quest Stuffs
     private QuestSO DialogueQuest; // The quest of the NPC we are talking to
+    [HideInInspector] public bool NpcInRange = false;
 
 
     private void Awake()
@@ -106,19 +107,23 @@ public class DialogueManager : MonoBehaviour
 
     public void EnterDialogueMode_Quest(TextAsset NPCDialogue, QuestSO PassedQuest)
     {
-        //The dialogue trigger needs to also send the corresponding Quest Data
+        if (NpcInRange == true)
+        {
 
-        DialogueQuest = PassedQuest;
+            //The dialogue trigger needs to also send the corresponding Quest Data
 
-        //Handling code side of the ink file
-        SetVariables_Before();
-        BindSubmit();
+            DialogueQuest = PassedQuest;
 
-        currentStory = new Story(NPCDialogue.text);
-        dialogueRunning = true;
-        dialoguePanel.SetActive(true);
+            //Handling code side of the ink file
+            SetVariables_Before();
+            BindSubmit();
 
-        ContinueStory();
+            currentStory = new Story(NPCDialogue.text);
+            dialogueRunning = true;
+            dialoguePanel.SetActive(true);
+
+            ContinueStory();
+        }
     }
 
     public void EnterDialogueMode_Default(TextAsset NPCDialogue)
@@ -278,6 +283,9 @@ public class DialogueManager : MonoBehaviour
         //This is used to determine how we start the dialogue
         //and bind bools to the INK file bools
 
+        //*Note that we need to add the Ifs to branch the dialogues from
+        //within the INK file
+
         //1. Do we have an active quest
 
         currentStory.variablesState["hasActiveQuest"] = QuestManager.Instance.activeQuestPresent;
@@ -292,6 +300,15 @@ public class DialogueManager : MonoBehaviour
         {
             currentStory.variablesState["correspondingNPC"] = false;
         }
+    }
+
+    private void BindSubmit()
+    {
+        //This is called when we enter dialogue mode
+        
+        currentStory.BindExternalFunction("SubmitQuest", (string variableName, int value) => {
+            SubmitQuest();
+        });
     }
 
     private void SubmitQuest()
@@ -310,12 +327,8 @@ public class DialogueManager : MonoBehaviour
         {
             currentStory.variablesState["Success"] = false;
         }
-    }
 
-    private void BindSubmit()
-    {
-        currentStory.BindExternalFunction("SubmitQuest", (string variableName, int value) => {
-            SubmitQuest();
-        });
+        //*Note that we need to add the Ifs to branch the dialogues from
+        //within the INK file
     }
 }

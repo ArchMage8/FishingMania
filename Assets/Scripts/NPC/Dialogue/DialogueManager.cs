@@ -115,7 +115,7 @@ public class DialogueManager : MonoBehaviour
             DialogueQuest = PassedQuest;
 
             //Handling code side of the ink file
-            SetVariables_Before();
+            BindVariables();
             BindSubmit();
 
             currentStory = new Story(NPCDialogue.text);
@@ -231,6 +231,11 @@ public class DialogueManager : MonoBehaviour
 
     private void HandleTags(List<string> currentTags)
     {
+        //Function needs to handle 3 types of tags
+        //1. Speaker Name
+        //2. Next Trigger
+        
+        
         foreach(string tag in currentTags)
         {
             string[] splitTag = tag.Split(':');
@@ -249,7 +254,7 @@ public class DialogueManager : MonoBehaviour
 
                 case ANIMATION_TRIGGER:
                     Debug.Log("Call animation switch");
-                    NPCDialogueAnimator.SetTrigger("Next");
+                    NPCDialogueAnimator.SetTrigger(tagValue);
                     break;
 
                 default:
@@ -276,6 +281,13 @@ public class DialogueManager : MonoBehaviour
 
         Debug.Log("call test 2");
         canSkip = true;
+    }
+
+    private void BindVariables()
+    {
+        currentStory.BindExternalFunction("SetVariables", () => {
+            SetVariables_Before();
+        });
     }
 
     private void SetVariables_Before()
@@ -306,7 +318,7 @@ public class DialogueManager : MonoBehaviour
     {
         //This is called when we enter dialogue mode
         
-        currentStory.BindExternalFunction("SubmitQuest", (string variableName, int value) => {
+        currentStory.BindExternalFunction("SubmitQuest", () => {
             SubmitQuest();
         });
     }
@@ -331,4 +343,14 @@ public class DialogueManager : MonoBehaviour
         //*Note that we need to add the Ifs to branch the dialogues from
         //within the INK file
     }
+
+    //List of stuffs to assign to the INK file
+
+    //1. #speaker -> Tag
+    //2. #trigger -> Tag
+    //3. hasActiveQuest     -> bool
+    //4. correspondingNPC   -> bool
+    //5. Success            -> bool
+    //6. SetVariables  -> function
+    //6. SubmitQuest   -> function
 }

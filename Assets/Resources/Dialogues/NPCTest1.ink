@@ -1,5 +1,6 @@
 EXTERNAL SetVariables()
 EXTERNAL SubmitQuest()
+EXTERNAL SetActiveQuest()
 
 VAR hasActiveQuest = false
 VAR correspondingNPC = false
@@ -7,8 +8,14 @@ VAR Success = false
 
 // ~ SetVariables()
 // ~ SubmitQuest()
+// ~ SetActiveQuest()
 
-Hello there!
+//#speaker:npc 
+//#trigger: Branch1
+//#trigger: Branch2
+//#trigger: Branch3
+
+Hello there! #speaker:Sugu #trigger: Branch1
 ~ SetVariables()
 -> 1A
 
@@ -25,25 +32,25 @@ Hello there!
 
 
 === 2A === // Is busy
-Looks like your busy, nevermind then
+Looks like your busy, nevermind then #speaker:Sugu #trigger: Branch1
 -> END
 
 === 2B === // Not busy
-I really need some salt, can you help me?
+I really need some salt, can you help me? #speaker:Sugu #trigger: Branch2
     +[Sure, let me get some]
+       ~ SetActiveQuest()
        -> 3A
     
     +[Ah, im a bit busy right now]
        -> 3B
 
 === 2C === // Is busy and want so sumbit
-    Do you have the salt?
+    Do you have the salt? #speaker:Sugu #trigger: Branch3
     +[Here you go!]
         ~ SubmitQuest()
         -> Process2
     
     +[I don't have it yet]
-        Ah, alright then!
         -> 3E
 
 
@@ -58,25 +65,24 @@ I really need some salt, can you help me?
 
 
 === 3A === //Setting the active quest
-Thank you!
-//Missing the function needed to set the active quest :v
+Thank you! #speaker:Sugu #trigger: Branch1
 -> END
     
 === 3B === // Reject Quest
- Nevermind then...
+ Nevermind then... #speaker:Sugu #trigger: Branch2
 -> END
 
 === 3C === // quest complete
-Thank you so much!
-//Missing the function to complete the quest system-wise
+Thank you so much! #speaker:Sugu #trigger: Branch1
+
 -> END
 
 === 3D === // quest fail
-Um.. Where is it?
+Um.. Where is it? #speaker:Sugu #trigger: Branch2
     -> END
 
 === 3E === // quest pending
- Ah, alright then!
+ Ah, alright then! #speaker:Sugu #trigger: Branch3
         -> END
 
 

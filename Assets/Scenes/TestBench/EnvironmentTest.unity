@@ -463,6 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactIndicator: {fileID: 1803819316}
+  LocalDialogueAnimator: {fileID: 998054352}
   NPC_Dialogue: {fileID: 4900000, guid: 55fda8c1902121f4390c19d6ca5d47fe, type: 3}
   NPC_Quest: {fileID: 11400000, guid: f4aaf68396f65b846b6d353b23af7a63, type: 2}
 --- !u!1 &261382325
@@ -1070,6 +1071,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8269238390645847656, guid: d73ff50612bc50c488a67f6f0e1f5027, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 331982997}
+    - target: {fileID: 8269238390645847656, guid: d73ff50612bc50c488a67f6f0e1f5027, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MakeChoice
+      objectReference: {fileID: 0}
+    - target: {fileID: 8269238391646516428, guid: d73ff50612bc50c488a67f6f0e1f5027, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 331982997}
+    - target: {fileID: 8269238391646516428, guid: d73ff50612bc50c488a67f6f0e1f5027, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MakeChoice
+      objectReference: {fileID: 0}
+    - target: {fileID: 8269238391970279816, guid: d73ff50612bc50c488a67f6f0e1f5027, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 331982997}
+    - target: {fileID: 8269238391970279816, guid: d73ff50612bc50c488a67f6f0e1f5027, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MakeChoice
+      objectReference: {fileID: 0}
     - target: {fileID: 8269238392009614128, guid: d73ff50612bc50c488a67f6f0e1f5027, type: 3}
       propertyPath: m_Name
       value: DialoguePanel
@@ -2791,6 +2816,53 @@ PolygonCollider2D:
       - {x: 0.018580914, y: -1.444443}
       - {x: 0.13064766, y: -1.3929436}
       - {x: 1.5980483, y: -0.80803967}
+--- !u!1 &1249444708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1249444710}
+  - component: {fileID: 1249444709}
+  m_Layer: 0
+  m_Name: QuestManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1249444709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249444708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 281e8f790b74a8d4482984cfa2bec810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeQuestID: 0
+  activeQuestNPC: 
+  activeQuestPresent: 0
+--- !u!4 &1249444710
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249444708}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 907.848, y: 495.48804, z: 8.617802}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1369408355
 GameObject:
   m_ObjectHideFlags: 0

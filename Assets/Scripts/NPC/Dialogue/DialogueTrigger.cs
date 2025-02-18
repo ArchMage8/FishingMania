@@ -3,6 +3,7 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject interactIndicator;
+    [SerializeField] private Animator LocalDialogueAnimator;
     private bool playerInRange = false;
 
     [Space(15)]
@@ -16,13 +17,20 @@ public class DialogueTrigger : MonoBehaviour
         {
             interactIndicator.SetActive(false);
         }
+
+        LocalDialogueAnimator.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if(playerInRange && Input.GetKeyDown(KeyCode.F))
+        if (playerInRange && Input.GetKeyDown(KeyCode.F))
         {
+
+            DialogueManager.GetInstance().NPCDialogueAnimator = LocalDialogueAnimator;
+            DialogueManager.GetInstance().NpcInRange = playerInRange;
             DialogueManager.GetInstance().EnterDialogueMode_Quest(NPC_Dialogue, NPC_Quest);
+
+            LocalDialogueAnimator.gameObject.SetActive(true);      
         }
     }
 
@@ -49,4 +57,5 @@ public class DialogueTrigger : MonoBehaviour
             playerInRange = false;
         }
     }
+
 }

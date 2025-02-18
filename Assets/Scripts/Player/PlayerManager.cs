@@ -27,8 +27,6 @@ public class PlayerManager : MonoBehaviour
 
         string directionName = GetIsometricDirection(direction);
 
-        Debug.Log("NPC is " + directionName + "of the player");
-
         if (directionName == "N") 
         {
             AnimatorX = 0;

@@ -7,7 +7,7 @@ public class QuestManager : MonoBehaviour
     public static QuestManager Instance;
     private void Awake() { Instance = this; }
 
-    [HideInInspector] public int activeQuestID;
+    public int activeQuestID;
     private string activeQuestDescription;
     [HideInInspector] public string activeQuestNPC;
     [HideInInspector] public bool activeQuestPresent;

@@ -32,6 +32,7 @@ public class DialogueManager : MonoBehaviour
     public bool dialogueRunning;
     private bool canContinueToNextLine = false;
     private bool WantSkip = false;
+    private bool QuestCompleted;
 
     
 
@@ -57,10 +58,12 @@ public class DialogueManager : MonoBehaviour
         }
 
         instance = this;
+
     }
 
     public static DialogueManager GetInstance()
     {
+    
         return instance;
     }
 
@@ -107,18 +110,30 @@ public class DialogueManager : MonoBehaviour
 
     public void EnterDialogueMode_Quest(TextAsset NPCDialogue, QuestSO PassedQuest)
     {
+
+        
+
         if (NpcInRange == true)
         {
+           
+
+            QuestCompleted = false;
 
             //The dialogue trigger needs to also send the corresponding Quest Data
 
             DialogueQuest = PassedQuest;
+            currentStory = new Story(NPCDialogue.text);
+
 
             //Handling code side of the ink file
             BindVariables();
             BindSubmit();
+            BindSetQuest();
 
-            currentStory = new Story(NPCDialogue.text);
+         
+
+
+            
             dialogueRunning = true;
             dialoguePanel.SetActive(true);
 
@@ -142,6 +157,17 @@ public class DialogueManager : MonoBehaviour
         dialogueRunning = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
+
+        NPCDialogueAnimator.gameObject.SetActive(false);
+        
+        NPCDialogueAnimator = null;
+
+
+
+        if (QuestCompleted)
+        {
+            QuestCompleteUpdate();
+        }
     }
 
     private IEnumerator DisplayLine(string line)
@@ -156,11 +182,10 @@ public class DialogueManager : MonoBehaviour
         canContinueToNextLine = false;
         foreach (char letter in line.ToCharArray())
         {
-            Debug.Log("call test 4");
 
             if (canSkip && WantSkip)
             {
-                Debug.Log("Call test 5");
+              
                 dialogueText.text = line;
                 WantSkip = false;
                 break; // Exit the loop early
@@ -274,17 +299,22 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator CanSkip()
     {
-        Debug.Log("call test 1");
+      
 
         canSkip = false;
         yield return new WaitForSeconds(0.05f);
 
-        Debug.Log("call test 2");
+        
         canSkip = true;
     }
 
+    //After this point it is used to handle the code aspect of the ink files
+//====================================================================================
+
     private void BindVariables()
     {
+        Debug.Log("Entry");
+
         currentStory.BindExternalFunction("SetVariables", () => {
             SetVariables_Before();
         });
@@ -314,6 +344,8 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+//=====================================================================================
+
     private void BindSubmit()
     {
         //This is called when we enter dialogue mode
@@ -333,16 +365,62 @@ public class DialogueManager : MonoBehaviour
         if (QuestManager.Instance.SubmitQuest(DialogueQuest.desiredItem, DialogueQuest.requiredQuantity) == true)
         {
             currentStory.variablesState["Success"] = true;
+            QuestCompleted = true;
+            
         }
 
         else if (QuestManager.Instance.SubmitQuest(DialogueQuest.desiredItem, DialogueQuest.requiredQuantity) == false)
         {
             currentStory.variablesState["Success"] = false;
+            QuestCompleted = false;
         }
 
         //*Note that we need to add the Ifs to branch the dialogues from
         //within the INK file
     }
+
+//=====================================================================================
+    
+     private void BindSetQuest()
+    {
+        //This is called when we enter dialogue mode as "Not Busy"
+        
+        currentStory.BindExternalFunction("SetActiveQuest", () => {
+            SetActiveQuest();
+        });
+    }
+    
+    
+    
+    private void SetActiveQuest()
+    {
+        if (!QuestManager.Instance.activeQuestPresent)
+        {
+            QuestManager.Instance.SetActiveQuest(DialogueQuest);
+        }
+    }
+
+//=====================================================================================
+
+      private void QuestCompleteUpdate()
+    {
+        NPCData npcData = NPCManager.Instance?.npcTempList.Find(npc => npc.npcName == DialogueQuest.npcName);
+
+        QuestManager.Instance.ResetActiveQuest();
+
+        if (npcData != null)
+        {
+            npcData.friendshipLevel += 1;
+            npcData.isFull = true;
+
+            //StateHandler will transition to full state after x seconds
+        }
+        else
+        {
+            Debug.LogError("This NPC's data is not found :v");
+        }
+    }
+
 
     //List of stuffs to assign to the INK file
 
@@ -351,6 +429,7 @@ public class DialogueManager : MonoBehaviour
     //3. hasActiveQuest     -> bool
     //4. correspondingNPC   -> bool
     //5. Success            -> bool
-    //6. SetVariables  -> function
-    //6. SubmitQuest   -> function
+    //6. SetVariables   -> function
+    //6. SubmitQuest    -> function
+    //7. SetActiveQuest -> function
 }

@@ -28,8 +28,9 @@ public class DialogueManager : MonoBehaviour
     [Header("Extras")]
 
     // Dialogue State
-    private Story currentStory;
+    [HideInInspector] public Story currentStory;
     public bool dialogueRunning;
+    public bool canDialogue = true;
     private bool canContinueToNextLine = false;
     private bool WantSkip = false;
     private bool QuestCompleted;
@@ -110,10 +111,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EnterDialogueMode_Quest(TextAsset NPCDialogue, QuestSO PassedQuest)
     {
-
-        
-
-        if (NpcInRange == true)
+        if (NpcInRange == true && canDialogue && !InventoryManager.Instance.SomeUIEnabled)
         {
            
 
@@ -154,6 +152,8 @@ public class DialogueManager : MonoBehaviour
 
     private void ExitDialogueMode()
     {
+        Time.timeScale = 0f;
+
         dialogueRunning = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
@@ -313,7 +313,7 @@ public class DialogueManager : MonoBehaviour
 
     private void BindVariables()
     {
-        Debug.Log("Entry");
+        
 
         currentStory.BindExternalFunction("SetVariables", () => {
             SetVariables_Before();

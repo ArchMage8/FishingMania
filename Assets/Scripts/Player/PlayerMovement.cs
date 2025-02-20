@@ -27,11 +27,23 @@ public class PlayerMovement : MonoBehaviour
         ProcessInput();
         UpdateAnimator();
         UpdateDirection();
+
+        if(Time.timeScale == 0f)
+        {
+            canMove = false;
+        }
+        else
+        {
+            canMove = true;
+        }
     }
 
     void FixedUpdate()
     {
-        MovePlayer();
+        if (canMove)
+        {
+            MovePlayer();
+        }
     }
 
     void ProcessInput()

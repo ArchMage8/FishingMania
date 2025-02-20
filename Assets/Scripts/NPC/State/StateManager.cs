@@ -29,8 +29,24 @@ public class StateManager : MonoBehaviour
         }
 
         AdjustVersion(npcData);
-        TransitionHandler(npcData);
+        TransitionBoolHandler(npcData);
     }
+
+    //Change Logic:
+    // On awake the NPC adjust version based on the data held by the NPC manager
+    // If isFull is true, then the NPC ignores friendship level and just enables the
+    // full NPC version
+    // This full version is reset after the save function is called
+
+    
+    //What is transition change: 
+    //[To handle the NPC going from unfull to full]
+
+    //This works by first setting the bool canCoroutine to true if the NPC is unfull
+    //when the scene is first loaded
+
+    //This means the script is on standby to call a change via a coroutine if a quest
+    //is completed
 
     private void Update()
     {
@@ -60,7 +76,7 @@ public class StateManager : MonoBehaviour
         }
     }
 
-    private void TransitionHandler(NPCData npcData)
+    private void TransitionBoolHandler(NPCData npcData)
     {
         if (npcData.isFull)
         {

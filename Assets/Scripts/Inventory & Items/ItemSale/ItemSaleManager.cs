@@ -2,14 +2,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Ink.Runtime;
 
 public class ItemSaleManager : MonoBehaviour
 {
     [Header("System References")]
     [Space(10)]
 
-    public InventoryManager inventoryManager; // Reference to the InventoryManager
-    public MoneyManager moneyManager; // Reference to the MoneyManager
+    private InventoryManager inventoryManager; // Reference to the InventoryManager
+    private MoneyManager moneyManager; // Reference to the MoneyManager
     public GameObject saleUI; // The GameObject holding the sale UI
     public KeyCode toggleKey = KeyCode.E; // Key to toggle the Delete UI.
 
@@ -32,13 +33,31 @@ public class ItemSaleManager : MonoBehaviour
     private int selectedItemPrice = 0; // Price of the selected item
     private int storedQty = 0; // Total quantity of the selected item across inventory
 
+    private bool standbyEnable;
+
     private void Start()
     {
+        inventoryManager = InventoryManager.Instance;
+        moneyManager = MoneyManager.Instance;
+
         UpdateUI();
         saleUI.SetActive(false);
     }
 
-    public void ToggleSaleUI()
+    private void Update()
+    {
+        if(DialogueManager.GetInstance().currentStory != null)
+        {
+            BindFunction();
+        }
+
+        if(standbyEnable && DialogueManager.GetInstance().dialogueRunning == false)
+        {
+            ToggleSaleUI();
+        }
+    }
+
+    public void ToggleSaleUI() //Need to be called via a dialogue
     {
         bool isActive = !saleUI.activeSelf;
         saleUI.SetActive(isActive);
@@ -47,22 +66,17 @@ public class ItemSaleManager : MonoBehaviour
         {
             UpdateUI();
             SelectFirstItem();
+            Time.timeScale = 0f;
+        }
+
+        else if (!isActive)
+        {
+            DialogueManager.GetInstance().canDialogue = true;
+            standbyEnable = false;
+            Time.timeScale = 1f;
         }
     }
 
-    private void Update()
-    {
-        // Toggle Delete UI with the specified key.
-        if (Input.GetKeyDown(toggleKey))
-        {
-            saleUI.SetActive(!saleUI.activeSelf);
-            if (saleUI.activeSelf)
-            {
-                UpdateUI();
-                SelectFirstItem(); // Automatically select the first item.
-            }
-        }
-    }
 
     private void UpdateUI()
     {
@@ -169,5 +183,21 @@ public class ItemSaleManager : MonoBehaviour
         {
             Debug.LogWarning("Failed to sell items. Insufficient quantity.");
         }
+    }
+
+    private void BindFunction()
+    {   
+        Story currentStory = DialogueManager.GetInstance().currentStory;
+
+        currentStory.BindExternalFunction("EnableSellUI", () => {
+
+            StandByEnable();
+        });
+    }
+
+    private void StandByEnable()
+    {
+        standbyEnable = true;
+        DialogueManager.GetInstance().canDialogue = false;
     }
 }

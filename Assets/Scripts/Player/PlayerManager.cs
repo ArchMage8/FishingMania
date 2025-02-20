@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public Transform target; // The target object
+    private Transform target; // The target object
     public PlayerMovement playerMovement;
 
     private float AnimatorX;
@@ -108,5 +108,21 @@ public class PlayerManager : MonoBehaviour
             return "SE";
 
         return "Unknown";
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("NPC"))
+        {
+            target = other.gameObject.transform;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("NPC"))
+        {
+            target = null;
+        }
     }
 }

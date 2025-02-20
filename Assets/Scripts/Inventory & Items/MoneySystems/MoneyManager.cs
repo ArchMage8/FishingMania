@@ -15,8 +15,12 @@ public class MoneyManager : MonoBehaviour
 
     private string saveFilePath;
 
+    public static MoneyManager Instance;
+
     private void Awake()
     {
+        Instance = this;
+
         // Initialize the save file path
         saveFilePath = Path.Combine(Application.persistentDataPath, "playerBalance.json");
        

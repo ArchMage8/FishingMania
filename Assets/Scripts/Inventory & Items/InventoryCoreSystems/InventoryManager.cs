@@ -11,6 +11,8 @@ public class InventoryManager : MonoBehaviour
 
     public List<InventorySlot> inventory = new List<InventorySlot>();
 
+    public bool SomeUIEnabled = false;
+
     private string saveFilePath;
 
     private void Awake()

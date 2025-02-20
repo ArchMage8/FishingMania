@@ -25,12 +25,14 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.F))
         {
+            Time.timeScale = 0f;
 
             DialogueManager.GetInstance().NPCDialogueAnimator = LocalDialogueAnimator;
             DialogueManager.GetInstance().NpcInRange = playerInRange;
             DialogueManager.GetInstance().EnterDialogueMode_Quest(NPC_Dialogue, NPC_Quest);
 
-            LocalDialogueAnimator.gameObject.SetActive(true);      
+            LocalDialogueAnimator.gameObject.SetActive(true);
+
         }
     }
 

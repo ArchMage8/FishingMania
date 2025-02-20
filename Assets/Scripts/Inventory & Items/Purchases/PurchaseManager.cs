@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Ink.Runtime;
 
 public class PurchaseManager : MonoBehaviour
 {
@@ -21,32 +22,35 @@ public class PurchaseManager : MonoBehaviour
     public Sprite emptySprite;
 
     [Header("External Managers")]
-    public MoneyManager moneyManager;
-    public InventoryManager inventoryManager;
+    private MoneyManager moneyManager;
+    private InventoryManager inventoryManager;
 
     private Item selectedItem;
     private int selectedItemPrice;
     private int purchaseQuantity = 1;
     private const int maxPurchaseQty = 99;
+    private bool standbyEnable = false;
 
     private void Start()
     {
-        UpdatePurchaseUI();
+        inventoryManager = InventoryManager.Instance;
+        moneyManager = MoneyManager.Instance;
 
+
+        UpdatePurchaseUI();
         purchaseUI.SetActive(false);
     }
 
     private void Update()
     {
-        // Toggle Delete UI with the specified key.
-        if (Input.GetKeyDown(toggleKey))
+        if (DialogueManager.GetInstance().currentStory != null)
         {
-            purchaseUI.SetActive(!purchaseUI.activeSelf);
-            if (purchaseUI.activeSelf)
-            {
-                UpdatePurchaseUI();
+            BindFunction();
+        }
 
-            }
+        if (standbyEnable && DialogueManager.GetInstance().dialogueRunning == false)
+        {
+            TogglePurchaseUI();
         }
     }
 
@@ -56,6 +60,7 @@ public class PurchaseManager : MonoBehaviour
 
         if (purchaseUI.activeSelf)
         {
+            UpdatePurchaseUI();
             ResetPurchaseDetails();
         }
     }
@@ -146,5 +151,21 @@ public class PurchaseManager : MonoBehaviour
         itemPriceText.text = "";
         itemIcon.sprite = emptySprite;
         purchaseQtyText.text = "1";
+    }
+
+    private void BindFunction()
+    {
+        Story currentStory = DialogueManager.GetInstance().currentStory;
+
+        currentStory.BindExternalFunction("EnableBuyUI", () => {
+
+            StandByEnable();
+        });
+    }
+
+    private void StandByEnable()
+    {
+        standbyEnable = true;
+        DialogueManager.GetInstance().canDialogue = false;
     }
 }

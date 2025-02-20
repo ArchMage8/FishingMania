@@ -7,10 +7,10 @@ public class DeleteItemManager : MonoBehaviour
     [Header("System Elements")]
     [Space(20)]
     public GameObject deleteUI; // GameObject for the Delete UI panel.
-    public KeyCode toggleKey = KeyCode.E; // Key to toggle the Delete UI.
     public DeleteItemCell[] cells; // Array of DeleteItemCell objects.
     [Space(20)]
-    public InventoryManager inventoryManager; // Reference to the InventoryManager.
+    public bool PlayerInRange;
+    private InventoryManager inventoryManager; // Reference to the InventoryManager.
 
     [Space(20)]
     [Header("Selected Item Display")]
@@ -28,20 +28,40 @@ public class DeleteItemManager : MonoBehaviour
 
     private void Start()
     {
+        inventoryManager = InventoryManager.Instance;
         UpdateUI();
     }
 
     private void Update()
     {
-        // Toggle Delete UI with the specified key.
-        if (Input.GetKeyDown(toggleKey))
+        if(PlayerInRange && Input.GetKeyDown(KeyCode.F) && !deleteUI.activeSelf && !inventoryManager.SomeUIEnabled)
         {
-            deleteUI.SetActive(!deleteUI.activeSelf);
-            if (deleteUI.activeSelf)
-            {
-                UpdateUI();
-                SelectFirstItem(); // Automatically select the first item.
-            }
+            ToggleDeleteUI();
+        }
+    }
+
+    private void ToggleDeleteUI()
+    {
+        
+        deleteUI.SetActive(!deleteUI.activeSelf);
+
+        if (deleteUI.activeSelf)
+        {
+            inventoryManager.SomeUIEnabled = true;
+
+            DialogueManager.GetInstance().canDialogue = false;
+            UpdateUI();
+            SelectFirstItem(); // Automatically select the first item.
+            Time.timeScale = 0f;
+        }
+
+        else if (!deleteUI.activeSelf)
+        {
+            inventoryManager.SomeUIEnabled = false;
+
+
+            DialogueManager.GetInstance().canDialogue = true;
+            Time.timeScale = 1f;
         }
     }
 

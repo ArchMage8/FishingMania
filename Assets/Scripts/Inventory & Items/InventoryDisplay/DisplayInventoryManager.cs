@@ -40,7 +40,7 @@ public class DisplayInventoryManager : MonoBehaviour
     private void Update()
     {
         // Toggle display UI with Tab key
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) && !inventoryManager.SomeUIEnabled)
         {
             ToggleDisplayUI();
         }
@@ -54,8 +54,21 @@ public class DisplayInventoryManager : MonoBehaviour
         // If the UI is activated, show default item details
         if (displayUI.activeSelf)
         {
+            inventoryManager.SomeUIEnabled = true;
+
             UpdateGrid(); // Refresh the grid when toggled on
             ShowDefaultItemDetails();
+            Time.timeScale = 0f;
+
+            DialogueManager.GetInstance().canDialogue = false;
+        }
+
+        else
+        {
+            inventoryManager.SomeUIEnabled = false;
+
+            DialogueManager.GetInstance().canDialogue = true;
+            Time.timeScale = 1f;
         }
     }
 

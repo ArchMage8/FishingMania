@@ -11,8 +11,7 @@ public class ItemSaleManager : MonoBehaviour
 
     private InventoryManager inventoryManager; // Reference to the InventoryManager
     private MoneyManager moneyManager; // Reference to the MoneyManager
-    public GameObject saleUI; // The GameObject holding the sale UI
-    public KeyCode toggleKey = KeyCode.E; // Key to toggle the Delete UI.
+    public GameObject saleUI; // The GameObject holding the sale UI (local to each NPC)
 
     [Space(20)]
     public ItemSaleCell[] cells; // Array of cells representing inventory slots

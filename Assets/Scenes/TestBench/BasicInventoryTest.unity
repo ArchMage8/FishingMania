@@ -1136,17 +1136,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 264063258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a19e2f3807dcfb444982f5b045c9e749, type: 3}
+  m_Script: {fileID: 11500000, guid: 123b732b93ba5b84c82be753d0903686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryManager: {fileID: 795941697}
-  addObject: {fileID: 11400000, guid: 4798220f7b50e084f93c7746200e96a1, type: 2}
-  addObjectQuantity: 2
-  itemsToRemove:
-  - item: {fileID: 11400000, guid: 75be8558e83d77341a1a76f7c21806a2, type: 2}
-    quantity: 2
-  - item: {fileID: 11400000, guid: 4798220f7b50e084f93c7746200e96a1, type: 2}
-    quantity: 1
+  addObject: {fileID: 11400000, guid: 75be8558e83d77341a1a76f7c21806a2, type: 2}
+  addObjectQuantity: 1
+  itemsToRemove: []
 --- !u!4 &264063260
 Transform:
   m_ObjectHideFlags: 0
@@ -1191,7 +1187,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 264063260}
-  - {fileID: 930001466}
   - {fileID: 867561138}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -3293,7 +3288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSlots: 36
   maxStack: 9
-  inventory: []
+  SomeUIEnabled: 0
 --- !u!4 &795941698
 Transform:
   m_ObjectHideFlags: 0
@@ -3670,7 +3665,7 @@ RectTransform:
   - {fileID: 1310103773}
   - {fileID: 1548094904}
   m_Father: {fileID: 280780564}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3812,56 +3807,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913597149}
   m_CullTransparentMesh: 1
---- !u!1 &930001464
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 930001466}
-  - component: {fileID: 930001465}
-  m_Layer: 0
-  m_Name: InventoryTest (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &930001465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 930001464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a19e2f3807dcfb444982f5b045c9e749, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryManager: {fileID: 795941697}
-  addObject: {fileID: 11400000, guid: 75be8558e83d77341a1a76f7c21806a2, type: 2}
-  addObjectQuantity: 2
-  itemsToRemove:
-  - item: {fileID: 11400000, guid: 4798220f7b50e084f93c7746200e96a1, type: 2}
-    quantity: 1
---- !u!4 &930001466
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 930001464}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -369.58325, y: 74.63707, z: 2.3359046}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 280780564}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &944273486
 GameObject:
   m_ObjectHideFlags: 0
@@ -4919,7 +4864,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1257191785
 Transform:
   m_ObjectHideFlags: 0
@@ -5290,7 +5235,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 930001465}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TestInventoryManager, Assembly-CSharp
         m_MethodName: RemoveItems
         m_Mode: 1
@@ -6790,7 +6735,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 930001465}
+      - m_Target: {fileID: 264063259}
         m_TargetAssemblyTypeName: TestInventoryManager, Assembly-CSharp
         m_MethodName: AddItem
         m_Mode: 1
@@ -6892,8 +6837,6 @@ MonoBehaviour:
   itemIcon: {fileID: 375588251}
   purchaseQtyText: {fileID: 222959615}
   emptySprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  moneyManager: {fileID: 102058356}
-  inventoryManager: {fileID: 795941697}
 --- !u!1 &1818125046
 GameObject:
   m_ObjectHideFlags: 0
@@ -7177,10 +7120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273db2b3f50b95e4a9615f3b70e3e1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryManager: {fileID: 795941697}
-  moneyManager: {fileID: 102058356}
   saleUI: {fileID: 79557328}
-  toggleKey: 102
   cells:
   - {fileID: 2120046752}
   - {fileID: 1136283202}
@@ -7909,13 +7849,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deleteUI: {fileID: 564144934}
-  toggleKey: 101
   cells:
   - {fileID: 8956740323619311662}
   - {fileID: 786269556}
   - {fileID: 559115049}
   - {fileID: 260752693}
-  inventoryManager: {fileID: 795941697}
+  PlayerInRange: 0
   selectedItemIcon: {fileID: 1366304616}
   selectedItemName: {fileID: 1906953072}
   deductQtyText: {fileID: 124057621}

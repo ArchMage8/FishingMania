@@ -18,7 +18,7 @@ public class Item : ScriptableObject
     public int price;
 
     [Space(10)]
-    public ItemType itemType; // New field to classify items
+    public ItemType itemType;
 }
 
 

@@ -7,7 +7,7 @@ public class CookingManager : MonoBehaviour
     public static CookingManager Instance;
 
     public RecipeDefaultDataSO defaultRecipeData; // Assign in Inspector
-    private List<RecipeDataEntry> recipeDataList = new List<RecipeDataEntry>();
+    public List<RecipeDataEntry> recipeDataList = new List<RecipeDataEntry>();
 
     private string saveFilePath;
 

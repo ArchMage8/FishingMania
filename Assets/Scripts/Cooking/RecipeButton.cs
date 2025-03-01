@@ -3,55 +3,67 @@ using UnityEngine.UI;
 
 public class RecipeButton : MonoBehaviour
 {
-    public RecipeSO targetRecipe; // The assigned recipe for this button
-    public Image recipeImage; // The UI image displaying the recipe icon
-    public Color unavailableColor = Color.gray; // Color when ingredients are insufficient
+    public RecipeSO targetRecipe; // The recipe associated with this button
+    public Image recipeImage; // UI image for the recipe
+  
+    public Color lockedColor = Color.gray; // Color for locked recipes
 
     private void OnEnable()
     {
         SetupButton();
-        CheckInventory();
-    }
-
-    // Sets up the button image based on the recipe result
-    public void SetupButton()
-    {
-        if (targetRecipe != null && targetRecipe.result != null)
+        if (IsRecipeUnlocked())
         {
-            recipeImage.sprite = targetRecipe.result.icon;
+            CheckInventory();
+        }
+        else
+        {
+            recipeImage.color = lockedColor; // Darken the image if locked
+            GetComponent<Button>().interactable = false; // Disable button interaction
         }
     }
 
-    // Checks if there are enough ingredients in the inventory
-    public void CheckInventory()
+    private void SetupButton()
     {
-        int maxDishes = int.MaxValue;
+        if (IsRecipeUnlocked())
+        {
+            recipeImage.sprite = targetRecipe.result.icon; // Set recipe image
+        }
+    }
+
+    private bool IsRecipeUnlocked()
+    {
+        foreach (var recipeEntry in CookingManager.Instance.recipeDataList)
+        {
+            if (recipeEntry.recipeName == targetRecipe.name)
+            {
+                return recipeEntry.isUnlocked;
+            }
+        }
+        return false; // If not found, assume locked
+    }
+
+    private void CheckInventory()
+    {
+        bool hasIngredients = true;
 
         foreach (var ingredient in targetRecipe.ingredients)
         {
             int inventoryQty = InventoryManager.Instance.GetTotalQuantity(ingredient.item);
-            int requiredQty = ingredient.quantity;
-
-            if (inventoryQty < requiredQty)
+            if (inventoryQty < ingredient.quantity)
             {
-                recipeImage.color = unavailableColor; // Darken if missing ingredients
-                return;
-            }
-            else
-            {
-                maxDishes = Mathf.Min(maxDishes, inventoryQty / requiredQty);
+                hasIngredients = false;
+                break;
             }
         }
 
-        recipeImage.color = Color.white; // Reset to normal if enough ingredients
+        recipeImage.color = hasIngredients ? Color.white : lockedColor; // Darken if missing ingredients
     }
 
-    // Selects the recipe and sends it to the Cooking UI Manager
     public void SelectRecipe()
     {
-        if (CookingUIManager.Instance != null && targetRecipe != null)
+        if (IsRecipeUnlocked())
         {
-            CookingUIManager.Instance.SetPreviews(targetRecipe);
+            CookingUIManager.Instance.SetPreviews(targetRecipe); // Send recipe to UI
         }
     }
 }

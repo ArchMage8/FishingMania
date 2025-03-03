@@ -387,8 +387,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629511350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.76703}
+  m_LocalScale: {x: 0.26638, y: 0.26638, z: 0.26638}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 681941722}
@@ -402,7 +402,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.23272705, y: 0.53912354}
+  m_AnchoredPosition: {x: -0.23272705, y: 0.78414917}
   m_SizeDelta: {x: -699.99994, y: -349.99997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &629511352
@@ -429,7 +429,7 @@ MonoBehaviour:
   GoodSliderValue: 0
   NormalSliderValue: 0
   BadSliderValue: 0
-  stock: 10
+  TempStock: 1
   deductValue: 6
   Score: 0
   target: 0
@@ -511,8 +511,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 680346041}
   m_LocalRotation: {x: 0, y: 0, z: 0.9956481, w: 0.09319265}
-  m_LocalPosition: {x: -5.02, y: 6.47, z: 0}
-  m_LocalScale: {x: 0.34593, y: 0.34593, z: 0.34593}
+  m_LocalPosition: {x: -1.747, y: 3.2608, z: -1.8409}
+  m_LocalScale: {x: 0.09214884, y: 0.09214884, z: 0.09214884}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -532,7 +532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pivot: {fileID: 629511351}
   startPoint: {fileID: 1073444169}
-  speed: 90
+  speed: 1000
   clockwork: 1
   isOrbiting: 1
   colorManager: {fileID: 629511352}
@@ -679,7 +679,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7.29
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -703,7 +703,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767501115}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -0.52, y: 1.86, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

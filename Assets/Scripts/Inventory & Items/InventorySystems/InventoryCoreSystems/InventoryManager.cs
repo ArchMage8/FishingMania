@@ -264,6 +264,19 @@ public class InventoryManager : MonoBehaviour
 
     // Retrieves the total number of inventory slots
     public int MaxSlots => maxSlots;
+
+    public bool IsInventoryFull()
+    {
+        foreach (var slot in inventory) // Assuming inventorySlots is your storage list
+        {
+            // If there's an empty slot OR a stack with room, inventory is NOT full
+            if (slot.item == null)
+            {
+                return false;
+            }
+        }
+        return true; // If all slots are occupied and stacked to max, inventory is full
+    }
 }
 
 [System.Serializable]

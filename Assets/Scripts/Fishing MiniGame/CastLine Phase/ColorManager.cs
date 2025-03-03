@@ -30,7 +30,8 @@ public class ColorManager : MonoBehaviour
     public float BadSliderValue;
 
     [Header("Extra Values")]
-    public int stock = 10;
+    public int TempStock = 10;
+    private int stock = 10;
     public int deductValue;
 
     [Header("Score Values")]
@@ -41,11 +42,7 @@ public class ColorManager : MonoBehaviour
     private Slider normalSlider;
     private Slider badSlider;
 
-    private int A, B, C;
-
-
     private int tempTopValue;
-    private Dictionary<string, (int min, int max)> ranges = new Dictionary<string, (int, int)>();
     private Dictionary<string, int> returnValues = new Dictionary<string, int>
     {
         { "A", 1 },
@@ -53,22 +50,25 @@ public class ColorManager : MonoBehaviour
         { "C", 3 }
     };
 
-
     void Start()
     {
         AssignRandomColors();
         ResetValues();
+        stock = 10;
+        SimulateStockDecrease();
     }
 
-    private void Update()
+    private void SimulateStockDecrease()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            //stock -= 1;
-            AssignRandomColors();
-            ResetValues();
-        }
+        stock = 10;
 
+        int decreaseCount = 10 - TempStock;
+        for (int i = 0; i < decreaseCount; i++)
+        {
+            stock -= 1;
+            RecalculateValues();
+        }
+        ResetValues();
     }
 
     private void AssignRandomColors()
@@ -92,10 +92,6 @@ public class ColorManager : MonoBehaviour
             goodValue = defaultGood;
             normalValue = defaultNormal;
             badValue = defaultBad;
-        }
-        else
-        {
-            RecalculateValues();
         }
         ApplySliderValues();
     }
@@ -126,24 +122,12 @@ public class ColorManager : MonoBehaviour
         IdentifyBottom();
         IdentifyTop();
         IdentifyMid();
-
         PrepareSliderValues();
     }
 
     private void IdentifyBottom()
     {
-        if (goodSlider == bottomSlider)
-        {
-            goodSlider.value = 100;
-        }
-        else if (normalSlider == bottomSlider)
-        {
-            normalSlider.value = 100;
-        }
-        else if (badSlider == bottomSlider)
-        {
-            badSlider.value = 100;
-        }
+        bottomSlider.value = 100;
     }
 
     private void IdentifyTop()
@@ -164,6 +148,7 @@ public class ColorManager : MonoBehaviour
             badSlider.value = badValue;
         }
     }
+
     private void IdentifyMid()
     {
         int tempMidValue;
@@ -194,17 +179,15 @@ public class ColorManager : MonoBehaviour
 
     public void SetScore()
     {
-      if(target >= 0 && target <= topSlider.value)
+        if (target >= 0 && target <= topSlider.value)
         {
             Score = Set_Top();
         }
-
-      else if (target > topSlider.value && target <= middleSlider.value)
+        else if (target > topSlider.value && target <= middleSlider.value)
         {
             Score = Set_Mid();
         }
-
-      else if (target > middleSlider.value && target <= bottomSlider.value)
+        else if (target > middleSlider.value && target <= bottomSlider.value)
         {
             Score = Set_Bottom();
         }
@@ -212,70 +195,16 @@ public class ColorManager : MonoBehaviour
 
     private int Set_Top()
     {
-        if(topSlider == goodSlider)
-        {
-            return 1;
-        }
-
-        else if(topSlider == normalSlider)
-        {
-            return 2;
-        }
-
-        else if(topSlider == badSlider)
-        {
-            return 3;
-        }
-
-        else
-        {
-            return 0;
-        }
+        return returnValues[topSlider == goodSlider ? "A" : topSlider == normalSlider ? "B" : "C"];
     }
 
     private int Set_Mid()
     {
-        if (middleSlider == goodSlider)
-        {
-            return 1;
-        }
-
-        else if (middleSlider == normalSlider)
-        {
-            return 2;
-        }
-
-        else if (middleSlider == badSlider)
-        {
-            return 3;
-        }
-
-        else
-        {
-            return 0;
-        }
+        return returnValues[middleSlider == goodSlider ? "A" : middleSlider == normalSlider ? "B" : "C"];
     }
 
     private int Set_Bottom()
     {
-        if (bottomSlider == goodSlider)
-        {
-            return 1;
-        }
-
-        else if (bottomSlider == normalSlider)
-        {
-            return 2;
-        }
-
-        else if (bottomSlider == badSlider)
-        {
-            return 3;
-        }
-
-        else
-        {
-            return 0;
-        }
+        return returnValues[bottomSlider == goodSlider ? "A" : bottomSlider == normalSlider ? "B" : "C"];
     }
 }

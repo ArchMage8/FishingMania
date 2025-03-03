@@ -30,12 +30,17 @@ public class Orbit : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             if (isOrbiting)
             {
                 StopOrbit();
                 isOrbiting = false;
+            }
+
+            else
+            {
+                StartOrbit();
             }
         }
         
@@ -56,7 +61,7 @@ public class Orbit : MonoBehaviour
         RotateObject();
 
         posPercentage = GetPositionPercentage();
-        Debug.Log("Position Percentage: " + posPercentage);
+        //Debug.Log("Position Percentage: " + posPercentage);
     }
 
     void UpdatePosition()

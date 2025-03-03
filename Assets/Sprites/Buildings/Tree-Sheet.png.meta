@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6ec3d53757486d442ace45e68f3e3289
+guid: f7adf43247dc94a409de66d2ad16b068
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -102,7 +102,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -114,11 +114,11 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 4096
+    buildTarget: WebGL
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -129,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sand-Sheet_0
+      name: Tree-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 182
-        height: 107
+        width: 235
+        height: 235
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a1bd1e9ae8a4154c9e85e880655d6a3
-      internalID: 514233915
+      spriteID: 5ca6b581edfa25640853236feff84075
+      internalID: 179922633
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sand-Sheet_1
+      name: Tree-Sheet_1
       rect:
         serializedVersion: 2
-        x: 182
+        x: 235
         y: 0
-        width: 182
-        height: 107
+        width: 235
+        height: 235
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,20 +164,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: beffefe572ce615439a3d51582341511
-      internalID: -971463593
+      spriteID: 503081b9135bc1040b3f562f3fc2eea3
+      internalID: 1126222451
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sand-Sheet_2
+      name: Tree-Sheet_2
       rect:
         serializedVersion: 2
-        x: 364
+        x: 470
         y: 0
-        width: 182
-        height: 107
+        width: 235
+        height: 235
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,50 +185,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0674fe32cb518e8499d86e7b907051c6
-      internalID: 1190132792
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sand-Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 546
-        y: 0
-        width: 182
-        height: 107
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aac3583d7c71fa349b437e1c7c593337
-      internalID: -737334017
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sand-Sheet_4
-      rect:
-        serializedVersion: 2
-        x: 728
-        y: 0
-        width: 182
-        height: 107
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cafd1efd892148840be3af83249b85d3
-      internalID: 1181251158
+      spriteID: 50cbd17aaea30b74396a0ae7fef2f850
+      internalID: 1778333155
       vertices: []
       indices: 
       edges: []
@@ -244,11 +202,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Sand-Sheet_0: 514233915
-      Sand-Sheet_3: -737334017
-      Sand-Sheet_4: 1181251158
-      Sand-Sheet_2: 1190132792
-      Sand-Sheet_1: -971463593
+      Tree-Sheet_2: 1778333155
+      Tree-Sheet_1: 1126222451
+      Tree-Sheet_0: 179922633
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

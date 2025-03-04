@@ -5,6 +5,7 @@ using TMPro;
 public class BaitButton : MonoBehaviour
 {
     public BaitSO BaitReference;
+    public Image ContentIcon;
     private Button button;
 
     private void Awake()
@@ -19,8 +20,11 @@ public class BaitButton : MonoBehaviour
 
     public void CheckStatus()
     {
+        ContentIcon.sprite = BaitReference.icon;
+
         if (!IsBaitAvailable())
         {
+            
             HandleUnavailableBait();
         }
     }

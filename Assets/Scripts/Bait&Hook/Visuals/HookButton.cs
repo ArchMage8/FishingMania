@@ -5,6 +5,7 @@ using TMPro;
 public class HookButton : MonoBehaviour
 {
     public HookSO HookReference;
+    public Image ContentIcon;
     private Button button;
 
     private void Awake()
@@ -19,6 +20,8 @@ public class HookButton : MonoBehaviour
 
     public void CheckStatus()
     {
+        ContentIcon.sprite = HookReference.icon;
+
         if (!BaitAndHookManager.Instance.IsHookUnlocked(HookReference.name))
         {
             HandleLockedHook();

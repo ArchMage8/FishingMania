@@ -6,10 +6,10 @@ public class DeleteItemManager : MonoBehaviour
 {
     [Header("System Elements")]
     [Space(20)]
-    public GameObject deleteUI; // GameObject for the Delete UI panel.
+    //public GameObject deleteUI; // GameObject for the Delete UI panel.
     public DeleteItemCell[] cells; // Array of DeleteItemCell objects.
     [Space(20)]
-    public bool PlayerInRange;
+  
     private InventoryManager inventoryManager; // Reference to the InventoryManager.
 
     [Space(20)]
@@ -32,18 +32,10 @@ public class DeleteItemManager : MonoBehaviour
         UpdateUI();
     }
 
-    private void Update()
-    {
-        if(PlayerInRange && Input.GetKeyDown(KeyCode.F) && !deleteUI.activeSelf && !inventoryManager.SomeUIEnabled)
-        {
-            ToggleDeleteUI();
-        }
-    }
-
-    private void ToggleDeleteUI()
+    /*private void ToggleDeleteUI()
     {
         
-        deleteUI.SetActive(!deleteUI.activeSelf);
+        //deleteUI.SetActive(!deleteUI.activeSelf);
 
         if (deleteUI.activeSelf)
         {
@@ -63,11 +55,12 @@ public class DeleteItemManager : MonoBehaviour
             DialogueManager.GetInstance().canDialogue = true;
             Time.timeScale = 1f;
         }
-    }
+    }*/
 
     // Update the inventory display on the Delete UI.
-    private void UpdateUI()
+    public void UpdateUI()
     {
+
         for (int i = 0; i < cells.Length; i++)
         {
             var (item, quantity) = inventoryManager.GetItemInSlot(i);

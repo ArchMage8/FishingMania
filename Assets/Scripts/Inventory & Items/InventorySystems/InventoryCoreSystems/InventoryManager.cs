@@ -26,6 +26,8 @@ public class InventoryManager : MonoBehaviour
         }
 
         saveFilePath = Path.Combine(Application.persistentDataPath, "inventory.json");
+
+        LoadInventory();
     }
 
     public bool AddItem(Item item, int quantity)
@@ -239,6 +241,7 @@ public class InventoryManager : MonoBehaviour
 
     public int GetTotalQuantity(Item item)
     {
+
         // **Helper: Calculate the total quantity of an item in the inventory**
         int total = 0;
         foreach (var slot in inventory)

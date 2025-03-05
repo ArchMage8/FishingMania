@@ -82,6 +82,7 @@ public class FishGenerator : MonoBehaviour
         }
 
         StartCoroutine(CatchFishUI(selectedFish));
+        InventoryManager.Instance.AddItem(selectedFish, 1);
         DeductStock();
     }
 

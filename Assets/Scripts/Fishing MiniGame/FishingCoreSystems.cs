@@ -14,9 +14,12 @@ public class FishingCoreSystems : MonoBehaviour
     public GameObject InventoryError;
     public GameObject BaitError;
 
+
     [Header("Fishing Spot Data")]
     public FishingSpotStock[] fishingSpots;
     public Animator FishingPlayer;
+
+    public FishGenerator fishGenerator;
 
     private bool error = false;
 
@@ -29,6 +32,8 @@ public class FishingCoreSystems : MonoBehaviour
 
     private void Awake()
     {
+       
+
         if (instance == null)
             instance = this;
         else
@@ -60,10 +65,15 @@ public class FishingCoreSystems : MonoBehaviour
 
         if (!InventoryManager.Instance.IsInventoryFull() && InventoryManager.Instance.GetTotalQuantity(BaitAndHookManager.Instance.activeBait) > 0)
         {
-            StartMiniGame();
+          
+            MinigameIndicator.SetActive(false);
+            StartCoroutine(StartMiniGame());
+            
         }
         else
         {
+
+            
             error = true;
             if (InventoryManager.Instance.IsInventoryFull())
                 InventoryError.SetActive(true);
@@ -72,18 +82,22 @@ public class FishingCoreSystems : MonoBehaviour
         }
     }
 
-    private void StartMiniGame()
+    private IEnumerator StartMiniGame()
     {
         Debug.Log("Call 2");
         FishingPlayer.SetTrigger("Next"); //Player Moves to cast the line
+
+        yield return new WaitForSeconds(0.5f);
+        
         CastMinigame.SetActive(true);
+        CastMinigame.GetComponentInChildren<Orbit>().isOrbiting = true;
 
 
     }
 
-    public void StartWaitPhase(int score)
+    public void StartWaitPhase(int score) //Called by the Arrow (Orbit.cs)
     {
-        FishingPlayer.SetTrigger("Next"); //Waits while fishing
+        FishingPlayer.SetTrigger("Next"); //Casts the line
         Debug.Log("Call 3");
 
         int waitTime = score switch
@@ -99,22 +113,30 @@ public class FishingCoreSystems : MonoBehaviour
 
     private IEnumerator WaitPhase(int waitTime)
     {
+        FishingPlayer.SetTrigger("Next"); 
         Debug.Log("Call 4");
 
+        yield return new WaitForSeconds(1f);
+
+        FishingPlayer.SetTrigger("Next"); //Enter Wait Animation
+
         yield return new WaitForSeconds(waitTime);
+        
         StartBitePhase();
     }
 
     private void StartBitePhase()
     {
         Debug.Log("Call 5");
-
-        BiteIndicator.SetActive(true);
         StartCoroutine(BiteWindow());
     }
 
     private IEnumerator BiteWindow()
     {
+        FishingPlayer.SetTrigger("Next"); //Enters bite animation
+        yield return new WaitForSeconds(0.5f);
+        BiteIndicator.SetActive(true);
+
         float biteTime = 2f; // Adjust as needed
         float elapsedTime = 0f;
 
@@ -129,6 +151,7 @@ public class FishingCoreSystems : MonoBehaviour
             yield return null;
         }
 
+        MinigameIndicator.SetActive(false);
         FailCatch();
     }
 
@@ -136,14 +159,25 @@ public class FishingCoreSystems : MonoBehaviour
     {
         Debug.Log("Call 6a");
 
-        DeductBait();
-        GoToIdle();
+        FishingPlayer.SetTrigger("Success"); //Success Animation
+        fishGenerator.SelectFish();
+        StartCoroutine(ReturnToIdle());
     }
 
     private void FailCatch()
     {
         Debug.Log("Call 6b");
 
+        FishingPlayer.SetTrigger("Fail"); //Fail Animation
+
+        StartCoroutine(ReturnToIdle());
+    }
+
+    private IEnumerator ReturnToIdle()
+    {
+
+        yield return new WaitForSeconds(3f);
+        FishingPlayer.SetTrigger("Next");
         DeductBait();
         GoToIdle();
     }

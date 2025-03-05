@@ -53,7 +53,7 @@ public class LoadScene_Trigger : MonoBehaviour
     {
         sceneLoader.SetTrigger("CloseScene");
 
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(1f);
         
         SceneManager.LoadScene(DestinationScene);
     }

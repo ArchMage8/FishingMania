@@ -23,10 +23,17 @@ public class Orbit : MonoBehaviour
 
     void Start()
     {
+        
+
         Vector3 direction = startPoint.transform.position - pivot.position;
         startAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         currentAngle = startAngle;
         UpdatePosition();
+    }
+
+    private void OnEnable()
+    {
+        isOrbiting = true;
     }
 
     void Update()
@@ -41,14 +48,9 @@ public class Orbit : MonoBehaviour
                 Score = colorManager.Score;
 
                 FishingCoreSystems.instance.StartWaitPhase(Score);
-                FishingCoreSystems.instance.FishingPlayer.SetTrigger("Next");
+                StartCoroutine(DisableDelay());
 
                 isOrbiting = false;
-            }
-
-            else
-            {
-                StartOrbit();
             }
         }
         
@@ -56,6 +58,13 @@ public class Orbit : MonoBehaviour
         {
           OrbitMovement();
         }
+
+    }
+
+    private IEnumerator DisableDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        FishingCoreSystems.instance.CastMinigame.SetActive(false);
 
     }
 

@@ -3,44 +3,42 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 
-[System.Serializable]
-public struct HookStatusData
-{
-    public string hookName;
-    public bool isUnlocked;
-}
-
-[CreateAssetMenu(fileName = "HookStatusSO", menuName = "Fishing/HookStatusSO")]
-public class HookStatusSO : ScriptableObject
-{
-    public HookStatusData[] defaultHookStatuses;
-}
-
 public class BaitAndHookManager : MonoBehaviour
 {
     public static BaitAndHookManager Instance;
 
+    [Header("Active Bait and Hook")]
     public BaitSO activeBait;
     public HookSO activeHook;
 
+    [Header("UI Elements")]
     public Image baitPreview;
     public Image hookPreview;
-    public GameObject UI_Holder;
 
-    public int BaitClass;
-    public int HookClass;
-
+    [Space(10)]
     public TMP_Text SelectedDescription;
+    [Space(10)]
     public TMP_Text BaitName;
     public TMP_Text HookName;
 
-    public HookStatusSO defaultHookStatusSO;
-    private string baitHookSaveFile;
-    private string hookStatusSaveFile;
-    private HookStatusData[] hookStatuses;
+    [Header("Class Values")]
+    public int BaitClass;
+    public int HookClass;
 
+    [Header("Hook Status Management")]
+    public HookStatusSO defaultHookStatusSO;
+    public HookStatusData[] hookStatuses;
+
+    [Header("Temporary Selections")]
     private HookSO TempHook;
     private BaitSO TempBait;
+
+    [Header("Default Combo")]
+    public DefaultCombo defaultCombo;
+
+    [Header("Save File Paths")]
+    private string baitHookSaveFile;
+    private string hookStatusSaveFile;
 
     private void Awake()
     {
@@ -96,21 +94,11 @@ public class BaitAndHookManager : MonoBehaviour
 
     public bool IsHookUnlocked(string HookName)
     {
-        foreach (var hook in BaitAndHookManager.Instance.hookStatuses)
+        foreach (var hook in hookStatuses)
         {
             if (hook.hookName == HookName)
-            {
-                if (!hook.isUnlocked)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
+                return hook.isUnlocked;
         }
-        Debug.LogError("Your Hook be missing");
         return false;
     }
 
@@ -140,7 +128,12 @@ public class BaitAndHookManager : MonoBehaviour
 
     private void LoadBaitAndHook()
     {
-        if (!File.Exists(baitHookSaveFile)) return;
+        if (!File.Exists(baitHookSaveFile))
+        {
+            activeBait = defaultCombo.defaultBait;
+            activeHook = defaultCombo.defaultHook;
+            return;
+        }
 
         string json = File.ReadAllText(baitHookSaveFile);
         BaitHookSaveData saveData = JsonUtility.FromJson<BaitHookSaveData>(json);
@@ -190,7 +183,7 @@ public class BaitAndHookManager : MonoBehaviour
         if (TempBait != null)
             activeBait = TempBait;
 
-        SetClass(); // Update class values when changing active bait and hook
+        SetClass();
     }
 
     public void ResetTemps()
@@ -212,3 +205,6 @@ public class HookStatusWrapper
 {
     public HookStatusData[] hookStatuses;
 }
+
+
+

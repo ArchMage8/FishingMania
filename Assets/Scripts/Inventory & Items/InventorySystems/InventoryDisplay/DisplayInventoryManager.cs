@@ -10,6 +10,10 @@ public class DisplayInventoryManager : MonoBehaviour
 
     [Space(20)]
 
+    [Header("Book UI References")]
+    public DeleteItemManager deleteItemManager;
+    [Space(10)]
+
 
     public Sprite emptySprite;            // Default sprite for empty slots
     public GameObject displayUI;          // The GameObject holding the inventory display UI
@@ -27,6 +31,7 @@ public class DisplayInventoryManager : MonoBehaviour
         // Get a reference to the InventoryManager
         inventoryManager = FindObjectOfType<InventoryManager>();
 
+
         // Initialize the inventory grid
         UpdateGrid();
 
@@ -40,11 +45,17 @@ public class DisplayInventoryManager : MonoBehaviour
     private void Update()
     {
         // Toggle display UI with Tab key
-        if (Input.GetKeyDown(KeyCode.Tab) && !inventoryManager.SomeUIEnabled)
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
+
+            UpdateGrid();
+            deleteItemManager.UpdateUI();
+
             ToggleDisplayUI();
         }
     }
+
+ 
 
     private void ToggleDisplayUI()
     {
@@ -52,7 +63,7 @@ public class DisplayInventoryManager : MonoBehaviour
         displayUI.SetActive(!displayUI.activeSelf);
 
         // If the UI is activated, show default item details
-        if (displayUI.activeSelf)
+        if (displayUI.activeSelf && !inventoryManager.SomeUIEnabled)
         {
             inventoryManager.SomeUIEnabled = true;
 

@@ -15,7 +15,7 @@ public class Orbit : MonoBehaviour
     public ColorManager colorManager;
 
     private float currentAngle;
-    private float radius;
+    public float radius;
     private float startAngle;
     private int posPercentage;
 

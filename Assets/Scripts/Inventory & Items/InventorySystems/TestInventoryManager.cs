@@ -3,22 +3,20 @@ using UnityEngine;
 
 public class TestInventoryManager : MonoBehaviour
 {
-    [Header("Inventory Manager Reference")]
-    public InventoryManager inventoryManager; // Reference to the InventoryManager
 
     [Header("Add Item Configuration")]
-    public Item addObject;      // Item to add (renamed from testItem1)
+   
     public int addObjectQuantity = 1; // Quantity of the item to add
 
     [Header("Remove Items Configuration")]
     public RemovalRequest[] itemsToRemove; // Array to dynamically configure removal requests via Inspector
 
     // Function to add a specified item to the inventory
-    public void AddItem()
+    public void AddItem(Item addObject)
     {
         if (addObject != null)
         {
-            bool result = inventoryManager.AddItem(addObject, addObjectQuantity);
+            bool result = InventoryManager.Instance.AddItem(addObject, addObjectQuantity);
             Debug.Log(result
                 ? $"{addObjectQuantity} {addObject.itemName}(s) added successfully."
                 : $"Failed to add {addObject.itemName}. Inventory may be full.");
@@ -61,7 +59,7 @@ public class TestInventoryManager : MonoBehaviour
             return;
         }
 
-        bool result = inventoryManager.RemoveItems(removalRequests);
+        bool result = InventoryManager.Instance.RemoveItems(removalRequests);
         Debug.Log(result
             ? "Successfully removed all requested items."
             : "Failed to remove one or more items. Removal operation aborted.");
@@ -70,13 +68,13 @@ public class TestInventoryManager : MonoBehaviour
     // Function to save the inventory
     public void SaveInventory()
     {
-        inventoryManager.SaveInventory();
+        InventoryManager.Instance.SaveInventory();
     }
 
     // Function to load the inventory
     public void LoadInventory()
     {
-        inventoryManager.LoadInventory();
+        InventoryManager.Instance.LoadInventory();
     }
 }
 

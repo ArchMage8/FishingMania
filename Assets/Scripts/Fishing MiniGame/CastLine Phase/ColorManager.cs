@@ -50,7 +50,7 @@ public class ColorManager : MonoBehaviour
         { "C", 3 }
     };
 
-    void Start()
+    private void OnEnable()
     {
         AssignRandomColors();
         ResetValues();

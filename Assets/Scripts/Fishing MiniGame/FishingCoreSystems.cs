@@ -16,6 +16,7 @@ public class FishingCoreSystems : MonoBehaviour
 
     [Header("Fishing Spot Data")]
     public FishingSpotStock[] fishingSpots;
+    public Animator FishingPlayer;
 
     private bool error = false;
 
@@ -36,6 +37,7 @@ public class FishingCoreSystems : MonoBehaviour
             return;
         }
 
+        CastMinigame.SetActive(false);
         MinigameIndicator.SetActive(true);
         StartCoroutine(WaitForInput());
     }
@@ -54,6 +56,8 @@ public class FishingCoreSystems : MonoBehaviour
 
     private void PreCheck()
     {
+        Debug.Log("Call 1");
+
         if (!InventoryManager.Instance.IsInventoryFull() && InventoryManager.Instance.GetTotalQuantity(BaitAndHookManager.Instance.activeBait) > 0)
         {
             StartMiniGame();
@@ -70,11 +74,18 @@ public class FishingCoreSystems : MonoBehaviour
 
     private void StartMiniGame()
     {
+        Debug.Log("Call 2");
+        FishingPlayer.SetTrigger("Next"); //Player Moves to cast the line
         CastMinigame.SetActive(true);
+
+
     }
 
     public void StartWaitPhase(int score)
     {
+        FishingPlayer.SetTrigger("Next"); //Waits while fishing
+        Debug.Log("Call 3");
+
         int waitTime = score switch
         {
             1 => 30,
@@ -88,12 +99,16 @@ public class FishingCoreSystems : MonoBehaviour
 
     private IEnumerator WaitPhase(int waitTime)
     {
+        Debug.Log("Call 4");
+
         yield return new WaitForSeconds(waitTime);
         StartBitePhase();
     }
 
     private void StartBitePhase()
     {
+        Debug.Log("Call 5");
+
         BiteIndicator.SetActive(true);
         StartCoroutine(BiteWindow());
     }
@@ -119,18 +134,24 @@ public class FishingCoreSystems : MonoBehaviour
 
     private void CatchFish()
     {
+        Debug.Log("Call 6a");
+
         DeductBait();
         GoToIdle();
     }
 
     private void FailCatch()
     {
+        Debug.Log("Call 6b");
+
         DeductBait();
         GoToIdle();
     }
 
     private void GoToIdle()
     {
+        Debug.Log("Call 7");
+
         MinigameIndicator.SetActive(true);
         StartCoroutine(WaitForInput());
     }

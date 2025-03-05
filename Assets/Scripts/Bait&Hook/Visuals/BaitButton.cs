@@ -15,6 +15,7 @@ public class BaitButton : MonoBehaviour
 
     private void OnEnable()
     {
+    
         CheckStatus();
     }
 

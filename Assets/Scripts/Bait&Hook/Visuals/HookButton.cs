@@ -22,7 +22,7 @@ public class HookButton : MonoBehaviour
     {
         ContentIcon.sprite = HookReference.icon;
 
-        if (!BaitAndHookManager.Instance.IsHookUnlocked(HookReference.name))
+        if (!BaitAndHookManager.Instance.IsHookUnlocked(HookReference.hookName))
         {
             HandleLockedHook();
         }

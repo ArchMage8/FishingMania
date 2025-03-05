@@ -154,7 +154,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (!File.Exists(saveFilePath))
         {
-            Debug.LogWarning("No save file found.");
+            Debug.LogWarning("Save file be missing.");
             return;
         }
 

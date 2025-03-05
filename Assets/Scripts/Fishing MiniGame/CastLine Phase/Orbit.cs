@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Orbit : MonoBehaviour
@@ -18,10 +19,10 @@ public class Orbit : MonoBehaviour
     public float radius;
     private float startAngle;
     private int posPercentage;
+    private int Score;
 
     void Start()
     {
-        radius = Vector3.Distance(pivot.position, startPoint.transform.position);
         Vector3 direction = startPoint.transform.position - pivot.position;
         startAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         currentAngle = startAngle;
@@ -35,6 +36,13 @@ public class Orbit : MonoBehaviour
             if (isOrbiting)
             {
                 StopOrbit();
+                colorManager.target = GetPositionPercentage();
+                colorManager.SetScore();
+                Score = colorManager.Score;
+
+                FishingCoreSystems.instance.StartWaitPhase(Score);
+                FishingCoreSystems.instance.FishingPlayer.SetTrigger("Next");
+
                 isOrbiting = false;
             }
 

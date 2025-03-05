@@ -74,10 +74,16 @@ public class BaitAndHookManager : MonoBehaviour
     public void SetClass()
     {
         if (activeBait != null)
+        {
+            baitPreview.sprite = activeBait.icon;
             BaitClass = activeBait.baitClass;
+        }
 
         if (activeHook != null)
+        {
+            hookPreview.sprite = activeHook.icon;
             HookClass = activeHook.hookClass;
+        }
     }
 
     public void SetDescription(string description)
@@ -97,8 +103,14 @@ public class BaitAndHookManager : MonoBehaviour
         foreach (var hook in hookStatuses)
         {
             if (hook.hookName == HookName)
+            {
+      
                 return hook.isUnlocked;
+            }
+                
         }
+
+      
         return false;
     }
 
@@ -130,6 +142,8 @@ public class BaitAndHookManager : MonoBehaviour
     {
         if (!File.Exists(baitHookSaveFile))
         {
+        
+
             activeBait = defaultCombo.defaultBait;
             activeHook = defaultCombo.defaultHook;
             return;

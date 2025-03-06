@@ -1,18 +1,14 @@
 using UnityEngine;
+using System.Collections;
 using TMPro;
 using UnityEngine.UI;
 using Ink.Runtime;
 
 public class PurchaseManager : MonoBehaviour
 {
-    [Header("System References")]
-    public GameObject purchaseUI;
-    public KeyCode toggleKey = KeyCode.C; // Key to toggle the Delete UI.
-
-    [Space(20)]
+    [Header("Preview UI")]
 
     public TMP_Text itemNameText;
-    public TMP_Text itemDescriptionText;
     public TMP_Text itemPriceText;
     public Image itemIcon;
 
@@ -38,31 +34,21 @@ public class PurchaseManager : MonoBehaviour
 
 
         UpdatePurchaseUI();
-        purchaseUI.SetActive(false);
     }
-
     private void Update()
     {
-        if (DialogueManager.GetInstance().currentStory != null)
+        if(this.isActiveAndEnabled && Input.GetKeyDown(KeyCode.Escape))
         {
-            BindFunction();
-        }
-
-        if (standbyEnable && DialogueManager.GetInstance().dialogueRunning == false)
-        {
-            TogglePurchaseUI();
+            Time.timeScale = 1f;
+            this.gameObject.SetActive(false);
         }
     }
 
-    public void TogglePurchaseUI()
-    {
-        purchaseUI.SetActive(!purchaseUI.activeSelf);
 
-        if (purchaseUI.activeSelf)
-        {
-            UpdatePurchaseUI();
-            ResetPurchaseDetails();
-        }
+    private void OnEnable()
+    {
+        UpdatePurchaseUI();
+        ResetPurchaseDetails();
     }
 
     public void DisplayItemDetails(Item item, int price)
@@ -72,8 +58,17 @@ public class PurchaseManager : MonoBehaviour
 
         // Update UI with selected item details
         itemNameText.text = item.itemName;
-        itemDescriptionText.text = item.description;
-        itemPriceText.text = $"{price} Coins";
+        //itemDescriptionText.text = item.description;
+
+        if (price != 0)
+        {
+            itemPriceText.text = $"{price * purchaseQuantity} Coins";
+        }
+
+        else if (price == 0)
+        {
+            itemPriceText.text = "Free";
+        }
         itemIcon.sprite = item.icon;
 
         // Reset purchase quantity
@@ -133,7 +128,7 @@ public class PurchaseManager : MonoBehaviour
 
         // Process transaction
         //moneyManager.DeductMoney(totalCost);
-        Debug.Log($"Purchased {purchaseQuantity} of {selectedItem.itemName} for {totalCost} coins.");
+        //Debug.Log($"Purchased {purchaseQuantity} of {selectedItem.itemName} for {totalCost} coins.");
 
         // Reset selection
         ResetPurchaseDetails();
@@ -147,7 +142,7 @@ public class PurchaseManager : MonoBehaviour
 
         // Clear UI
         itemNameText.text = "";
-        itemDescriptionText.text = "";
+        //itemDescriptionText.text = "";
         itemPriceText.text = "";
         itemIcon.sprite = emptySprite;
         purchaseQtyText.text = "1";

@@ -7,12 +7,9 @@ What do you want?
         -> prompt1
     +[Who are all these people?]
         -> prompt2
-    +[I won't bother you anymore...]
-        -> END
-
-
-
-
+    +[I won't bother you...]
+        -> prompt3
+        
 === prompt1 ===
 Welcome to prototype land!
 Home of 2 random buildings and a beach
@@ -26,3 +23,7 @@ The villagers…
 Why don't you go talk to them?
 
 -> main
+
+=== prompt3 ===
+Alright then...
+->END

@@ -5,7 +5,7 @@ public class PurchaseCell : MonoBehaviour
 {
     [Header("Item Details")]
     public Item item;
-    public int price;
+    public int price; //Sell price from an NPC != object's value
 
     [Header("UI References")]
     public Image itemIcon;
@@ -18,6 +18,11 @@ public class PurchaseCell : MonoBehaviour
 
         button = GetComponent<Button>();
         
+        if(item == null)
+        {
+            button.enabled = false;
+        }
+
         purchaseManager = FindObjectOfType<PurchaseManager>();
 
         // Update cell UI

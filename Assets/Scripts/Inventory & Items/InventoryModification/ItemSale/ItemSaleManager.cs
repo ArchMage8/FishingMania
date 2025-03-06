@@ -11,7 +11,7 @@ public class ItemSaleManager : MonoBehaviour
 
     private InventoryManager inventoryManager; // Reference to the InventoryManager
     private MoneyManager moneyManager; // Reference to the MoneyManager
-    public GameObject saleUI; // The GameObject holding the sale UI (local to each NPC)
+    //public GameObject saleUI; // The GameObject holding the sale UI (local to each NPC)
 
     [Space(20)]
     public ItemSaleCell[] cells; // Array of cells representing inventory slots
@@ -40,42 +40,8 @@ public class ItemSaleManager : MonoBehaviour
         moneyManager = MoneyManager.Instance;
 
         UpdateUI();
-        saleUI.SetActive(false);
+
     }
-
-    private void Update()
-    {
-        if(DialogueManager.GetInstance().currentStory != null)
-        {
-            BindFunction();
-        }
-
-        if(standbyEnable && DialogueManager.GetInstance().dialogueRunning == false)
-        {
-            ToggleSaleUI();
-        }
-    }
-
-    public void ToggleSaleUI() //Need to be called via a dialogue
-    {
-        bool isActive = !saleUI.activeSelf;
-        saleUI.SetActive(isActive);
-
-        if (isActive)
-        {
-            UpdateUI();
-            SelectFirstItem();
-            Time.timeScale = 0f;
-        }
-
-        else if (!isActive)
-        {
-            DialogueManager.GetInstance().canDialogue = true;
-            standbyEnable = false;
-            Time.timeScale = 1f;
-        }
-    }
-
 
     private void UpdateUI()
     {

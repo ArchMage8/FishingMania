@@ -11,6 +11,7 @@ public class ItemSaleCell : MonoBehaviour
     private int slotIndex; // Index of the inventory slot this cell represents
     private ItemSaleManager saleManager; // Reference to the ItemSaleManager
 
+
     public void Initialize(ItemSaleManager manager, int index)
     {
         saleManager = manager;
@@ -25,7 +26,7 @@ public class ItemSaleCell : MonoBehaviour
         {
             // If the slot is empty, show empty state
             iconImage.sprite = emptySprite;
-            //iconImage.color = new Color(1, 1, 1, 0.5f); // Dimmed effect
+            iconImage.color = new Color(1, 1, 1, 0.5f); // Dimmed effect
             quantityText.text = string.Empty;
             cellButton.interactable = false;
         }
@@ -39,7 +40,7 @@ public class ItemSaleCell : MonoBehaviour
         }
     }
 
-    private void OnCellClicked()
+    public void OnCellClicked()
     {
         saleManager.OnCellClicked(slotIndex);
     }

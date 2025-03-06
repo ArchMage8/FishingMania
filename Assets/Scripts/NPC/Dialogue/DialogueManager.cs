@@ -16,7 +16,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI displayNameText;
-    public Animator NPCDialogueAnimator;
+    //public Animator NPCDialogueAnimator;
 
     [Space(15)]
     // Choices UI
@@ -46,9 +46,10 @@ public class DialogueManager : MonoBehaviour
     // Coroutine
     private Coroutine displayLineCoroutine;
 
-    // Quest Stuffs
+    // NOC Stuffs
     private QuestSO DialogueQuest; // The quest of the NPC we are talking to
     [HideInInspector] public bool NpcInRange = false;
+    private GameObject Temp_Shop;
 
 
     private void Awake()
@@ -103,6 +104,7 @@ public class DialogueManager : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
+                   
                     WantSkip = true;
                 }
             }
@@ -139,9 +141,34 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    public void EnterDialogue_Sell(TextAsset NPCDialogue, GameObject Sell_To_NPC_UI)
+    {
+        //We are selling to the NPC
+        currentStory = new Story(NPCDialogue.text);
+        dialogueRunning = true;
+        dialoguePanel.SetActive(true);
+        
+
+        BindPlayerShop();
+        ContinueStory();
+        Temp_Shop = Sell_To_NPC_UI;
+    }
+
+    public void EnterDialogue_Buy(TextAsset NPCDialogue, GameObject Sell_UI)
+    {
+        //We are buying from the NPC
+        currentStory = new Story(NPCDialogue.text);
+        dialogueRunning = true;
+        dialoguePanel.SetActive(true);
+
+        BindNPCShop();
+        ContinueStory();
+
+        Temp_Shop = Sell_UI;
+    }
+
     public void EnterDialogueMode_Default(TextAsset NPCDialogue)
     {
-        //The dialogue trigger needs to also send the corresponding Quest Data
 
         currentStory = new Story(NPCDialogue.text);
         dialogueRunning = true;
@@ -152,16 +179,15 @@ public class DialogueManager : MonoBehaviour
 
     private void ExitDialogueMode()
     {
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
 
         dialogueRunning = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
 
-        NPCDialogueAnimator.gameObject.SetActive(false);
-        
-        NPCDialogueAnimator = null;
+        //NPCDialogueAnimator.gameObject.SetActive(false);
 
+        ///NPCDialogueAnimator = null;
 
 
         if (QuestCompleted)
@@ -192,7 +218,7 @@ public class DialogueManager : MonoBehaviour
             }
 
             dialogueText.text += letter;
-            yield return new WaitForSeconds(typingSpeed);
+            yield return new WaitForSecondsRealtime(typingSpeed);
         }
 
 
@@ -213,7 +239,7 @@ public class DialogueManager : MonoBehaviour
             displayLineCoroutine = StartCoroutine(DisplayLine(currentStory.Continue()));
             HandleTags(currentStory.currentTags);
         }
-        else
+        else if (currentStory.canContinue == false)
         {
             ExitDialogueMode();
         }
@@ -249,6 +275,7 @@ public class DialogueManager : MonoBehaviour
         if (canContinueToNextLine)
         {
             currentStory.ChooseChoiceIndex(choiceIndex);
+            
             ContinueStory();
             EventSystem.current.SetSelectedGameObject(null);
         }
@@ -279,7 +306,7 @@ public class DialogueManager : MonoBehaviour
 
                 case ANIMATION_TRIGGER:
                     Debug.Log("Call animation switch");
-                    NPCDialogueAnimator.SetTrigger(tagValue);
+                    //NPCDialogueAnimator.SetTrigger(tagValue);
                     break;
 
                 default:
@@ -302,19 +329,19 @@ public class DialogueManager : MonoBehaviour
       
 
         canSkip = false;
-        yield return new WaitForSeconds(0.05f);
-
-        
+        yield return new WaitForSecondsRealtime(0.05f);
+        Debug.Log("Can Skip");
         canSkip = true;
     }
 
     //After this point it is used to handle the code aspect of the ink files
-//====================================================================================
+    //====================================================================================
+
+    #region Quest
 
     private void BindVariables()
     {
         
-
         currentStory.BindExternalFunction("SetVariables", () => {
             SetVariables_Before();
         });
@@ -432,4 +459,47 @@ public class DialogueManager : MonoBehaviour
     //6. SetVariables   -> function
     //6. SubmitQuest    -> function
     //7. SetActiveQuest -> function
+    #endregion
+
+    #region Buying from NPC
+
+    private void BindNPCShop()
+    {
+        currentStory.BindExternalFunction("EnableShop", () => MakeShopUIAppear());
+    }
+
+    private void MakeShopUIAppear()
+    {
+        if(Temp_Shop != null)
+        {
+            ExitDialogueMode();
+            Temp_Shop.SetActive(true);
+            Time.timeScale = 0f;
+
+            Temp_Shop = null;
+        }
+    }
+
+    #endregion
+
+    #region Selling to NPC
+
+    private void BindPlayerShop()
+    {
+        currentStory.BindExternalFunction("EnablePlayerShop", () => MakePlayerShopAppear());
+    }
+
+    private void MakePlayerShopAppear()
+    {
+        if (Temp_Shop != null)
+        {
+            ExitDialogueMode();
+            Temp_Shop.SetActive(true);
+            Time.timeScale = 0f;
+
+            Temp_Shop = null;
+        }
+    }
+
+    #endregion
 }

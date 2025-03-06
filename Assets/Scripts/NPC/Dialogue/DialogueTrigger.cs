@@ -9,13 +9,34 @@ public class DialogueTrigger : MonoBehaviour
     [Space(15)]
     [Header("NPC System Requirements")]
     public TextAsset NPC_Dialogue;
+
+    [Header("NPC Info")]
     public QuestSO NPC_Quest;
+    public GameObject Shop_NPC_UI;
+    public GameObject Sell_To_NPC_UI;
+
+ 
 
     private void Start()
     {
         if (interactIndicator != null)
         {
             interactIndicator.SetActive(false);
+        }
+
+        if(Shop_NPC_UI != null)
+        {
+            Shop_NPC_UI.SetActive(false);
+        }
+
+        if (Sell_To_NPC_UI != null)
+        {
+            Sell_To_NPC_UI.SetActive(false);
+        }
+
+        if ((NPC_Quest != null ? 1 : 0) + (Shop_NPC_UI != null ? 1 : 0) + (Sell_To_NPC_UI != null ? 1 : 0) > 1)
+        {
+            Debug.LogError("Ur Setup Be broken");
         }
 
         LocalDialogueAnimator.gameObject.SetActive(false);
@@ -29,7 +50,9 @@ public class DialogueTrigger : MonoBehaviour
 
             PlayerManager.instance.SnapDirection(this.gameObject.transform);
 
-            DialogueManager.GetInstance().NPCDialogueAnimator = LocalDialogueAnimator;
+            interactIndicator.SetActive(false);
+
+            //DialogueManager.GetInstance().NPCDialogueAnimator = LocalDialogueAnimator;
             DialogueManager.GetInstance().NpcInRange = playerInRange;
 
             if (NPC_Quest != null)
@@ -37,12 +60,24 @@ public class DialogueTrigger : MonoBehaviour
                 DialogueManager.GetInstance().EnterDialogueMode_Quest(NPC_Dialogue, NPC_Quest);
             }
 
+            else if (Shop_NPC_UI != null)
+            {
+                //We are buying from the NPC
+                DialogueManager.GetInstance().EnterDialogue_Buy(NPC_Dialogue, Shop_NPC_UI);
+            }
+
+            else if (Sell_To_NPC_UI != null)
+            {
+                //We are selling to the NPC
+                DialogueManager.GetInstance().EnterDialogue_Sell(NPC_Dialogue, Sell_To_NPC_UI);
+            }
+
             else
             {
                 DialogueManager.GetInstance().EnterDialogueMode_Default(NPC_Dialogue);
             }
 
-            LocalDialogueAnimator.gameObject.SetActive(true);
+            //LocalDialogueAnimator.gameObject.SetActive(true);
 
         }
     }

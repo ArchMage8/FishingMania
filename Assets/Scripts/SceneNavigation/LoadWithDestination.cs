@@ -5,17 +5,38 @@ using Cinemachine;
 
 public class LoadWithDestination : MonoBehaviour
 {
+
+    [Header("Teleport Information")]
     public Vector3 TargetPosition;
     public int DestinationScene;
 
+    [Header("Teleport Settings")]
     public Animator sceneLoader;
+    public bool NoButton = false;
+
+    private bool TeleportRunning;
+
+    private void Awake()
+    {
+        Debug.Log("Awake is called");
+    }
 
     private void Start()
     {
-        GameObject parent = this.transform.parent.gameObject;
+        TeleportRunning = false;
 
-        DontDestroyOnLoad(parent); // Ensures this object persists during scene load
+        Debug.Log("Start is called");
+
         DontDestroyOnLoad(this);
+    }
+
+    private void Update()
+    {
+        if (NoButton && Input.GetKeyDown(KeyCode.Escape) && !TeleportRunning)
+        {
+            TeleportRunning = true;
+            MovePlayer();
+        }
     }
 
     public void MovePlayer()
@@ -26,6 +47,7 @@ public class LoadWithDestination : MonoBehaviour
     private IEnumerator LoadSceneAndMovePlayer()
     {
 
+
         sceneLoader.SetTrigger("CloseScene");
 
         yield return new WaitForSeconds(1f);
@@ -34,6 +56,7 @@ public class LoadWithDestination : MonoBehaviour
 
         while (!asyncLoad.isDone)
         {
+            TeleportRunning = true;
             yield return null;
         }
 

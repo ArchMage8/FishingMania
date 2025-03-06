@@ -27,9 +27,20 @@ public class DialogueTrigger : MonoBehaviour
         {
             Time.timeScale = 0f;
 
+            PlayerManager.instance.SnapDirection(this.gameObject.transform);
+
             DialogueManager.GetInstance().NPCDialogueAnimator = LocalDialogueAnimator;
             DialogueManager.GetInstance().NpcInRange = playerInRange;
-            DialogueManager.GetInstance().EnterDialogueMode_Quest(NPC_Dialogue, NPC_Quest);
+
+            if (NPC_Quest != null)
+            {
+                DialogueManager.GetInstance().EnterDialogueMode_Quest(NPC_Dialogue, NPC_Quest);
+            }
+
+            else
+            {
+                DialogueManager.GetInstance().EnterDialogueMode_Default(NPC_Dialogue);
+            }
 
             LocalDialogueAnimator.gameObject.SetActive(true);
 

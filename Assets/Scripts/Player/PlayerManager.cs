@@ -2,23 +2,20 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    private Transform target; // The target object
+    public static PlayerManager instance;
+
+    //public Transform target; // The target object
     public PlayerMovement playerMovement;
 
     private float AnimatorX;
     private float AnimatorY;
 
-
-    private void Update()
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            SnapDirection();
-        }
+        instance = this;
     }
-    
 
-    void SnapDirection()
+    public void SnapDirection(Transform target)
     {
         if (target == null)
             return;
@@ -108,21 +105,5 @@ public class PlayerManager : MonoBehaviour
             return "SE";
 
         return "Unknown";
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("NPC"))
-        {
-            target = other.gameObject.transform;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("NPC"))
-        {
-            target = null;
-        }
     }
 }

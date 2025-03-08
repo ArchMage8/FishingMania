@@ -56,7 +56,7 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     public bool ReduceMoney(int amount)
     {
-        if (amount <= 0 || amount > playerBalance)
+        if (amount < 0 || amount > playerBalance)
         {
             Debug.LogWarning($"Cannot reduce {amount}. Not enough funds or invalid amount.");
             return false;

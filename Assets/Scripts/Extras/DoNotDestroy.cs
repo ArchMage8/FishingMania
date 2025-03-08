@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class DoNotDestroy : MonoBehaviour
 {
-    void Awake()
+    private void Awake()
     {
+        // Check if another instance of this object already exists
+        foreach (var obj in FindObjectsOfType<DoNotDestroy>())
+        {
+            if (obj != this && obj.gameObject.name == gameObject.name)
+            {
+                Destroy(gameObject);
+                return;
+            }
+        }
+
+        // Persist this object across scenes
         DontDestroyOnLoad(gameObject);
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject interactIndicator;
-    [SerializeField] private Animator LocalDialogueAnimator;
+    //[SerializeField] private Animator LocalDialogueAnimator;
     private bool playerInRange = false;
 
     [Space(15)]
@@ -39,13 +39,15 @@ public class DialogueTrigger : MonoBehaviour
             Debug.LogError("Ur Setup Be broken");
         }
 
-        LocalDialogueAnimator.gameObject.SetActive(false);
+        //LocalDialogueAnimator.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.F))
+        if (playerInRange && Input.GetKeyDown(KeyCode.F) && !DialogueManager.GetInstance().dialogueRunning && !InventoryManager.Instance.SomeUIEnabled) 
         {
+            Debug.Log("Call");
+
             Time.timeScale = 0f;
 
             PlayerManager.instance.SnapDirection(this.gameObject.transform);

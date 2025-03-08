@@ -51,10 +51,12 @@ public class LoadScene_Trigger : MonoBehaviour
 
     private IEnumerator LoadScene()
     {
+        InventoryManager.Instance.SomeUIEnabled = true;
         sceneLoader.SetTrigger("CloseScene");
 
         yield return new WaitForSeconds(1f);
-        
+
+        InventoryManager.Instance.SomeUIEnabled = false;
         SceneManager.LoadScene(DestinationScene);
     }
 }

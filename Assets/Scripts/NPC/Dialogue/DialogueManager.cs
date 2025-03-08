@@ -96,7 +96,10 @@ public class DialogueManager : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
-                    ContinueStory();
+                    if (dialogueRunning)
+                    {
+                        ContinueStory();
+                    }
                 }
             }
 
@@ -465,6 +468,7 @@ public class DialogueManager : MonoBehaviour
 
     private void BindNPCShop()
     {
+        Debug.Log("cll");
         currentStory.BindExternalFunction("EnableShop", () => MakeShopUIAppear());
     }
 
@@ -472,7 +476,10 @@ public class DialogueManager : MonoBehaviour
     {
         if(Temp_Shop != null)
         {
+            Debug.Log("CAll");
+            
             ExitDialogueMode();
+            InventoryManager.Instance.SomeUIEnabled = true;
             Temp_Shop.SetActive(true);
             Time.timeScale = 0f;
 
@@ -494,6 +501,7 @@ public class DialogueManager : MonoBehaviour
         if (Temp_Shop != null)
         {
             ExitDialogueMode();
+            InventoryManager.Instance.SomeUIEnabled = true;
             Temp_Shop.SetActive(true);
             Time.timeScale = 0f;
 

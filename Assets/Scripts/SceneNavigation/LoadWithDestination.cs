@@ -46,11 +46,13 @@ public class LoadWithDestination : MonoBehaviour
 
     private IEnumerator LoadSceneAndMovePlayer()
     {
-
+        InventoryManager.Instance.SomeUIEnabled = true;
 
         sceneLoader.SetTrigger("CloseScene");
 
         yield return new WaitForSeconds(1f);
+
+        InventoryManager.Instance.SomeUIEnabled = false;
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(DestinationScene);
 

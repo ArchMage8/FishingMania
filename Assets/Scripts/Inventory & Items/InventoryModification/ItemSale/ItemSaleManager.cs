@@ -6,6 +6,8 @@ using Ink.Runtime;
 
 public class ItemSaleManager : MonoBehaviour
 {
+    //This for when we want to sell stuff to an NPC
+
     [Header("System References")]
     [Space(10)]
 
@@ -43,6 +45,16 @@ public class ItemSaleManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (this.isActiveAndEnabled && Input.GetKeyDown(KeyCode.Escape))
+        {
+            InventoryManager.Instance.SomeUIEnabled = false;
+            Time.timeScale = 1f;
+            this.gameObject.SetActive(false);
+        }
+    }
+
     private void UpdateUI()
     {
         // Populate cells with inventory data
@@ -58,7 +70,7 @@ public class ItemSaleManager : MonoBehaviour
         {
             selectedItemNameText.text = string.Empty;
             selectedItemPriceText.text = string.Empty;
-            selectedItemIconImage.sprite = null;
+            selectedItemIconImage.enabled = false;
             deductQtyText.text = "1";
         }
     }
@@ -78,6 +90,8 @@ public class ItemSaleManager : MonoBehaviour
 
     public void OnCellClicked(int slotIndex)
     {
+        selectedItemIconImage.enabled = true;
+
         var (item, quantity) = inventoryManager.GetItemInSlot(slotIndex);
 
         if (item == null || quantity <= 0) return;

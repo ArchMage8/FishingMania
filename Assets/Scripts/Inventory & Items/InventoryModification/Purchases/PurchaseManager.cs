@@ -39,6 +39,7 @@ public class PurchaseManager : MonoBehaviour
     {
         if(this.isActiveAndEnabled && Input.GetKeyDown(KeyCode.Escape))
         {
+            InventoryManager.Instance.SomeUIEnabled = false;
             Time.timeScale = 1f;
             this.gameObject.SetActive(false);
         }
@@ -115,6 +116,7 @@ public class PurchaseManager : MonoBehaviour
         // Check if the player has enough money
         if (!moneyManager.ReduceMoney(totalCost))
         {
+            Debug.Log(totalCost);
             Debug.Log("Not enough money to complete the purchase.");
             return;
         }

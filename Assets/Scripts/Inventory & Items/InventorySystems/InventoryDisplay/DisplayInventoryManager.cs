@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class DisplayInventoryManager : MonoBehaviour
 {
@@ -47,41 +48,37 @@ public class DisplayInventoryManager : MonoBehaviour
         // Toggle display UI with Tab key
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-
-            UpdateGrid();
-            deleteItemManager.UpdateUI();
-
-            ToggleDisplayUI();
+          ToggleInventoryPage();
         }
     }
 
- 
-
-    private void ToggleDisplayUI()
+    private void ToggleInventoryPage()
     {
-        // Toggle the active state of the display UI
-        displayUI.SetActive(!displayUI.activeSelf);
-
-        // If the UI is activated, show default item details
-        if (displayUI.activeSelf && !inventoryManager.SomeUIEnabled)
+        if (displayUI.activeSelf == true)
         {
+            displayUI.SetActive(false);
+            inventoryManager.SomeUIEnabled = false;
+
+            DialogueManager.GetInstance().canDialogue = true;
+            Time.timeScale = 1f;
+        }
+        
+        else if(!DialogueManager.GetInstance().dialogueRunning && !inventoryManager.SomeUIEnabled)
+        {
+            displayUI.SetActive(true);
             inventoryManager.SomeUIEnabled = true;
 
             UpdateGrid(); // Refresh the grid when toggled on
             ShowDefaultItemDetails();
             Time.timeScale = 0f;
 
+            UpdateGrid();
+            deleteItemManager.UpdateUI();
+
             DialogueManager.GetInstance().canDialogue = false;
         }
-
-        else
-        {
-            inventoryManager.SomeUIEnabled = false;
-
-            DialogueManager.GetInstance().canDialogue = true;
-            Time.timeScale = 1f;
-        }
     }
+
 
     private void UpdateGrid()
     {

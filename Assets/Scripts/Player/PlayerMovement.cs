@@ -84,8 +84,10 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer()
     {
-        rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.fixedDeltaTime);
+        Vector2 adjustedMoveDirection = new Vector2(moveDirection.x, moveDirection.y * 0.75f);
+        rb.MovePosition(rb.position + adjustedMoveDirection * moveSpeed * Time.fixedDeltaTime);
     }
+
 
     void UpdateAnimator()
     {

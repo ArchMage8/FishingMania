@@ -5,7 +5,11 @@ using System.Collections.Generic;
 public class QuestManager : MonoBehaviour
 {
     public static QuestManager Instance;
-    private void Awake() { Instance = this; }
+    private void Awake() 
+    {
+        Instance = this;
+        LoadActiveQuest();
+    }
 
     public int activeQuestID;
     private string activeQuestDescription;
@@ -13,6 +17,7 @@ public class QuestManager : MonoBehaviour
     [HideInInspector] public bool activeQuestPresent;
 
     private string savePath => Path.Combine(Application.persistentDataPath, "ActiveQuest.json");
+
 
     public void SetActiveQuest(QuestSO quest)
     {

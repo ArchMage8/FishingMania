@@ -1,7 +1,6 @@
-=== main===
-What are you looking at me for?
+What are you looking at me for? #speaker: Magu #trigger: next
 
-Lets go outside and catch something to eat…
+Lets go outside and catch something to eat… #speaker: Magu #trigger: next
     +[Eat?]
     ->Section1
     
@@ -9,11 +8,10 @@ Lets go outside and catch something to eat…
     ->Section2
     
 === Section1 ===
-Yes eat!
-You ruined my dinner after all!
+Yes, You just ruined my dinner after all! #speaker: Magu #trigger: branch1
 ->END
 
 === Section2 ===
-Lets just go outside!
-Exit is right there...
+Lets just go outside! #speaker: Magu #trigger: branch2
+Exit is right there. #speaker: Magu #trigger: next
 ->END

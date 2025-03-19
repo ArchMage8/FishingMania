@@ -1,29 +1,28 @@
-=== start ===
-What are you doing??
+What are you doing?? #speaker: Iris #trigger: next
 
-Eh? A fish that can talk?
+Eh? A fish that can talk? #speaker: Magu #trigger: next
 
-Wha..? What? I'm not a fish!
+Wha..? What? I'm not a fish! #speaker: Iris #trigger: next
 
-Really, you came from the ocean…
+Really? You came from the ocean… #speaker: Magu #trigger: next
 
-Like a fish
+Like a fish... #speaker: Magu #trigger: next
 
-Ocean?
+Ocean? #speaker: Iris #trigger: next
 
-AH! THE BOAT!
+AH! THE BOAT! #speaker: Iris #trigger: next
 
-Boat?
+Boat? #speaker: Magu #trigger: next
 
-I need to go find the boat!
+I need to go find the boat! #speaker: Iris #trigger: next
 
-Wait wait…
+Wait wait! #speaker: Magu #trigger: next
 
-You cant just run off.
+You cant just run off! #speaker: Magu #trigger: next
 
-Eh?
+Eh? #speaker: Iris #trigger: next
 
-You need to replace my dinner first!
+You need to replace my dinner first! #speaker: Magu #trigger: next
 
-Wha…?
+Wha…? #speaker: Iris #trigger: next
 -> END

@@ -294,6 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactIndicator: {fileID: 249869284}
+  LocalDialogueAnimator: {fileID: 0}
   NPC_Dialogue: {fileID: 4900000, guid: 002514f4653c5dc44840172ef02bf5ce, type: 3}
   NPC_Quest: {fileID: 0}
   Shop_NPC_UI: {fileID: 0}
@@ -1117,6 +1118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactIndicator: {fileID: 249869284}
+  LocalDialogueAnimator: {fileID: 0}
   NPC_Dialogue: {fileID: 4900000, guid: 1c6140b876e46b94db144b637937e2ca, type: 3}
   NPC_Quest: {fileID: 0}
   Shop_NPC_UI: {fileID: 0}
@@ -1650,6 +1652,7 @@ MonoBehaviour:
   dialoguePanel: {fileID: 1124474737}
   dialogueText: {fileID: 697289828}
   displayNameText: {fileID: 1202709019}
+  NPCDialogueAnimator: {fileID: 0}
   choices:
   - {fileID: 1963610418}
   - {fileID: 1514954843}
@@ -3977,6 +3980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactIndicator: {fileID: 249869284}
+  LocalDialogueAnimator: {fileID: 0}
   NPC_Dialogue: {fileID: 4900000, guid: 5665ef575cb5c484ab0ecebe81791028, type: 3}
   NPC_Quest: {fileID: 11400000, guid: f4aaf68396f65b846b6d353b23af7a63, type: 2}
   Shop_NPC_UI: {fileID: 0}
@@ -8522,6 +8526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactIndicator: {fileID: 249869284}
+  LocalDialogueAnimator: {fileID: 0}
   NPC_Dialogue: {fileID: 4900000, guid: 21415abbec099bd4c9a057ed5a65d005, type: 3}
   NPC_Quest: {fileID: 0}
   Shop_NPC_UI: {fileID: 1776419007}
@@ -10533,7 +10538,7 @@ Tilemap:
       - {fileID: 1439523582, guid: 4246bd222d0420c47b08c63857ae8b3e, type: 3}
       - {fileID: 1511340406, guid: 4246bd222d0420c47b08c63857ae8b3e, type: 3}
       - {fileID: -960591798, guid: 4246bd222d0420c47b08c63857ae8b3e, type: 3}
-      m_AnimationSpeed: 7.0000005
+      m_AnimationSpeed: 7
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -18, y: -14, z: 0}
@@ -10701,7 +10706,7 @@ Tilemap:
       - {fileID: 1439523582, guid: 4246bd222d0420c47b08c63857ae8b3e, type: 3}
       - {fileID: 1511340406, guid: 4246bd222d0420c47b08c63857ae8b3e, type: 3}
       - {fileID: -960591798, guid: 4246bd222d0420c47b08c63857ae8b3e, type: 3}
-      m_AnimationSpeed: 7.0000005
+      m_AnimationSpeed: 7
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -2, y: -14, z: 0}
@@ -19256,7 +19261,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.3499999
+  orthographic size: 1.015
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

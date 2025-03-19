@@ -1,43 +1,43 @@
-Do you know how to fish?
+Do you know how to fish? #speaker: Magu #trigger: next
 
-Yes, just throw some bread into the water and fish show up!
+Yes, just throw some bread into the water and fish show up! #speaker: Iris #trigger: next
 
-Eh?
+Eh? #speaker: Magu #trigger: next
 
-And how do you suppose we get the fish?
+And how do you suppose we get the fish? #speaker: Magu #trigger: next
 
-You can swim can’t you?
+You can swim can’t you? #speaker: Iris #trigger: next
 
-…
+… #speaker: Magu #trigger: next
 ->main
 
 === main ===
 
-Look it’s easy, when you want to start fishing press the F key.
+Look it’s easy, when you want to start fishing press the F key.#speaker: Magu #trigger: next
 
-A circle will appear next to you.
+A circle will appear next to you. #speaker: Magu #trigger: next
 
-Circle, from where??
+Circle, from where?? #speaker: Iris #trigger: next
 
-Just listen please, or else I’ll push you back in the water!
+Just listen please, or else I’ll push you back in the water! #speaker: Magu #trigger: next
 
-But you so shmall…
+But you so shmall… #speaker: Iris #trigger: next
 
-…
+… #speaker: Magu #trigger: next
 
-There will be a spinning thing on the circle…
+A dot will be spinning in the circle… #speaker: Magu #trigger: next
 
-You need to press F again when the bar is on the green part.
+You need to press F again when the bar is on the green part. #speaker: Magu #trigger: next
 
-What happens if I hit the other colors?
+What happens if I hit the other colors? #speaker: Iris #trigger: next
 
-You will have to wait longer for a fish to show up…
+You will have to wait longer for a fish to show up… #speaker: Magu #trigger: next
 
-When you see the fish bite press F again to start reeling in the fish!
+When the fish bites, press F to start reeling in the fish! #speaker: Magu #trigger: next
 
-While reeling in you need to spam the F key to pull the fish back up.
+While you are reeling in spam the F key to pull the fish back up. #speaker: Magu #trigger: next
 
-If you mess up then try again…
+If you mess up then try again… #speaker: Magu #trigger: next
 
 Do you understand?
     +[Yes]
@@ -48,11 +48,11 @@ Do you understand?
 
 
 === ending1 ===
-Ok Go! And we aren’t leaving until you catch a fish!
+Alright Go Fish! And we aren’t leaving until you catch one! #speaker: Magu #trigger: next
 ->END
 
 === ending2 ===
-Ok, I'll repeat it again!
+Fine, I'll repeat it again! #speaker: Magu #trigger: loopback
 ->main
 
 

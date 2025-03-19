@@ -251,7 +251,7 @@ Animator:
   m_GameObject: {fileID: 474551882}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3d236efd4054de546b39fac8099d1dde, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -643,12 +643,12 @@ MonoBehaviour:
   dialoguePanel: {fileID: 2012633938}
   dialogueText: {fileID: 607214830}
   displayNameText: {fileID: 623292537}
-  NPCDialogueAnimator: {fileID: 0}
   choices:
   - {fileID: 1613483180}
   - {fileID: 1969097192}
   - {fileID: 608226824}
   dialogueRunning: 0
+  canDialogue: 1
   typingSpeed: 0.1
   NpcInRange: 0
 --- !u!4 &1188659769
@@ -724,6 +724,8 @@ MonoBehaviour:
   interactIndicator: {fileID: 0}
   NPC_Dialogue: {fileID: 0}
   NPC_Quest: {fileID: 0}
+  Shop_NPC_UI: {fileID: 0}
+  Sell_To_NPC_UI: {fileID: 0}
 --- !u!1 &2012633938 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8269238392009614128, guid: d73ff50612bc50c488a67f6f0e1f5027, type: 3}

@@ -16,7 +16,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI displayNameText;
-    //public Animator NPCDialogueAnimator;
+    public Animator NPCDialogueAnimator;
 
     [Space(15)]
     // Choices UI
@@ -188,9 +188,9 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
 
-        //NPCDialogueAnimator.gameObject.SetActive(false);
+        NPCDialogueAnimator.gameObject.SetActive(false);
 
-        ///NPCDialogueAnimator = null;
+        NPCDialogueAnimator = null;
 
 
         if (QuestCompleted)
@@ -309,7 +309,7 @@ public class DialogueManager : MonoBehaviour
 
                 case ANIMATION_TRIGGER:
                     Debug.Log("Call animation switch");
-                    //NPCDialogueAnimator.SetTrigger(tagValue);
+                    NPCDialogueAnimator.SetTrigger(tagValue);
                     break;
 
                 default:

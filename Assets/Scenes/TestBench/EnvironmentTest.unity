@@ -306,6 +306,7 @@ MonoBehaviour:
   dialoguePanel: {fileID: 1411209583}
   dialogueText: {fileID: 345535485}
   displayNameText: {fileID: 875266938}
+  NPCDialogueAnimator: {fileID: 0}
   choices:
   - {fileID: 681064057}
   - {fileID: 681064056}
@@ -604,7 +605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8269238392009614128, guid: d73ff50612bc50c488a67f6f0e1f5027, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8269238392009614132, guid: d73ff50612bc50c488a67f6f0e1f5027, type: 3}
       propertyPath: m_Pivot.x
@@ -1151,6 +1152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1249444710}
   - component: {fileID: 1249444709}
+  - component: {fileID: 1249444711}
   m_Layer: 0
   m_Name: QuestManager
   m_TagString: Untagged
@@ -1188,6 +1190,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1249444711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249444708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffcede3c39d890748b90c8f00d61be03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSlots: 36
+  maxStack: 9
+  SomeUIEnabled: 0
 --- !u!1 &1369408355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,7 +1777,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -2730,7 +2747,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4072285439757229462, guid: 8f15dee386e71764ba589f18f0994e09, type: 3}
       propertyPath: orthographic size
-      value: 1.69
+      value: 1.3499999
       objectReference: {fileID: 0}
     - target: {fileID: 4072285440361159755, guid: 8f15dee386e71764ba589f18f0994e09, type: 3}
       propertyPath: m_Follow
@@ -2858,6 +2875,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7931589596803415829, guid: 25287837743a2d44baf40c1e0e5f5834, type: 3}
+      propertyPath: NPC_Dialogue
+      value: 
+      objectReference: {fileID: 4900000, guid: 99c06f1bbff2b774da0406f5f070e941, type: 3}
     - target: {fileID: 7931589597061778868, guid: 25287837743a2d44baf40c1e0e5f5834, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2906,9 +2927,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sugu Level (0)
       objectReference: {fileID: 0}
+    - target: {fileID: 7931589597061778871, guid: 25287837743a2d44baf40c1e0e5f5834, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1156347618, guid: e64afb74a796a8644ab28e1d4c7d71de, type: 3}
+    - target: {fileID: 7931589597061778871, guid: 25287837743a2d44baf40c1e0e5f5834, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931589597582873550, guid: 25287837743a2d44baf40c1e0e5f5834, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931589597633565577, guid: 25287837743a2d44baf40c1e0e5f5834, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7931589597633565581, guid: 25287837743a2d44baf40c1e0e5f5834, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931589597633565590, guid: 25287837743a2d44baf40c1e0e5f5834, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0d955cc7d19aef547b969921dc42b7ed, type: 2}
+    - target: {fileID: 7931589597930838690, guid: 25287837743a2d44baf40c1e0e5f5834, type: 3}
+      propertyPath: m_Sprite
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25287837743a2d44baf40c1e0e5f5834, type: 3}

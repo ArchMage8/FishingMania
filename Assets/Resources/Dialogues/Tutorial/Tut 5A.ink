@@ -1,13 +1,13 @@
-Here is your fish, can I go now?
+Here is your fish, can I go now? #speaker: Iris #trigger: next
 
-Eh?
+Eh? #speaker: Magu #trigger: next
 
-You expect me to eat raw fish?
+You expect me to eat raw fish? #speaker: Magu #trigger: next
 
-So?
+So? Your a cat! #speaker: Iris #trigger: next
 
-Here take this salt and go cook the fish by the stove.
+Here is some salt, now go cook the fish by the stove. #speaker: Magu #trigger: next
 
-You can find the recipe by the stove over there!
+You can find the recipe by the stove there! #speaker: Magu #trigger: next
 
 ->END

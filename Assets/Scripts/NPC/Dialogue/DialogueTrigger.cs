@@ -3,7 +3,7 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject interactIndicator;
-    //[SerializeField] private Animator LocalDialogueAnimator;
+    [SerializeField] private Animator LocalDialogueAnimator;
     private bool playerInRange = false;
 
     [Space(15)]
@@ -54,7 +54,7 @@ public class DialogueTrigger : MonoBehaviour
 
             interactIndicator.SetActive(false);
 
-            //DialogueManager.GetInstance().NPCDialogueAnimator = LocalDialogueAnimator;
+            DialogueManager.GetInstance().NPCDialogueAnimator = LocalDialogueAnimator;
             DialogueManager.GetInstance().NpcInRange = playerInRange;
 
             if (NPC_Quest != null)

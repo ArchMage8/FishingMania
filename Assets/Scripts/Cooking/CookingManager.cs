@@ -1,96 +1,163 @@
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class CookingManager : MonoBehaviour
 {
     public static CookingManager Instance;
 
-    public RecipeDefaultDataSO defaultRecipeData; // Assign in Inspector
-    public List<RecipeDataEntry> recipeDataList = new List<RecipeDataEntry>();
+    [SerializeField] private InventoryManager inventoryManager; // Reference to inventory system
+    [SerializeField] private Image dishIcon; // UI display for dish icon
+    [SerializeField] private TMP_Text cookQuantityText; // Display for selected cook quantity
+    [SerializeField] private TMP_Text dishName; // Display for dish name
+    [SerializeField] private GameObject cookingAnimation; // Animation object
+    [SerializeField] private IngredientDisplay[] ingredientDisplays; // UI elements for ingredients
 
-    private string saveFilePath;
+    private Recipe currentRecipe;
+    private int maxCookQuantity = 1;
+    private int selectedCookQuantity = 1;
 
     private void Awake()
     {
-        Instance = this;
-        saveFilePath = Path.Combine(Application.persistentDataPath, "recipeData.json");
-
-        LoadRecipeData();
-    }
-
-    [System.Serializable]
-    public class RecipeDataEntry
-    {
-        public string recipeName;
-        public bool isUnlocked;
-
-        public RecipeDataEntry(string name, bool unlocked)
+        if (Instance == null)
         {
-            recipeName = name;
-            isUnlocked = unlocked;
-        }
-    }
-
-    public void SaveRecipeData()
-    {
-        string json = JsonUtility.ToJson(new RecipeSaveData { recipes = recipeDataList }, true);
-        File.WriteAllText(saveFilePath, json);
-        Debug.Log("Recipe data saved.");
-    }
-
-    public void LoadRecipeData()
-    {
-        if (File.Exists(saveFilePath))
-        {
-            string json = File.ReadAllText(saveFilePath);
-            RecipeSaveData saveData = JsonUtility.FromJson<RecipeSaveData>(json);
-            recipeDataList = saveData.recipes;
-            Debug.Log("Recipe data loaded.");
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            InitializeDefaultData();
+            Destroy(gameObject);
         }
     }
 
-    private void InitializeDefaultData()
+    public void RecieveRecipe(Recipe recipe, GameObject animationObject)
     {
-        recipeDataList.Clear();
-        foreach (var entry in defaultRecipeData.recipes)
-        {
-            recipeDataList.Add(new RecipeDataEntry(entry.recipe.RecipeName, entry.isUnlocked));
-        }
-        SaveRecipeData();
+        currentRecipe = recipe;
+        cookingAnimation = animationObject;
+
+        // Determine max cook quantity
+        maxCookQuantity = CalculateMaxQuantity(recipe);
+        selectedCookQuantity = 1;
+
+        // Update UI
+        UpdateRecipeUI();
     }
 
-    public void DeleteRecipeData()
+    public int CalculateMaxQuantity(Recipe recipe)
     {
-        if (File.Exists(saveFilePath))
-        {
-            File.Delete(saveFilePath);
-            Debug.Log("Recipe data deleted.");
-        }
-    }
+        int maxQty = int.MaxValue;
 
-    public void UnlockRecipe(RecipeSO recipe)
-    {
-        foreach (var entry in recipeDataList)
+        foreach (var ingredient in recipe.ingredients)
         {
-            if (entry.recipeName == recipe.RecipeName)
+            int availableAmount = inventoryManager.GetTotalQuantity(ingredient.ingredientItem);
+            int possibleQty = availableAmount / ingredient.quantityRequired;
+
+            if (possibleQty < maxQty)
             {
-                entry.isUnlocked = true;
-                SaveRecipeData();
-                Debug.Log($"Recipe {recipe.RecipeName} unlocked.");
-                return;
+                maxQty = possibleQty;
             }
         }
-        Debug.LogWarning($"Recipe {recipe.RecipeName} not found in data list.");
+
+        return Mathf.Max(1, maxQty);
     }
 
-    [System.Serializable]
-    private class RecipeSaveData
+    private void UpdateRecipeUI()
     {
-        public List<RecipeDataEntry> recipes;
+        if (currentRecipe == null) return;
+
+        // Update Dish Icon
+        dishIcon.sprite = currentRecipe.resultDish.icon;
+
+        // Update Cook Quantity
+        cookQuantityText.text = selectedCookQuantity.ToString();
+
+        //Update Active Recipe Name
+        dishName.text = currentRecipe.resultDish.itemName;
+
+        // Update Ingredients UI
+        for (int i = 0; i < ingredientDisplays.Length; i++)
+        {
+            if (i < currentRecipe.ingredients.Length)
+            {
+                ingredientDisplays[i].ingredientImage.sprite = currentRecipe.ingredients[i].ingredientItem.icon;
+                ingredientDisplays[i].ingredientText.text = $"{currentRecipe.ingredients[i].quantityRequired * selectedCookQuantity}";
+                ingredientDisplays[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                ingredientDisplays[i].gameObject.SetActive(false);
+            }
+        }
     }
+
+    public void IncreaseCookQuantity()
+    {
+        if (selectedCookQuantity < maxCookQuantity)
+        {
+            selectedCookQuantity++;
+            cookQuantityText.text = selectedCookQuantity.ToString();
+            UpdateRecipeUI();
+        }
+    }
+
+    public void DecreaseCookQuantity()
+    {
+        if (selectedCookQuantity > 1)
+        {
+            selectedCookQuantity--;
+            cookQuantityText.text = selectedCookQuantity.ToString();
+            UpdateRecipeUI();
+        }
+    }
+
+    public void ExecuteCooking()
+    {
+        if (currentRecipe == null) return;
+
+        if (!inventoryManager.AddItem(currentRecipe.resultDish, selectedCookQuantity))
+        {
+            Debug.Log("Inventory is full!");
+            return;
+        }
+
+        // Create a list of item removal requests
+        List<ItemRemovalRequest> removalRequests = new List<ItemRemovalRequest>();
+        foreach (var ingredient in currentRecipe.ingredients)
+        {
+            removalRequests.Add(new ItemRemovalRequest
+            {
+                item = ingredient.ingredientItem,
+                quantity = ingredient.quantityRequired * selectedCookQuantity
+            });
+        }
+
+        // Attempt to remove the required ingredients
+        if (!inventoryManager.RemoveItems(removalRequests))
+        {
+            Debug.Log("Not enough ingredients to cook!");
+            return;
+        }
+
+        // Show cooking animation
+        StartCoroutine(ShowCookingAnimation());
+    }
+
+    private System.Collections.IEnumerator ShowCookingAnimation()
+    {
+        if (cookingAnimation)
+        {
+            cookingAnimation.SetActive(true);
+            yield return new WaitForSeconds(3f);
+            cookingAnimation.SetActive(false);
+        }
+    }
+}
+
+[System.Serializable]
+public class IngredientDisplay
+{
+    public GameObject gameObject;
+    public Image ingredientImage;
+    public TMP_Text ingredientText;
 }

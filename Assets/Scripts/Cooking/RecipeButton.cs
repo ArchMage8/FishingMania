@@ -4,8 +4,13 @@ using UnityEngine.UI;
 public class RecipeButton : MonoBehaviour
 {
     [SerializeField] private Recipe assignedRecipe;
+
+    [Space(20)]
+
     [SerializeField] private Button buttonComponent;
     [SerializeField] private Image buttonImage;
+
+    [Space(20)]
     [SerializeField] private GameObject cookComic;
     [SerializeField] private Color inactiveColor;
 
@@ -40,7 +45,7 @@ public class RecipeButton : MonoBehaviour
         }
     }
 
-    public void OnButtonPressed()
+    public void SendRecipe()
     {
         if (assignedRecipe != null)
         {

@@ -7,11 +7,17 @@ public class CookingManager : MonoBehaviour
 {
     public static CookingManager Instance;
 
-    [SerializeField] private InventoryManager inventoryManager; // Reference to inventory system
+    [Space(20)]
+
+    private InventoryManager inventoryManager; // Reference to inventory system
     [SerializeField] private Image dishIcon; // UI display for dish icon
     [SerializeField] private TMP_Text cookQuantityText; // Display for selected cook quantity
     [SerializeField] private TMP_Text dishName; // Display for dish name
-    [SerializeField] private GameObject cookingAnimation; // Animation object
+
+    private GameObject cookingAnimation; // Animation object
+
+    [Space(20)]
+
     [SerializeField] private IngredientDisplay[] ingredientDisplays; // UI elements for ingredients
 
     private Recipe currentRecipe;
@@ -20,6 +26,8 @@ public class CookingManager : MonoBehaviour
 
     private void Awake()
     {
+        inventoryManager = InventoryManager.Instance;
+
         if (Instance == null)
         {
             Instance = this;
@@ -69,9 +77,6 @@ public class CookingManager : MonoBehaviour
         // Update Dish Icon
         dishIcon.sprite = currentRecipe.resultDish.icon;
 
-        // Update Cook Quantity
-        cookQuantityText.text = selectedCookQuantity.ToString();
-
         //Update Active Recipe Name
         dishName.text = currentRecipe.resultDish.itemName;
 
@@ -81,12 +86,12 @@ public class CookingManager : MonoBehaviour
             if (i < currentRecipe.ingredients.Length)
             {
                 ingredientDisplays[i].ingredientImage.sprite = currentRecipe.ingredients[i].ingredientItem.icon;
-                ingredientDisplays[i].ingredientText.text = $"{currentRecipe.ingredients[i].quantityRequired * selectedCookQuantity}";
-                ingredientDisplays[i].gameObject.SetActive(true);
+                ingredientDisplays[i].ingredientQTY.text = $"{currentRecipe.ingredients[i].quantityRequired}";
+                ingredientDisplays[i].MainObject.SetActive(true);
             }
             else
             {
-                ingredientDisplays[i].gameObject.SetActive(false);
+                ingredientDisplays[i].MainObject.SetActive(false);
             }
         }
     }
@@ -97,7 +102,7 @@ public class CookingManager : MonoBehaviour
         {
             selectedCookQuantity++;
             cookQuantityText.text = selectedCookQuantity.ToString();
-            UpdateRecipeUI();
+
         }
     }
 
@@ -107,7 +112,7 @@ public class CookingManager : MonoBehaviour
         {
             selectedCookQuantity--;
             cookQuantityText.text = selectedCookQuantity.ToString();
-            UpdateRecipeUI();
+
         }
     }
 
@@ -157,7 +162,7 @@ public class CookingManager : MonoBehaviour
 [System.Serializable]
 public class IngredientDisplay
 {
-    public GameObject gameObject;
+    public GameObject MainObject;
     public Image ingredientImage;
-    public TMP_Text ingredientText;
+    public TMP_Text ingredientQTY;
 }

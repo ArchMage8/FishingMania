@@ -13,6 +13,7 @@ public class FadeHandler : MonoBehaviour
     {
         InventoryManager.Instance.SomeUIEnabled = true;
         yield return new WaitForSeconds(0.9f);
+        Debug.Log("Bla");
         InventoryManager.Instance.SomeUIEnabled = false;
     }
 }

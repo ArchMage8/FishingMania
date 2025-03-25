@@ -172,7 +172,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EnterDialogueMode_Default(TextAsset NPCDialogue)
     {
-
+        Debug.Log("bb");
         currentStory = new Story(NPCDialogue.text);
         dialogueRunning = true;
         dialoguePanel.SetActive(true);

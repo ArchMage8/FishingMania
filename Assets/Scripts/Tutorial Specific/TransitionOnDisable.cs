@@ -4,22 +4,11 @@ using UnityEngine;
 
 public class TransitionOnDisable : MonoBehaviour
 {
-    public Animator sceneLoader;
-    public int DestinationScene;
+    public TransitionCaller caller;
 
     private void OnDisable()
     {
-        StartCoroutine(LoadScene());
+        caller.LoadNextScene();
     }
 
-    private IEnumerator LoadScene()
-    {
-        InventoryManager.Instance.SomeUIEnabled = true;
-        sceneLoader.SetTrigger("CloseScene");
-
-        yield return new WaitForSeconds(1f);
-
-        InventoryManager.Instance.SomeUIEnabled = false;
-        SceneManager.LoadScene(DestinationScene);
-    }
 }

@@ -23,7 +23,7 @@ public class DisplayInventoryManager : MonoBehaviour
     public Image itemIconDisplay;         // UI Image to show item icon
     public TMP_Text itemNameDisplay;      // TMP_Text for item name
     public TMP_Text itemDescriptionDisplay; // TMP_Text for item description
-    public TMP_Text itemPriceDisplay;     // TMP_Text for item price
+    //public TMP_Text itemPriceDisplay;     // TMP_Text for item price
 
     private InventoryManager inventoryManager;
 
@@ -111,7 +111,7 @@ public class DisplayInventoryManager : MonoBehaviour
             itemIconDisplay.sprite = item.icon;
             itemNameDisplay.text = item.itemName;
             itemDescriptionDisplay.text = item.description;
-            itemPriceDisplay.text = $"Price: {item.price}";
+            //itemPriceDisplay.text = $"Price: {item.price}";
         }
         else
         {
@@ -119,7 +119,7 @@ public class DisplayInventoryManager : MonoBehaviour
             itemIconDisplay.sprite = emptySprite;
             itemNameDisplay.text = "No Item";
             itemDescriptionDisplay.text = "";
-            itemPriceDisplay.text = "";
+            //itemPriceDisplay.text = "";
         }
     }
 

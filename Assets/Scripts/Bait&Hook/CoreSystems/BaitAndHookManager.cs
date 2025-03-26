@@ -8,8 +8,8 @@ public class BaitAndHookManager : MonoBehaviour
     public static BaitAndHookManager Instance;
 
     [Header("Active Bait and Hook")]
-    public BaitSO activeBait;
-    public HookSO activeHook;
+   [HideInInspector] public BaitSO activeBait;
+   [HideInInspector] public HookSO activeHook;
 
     [Header("UI Elements")]
     public Image baitPreview;
@@ -27,7 +27,7 @@ public class BaitAndHookManager : MonoBehaviour
 
     [Header("Hook Status Management")]
     public HookStatusSO defaultHookStatusSO;
-    public HookStatusData[] hookStatuses;
+    [HideInInspector] public HookStatusData[] hookStatuses;
 
     [Header("Temporary Selections")]
     private HookSO TempHook;

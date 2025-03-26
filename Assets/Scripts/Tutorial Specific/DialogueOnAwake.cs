@@ -7,11 +7,14 @@ public class DialogueOnAwake : MonoBehaviour
     private DialogueManager dialogueManager;
 
     public TextAsset Dialogue;
+    
     public int DelayBeforeDialogue;
+
+    public Animator NPCDialogueAnimator;
 
     private void Awake()
     {
-        Debug.Log("Potat");
+      
         dialogueManager = DialogueManager.GetInstance();
         StartCoroutine(StartDialogue());
     }
@@ -19,7 +22,7 @@ public class DialogueOnAwake : MonoBehaviour
     private IEnumerator StartDialogue()
     {
         yield return new WaitForSeconds(DelayBeforeDialogue);
-        Debug.Log("Run");
-        dialogueManager.EnterDialogueMode_Default(Dialogue);
+    
+        dialogueManager.EnterDialogueMode_Default(Dialogue, NPCDialogueAnimator);
     }
 }

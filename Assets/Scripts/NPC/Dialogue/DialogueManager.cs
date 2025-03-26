@@ -16,7 +16,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI displayNameText;
-    public Animator NPCDialogueAnimator;
+    private Animator NPCDialogueAnimator;
 
     [Space(15)]
     // Choices UI
@@ -57,6 +57,7 @@ public class DialogueManager : MonoBehaviour
         if (instance != null)
         {
             Debug.LogWarning("More than 1 manager found");
+            Destroy(this.gameObject);
         }
 
         instance = this;
@@ -114,11 +115,11 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void EnterDialogueMode_Quest(TextAsset NPCDialogue, QuestSO PassedQuest)
+    public void EnterDialogueMode_Quest(TextAsset NPCDialogue, QuestSO PassedQuest, Animator PassedAnimator)
     {
         if (NpcInRange == true && canDialogue && !InventoryManager.Instance.SomeUIEnabled)
         {
-           
+            NPCDialogueAnimator = PassedAnimator;
 
             QuestCompleted = false;
 
@@ -144,8 +145,10 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void EnterDialogue_Sell(TextAsset NPCDialogue, GameObject Sell_To_NPC_UI)
+    public void EnterDialogue_Sell(TextAsset NPCDialogue, GameObject Sell_To_NPC_UI, Animator PassedAnimator)
     {
+        NPCDialogueAnimator = PassedAnimator;
+
         //We are selling to the NPC
         currentStory = new Story(NPCDialogue.text);
         dialogueRunning = true;
@@ -157,8 +160,10 @@ public class DialogueManager : MonoBehaviour
         Temp_Shop = Sell_To_NPC_UI;
     }
 
-    public void EnterDialogue_Buy(TextAsset NPCDialogue, GameObject Sell_UI)
+    public void EnterDialogue_Buy(TextAsset NPCDialogue, GameObject Sell_UI, Animator PassedAnimator)
     {
+        NPCDialogueAnimator = PassedAnimator;
+
         //We are buying from the NPC
         currentStory = new Story(NPCDialogue.text);
         dialogueRunning = true;
@@ -170,9 +175,11 @@ public class DialogueManager : MonoBehaviour
         Temp_Shop = Sell_UI;
     }
 
-    public void EnterDialogueMode_Default(TextAsset NPCDialogue)
+    public void EnterDialogueMode_Default(TextAsset NPCDialogue, Animator PassedAnimator)
     {
-        Debug.Log("bb");
+        NPCDialogueAnimator = PassedAnimator;
+
+   
         currentStory = new Story(NPCDialogue.text);
         dialogueRunning = true;
         dialoguePanel.SetActive(true);
@@ -192,6 +199,7 @@ public class DialogueManager : MonoBehaviour
 
         NPCDialogueAnimator = null;
 
+        currentStory = null;
 
         if (QuestCompleted)
         {

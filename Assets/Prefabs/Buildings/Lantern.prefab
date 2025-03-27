@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 5958578489571544614}
   - component: {fileID: 5958578489571544615}
   - component: {fileID: 5958578489571544608}
+  - component: {fileID: 4154676340169415246}
   m_Layer: 0
   m_Name: Lantern
   m_TagString: Untagged
@@ -137,7 +138,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5958578489571544609}
   m_LocalRotation: {x: -0, y: -0, z: -0.020788042, w: 0.99978393}
-  m_LocalPosition: {x: -0.0077, y: -0.3453, z: 0}
+  m_LocalPosition: {x: -0.0077, y: -0.3453, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -210,10 +211,23 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 81400389583be264aa7fa75cf6404366, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &4154676340169415246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5958578489571544609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a602ab6f22ab2429611c0a1929ca3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isVariation: 0

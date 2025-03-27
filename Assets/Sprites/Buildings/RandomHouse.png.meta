@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b253e9c458da08e459e5586b4a58481e
+guid: 01e5aea7fbde4964b97a952c78a4da7a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -102,18 +102,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -129,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EntrancaBanner_0
+      name: RandomHouse_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 59
-        height: 70
+        width: 428
+        height: 349
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25a1c3bbcfea2664aa69b793e220bef3
-      internalID: -1095550518
+      spriteID: 8298243ea44e8954faf44bb9ffd1fbf2
+      internalID: -154002418
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EntrancaBanner_1
+      name: RandomHouse_1
       rect:
         serializedVersion: 2
-        x: 59
+        x: 428
         y: 0
-        width: 59
-        height: 70
+        width: 428
+        height: 349
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 138b83ff52b9be94c9294a2992890854
-      internalID: 482944829
+      spriteID: c1a1bc2a930cae04d9174e003806d8b7
+      internalID: 1420598879
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EntrancaBanner_2
+      name: RandomHouse_2
       rect:
         serializedVersion: 2
-        x: 118
+        x: 856
         y: 0
-        width: 59
-        height: 70
+        width: 428
+        height: 349
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d820a30d5c8c43a40918f1ed139d97a0
-      internalID: 1585852109
+      spriteID: 5b3b59e511e1184439e1f36748fa8c8a
+      internalID: 965061395
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EntrancaBanner_3
+      name: RandomHouse_3
       rect:
         serializedVersion: 2
-        x: 177
+        x: 1284
         y: 0
-        width: 59
-        height: 70
+        width: 428
+        height: 349
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b99cf0ebaa2e5a34894941bdeef568e2
-      internalID: 1966531387
+      spriteID: 398ccdaaaf7445c448a6329c7568f6d7
+      internalID: 765024286
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EntrancaBanner_4
+      name: RandomHouse_4
       rect:
         serializedVersion: 2
-        x: 236
+        x: 1712
         y: 0
-        width: 59
-        height: 70
+        width: 428
+        height: 349
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -227,8 +215,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b052049ad3e0e5d44a62b62af476d237
-      internalID: -1441456871
+      spriteID: 2aad6aae89b3aa141aa93250dde96c14
+      internalID: 1859234178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RandomHouse_5
+      rect:
+        serializedVersion: 2
+        x: 2140
+        y: 0
+        width: 428
+        height: 349
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 955b7c75551151742a2a30c573942c0d
+      internalID: -416978627
       vertices: []
       indices: 
       edges: []
@@ -244,11 +253,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      EntrancaBanner_3: 1966531387
-      EntrancaBanner_4: -1441456871
-      EntrancaBanner_0: -1095550518
-      EntrancaBanner_1: 482944829
-      EntrancaBanner_2: 1585852109
+      RandomHouse_0: -154002418
+      RandomHouse_2: 965061395
+      RandomHouse_4: 1859234178
+      RandomHouse_3: 765024286
+      RandomHouse_5: -416978627
+      RandomHouse_1: 1420598879
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

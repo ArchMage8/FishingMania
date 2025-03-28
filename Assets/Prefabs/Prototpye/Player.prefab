@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
-  diagonalAngle: 23
+  diagonalAngle: 29
   animator: {fileID: 4235041932520172243}
   canMove: 1
   animX: 0
@@ -193,7 +193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f13056f0803c004f88a6e1d7985db0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   playerMovement: {fileID: 4235041932646788990}
 --- !u!60 &4235041932646788989
 PolygonCollider2D:

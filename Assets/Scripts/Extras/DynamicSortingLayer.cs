@@ -3,7 +3,7 @@ using UnityEngine;
 public class DynamicSortingLayer : MonoBehaviour
 {
     public SpriteRenderer Reference;
-    public SpriteRenderer TargetSprite;
+    public Renderer TargetSprite;
     public int Difference;
     private int originalLayer;
 

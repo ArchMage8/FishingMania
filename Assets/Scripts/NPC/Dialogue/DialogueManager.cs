@@ -195,7 +195,7 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
 
-        NPCDialogueAnimator.gameObject.SetActive(false);
+        //NPCDialogueAnimator.gameObject.SetActive(false);
 
         NPCDialogueAnimator = null;
 

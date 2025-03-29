@@ -1510,6 +1510,7 @@ MonoBehaviour:
   dialoguePanel: {fileID: 1124474737}
   dialogueText: {fileID: 697289828}
   displayNameText: {fileID: 1202709019}
+  NPCDialogueAnimator: {fileID: 0}
   choices:
   - {fileID: 1963610418}
   - {fileID: 1514954843}
@@ -10109,7 +10110,7 @@ Tilemap:
       - {fileID: 172380332, guid: cea17bb67773025429f8f8588a18d801, type: 3}
       - {fileID: 992517037, guid: cea17bb67773025429f8f8588a18d801, type: 3}
       - {fileID: -1258248212, guid: cea17bb67773025429f8f8588a18d801, type: 3}
-      m_AnimationSpeed: 7
+      m_AnimationSpeed: 7.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -20, y: -14, z: 0}
@@ -10235,7 +10236,7 @@ Tilemap:
       - {fileID: 1553189294, guid: 29dfb949ce89bde44b42146300df32cb, type: 3}
       - {fileID: 1739318196, guid: 29dfb949ce89bde44b42146300df32cb, type: 3}
       - {fileID: 1344281584, guid: 29dfb949ce89bde44b42146300df32cb, type: 3}
-      m_AnimationSpeed: 7.0000005
+      m_AnimationSpeed: 7
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -8, y: -14, z: 0}
@@ -10298,7 +10299,7 @@ Tilemap:
       - {fileID: 1439523582, guid: 4246bd222d0420c47b08c63857ae8b3e, type: 3}
       - {fileID: 1511340406, guid: 4246bd222d0420c47b08c63857ae8b3e, type: 3}
       - {fileID: -960591798, guid: 4246bd222d0420c47b08c63857ae8b3e, type: 3}
-      m_AnimationSpeed: 7
+      m_AnimationSpeed: 7.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -2, y: -14, z: 0}
@@ -10361,7 +10362,7 @@ Tilemap:
       - {fileID: 172380332, guid: cea17bb67773025429f8f8588a18d801, type: 3}
       - {fileID: 992517037, guid: cea17bb67773025429f8f8588a18d801, type: 3}
       - {fileID: -1258248212, guid: cea17bb67773025429f8f8588a18d801, type: 3}
-      m_AnimationSpeed: 7
+      m_AnimationSpeed: 7.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 4, y: -14, z: 0}
@@ -10403,7 +10404,7 @@ Tilemap:
       - {fileID: 1553189294, guid: 29dfb949ce89bde44b42146300df32cb, type: 3}
       - {fileID: 1739318196, guid: 29dfb949ce89bde44b42146300df32cb, type: 3}
       - {fileID: 1344281584, guid: 29dfb949ce89bde44b42146300df32cb, type: 3}
-      m_AnimationSpeed: 7
+      m_AnimationSpeed: 7.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -24, y: -12, z: 0}
@@ -10655,7 +10656,7 @@ Tilemap:
       - {fileID: 2002840803, guid: fec54f67f1e75ca4d8f6f1d57dcd1e60, type: 3}
       - {fileID: 748305278, guid: fec54f67f1e75ca4d8f6f1d57dcd1e60, type: 3}
       - {fileID: 1323643843, guid: fec54f67f1e75ca4d8f6f1d57dcd1e60, type: 3}
-      m_AnimationSpeed: 7
+      m_AnimationSpeed: 7.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 0, y: -12, z: 0}
@@ -14158,7 +14159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1259815125835470628
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18853,7 +18854,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.4399999
+  orthographic size: 1.3499999
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

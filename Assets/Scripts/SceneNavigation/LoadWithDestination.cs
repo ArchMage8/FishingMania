@@ -14,7 +14,11 @@ public class LoadWithDestination : MonoBehaviour
     public Animator sceneLoader;
     public bool NoButton = false;
 
+    [Space(20)]
+    public GameObject F_Indicator;
+
     private bool TeleportRunning;
+    private bool PlayerInRange = false;
 
     private void Awake()
     {
@@ -32,15 +36,27 @@ public class LoadWithDestination : MonoBehaviour
 
     private void Update()
     {
-        if (NoButton && Input.GetKeyDown(KeyCode.Escape) && !TeleportRunning)
+        if (NoButton)
         {
-            TeleportRunning = true;
-            MovePlayer();
+            if (Input.GetKeyDown(KeyCode.Escape) && !TeleportRunning)
+            {
+                MovePlayer();
+            }
+        }
+
+        else if (!NoButton)
+        {
+            if(Input.GetKeyDown(KeyCode.F) && !TeleportRunning && PlayerInRange)
+            {
+                MovePlayer();
+            }
         }
     }
 
     public void MovePlayer()
     {
+
+        TeleportRunning = true;
         StartCoroutine(LoadSceneAndMovePlayer());
     }
 
@@ -87,4 +103,29 @@ public class LoadWithDestination : MonoBehaviour
         transposer.m_YDamping = 0.8f;
         Destroy(gameObject); // Now safe to remove this object
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && !NoButton)
+        {
+            if (F_Indicator != null)
+            {
+                F_Indicator.SetActive(true);
+            }
+            PlayerInRange = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && !NoButton)
+        {
+            if (F_Indicator != null)
+            {
+                F_Indicator.SetActive(false);
+            }
+            PlayerInRange = false;
+        }
+    }
+
 }

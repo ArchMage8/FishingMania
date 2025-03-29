@@ -8,7 +8,7 @@ public class DialogueOnAwake : MonoBehaviour
 
     public TextAsset Dialogue;
     
-    public int DelayBeforeDialogue;
+    public float DelayBeforeDialogue;
 
     public Animator NPCDialogueAnimator;
 

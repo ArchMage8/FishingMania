@@ -1006,6 +1006,8 @@ MonoBehaviour:
   dialoguePanel: {fileID: 6376743888244989074}
   dialogueText: {fileID: 7721083680808478144}
   displayNameText: {fileID: 1404846108216695367}
+  SpeakerNameBG: {fileID: 947857230770027530}
+  ChoicesHolder: {fileID: 8854300805742741225}
   choices:
   - {fileID: 8776007417756845497}
   - {fileID: 2706897888335492606}
@@ -3754,16 +3756,16 @@ RectTransform:
   m_GameObject: {fileID: 947857230770027530}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.52229637, y: 0.52229637, z: 0.52229637}
+  m_LocalScale: {x: 0.21762343, y: 0.21762343, z: 0.21762343}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6809462919967464163}
-  m_Father: {fileID: 4966815318553481041}
-  m_RootOrder: 0
+  m_Father: {fileID: 3517211327748911136}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 706, y: -461}
+  m_AnchoredPosition: {x: 294.16663, y: -192.08325}
   m_SizeDelta: {x: 749, y: 215}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2400769120296156242
@@ -3825,7 +3827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Dialogue: {fileID: 4900000, guid: b8c9864d9586fcd45ba4f09f79a7fa77, type: 3}
-  DelayBeforeDialogue: 3
+  DelayBeforeDialogue: 1.8
   NPCDialogueAnimator: {fileID: 5786054672665190480}
   ChoicesHolder: {fileID: 8854300805742741225}
 --- !u!114 &2689995816501948740
@@ -4020,6 +4022,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8828332908716344895}
+  - {fileID: 2294976248517804238}
   - {fileID: 5214455287404299652}
   m_Father: {fileID: 5593256609506247641}
   m_RootOrder: 3
@@ -4307,8 +4310,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.4425478, y: 2.4425478, z: 2.4425478}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2294976248517804238}
+  m_Children: []
   m_Father: {fileID: 8828332908716344895}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4482,7 +4484,7 @@ RectTransform:
   - {fileID: 3468408412309209279}
   - {fileID: 2205689542115371358}
   m_Father: {fileID: 3517211327748911136}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

@@ -30,7 +30,7 @@ public class ColorManager : MonoBehaviour
     public float BadSliderValue;
 
     [Header("Extra Values")]
-    public int TempStock = 10;
+    public int TempStock; //This the actual stock of the fishingSpot
     private int stock = 10;
     public int deductValue;
 
@@ -50,7 +50,7 @@ public class ColorManager : MonoBehaviour
         { "C", 3 }
     };
 
-    private void OnEnable()
+    public void PrepareColors()
     {
         AssignRandomColors();
         ResetValues();
@@ -58,9 +58,12 @@ public class ColorManager : MonoBehaviour
         SimulateStockDecrease();
     }
 
-    private void SimulateStockDecrease()
+    private void SimulateStockDecrease() 
+    //This script is meant to determine how much decrease has happened, like for example if the stock is at 7, then a decrease of 3 has happened
     {
         stock = 10;
+
+        GetStock();
 
         int decreaseCount = 10 - TempStock;
         for (int i = 0; i < decreaseCount; i++)
@@ -69,6 +72,12 @@ public class ColorManager : MonoBehaviour
             RecalculateValues();
         }
         ResetValues();
+    }
+
+    private void GetStock()
+    {
+        string FishingSpotStock = FishingCoreSystems.instance.fishGenerator.FishingSpotName;
+        TempStock = FishingSpotManager.instance.CheckFishStock(FishingSpotStock);
     }
 
     private void AssignRandomColors()

@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System.IO;
 
 public class BaitAndHookManager : MonoBehaviour
@@ -8,18 +6,8 @@ public class BaitAndHookManager : MonoBehaviour
     public static BaitAndHookManager Instance;
 
     [Header("Active Bait and Hook")]
-   [HideInInspector] public BaitSO activeBait;
-   [HideInInspector] public HookSO activeHook;
-
-    [Header("UI Elements")]
-    public Image baitPreview;
-    public Image hookPreview;
-
-    [Space(10)]
-    public TMP_Text SelectedDescription;
-    [Space(10)]
-    public TMP_Text BaitName;
-    public TMP_Text HookName;
+    [HideInInspector] public BaitSO activeBait;
+    [HideInInspector] public HookSO activeHook;
 
     [Header("Class Values")]
     public int BaitClass;
@@ -56,46 +44,13 @@ public class BaitAndHookManager : MonoBehaviour
         SetClass();
     }
 
-    public void UpdatePreviewUI()
-    {
-        if (activeBait != null)
-        {
-            baitPreview.sprite = activeBait.icon;
-            BaitName.text = activeBait.name;
-        }
-
-        if (activeHook != null)
-        {
-            hookPreview.sprite = activeHook.icon;
-            HookName.text = activeHook.name;
-        }
-    }
-
     public void SetClass()
     {
         if (activeBait != null)
-        {
-            baitPreview.sprite = activeBait.icon;
             BaitClass = activeBait.baitClass;
-        }
 
         if (activeHook != null)
-        {
-            hookPreview.sprite = activeHook.icon;
             HookClass = activeHook.hookClass;
-        }
-    }
-
-    public void SetDescription(string description)
-    {
-        if (SelectedDescription != null)
-            SelectedDescription.text = description;
-    }
-
-    public void ResetTMP()
-    {
-        if (SelectedDescription != null)
-            SelectedDescription.text = "-";
     }
 
     public bool IsHookUnlocked(string HookName)
@@ -103,14 +58,9 @@ public class BaitAndHookManager : MonoBehaviour
         foreach (var hook in hookStatuses)
         {
             if (hook.hookName == HookName)
-            {
-      
                 return hook.isUnlocked;
-            }
-                
         }
 
-      
         return false;
     }
 
@@ -142,8 +92,6 @@ public class BaitAndHookManager : MonoBehaviour
     {
         if (!File.Exists(baitHookSaveFile))
         {
-        
-
             activeBait = defaultCombo.defaultBait;
             activeHook = defaultCombo.defaultHook;
             return;
@@ -219,6 +167,3 @@ public class HookStatusWrapper
 {
     public HookStatusData[] hookStatuses;
 }
-
-
-

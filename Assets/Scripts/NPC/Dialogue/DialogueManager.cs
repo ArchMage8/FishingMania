@@ -61,8 +61,8 @@ public class DialogueManager : MonoBehaviour
     private Vector2 ChoicesOriginalPosition = new Vector2(-227f, 0f);
     private Vector2 ChoicesMovedPosition = new Vector2(25f, 0f);
 
-    private Vector2 SpeakerNameOriginalPosition = new Vector2(-283f, 0f);
-    private Vector2 SpeakerNameMovedPosition = new Vector2(-283f, 0f);
+    private Vector2 SpeakerNameOriginalPosition = new Vector2(294.1f, -192f);
+    private Vector2 SpeakerNameMovedPosition = new Vector2(-294.1f, -192f);
 
 
     private void Awake()

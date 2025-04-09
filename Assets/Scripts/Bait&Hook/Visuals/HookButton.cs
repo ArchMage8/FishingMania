@@ -35,7 +35,7 @@ public class HookButton : MonoBehaviour
 
     public void TransferToPreview()
     {
-        BaitAndHookManager manager = BaitAndHookManager.Instance;
+        BaitAndHookVisuals manager = BaitAndHookVisuals.Instance;
 
         if (manager != null)
         {
@@ -43,7 +43,9 @@ public class HookButton : MonoBehaviour
             manager.HookName.text = HookReference.name;
             manager.SelectedDescription.text = HookReference.description;
 
-            manager.SetTempHook(HookReference); // Assign HookReference to TempHook
+
+            BaitAndHookManager.Instance.SetTempHook(HookReference); // Assign HookReference to TempHook
+          
         }
     }
 }

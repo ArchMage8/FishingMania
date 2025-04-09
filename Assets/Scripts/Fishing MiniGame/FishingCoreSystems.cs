@@ -5,45 +5,59 @@ using System.Collections.Generic;
 
 public class FishingCoreSystems : MonoBehaviour
 {
+    //A new script called FishingSpotManager has been introduced 09/04/25 due to a system oversight
+    //Open the script mentioned for full details
+
+
+    //The new system now works like this:
+    //The fishcoresystem and fishgenerator have become local scripts that are unique to the fishing spot scene
+    //The script kept persistent is the FishingSpotManager
+
+    //The fishing spot manager is the one that holds the stocks of all the fishing spots
+
+
     public static FishingCoreSystems instance;
 
     [Header("UI Elements")]
     public GameObject MinigameIndicator; //Reference to the visual representation to what button to press to start minigame
     public GameObject CastMinigame;
+
+    [Space(10)]
+
     public GameObject BiteIndicator;
     public GameObject InventoryError;
     public GameObject BaitError;
     public Slider ReelSlider;
 
     [Header("Fishing Spot Data")]
-    public FishingSpotStock[] fishingSpots;
     public Animator FishingPlayer;
-
     public FishGenerator fishGenerator;
+    public ColorManager colorManager;
 
     private bool error = false;
-    public int reelQTY;
-    public int increaseRate = 10;
-    public int decreaseRate = 5;
+   [HideInInspector] public int reelQTY;
+   [HideInInspector] public int increaseRate = 10;
+   [HideInInspector] public int decreaseRate = 5;
     private float decreaseInterval = 1f;
     private bool isReeling;
 
-    [System.Serializable]
-    public struct FishingSpotStock
+    private void Awake()
     {
-        public string SpotName;
-        public int FishStock;
-    }
-
-    private void Start()
-    {
-        if (instance == null)
+        if (instance == null) 
+        {
             instance = this;
+        }
+
         else
         {
             Destroy(gameObject);
             return;
         }
+    }
+
+
+    private void Start()
+    {
 
         MinigameIndicator.SetActive(false);
 
@@ -120,6 +134,7 @@ public class FishingCoreSystems : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         CastMinigame.SetActive(true);
+        colorManager.PrepareColors();
         CastMinigame.GetComponentInChildren<Orbit>().isOrbiting = true;
     }
 
@@ -259,21 +274,6 @@ public class FishingCoreSystems : MonoBehaviour
 
     public void DeductStock(string spotName)
     {
-        for (int i = 0; i < fishingSpots.Length; i++)
-        {
-            if (fishingSpots[i].SpotName == spotName)
-            {
-                fishingSpots[i].FishStock = Mathf.Max(0, fishingSpots[i].FishStock - 1);
-                return;
-            }
-        }
-    }
-
-    public void ResetStock()
-    {
-        for (int i = 0; i < fishingSpots.Length; i++)
-        {
-            fishingSpots[i].FishStock = 10;
-        }
+        FishingSpotManager.instance.CheckFishStock(spotName);
     }
 }

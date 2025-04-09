@@ -42,7 +42,7 @@ public class BaitButton : MonoBehaviour
 
     public void TransferToPreview()
     {
-        BaitAndHookManager manager = BaitAndHookManager.Instance;
+        BaitAndHookVisuals manager = BaitAndHookVisuals.Instance;
 
         if (manager != null)
         {
@@ -50,7 +50,7 @@ public class BaitButton : MonoBehaviour
             manager.BaitName.text = BaitReference.name;
             manager.SelectedDescription.text = BaitReference.description;
 
-            manager.SetTempBait(BaitReference); // Assign BaitReference to TempBait
+            BaitAndHookManager.Instance.SetTempBait(BaitReference); // Assign HookReference to TempHook
         }
     }
 }

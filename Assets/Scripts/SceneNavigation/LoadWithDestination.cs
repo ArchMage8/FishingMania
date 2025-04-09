@@ -12,7 +12,7 @@ public class LoadWithDestination : MonoBehaviour
 
     [Header("Teleport Settings")]
     public Animator sceneLoader;
-    public bool NoButton = false;
+    public bool LoadWithButton = true;
 
     [Space(20)]
     public GameObject F_Indicator;
@@ -36,15 +36,8 @@ public class LoadWithDestination : MonoBehaviour
 
     private void Update()
     {
-        if (NoButton)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape) && !TeleportRunning)
-            {
-                MovePlayer();
-            }
-        }
 
-        else if (!NoButton)
+        if (!LoadWithButton)
         {
             if(Input.GetKeyDown(KeyCode.F) && !TeleportRunning && PlayerInRange)
             {
@@ -55,7 +48,6 @@ public class LoadWithDestination : MonoBehaviour
 
     public void MovePlayer()
     {
-
         TeleportRunning = true;
         StartCoroutine(LoadSceneAndMovePlayer());
     }
@@ -106,7 +98,7 @@ public class LoadWithDestination : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !NoButton)
+        if (other.CompareTag("Player") && !LoadWithButton)
         {
             if (F_Indicator != null)
             {
@@ -118,7 +110,7 @@ public class LoadWithDestination : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !NoButton)
+        if (other.CompareTag("Player") && !LoadWithButton)
         {
             if (F_Indicator != null)
             {

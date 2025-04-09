@@ -9,6 +9,7 @@ public class DialogueTrigger : MonoBehaviour
     [Space(15)]
     [Header("NPC System Requirements")]
     public TextAsset NPC_Dialogue;
+    public GameObject ChoicesHolder;
 
     [Header("NPC Info")]
     public QuestSO NPC_Quest;

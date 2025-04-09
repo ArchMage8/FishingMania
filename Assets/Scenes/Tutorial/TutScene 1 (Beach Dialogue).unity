@@ -1348,7 +1348,6 @@ MonoBehaviour:
   dialoguePanel: {fileID: 6376743887627156400}
   dialogueText: {fileID: 7721083681224458978}
   displayNameText: {fileID: 5473197904316447139}
-  NPCDialogueAnimator: {fileID: 0}
   choices:
   - {fileID: 2968174781711815803}
   - {fileID: 6586689495383422528}
@@ -2260,7 +2259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6250523420603868726, guid: 6242aa54143c3144996039af05a2af78, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6250523420603868727, guid: 6242aa54143c3144996039af05a2af78, type: 3}
       propertyPath: m_Pivot.x
@@ -4906,7 +4905,7 @@ Tilemap:
       - {fileID: 458685573, guid: 4c0e68f7a91f24f4cb782f206b114c7b, type: 3}
       - {fileID: -456307615, guid: 4c0e68f7a91f24f4cb782f206b114c7b, type: 3}
       - {fileID: -460182388, guid: 4c0e68f7a91f24f4cb782f206b114c7b, type: 3}
-      m_AnimationSpeed: 7
+      m_AnimationSpeed: 7.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -9, y: -16, z: 0}
@@ -4927,7 +4926,7 @@ Tilemap:
       - {fileID: 172380332, guid: cea17bb67773025429f8f8588a18d801, type: 3}
       - {fileID: 992517037, guid: cea17bb67773025429f8f8588a18d801, type: 3}
       - {fileID: -1258248212, guid: cea17bb67773025429f8f8588a18d801, type: 3}
-      m_AnimationSpeed: 7.0000005
+      m_AnimationSpeed: 7
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -7, y: -16, z: 0}
@@ -5053,7 +5052,7 @@ Tilemap:
       - {fileID: 1553189294, guid: 29dfb949ce89bde44b42146300df32cb, type: 3}
       - {fileID: 1739318196, guid: 29dfb949ce89bde44b42146300df32cb, type: 3}
       - {fileID: 1344281584, guid: 29dfb949ce89bde44b42146300df32cb, type: 3}
-      m_AnimationSpeed: 7.0000005
+      m_AnimationSpeed: 7
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 5, y: -16, z: 0}
@@ -5200,7 +5199,7 @@ Tilemap:
       - {fileID: -1367330885, guid: 326584e2a7d60a4418d7254b90094447, type: 3}
       - {fileID: -1382569410, guid: 326584e2a7d60a4418d7254b90094447, type: 3}
       - {fileID: -1835224602, guid: 326584e2a7d60a4418d7254b90094447, type: 3}
-      m_AnimationSpeed: 7
+      m_AnimationSpeed: 7.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -13, y: -14, z: 0}
@@ -5452,7 +5451,7 @@ Tilemap:
       - {fileID: -1367330885, guid: 326584e2a7d60a4418d7254b90094447, type: 3}
       - {fileID: -1382569410, guid: 326584e2a7d60a4418d7254b90094447, type: 3}
       - {fileID: -1835224602, guid: 326584e2a7d60a4418d7254b90094447, type: 3}
-      m_AnimationSpeed: 7
+      m_AnimationSpeed: 7.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 11, y: -14, z: 0}
@@ -9761,7 +9760,7 @@ Tilemap:
       - {fileID: -865672114, guid: 0a1a9e035aed20542ab988941f290c18, type: 3}
       - {fileID: 1575082799, guid: 0a1a9e035aed20542ab988941f290c18, type: 3}
       - {fileID: -1979430502, guid: 0a1a9e035aed20542ab988941f290c18, type: 3}
-      m_AnimationSpeed: 7
+      m_AnimationSpeed: 7.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -11432,6 +11431,7 @@ MonoBehaviour:
   Dialogue: {fileID: 4900000, guid: d32bb55038f6fda4c8658de651dc2a75, type: 3}
   DelayBeforeDialogue: 1.8
   NPCDialogueAnimator: {fileID: 3314263598348177615}
+  ChoicesHolder: {fileID: 2024785326028695603}
 --- !u!114 &2689995816171869798
 MonoBehaviour:
   m_ObjectHideFlags: 0

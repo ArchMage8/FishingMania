@@ -8,7 +8,7 @@ public class FishingCoreSystems : MonoBehaviour
     public static FishingCoreSystems instance;
 
     [Header("UI Elements")]
-    public GameObject MinigameIndicator;
+    public GameObject MinigameIndicator; //Reference to the visual representation to what button to press to start minigame
     public GameObject CastMinigame;
     public GameObject BiteIndicator;
     public GameObject InventoryError;
@@ -35,7 +35,7 @@ public class FishingCoreSystems : MonoBehaviour
         public int FishStock;
     }
 
-    private void Awake()
+    private void Start()
     {
         if (instance == null)
             instance = this;
@@ -69,7 +69,16 @@ public class FishingCoreSystems : MonoBehaviour
 
     private IEnumerator WaitForInput()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+
+        while (InventoryManager.Instance.SomeUIEnabled)
+        {
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(1f);
+
+
         MinigameIndicator.SetActive(true);
         while (!Input.GetKeyDown(KeyCode.F))
         {
@@ -104,6 +113,7 @@ public class FishingCoreSystems : MonoBehaviour
 
     private IEnumerator StartMiniGame()
     {
+
         Debug.Log("Call 2");
         FishingPlayer.SetTrigger("Next");
 

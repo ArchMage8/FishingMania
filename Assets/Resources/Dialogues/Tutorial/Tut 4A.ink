@@ -53,6 +53,7 @@ Alright Go Fish! And we aren’t leaving until you catch one! #speaker: Magu #tr
 
 === ending2 ===
 Fine, I'll repeat it again! #speaker: Magu #trigger: loopback
+#trigger: next
 ->main
 
 

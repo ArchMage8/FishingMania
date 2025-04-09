@@ -16,7 +16,11 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI displayNameText;
+    public GameObject SpeakerNameBG;
+    public GameObject ChoicesHolder;
+
     private Animator NPCDialogueAnimator;
+    
 
     [Space(15)]
     // Choices UI
@@ -25,7 +29,7 @@ public class DialogueManager : MonoBehaviour
     private bool canSkip = false;
 
     [Space(15)]
-    [Header("Extras")]
+    [Header("Dialogue State")]
 
     // Dialogue State
     [HideInInspector] public Story currentStory;
@@ -50,6 +54,15 @@ public class DialogueManager : MonoBehaviour
     private QuestSO DialogueQuest; // The quest of the NPC we are talking to
     [HideInInspector] public bool NpcInRange = false;
     private GameObject Temp_Shop;
+
+    //Variables & Function needed to move Dialogue Objects when iris is speaking
+
+    private RectTransform rectTransform;
+    private Vector2 ChoicesOriginalPosition = new Vector2(-227f, 0f);
+    private Vector2 ChoicesMovedPosition = new Vector2(25f, 0f);
+
+    private Vector2 SpeakerNameOriginalPosition = new Vector2(-283f, 0f);
+    private Vector2 SpeakerNameMovedPosition = new Vector2(-283f, 0f);
 
 
     private void Awake()
@@ -115,11 +128,28 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    public void EnterDialogueMode_Default(TextAsset NPCDialogue, Animator PassedAnimator)
+    {
+        if (!InventoryManager.Instance.SomeUIEnabled)
+        {
+            NPCDialogueAnimator = PassedAnimator;
+
+            currentStory = new Story(NPCDialogue.text);
+            dialogueRunning = true;
+            dialoguePanel.SetActive(true);
+
+            ContinueStory();
+            InventoryManager.Instance.SomeUIEnabled = true;
+        }
+    }
+
     public void EnterDialogueMode_Quest(TextAsset NPCDialogue, QuestSO PassedQuest, Animator PassedAnimator)
     {
         if (NpcInRange == true && canDialogue && !InventoryManager.Instance.SomeUIEnabled)
         {
             NPCDialogueAnimator = PassedAnimator;
+
+           
 
             QuestCompleted = false;
 
@@ -142,49 +172,51 @@ public class DialogueManager : MonoBehaviour
             dialoguePanel.SetActive(true);
 
             ContinueStory();
+
+            InventoryManager.Instance.SomeUIEnabled = true;
         }
     }
 
     public void EnterDialogue_Sell(TextAsset NPCDialogue, GameObject Sell_To_NPC_UI, Animator PassedAnimator)
     {
-        NPCDialogueAnimator = PassedAnimator;
+        if (NpcInRange == true && canDialogue && !InventoryManager.Instance.SomeUIEnabled)
+        {
 
-        //We are selling to the NPC
-        currentStory = new Story(NPCDialogue.text);
-        dialogueRunning = true;
-        dialoguePanel.SetActive(true);
-        
+            NPCDialogueAnimator = PassedAnimator;
 
-        BindPlayerShop();
-        ContinueStory();
-        Temp_Shop = Sell_To_NPC_UI;
+            //We are selling to the NPC
+            currentStory = new Story(NPCDialogue.text);
+            dialogueRunning = true;
+            dialoguePanel.SetActive(true);
+
+
+            BindPlayerShop();
+            ContinueStory();
+            Temp_Shop = Sell_To_NPC_UI;
+
+            InventoryManager.Instance.SomeUIEnabled = true;
+        }
     }
 
     public void EnterDialogue_Buy(TextAsset NPCDialogue, GameObject Sell_UI, Animator PassedAnimator)
     {
-        NPCDialogueAnimator = PassedAnimator;
+        if (NpcInRange == true && canDialogue && !InventoryManager.Instance.SomeUIEnabled)
+        {
 
-        //We are buying from the NPC
-        currentStory = new Story(NPCDialogue.text);
-        dialogueRunning = true;
-        dialoguePanel.SetActive(true);
+            NPCDialogueAnimator = PassedAnimator;
 
-        BindNPCShop();
-        ContinueStory();
+            //We are buying from the NPC
+            currentStory = new Story(NPCDialogue.text);
+            dialogueRunning = true;
+            dialoguePanel.SetActive(true);
 
-        Temp_Shop = Sell_UI;
-    }
+            BindNPCShop();
+            ContinueStory();
 
-    public void EnterDialogueMode_Default(TextAsset NPCDialogue, Animator PassedAnimator)
-    {
-        NPCDialogueAnimator = PassedAnimator;
+            Temp_Shop = Sell_UI;
 
-   
-        currentStory = new Story(NPCDialogue.text);
-        dialogueRunning = true;
-        dialoguePanel.SetActive(true);
-
-        ContinueStory();
+            InventoryManager.Instance.SomeUIEnabled = true;
+        }
     }
 
     private void ExitDialogueMode()
@@ -195,11 +227,14 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
 
+        InventoryManager.Instance.SomeUIEnabled = false;
+
         //NPCDialogueAnimator.gameObject.SetActive(false);
 
         NPCDialogueAnimator = null;
 
         currentStory = null;
+
 
         if (QuestCompleted)
         {
@@ -294,7 +329,7 @@ public class DialogueManager : MonoBehaviour
 
     private void HandleTags(List<string> currentTags)
     {
-        //Function needs to handle 3 types of tags
+        //Function needs to handle 2 types of tags
         //1. Speaker Name
         //2. Next Trigger
         
@@ -313,6 +348,7 @@ public class DialogueManager : MonoBehaviour
             {
                 case SPEAKER_TAG:
                     displayNameText.text = tagValue;
+                    HandleWhoseTalking(tagValue);
                     break;
 
                 case ANIMATION_TRIGGER:
@@ -324,6 +360,36 @@ public class DialogueManager : MonoBehaviour
                     Debug.LogWarning("Tag came in but isn't handled by the code: " + tag);
                     break;
             }
+        }
+    }
+
+    private void HandleWhoseTalking(string SpeakerName) //Moves Objects based on the speaker
+    {
+        if(ChoicesHolder == null)
+        {
+            Debug.LogError("Ur setup be missing the ability to move choices");
+        }
+
+        if (SpeakerNameBG == null)
+        {
+            Debug.LogError("Ur setup be missing the ability to move the speaker name");
+        }
+
+        RectTransform ChoicesRectTransform = ChoicesHolder.GetComponent<RectTransform>();
+        RectTransform SpeakerNameTransform = SpeakerNameBG.GetComponent<RectTransform>();
+
+
+        if (ChoicesRectTransform == null) return;
+
+        if (SpeakerName == "Iris")
+        {
+            ChoicesRectTransform.anchoredPosition = ChoicesMovedPosition;
+            SpeakerNameTransform.anchoredPosition = SpeakerNameMovedPosition;
+        }
+        else
+        {
+            ChoicesRectTransform.anchoredPosition = ChoicesOriginalPosition;
+            SpeakerNameTransform.anchoredPosition = SpeakerNameOriginalPosition;
         }
     }
 

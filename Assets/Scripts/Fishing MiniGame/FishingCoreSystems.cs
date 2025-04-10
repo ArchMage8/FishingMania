@@ -119,9 +119,15 @@ public class FishingCoreSystems : MonoBehaviour
         {
             error = true;
             if (InventoryManager.Instance.IsInventoryFull())
+            {
+                Debug.LogError("Ur Inventory Be full");
                 InventoryError.SetActive(true);
-            else
+            }
+            else if (InventoryManager.Instance.GetTotalQuantity(BaitAndHookManager.Instance.activeBait) == 0)
+            {
+                Debug.LogError("Ur bait has been exhausted");
                 BaitError.SetActive(true);
+            }
         }
     }
 

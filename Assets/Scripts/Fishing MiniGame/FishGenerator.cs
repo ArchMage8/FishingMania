@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class FishGenerator : MonoBehaviour
 {
@@ -10,10 +11,30 @@ public class FishGenerator : MonoBehaviour
     public Item[] BaitClass_4 = new Item[5];
     public Item[] BaitClass_5 = new Item[5];
 
+    [Space(10)]
+    [HideInInspector] public int BaitClass;
+    [HideInInspector]public int HookClass;
+
     [Header("Fishing Attributes")]
-    public int BaitClass;
-    public int HookClass;
     public string FishingSpotName;
+
+    [Space(10)]
+
+    public GameObject FishPreviewCard;
+    public Image PreviewIcon;
+    public float PreviewDuration;
+    
+
+    private Animator PreviewAnimator;
+    
+
+    private void Start()
+    {
+        PreviewAnimator = FishPreviewCard.GetComponent<Animator>();
+        PreviewIcon = FishPreviewCard.GetComponentInChildren<Image>(true);
+
+        FishPreviewCard.SetActive(false);
+    }
 
     public void SelectFish()
     {
@@ -76,6 +97,7 @@ public class FishGenerator : MonoBehaviour
             case 5:
                 selectedFish = BaitClass_5[selectedIndex];
                 break;
+
             default:
                 selectedFish = BaitClass_1[selectedIndex];
                 break;
@@ -93,7 +115,18 @@ public class FishGenerator : MonoBehaviour
 
     private IEnumerator CatchFishUI(Item fish)
     {
-        // Placeholder for UI logic when catching fish
-        yield return null;
+        if(Time.timeScale == 0)
+        {
+            Debug.LogError("There be error setup, timescale is 0");
+        }
+
+        PreviewIcon.sprite = fish.icon;
+        FishPreviewCard.SetActive(true);
+
+        yield return new WaitForSeconds(PreviewDuration);
+        PreviewAnimator.SetTrigger("Exit");
+
+        yield return new WaitForSeconds(1.5f);
+        FishPreviewCard.SetActive(false);
     }
 }

@@ -14,6 +14,11 @@ public class RecipeButton : MonoBehaviour
     [SerializeField] private GameObject cookComic;
     [SerializeField] private Color inactiveColor;
 
+    private void Awake()
+    {
+        cookComic.SetActive(false);
+    }
+
     private void OnEnable()
     {
         if (assignedRecipe == null) return;

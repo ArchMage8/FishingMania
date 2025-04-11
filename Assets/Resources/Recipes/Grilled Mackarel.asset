@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4e3c03c5084c64893d2bdbea7b915a, type: 3}
+  m_Name: Grilled Mackarel
+  m_EditorClassIdentifier: 
+  recipeName: Grilled Mackarel
+  ingredients:
+  - ingredientItem: {fileID: 11400000, guid: 75be8558e83d77341a1a76f7c21806a2, type: 2}
+    quantityRequired: 1
+  - ingredientItem: {fileID: 11400000, guid: 4798220f7b50e084f93c7746200e96a1, type: 2}
+    quantityRequired: 2
+  resultDish: {fileID: 11400000, guid: 558dd9e5dfc39aa428f30a38dd7bf237, type: 2}

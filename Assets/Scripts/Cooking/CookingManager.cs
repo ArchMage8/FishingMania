@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -10,9 +11,17 @@ public class CookingManager : MonoBehaviour
     [Space(20)]
 
     private InventoryManager inventoryManager; // Reference to inventory system
+
+    [Header("Preview Components")]
+
     [SerializeField] private Image dishIcon; // UI display for dish icon
     [SerializeField] private TMP_Text cookQuantityText; // Display for selected cook quantity
     [SerializeField] private TMP_Text dishName; // Display for dish name
+    [SerializeField] private TMP_Text dishDescription;
+
+    [Space(10)]
+
+    public GameObject CloseButton;
 
     private GameObject cookingAnimation; // Animation object
 
@@ -24,8 +33,11 @@ public class CookingManager : MonoBehaviour
     private int maxCookQuantity = 1;
     private int selectedCookQuantity = 1;
 
+
     private void Awake()
     {
+        CloseButton.SetActive(false);
+        DisableIngredients();
         inventoryManager = InventoryManager.Instance;
 
         if (Instance == null)
@@ -39,8 +51,27 @@ public class CookingManager : MonoBehaviour
         }
     }
 
+    private void DisableIngredients()
+    {
+        foreach (var obj in ingredientDisplays)
+        {
+            obj.MainObject.SetActive(false);
+        }
+    }
+    
+    private void EnableIngredients()
+    {
+        foreach (var obj in ingredientDisplays)
+        {
+            obj.MainObject.SetActive(true);
+        }
+    }
+
     public void RecieveRecipe(Recipe recipe, GameObject animationObject)
     {
+
+        EnableIngredients();
+
         currentRecipe = recipe;
         cookingAnimation = animationObject;
 
@@ -79,6 +110,9 @@ public class CookingManager : MonoBehaviour
 
         //Update Active Recipe Name
         dishName.text = currentRecipe.resultDish.itemName;
+
+        //Update Dish description
+        dishDescription.text = currentRecipe.resultDish.description;
 
         // Update Ingredients UI
         for (int i = 0; i < ingredientDisplays.Length; i++)
@@ -138,7 +172,7 @@ public class CookingManager : MonoBehaviour
         }
 
         // Attempt to remove the required ingredients
-        if (!inventoryManager.RemoveItems(removalRequests))
+        if (!inventoryManager.RemoveItems(removalRequests)) //FailSafe
         {
             Debug.Log("Not enough ingredients to cook!");
             return;
@@ -148,13 +182,22 @@ public class CookingManager : MonoBehaviour
         StartCoroutine(ShowCookingAnimation());
     }
 
-    private System.Collections.IEnumerator ShowCookingAnimation()
+    private IEnumerator ShowCookingAnimation()
     {
+        CloseButton.SetActive(false);
+
         if (cookingAnimation)
         {
             cookingAnimation.SetActive(true);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSecondsRealtime(3f);
+
+            Animator cookComic = cookingAnimation.GetComponent<Animator>();
+            cookComic.SetTrigger("Exit");
+
+            yield return new WaitForSecondsRealtime(1.5f);
             cookingAnimation.SetActive(false);
+
+
         }
     }
 }

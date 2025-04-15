@@ -22,7 +22,7 @@ public class FishGenerator : MonoBehaviour
 
     public GameObject FishPreviewCard;
     public Image PreviewIcon;
-    public float PreviewDuration;
+    public float PreviewDuration = 5f;
     
 
     private Animator PreviewAnimator;
@@ -31,7 +31,7 @@ public class FishGenerator : MonoBehaviour
     private void Start()
     {
         PreviewAnimator = FishPreviewCard.GetComponent<Animator>();
-        PreviewIcon = FishPreviewCard.GetComponentInChildren<Image>(true);
+       
 
         FishPreviewCard.SetActive(false);
     }

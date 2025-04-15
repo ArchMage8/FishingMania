@@ -14,10 +14,17 @@ public class LoadWithDestination : MonoBehaviour
     public Animator sceneLoader;
     public bool LoadWithButton = true;
 
-    [Space(20)]
+    [Space(10)]
     public GameObject F_Indicator;
 
-    private bool TeleportRunning;
+    [Space(20)]
+    [Header("Force Direction On Start")]
+
+    [Tooltip("When you want Iris to face a certain direction ")]
+    public bool ForceDirectionOnLoad;
+    public FaceDirection selectedDirection;
+
+    private bool TeleportRunning = false;
     private bool PlayerInRange = false;
 
     private void Awake()
@@ -55,6 +62,7 @@ public class LoadWithDestination : MonoBehaviour
     private IEnumerator LoadSceneAndMovePlayer()
     {
         InventoryManager.Instance.SomeUIEnabled = true;
+        Time.timeScale = 1f;
 
         sceneLoader.SetTrigger("CloseScene");
 
@@ -76,23 +84,43 @@ public class LoadWithDestination : MonoBehaviour
         CinemachineVirtualCamera virtualCamera;
 
         virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
-        CinemachineFramingTransposer transposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        CinemachineFramingTransposer transposer = null;
+
+        if(virtualCamera != null)
+        {
+            transposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        }
+
         if (player != null)
         {
             player.transform.position = TargetPosition;
-            transposer.m_SoftZoneHeight = 0;
-            transposer.m_SoftZoneWidth = 0;
-            transposer.m_XDamping = 0;
-            transposer.m_YDamping = 0;
+            if (transposer != null)
+            {
+                transposer.m_SoftZoneHeight = 0;
+                transposer.m_SoftZoneWidth = 0;
+                transposer.m_XDamping = 0;
+                transposer.m_YDamping = 0;
+            }
+        }
+
+        if (ForceDirectionOnLoad)
+        {
+            PlayerManager.instance.SnapWithoutTarget(selectedDirection.ToString());
         }
 
         yield return new WaitForSeconds(0.5f);
 
-        transposer.m_SoftZoneHeight = 0.23f;
-        transposer.m_SoftZoneWidth = 0.23f;
+        if (transposer != null)
+        {
+            transposer.m_SoftZoneHeight = 0.23f;
+            transposer.m_SoftZoneWidth = 0.23f;
 
-        transposer.m_XDamping = 0.8f;
-        transposer.m_YDamping = 0.8f;
+            transposer.m_XDamping = 0.8f;
+            transposer.m_YDamping = 0.8f;
+        }
+
+       
+
         Destroy(gameObject); // Now safe to remove this object
     }
 
@@ -120,4 +148,15 @@ public class LoadWithDestination : MonoBehaviour
         }
     }
 
+    public enum FaceDirection
+    {
+        N,
+        NE,
+        E,
+        SE,
+        S,
+        SW,
+        W,
+        NW
+    }
 }

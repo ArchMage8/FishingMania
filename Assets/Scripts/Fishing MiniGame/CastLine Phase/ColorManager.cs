@@ -77,7 +77,16 @@ public class ColorManager : MonoBehaviour
     private void GetStock()
     {
         string FishingSpotStock = FishingCoreSystems.instance.fishGenerator.FishingSpotName;
-        TempStock = FishingSpotManager.instance.CheckFishStock(FishingSpotStock);
+        Debug.Log(FishingSpotStock);
+
+        if (FishingSpotManager.instance == null)
+        {
+            Debug.Log("FishingSpotManager not found");
+        }
+        else
+        {
+            TempStock = FishingSpotManager.instance.CheckFishStock(FishingSpotStock);
+        }
     }
 
     private void AssignRandomColors()

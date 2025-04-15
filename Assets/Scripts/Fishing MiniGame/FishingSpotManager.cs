@@ -25,6 +25,11 @@ public class FishingSpotManager : MonoBehaviour
     public FishingSpotStock[] fishingSpots;
     public static FishingSpotManager instance;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public int CheckFishStock(string fishingSpotName)
     {
         foreach (FishingSpotStock spot in fishingSpots)

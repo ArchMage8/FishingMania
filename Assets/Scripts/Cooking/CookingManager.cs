@@ -172,7 +172,7 @@ public class CookingManager : MonoBehaviour
         }
 
         // Attempt to remove the required ingredients
-        if (!inventoryManager.RemoveItems(removalRequests)) //FailSafe
+        if (!inventoryManager.RemoveItems(removalRequests)) //Final FailSafe
         {
             Debug.Log("Not enough ingredients to cook!");
             return;

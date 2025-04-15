@@ -5,6 +5,7 @@ Why are you still talking to me? #speaker: Magu #trigger: next
     ->path1
     
     +[Nevermind...]
+    ...
     ->END
 
 

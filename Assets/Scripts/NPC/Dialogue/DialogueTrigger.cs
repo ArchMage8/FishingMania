@@ -9,7 +9,7 @@ public class DialogueTrigger : MonoBehaviour
     [Space(15)]
     [Header("NPC System Requirements")]
     public TextAsset NPC_Dialogue;
-    public GameObject ChoicesHolder;
+    //public GameObject ChoicesHolder;
 
     [Header("NPC Info")]
     public QuestSO NPC_Quest;
@@ -57,6 +57,11 @@ public class DialogueTrigger : MonoBehaviour
 
         
             DialogueManager.GetInstance().NpcInRange = playerInRange;
+
+            if(LocalDialogueAnimator.gameObject.activeSelf == false)
+            {
+                LocalDialogueAnimator.gameObject.SetActive(true);
+            }
 
             if (NPC_Quest != null)
             {

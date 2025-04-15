@@ -72,6 +72,56 @@ public class PlayerManager : MonoBehaviour
         SetAnimation();
     }
 
+    public void SnapWithoutTarget(string directionName)
+    {
+        if (directionName == "N")
+        {
+            AnimatorX = 0;
+            AnimatorY = 1;
+        }
+        else if (directionName == "NE")
+        {
+            AnimatorX = 1;
+            AnimatorY = 1;
+        }
+        else if (directionName == "E")
+        {
+            AnimatorX = 1;
+            AnimatorY = 0;
+        }
+        else if (directionName == "SE")
+        {
+            AnimatorX = 1;
+            AnimatorY = -1;
+        }
+        else if (directionName == "S")
+        {
+            AnimatorX = 0;
+            AnimatorY = -1;
+        }
+        else if (directionName == "SW")
+        {
+            AnimatorX = -1;
+            AnimatorY = -1;
+        }
+        else if (directionName == "W")
+        {
+            AnimatorX = -1;
+            AnimatorY = 0;
+        }
+        else if (directionName == "NW")
+        {
+            AnimatorX = -1;
+            AnimatorY = 1;
+        }
+        else
+        {
+            Debug.Log("Invalid Direction");
+        }
+
+        SetAnimation();
+    }
+
     private void SetAnimation()
     {
         //playerMovement.canMove = false;

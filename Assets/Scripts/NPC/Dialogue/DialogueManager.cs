@@ -16,6 +16,9 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI displayNameText;
+
+    [Space(10)]
+    [Header("Auto moved Stuffs")]
     public GameObject SpeakerNameBG;
     public GameObject ChoicesHolder;
 
@@ -58,11 +61,13 @@ public class DialogueManager : MonoBehaviour
     //Variables & Function needed to move Dialogue Objects when iris is speaking
 
     private RectTransform rectTransform;
-    private Vector2 ChoicesOriginalPosition = new Vector2(-227f, 0f);
-    private Vector2 ChoicesMovedPosition = new Vector2(25f, 0f);
+    //Choices
+    private Vector2 ChoicesOriginalPosition = new Vector2(-642f, -31f);
+    private Vector2 ChoicesMovedPosition = new Vector2(25f, 0f); //Iris is talking
 
-    private Vector2 SpeakerNameOriginalPosition = new Vector2(294.1f, -192f);
-    private Vector2 SpeakerNameMovedPosition = new Vector2(-294.1f, -192f);
+    //Speaker Name
+    private Vector2 SpeakerNameOriginalPosition = new Vector2(740f, -459f);
+    private Vector2 SpeakerNameMovedPosition = new Vector2(-697f, -459f); //Iris is talking
 
 
     private void Awake()
@@ -229,7 +234,7 @@ public class DialogueManager : MonoBehaviour
 
         InventoryManager.Instance.SomeUIEnabled = false;
 
-        //NPCDialogueAnimator.gameObject.SetActive(false);
+        NPCDialogueAnimator.gameObject.SetActive(false);
 
         NPCDialogueAnimator = null;
 
@@ -323,7 +328,7 @@ public class DialogueManager : MonoBehaviour
             currentStory.ChooseChoiceIndex(choiceIndex);
             
             ContinueStory();
-            EventSystem.current.SetSelectedGameObject(null);
+            //EventSystem.current.SetSelectedGameObject(null);
         }
     }
 

@@ -11,6 +11,12 @@ public class EnableAfterTaskComplete : MonoBehaviour
     public Item CriteriaItem;
     public int MinimumQTY = 1;
 
+    [Space(20)]
+
+    [Header("Needs Delay")]
+    public bool DelayBeforeEnable;
+    public float DelayDuration;
+
     private void Start()
     {
         TargetObject.SetActive(false);
@@ -25,7 +31,15 @@ public class EnableAfterTaskComplete : MonoBehaviour
 
         else
         {
-            TargetObject.SetActive(true);
+            if (DelayBeforeEnable == false)
+            {
+                TargetObject.SetActive(true);
+            }
+
+            else
+            {
+                StartCoroutine(EnableAfterDelay());
+            }
         }
     }
 
@@ -36,5 +50,12 @@ public class EnableAfterTaskComplete : MonoBehaviour
         {
             CriteriaMet = true;
         }
+    }
+
+    private IEnumerator EnableAfterDelay()
+    {
+        yield return new WaitForSeconds(DelayDuration);
+        TargetObject.SetActive(true);
+
     }
 }

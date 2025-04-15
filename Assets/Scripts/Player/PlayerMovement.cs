@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnimator();
         UpdateDirection();
 
-        if(Time.timeScale == 0f)
+        if(Time.timeScale == 0f || InventoryManager.Instance.SomeUIEnabled)
         {
             canMove = false;
         }

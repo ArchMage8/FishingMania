@@ -152,8 +152,8 @@ public class FishingCoreSystems : MonoBehaviour
         int waitTime = score switch
         {
             1 => 10,
-            2 => 20,
-            3 => 50,
+            2 => 10,
+            3 => 10,
             _ => 30
         };
 
@@ -183,18 +183,24 @@ public class FishingCoreSystems : MonoBehaviour
         FishingPlayer.SetTrigger("Next");
         yield return new WaitForSeconds(0.5f);
         BiteIndicator.SetActive(true);
+        
 
         float biteTime = 2f;
         float elapsedTime = 0f;
 
         while (elapsedTime < biteTime)
         {
+            Debug.Log("Enter Reel in phase 1");
+
             if (Input.GetKeyDown(KeyCode.F))
             {
+                ReelSlider.gameObject.SetActive(true);
+                Debug.Log("Enter Reel in phase 2");
                 StartCoroutine(ReelingPhase());
                 yield break;
             }
             elapsedTime += Time.deltaTime;
+ 
             yield return null;
         }
 
@@ -206,7 +212,7 @@ public class FishingCoreSystems : MonoBehaviour
     {
         Debug.Log("Reeling Phase Started");
         reelQTY = 50;
-        ReelSlider.gameObject.SetActive(true);
+        
         ReelSlider.value = reelQTY;
         ReelSlider.maxValue = 100;
 

@@ -3,15 +3,22 @@ using UnityEngine;
 public class DynamicSortingLayer : MonoBehaviour
 {
     public SpriteRenderer Reference;
-    public Renderer TargetSprite;
+    public Renderer[] TargetSprite;
     public int Difference;
-    private int originalLayer;
+    private int[] originalLayer;
 
     private void Start()
     {
-        if (TargetSprite != null)
+        if (TargetSprite != null && TargetSprite.Length > 0)
         {
-            originalLayer = TargetSprite.sortingOrder;
+            originalLayer = new int[TargetSprite.Length];
+            for (int i = 0; i < TargetSprite.Length; i++)
+            {
+                if (TargetSprite[i] != null)
+                {
+                    originalLayer[i] = TargetSprite[i].sortingOrder;
+                }
+            }
         }
     }
 
@@ -35,15 +42,27 @@ public class DynamicSortingLayer : MonoBehaviour
     {
         if (Reference != null && TargetSprite != null)
         {
-            TargetSprite.sortingOrder = Reference.sortingOrder + Difference;
+            foreach (var sprite in TargetSprite)
+            {
+                if (sprite != null)
+                {
+                    sprite.sortingOrder = Reference.sortingOrder + Difference;
+                }
+            }
         }
     }
 
     private void ResetLayer()
     {
-        if (TargetSprite != null)
+        if (TargetSprite != null && originalLayer != null)
         {
-            TargetSprite.sortingOrder = originalLayer;
+            for (int i = 0; i < TargetSprite.Length; i++)
+            {
+                if (TargetSprite[i] != null)
+                {
+                    TargetSprite[i].sortingOrder = originalLayer[i];
+                }
+            }
         }
     }
 }

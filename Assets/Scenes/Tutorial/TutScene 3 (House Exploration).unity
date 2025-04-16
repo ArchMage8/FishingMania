@@ -170,7 +170,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reference: {fileID: 167133597}
-  TargetSprite: {fileID: 397815698}
+  TargetSprite:
+  - {fileID: 0}
   Difference: 3
 --- !u!60 &34007591
 PolygonCollider2D:
@@ -215,7 +216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reference: {fileID: 167133597}
-  TargetSprite: {fileID: 1027531799}
+  TargetSprite:
+  - {fileID: 0}
   Difference: 2
 --- !u!1 &48392852
 GameObject:
@@ -331,7 +333,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reference: {fileID: 167133597}
-  TargetSprite: {fileID: 553766150}
+  TargetSprite:
+  - {fileID: 553766150}
   Difference: 2
 --- !u!1 &133094033
 GameObject:
@@ -549,7 +552,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reference: {fileID: 167133597}
-  TargetSprite: {fileID: 397815698}
+  TargetSprite:
+  - {fileID: 0}
   Difference: 3
 --- !u!114 &211853707
 MonoBehaviour:
@@ -564,7 +568,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reference: {fileID: 167133597}
-  TargetSprite: {fileID: 1027531799}
+  TargetSprite:
+  - {fileID: 0}
   Difference: 2
 --- !u!60 &211853708
 PolygonCollider2D:
@@ -608,7 +613,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reference: {fileID: 167133597}
-  TargetSprite: {fileID: 1484634254}
+  TargetSprite:
+  - {fileID: 1484634254}
   Difference: 2
 --- !u!114 &211853710
 MonoBehaviour:
@@ -623,7 +629,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reference: {fileID: 167133597}
-  TargetSprite: {fileID: 1699211372}
+  TargetSprite:
+  - {fileID: 0}
   Difference: 20
 --- !u!1 &239351874
 GameObject:
@@ -2855,7 +2862,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reference: {fileID: 167133597}
-  TargetSprite: {fileID: 1027531799}
+  TargetSprite:
+  - {fileID: 0}
   Difference: 2
 --- !u!60 &1258460984
 PolygonCollider2D:
@@ -2904,7 +2912,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reference: {fileID: 167133597}
-  TargetSprite: {fileID: 397815698}
+  TargetSprite:
+  - {fileID: 397815698}
   Difference: 3
 --- !u!114 &1258460986
 MonoBehaviour:
@@ -2919,7 +2928,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reference: {fileID: 167133597}
-  TargetSprite: {fileID: 1699211372}
+  TargetSprite:
+  - {fileID: 0}
   Difference: 20
 --- !u!1 &1266749174
 GameObject:
@@ -3038,6 +3048,8 @@ MonoBehaviour:
   sceneLoader: {fileID: 1477582260}
   LoadWithButton: 0
   F_Indicator: {fileID: 1233439435}
+  ForceDirectionOnLoad: 0
+  selectedDirection: 0
 --- !u!60 &1394274494
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -3653,11 +3665,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1669533814531935520, guid: 7b1b329d170a43645a5cacd7235cc94a, type: 3}
   m_PrefabInstance: {fileID: 1699211368}
   m_PrefabAsset: {fileID: 0}
---- !u!212 &1699211372 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1669533814531935522, guid: 7b1b329d170a43645a5cacd7235cc94a, type: 3}
-  m_PrefabInstance: {fileID: 1699211368}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1735733630
 GameObject:
   m_ObjectHideFlags: 0
@@ -4009,7 +4016,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reference: {fileID: 167133597}
-  TargetSprite: {fileID: 397815698}
+  TargetSprite:
+  - {fileID: 397815698}
   Difference: 2
 --- !u!114 &1938738194
 MonoBehaviour:
@@ -4024,7 +4032,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reference: {fileID: 167133597}
-  TargetSprite: {fileID: 1699211372}
+  TargetSprite:
+  - {fileID: 0}
   Difference: 2
 --- !u!1 &1985106382
 GameObject:
@@ -4279,7 +4288,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reference: {fileID: 167133597}
-  TargetSprite: {fileID: 1235721209}
+  TargetSprite:
+  - {fileID: 1235721209}
   Difference: 5
 --- !u!1 &17872324275852659
 GameObject:

@@ -23,6 +23,9 @@ public class FishGenerator : MonoBehaviour
     public GameObject FishPreviewCard;
     public Image PreviewIcon;
     public float PreviewDuration = 5f;
+
+    [Space(10)]
+    public GameObject CloseButton;
     
 
     private Animator PreviewAnimator;
@@ -34,6 +37,14 @@ public class FishGenerator : MonoBehaviour
        
 
         FishPreviewCard.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if(FishPreviewCard.activeSelf == true)
+        {
+            CloseButton.SetActive(false);
+        }
     }
 
     public void SelectFish()
@@ -115,6 +126,8 @@ public class FishGenerator : MonoBehaviour
 
     private IEnumerator CatchFishUI(Item fish)
     {
+        InventoryManager.Instance.SomeUIEnabled = true;
+        
         if(Time.timeScale == 0)
         {
             Debug.LogError("There be error setup, timescale is 0");
@@ -128,5 +141,6 @@ public class FishGenerator : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
         FishPreviewCard.SetActive(false);
+        InventoryManager.Instance.SomeUIEnabled = false;
     }
 }

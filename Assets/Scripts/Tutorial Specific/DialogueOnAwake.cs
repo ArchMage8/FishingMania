@@ -22,6 +22,8 @@ public class DialogueOnAwake : MonoBehaviour
     {
         dialogueManager = DialogueManager.GetInstance();
         StartCoroutine(StartDialogue());
+
+        autoAddItems = GetComponent<AutoAddItems>();
     
     }
 

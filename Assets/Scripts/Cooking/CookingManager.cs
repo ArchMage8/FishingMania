@@ -20,8 +20,10 @@ public class CookingManager : MonoBehaviour
     [SerializeField] private TMP_Text dishDescription;
 
     [Space(10)]
+    [Header("System Requirements")]
 
     public GameObject CloseButton;
+    public GameObject CookingUI;
 
     private GameObject cookingAnimation; // Animation object
 
@@ -185,18 +187,20 @@ public class CookingManager : MonoBehaviour
     private IEnumerator ShowCookingAnimation()
     {
         CloseButton.SetActive(false);
+        CookingUI.SetActive(false);
 
         if (cookingAnimation)
         {
             cookingAnimation.SetActive(true);
-            yield return new WaitForSecondsRealtime(3f);
+            yield return new WaitForSecondsRealtime(5f);
 
             Animator cookComic = cookingAnimation.GetComponent<Animator>();
             cookComic.SetTrigger("Exit");
 
             yield return new WaitForSecondsRealtime(1.5f);
             cookingAnimation.SetActive(false);
-
+            CloseButton.SetActive(true);
+            CookingUI.SetActive(true);
 
         }
     }

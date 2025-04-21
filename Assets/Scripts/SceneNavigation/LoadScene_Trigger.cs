@@ -4,9 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class LoadScene_Trigger : MonoBehaviour
 {
-    public GameObject F_Indicator;
+    
     public int DestinationScene;
+
+    [Space(20)]
+
     public Animator sceneLoader;
+    public GameObject F_Indicator;
     private bool playerInRange = false;
 
     private void Start()

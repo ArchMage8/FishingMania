@@ -126,7 +126,7 @@ public class LoadWithDestination : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !LoadWithButton)
+        if (other.CompareTag("Player") && !LoadWithButton && !InventoryManager.Instance.SomeUIEnabled)
         {
             if (F_Indicator != null)
             {
@@ -138,7 +138,7 @@ public class LoadWithDestination : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !LoadWithButton)
+        if (other.CompareTag("Player") && !LoadWithButton && !InventoryManager.Instance.SomeUIEnabled)
         {
             if (F_Indicator != null)
             {

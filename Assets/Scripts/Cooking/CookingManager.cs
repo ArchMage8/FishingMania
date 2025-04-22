@@ -38,7 +38,8 @@ public class CookingManager : MonoBehaviour
 
     private void Awake()
     {
-        CloseButton.SetActive(false);
+        CloseButton.SetActive(true);
+
         DisableIngredients();
         inventoryManager = InventoryManager.Instance;
 
@@ -59,6 +60,8 @@ public class CookingManager : MonoBehaviour
         {
             obj.MainObject.SetActive(false);
         }
+
+      
     }
     
     private void EnableIngredients()
@@ -203,6 +206,16 @@ public class CookingManager : MonoBehaviour
             CookingUI.SetActive(true);
 
         }
+    }
+
+    //Very important this ya
+    public void TurnOffCookingUI(GameObject target)
+    {
+        CloseButton.SetActive(false);
+        target.SetActive(false);
+
+        InventoryManager.Instance.SomeUIEnabled = false;
+        Time.timeScale = 1f;
     }
 }
 

@@ -36,7 +36,7 @@ public class LoadWithDestination : MonoBehaviour
     {
         TeleportRunning = false;
 
-        Debug.Log("Start is called");
+        //Debug.Log("Start is called");
 
         DontDestroyOnLoad(this);
     }

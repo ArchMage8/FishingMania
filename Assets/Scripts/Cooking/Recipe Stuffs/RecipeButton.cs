@@ -16,16 +16,22 @@ public class RecipeButton : MonoBehaviour
 
     private void Awake()
     {
+        ButtonSetup();
         cookComic.SetActive(false);
+
+        Debug.Log("banana1");
     }
 
-    private void OnEnable()
+    private void ButtonSetup()
     {
+        Debug.Log("banana2");
+
         if (assignedRecipe == null) return;
 
         // Set button icon to recipe's target dish
-        if (assignedRecipe.resultDish != null && assignedRecipe.resultDish.icon != null)
+        else if (assignedRecipe.resultDish != null && assignedRecipe.resultDish.icon != null)
         {
+            Debug.Log("banana3");
             buttonImage.sprite = assignedRecipe.resultDish.icon;
         }
 

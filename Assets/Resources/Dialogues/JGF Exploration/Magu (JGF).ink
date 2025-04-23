@@ -1,8 +1,20 @@
 Hmm...? #speaker: Magu #trigger: next
-->main
+->start
+
+=== start ===
+Whats do you want? #speaker: Magu #trigger: next
+    +[What is this place]
+    ->Section1
+    
+    +[Who are you?]
+    ->Section2
+
+    +[See ya!]
+    ->Section3
+
 
 === main ===
-Whats do you want? #speaker: Magu #trigger: next
+Anything else? #speaker: Magu #trigger: next
     +[What is this place]
     ->Section1
     
@@ -26,7 +38,7 @@ At least that's what the humans call it! #speaker: Magu #trigger: next
 
 === Section2 ===
 I'm Magu!#speaker: Magu #trigger: branch2
-And i own this house! #speaker: Magu #trigger: next
+And I own this house! #speaker: Magu #trigger: next
 
 A cat owns this house? #speaker: Iris #trigger: next
 

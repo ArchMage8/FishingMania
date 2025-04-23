@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Animations;
 
 public class DisplayInventoryManager : MonoBehaviour
 {
@@ -27,6 +28,17 @@ public class DisplayInventoryManager : MonoBehaviour
 
     private InventoryManager inventoryManager;
 
+    [Header("System")]
+    [Space(20)]
+
+    public Animator InventoryAnimator;
+
+    [Space(10)]
+
+    public GameObject InventoryHolder;
+    public GameObject DeleteHolder;
+    public GameObject EquipmentHolder;
+
     private void Start()
     {
         // Get a reference to the InventoryManager
@@ -41,6 +53,9 @@ public class DisplayInventoryManager : MonoBehaviour
             ShowDefaultItemDetails();
 
         displayUI.SetActive(false);
+
+        
+
     }
 
     private void Update()
@@ -49,7 +64,14 @@ public class DisplayInventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
           ToggleInventoryPage();
+            EnableAnimations();
+
         }
+    }
+
+    private void EnableAnimations()
+    {
+        InventoryAnimator.Play("Entry", 0, 0f);
     }
 
     private void ToggleInventoryPage()
@@ -57,6 +79,10 @@ public class DisplayInventoryManager : MonoBehaviour
         if (displayUI.activeSelf == true)
         {
             displayUI.SetActive(false);
+
+            DeleteHolder.SetActive(false);
+            EquipmentHolder.SetActive(false);
+
             inventoryManager.SomeUIEnabled = false;
 
             DialogueManager.GetInstance().canDialogue = true;

@@ -2013,6 +2013,7 @@ GameObject:
   - component: {fileID: 7254121629871163844}
   - component: {fileID: 7254121629871163843}
   - component: {fileID: 7254121629871163842}
+  - component: {fileID: 2890561900003834352}
   m_Layer: 5
   m_Name: InventoryPage
   m_TagString: Untagged
@@ -2107,6 +2108,26 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!95 &2890561900003834352
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7254121629871163841}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d827d978fdba4b94bb6f90a7196619b9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &7254121629904111621
 GameObject:
   m_ObjectHideFlags: 0

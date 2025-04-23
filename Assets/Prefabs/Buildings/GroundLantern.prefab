@@ -273,7 +273,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1421864602, guid: f210dd4723828e444996af613a91f28c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -397,10 +397,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f29089cf2422b34b97844768a79b47f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Reference: {fileID: 0}
   TargetSprite:
-  - {fileID: 0}
-  Difference: 2
+  - {fileID: 5403881986297485364}
+  Difference: 14
 --- !u!60 &5403881986962900129
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DynamicSortingLayer : MonoBehaviour
 {
-    public SpriteRenderer Reference;
+    //public SpriteRenderer Reference;
     public Renderer[] TargetSprite;
     public int Difference;
     private int[] originalLayer;
@@ -40,13 +40,13 @@ public class DynamicSortingLayer : MonoBehaviour
 
     private void AdjustLayer()
     {
-        if (Reference != null && TargetSprite != null)
+        if (TargetSprite != null)
         {
             foreach (var sprite in TargetSprite)
             {
                 if (sprite != null)
                 {
-                    sprite.sortingOrder = Reference.sortingOrder + Difference;
+                    sprite.sortingOrder += Difference;
                 }
             }
         }

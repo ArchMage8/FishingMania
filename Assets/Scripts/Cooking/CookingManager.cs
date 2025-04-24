@@ -157,11 +157,8 @@ public class CookingManager : MonoBehaviour
 
     public void ExecuteCooking()
     {
-        if (currentRecipe == null) return;
-
-        if (!inventoryManager.AddItem(currentRecipe.resultDish, selectedCookQuantity))
+        if (currentRecipe == null) //No recipe
         {
-            Debug.Log("Inventory is full!");
             return;
         }
 
@@ -177,9 +174,15 @@ public class CookingManager : MonoBehaviour
         }
 
         // Attempt to remove the required ingredients
-        if (!inventoryManager.RemoveItems(removalRequests)) //Final FailSafe
+        if (!inventoryManager.RemoveItems(removalRequests))
         {
             Debug.Log("Not enough ingredients to cook!");
+            return;
+        }
+
+        if (!inventoryManager.AddItem(currentRecipe.resultDish, selectedCookQuantity))
+        {
+            Debug.Log("Inventory is full!");
             return;
         }
 

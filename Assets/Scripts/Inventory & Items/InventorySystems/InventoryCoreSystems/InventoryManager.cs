@@ -237,13 +237,17 @@ public class InventoryManager : MonoBehaviour
         {
             File.Delete(saveFilePath);
             Debug.Log("File Delete Completed");
-        }
 
+            // ALSO clear in-memory inventory
+            inventory.Clear();
+            for (int i = 0; i < maxSlots; i++) inventory.Add(new InventorySlot());
+        }
         else
         {
-            Debug.Log("File doesn't exists");
+            Debug.Log("File doesn't exist");
         }
     }
+
 
     public int GetTotalQuantity(Item item)
     {

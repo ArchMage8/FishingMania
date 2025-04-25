@@ -281,26 +281,29 @@ public class DialogueManager : MonoBehaviour
     }
 
     public void ContinueStory()
-    {
-        if (currentStory.canContinue)
-        {
-            if (displayLineCoroutine != null)
+    {  if (currentStory.canContinue)
             {
-                StopCoroutine(displayLineCoroutine);
+                if (displayLineCoroutine != null)
+                {
+                    StopCoroutine(displayLineCoroutine);
+                }
+
+                    if (currentStory != null)
+                    {
+                        string line = currentStory.Continue();
+                        displayLineCoroutine = StartCoroutine(DisplayLine(line));
+                    }
+
+                if (currentStory.currentTags != null && currentStory.currentTags.Count > 0)
+                {
+                    HandleTags(currentStory.currentTags);
+                }
             }
-
-            string line = currentStory.Continue();
-            displayLineCoroutine = StartCoroutine(DisplayLine(line));
-
-            if (currentStory.currentTags != null && currentStory.currentTags.Count > 0)
+            else
             {
-                HandleTags(currentStory.currentTags);
+                ExitDialogueMode();
             }
-        }
-        else
-        {
-            ExitDialogueMode();
-        }
+        
     }
 
 
@@ -564,14 +567,14 @@ public class DialogueManager : MonoBehaviour
     {
         if(Temp_Shop != null)
         {
-            Debug.Log("CAll");
-            
             ExitDialogueMode();
+            Debug.Log("CAll");
             InventoryManager.Instance.SomeUIEnabled = true;
             Temp_Shop.SetActive(true);
             Time.timeScale = 0f;
 
             Temp_Shop = null;
+            
         }
     }
 

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class RecipeButton : MonoBehaviour
 {
-    [SerializeField] private Recipe assignedRecipe;
+    public Recipe assignedRecipe;
 
     [Space(20)]
 
@@ -19,22 +19,28 @@ public class RecipeButton : MonoBehaviour
         ButtonSetup();
         cookComic.SetActive(false);
 
-        Debug.Log("banana1");
+       
     }
 
     private void ButtonSetup()
     {
-        Debug.Log("banana2");
+       
 
         if (assignedRecipe == null) return;
 
         // Set button icon to recipe's target dish
         else if (assignedRecipe.resultDish != null && assignedRecipe.resultDish.icon != null)
         {
-            Debug.Log("banana3");
+            
             buttonImage.sprite = assignedRecipe.resultDish.icon;
         }
 
+        SetState();
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log("banana1");
         SetState();
     }
 

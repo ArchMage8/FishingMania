@@ -6,6 +6,15 @@ public class AutoAddItems : MonoBehaviour
 { 
     public Item ItemToGive;
     public int ItemQty;
+    public bool SendAuto = false;
+
+    private void Start()
+    {
+        if (SendAuto)
+        {
+            GiveItems();
+        }
+    }
 
     public void GiveItems()
     {

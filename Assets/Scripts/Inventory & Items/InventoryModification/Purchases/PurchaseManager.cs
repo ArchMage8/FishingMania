@@ -14,8 +14,9 @@ public class PurchaseManager : MonoBehaviour
 
     [Space(20)]
 
+    public TMP_Text Object_Description;
     public TMP_Text purchaseQtyText;
-    public Sprite emptySprite;
+    public GameObject ContentHolder;
 
     [Header("External Managers")]
     private MoneyManager moneyManager;
@@ -31,7 +32,7 @@ public class PurchaseManager : MonoBehaviour
     {
         inventoryManager = InventoryManager.Instance;
         moneyManager = MoneyManager.Instance;
-
+        ContentHolder.SetActive(false);
 
         UpdatePurchaseUI();
     }
@@ -54,12 +55,16 @@ public class PurchaseManager : MonoBehaviour
 
     public void DisplayItemDetails(Item item, int price)
     {
+        ContentHolder.SetActive(true);
+
         selectedItem = item;
         selectedItemPrice = price;
 
         // Update UI with selected item details
         itemNameText.text = item.itemName;
         //itemDescriptionText.text = item.description;
+
+        Object_Description.text = item.description;
 
         if (price != 0)
         {
@@ -146,7 +151,7 @@ public class PurchaseManager : MonoBehaviour
         itemNameText.text = "";
         //itemDescriptionText.text = "";
         itemPriceText.text = "";
-        itemIcon.sprite = emptySprite;
+        ContentHolder.SetActive(false);
         purchaseQtyText.text = "1";
     }
 

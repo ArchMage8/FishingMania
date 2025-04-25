@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
 
 public class FishGenerator : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class FishGenerator : MonoBehaviour
 
     public GameObject FishPreviewCard;
     public Image PreviewIcon;
+    public TMP_Text PreviewText;
     public float PreviewDuration = 5f;
 
     [Space(10)]
@@ -135,6 +137,8 @@ public class FishGenerator : MonoBehaviour
 
         PreviewIcon.sprite = fish.icon;
         FishPreviewCard.SetActive(true);
+
+        PreviewText.text = fish.name;
 
         yield return new WaitForSeconds(PreviewDuration);
         PreviewAnimator.SetTrigger("Exit");

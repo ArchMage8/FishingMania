@@ -152,8 +152,8 @@ public class FishingCoreSystems : MonoBehaviour
         int waitTime = score switch
         {
             1 => 10,
-            2 => 10,
-            3 => 0,
+            2 => 20,
+            3 => 40,
             _ => 30
         };
 

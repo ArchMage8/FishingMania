@@ -91,6 +91,7 @@ public class CookingManager : MonoBehaviour
     public int CalculateMaxQuantity(Recipe recipe)
     {
         int maxQty = int.MaxValue;
+        Debug.Log(recipe.recipeName);
 
         foreach (var ingredient in recipe.ingredients)
         {

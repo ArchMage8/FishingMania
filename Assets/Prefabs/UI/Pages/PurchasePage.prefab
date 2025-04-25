@@ -883,7 +883,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mackarel
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bc3ffefc11a9d8842a89185ad6784c62, type: 2}
   m_sharedMaterial: {fileID: -3299178379314912021, guid: bc3ffefc11a9d8842a89185ad6784c62, type: 2}
@@ -1116,7 +1116,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100 Coins
+  m_text: '-'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bc3ffefc11a9d8842a89185ad6784c62, type: 2}
   m_sharedMaterial: {fileID: -3299178379314912021, guid: bc3ffefc11a9d8842a89185ad6784c62, type: 2}
@@ -1599,7 +1599,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5783820840818967808}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8756289318262452532}
+        m_TargetAssemblyTypeName: PurchaseManager, Assembly-CSharp
+        m_MethodName: IncreasePurchaseQty
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5783820840862476351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1932,8 +1944,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5783820840298492000}
   m_HandleRect: {fileID: 5783820840298492014}
   m_Direction: 0
-  m_Value: 1.0000001
-  m_Size: 0.44489908
+  m_Value: 1.0000002
+  m_Size: 0.4448991
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2347,8 +2359,9 @@ MonoBehaviour:
   itemNameText: {fileID: 5251188046076011024}
   itemPriceText: {fileID: 5783820840189786739}
   itemIcon: {fileID: 5783820842015571343}
+  Object_Description: {fileID: 5783820841049249433}
   purchaseQtyText: {fileID: 5783820840862476337}
-  emptySprite: {fileID: 0}
+  ContentHolder: {fileID: 5783820842015571341}
 --- !u!95 &6631149689957006017
 Animator:
   serializedVersion: 5
@@ -2863,7 +2876,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5783820842102388400}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8756289318262452532}
+        m_TargetAssemblyTypeName: PurchaseManager, Assembly-CSharp
+        m_MethodName: ConfirmPurchase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5783820842104572546
 GameObject:
   m_ObjectHideFlags: 0
@@ -2984,7 +3009,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5783820842104572551}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8756289318262452532}
+        m_TargetAssemblyTypeName: PurchaseManager, Assembly-CSharp
+        m_MethodName: DecreasePurchaseQty
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6532175375984468311
 GameObject:
   m_ObjectHideFlags: 0

@@ -65,23 +65,27 @@ public class DialogueTrigger : MonoBehaviour
 
             if (NPC_Quest != null)
             {
+              
                 DialogueManager.GetInstance().EnterDialogueMode_Quest(NPC_Dialogue, NPC_Quest, LocalDialogueAnimator);
             }
 
             else if (Shop_NPC_UI != null)
             {
                 //We are buying from the NPC
+              
                 DialogueManager.GetInstance().EnterDialogue_Buy(NPC_Dialogue, Shop_NPC_UI, LocalDialogueAnimator);
             }
 
             else if (Sell_To_NPC_UI != null)
             {
                 //We are selling to the NPC
+             
                 DialogueManager.GetInstance().EnterDialogue_Sell(NPC_Dialogue, Sell_To_NPC_UI, LocalDialogueAnimator);
             }
 
             else if(!NPC_Quest && !Shop_NPC_UI && !Sell_To_NPC_UI)
             {
+              
                 DialogueManager.GetInstance().EnterDialogueMode_Default(NPC_Dialogue, LocalDialogueAnimator);
             }
 
@@ -96,6 +100,7 @@ public class DialogueTrigger : MonoBehaviour
         {
             if (interactIndicator != null)
             {
+                Debug.Log("Pp");
                 interactIndicator.SetActive(true);
             }
             playerInRange = true;

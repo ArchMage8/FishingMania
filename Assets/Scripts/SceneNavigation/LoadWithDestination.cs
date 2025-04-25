@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using Cinemachine;
+using UnityEngine.UI;
 
 public class LoadWithDestination : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class LoadWithDestination : MonoBehaviour
     [Header("Teleport Information")]
     public Vector3 TargetPosition;
     public int DestinationScene;
+    public GameObject Teleport_Button;
 
     [Header("Teleport Settings")]
     public Animator sceneLoader;
@@ -27,18 +29,12 @@ public class LoadWithDestination : MonoBehaviour
     private bool TeleportRunning = false;
     private bool PlayerInRange = false;
 
-    private void Awake()
-    {
-        Debug.Log("Awake is called");
-    }
 
     private void Start()
     {
         TeleportRunning = false;
-
-        //Debug.Log("Start is called");
-
         DontDestroyOnLoad(this);
+
     }
 
     private void Update()
@@ -63,6 +59,11 @@ public class LoadWithDestination : MonoBehaviour
     {
         InventoryManager.Instance.SomeUIEnabled = true;
         Time.timeScale = 1f;
+
+        if (LoadWithButton)
+        {
+            disableButton();
+        }
 
         sceneLoader.SetTrigger("CloseScene");
 
@@ -119,7 +120,6 @@ public class LoadWithDestination : MonoBehaviour
             transposer.m_YDamping = 0.8f;
         }
 
-       
 
         Destroy(gameObject); // Now safe to remove this object
     }
@@ -145,6 +145,32 @@ public class LoadWithDestination : MonoBehaviour
                 F_Indicator.SetActive(false);
             }
             PlayerInRange = false;
+        }
+    }
+
+    //These 2 are meant to be used if the script is attached to a button
+    //and we need to remove the button components to make it visually correct
+    public void disableButton()
+    {
+        if(Teleport_Button != null)
+        {
+            Button tempButton = Teleport_Button.GetComponent<Button>();
+            Image tempSpriteRenderer = Teleport_Button.GetComponent<Image>();
+
+            tempButton.enabled = false;
+            tempSpriteRenderer.enabled = false;
+        }  
+    }
+
+    public void enableButton()
+    {
+        if (Teleport_Button != null)
+        {
+            Button tempButton = Teleport_Button.GetComponent<Button>();
+            Image tempSpriteRenderer = Teleport_Button.GetComponent<Image>();
+
+            tempButton.enabled = true;
+            tempSpriteRenderer.enabled = true;
         }
     }
 

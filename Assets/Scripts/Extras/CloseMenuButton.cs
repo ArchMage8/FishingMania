@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class CloseMenuButton : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject TargetObject;
 
-    // Update is called once per frame
-    void Update()
+    public void DisableTarget()
     {
-        
+        TargetObject.SetActive(false);
+        InventoryManager.Instance.SomeUIEnabled = false;
+        Time.timeScale = 1f;
     }
 }

@@ -285,7 +285,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.3499999
+  orthographic size: 1.4399999
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2050,11 +2050,11 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0.98580885, y: -0.65051043}
       - {x: -0.6269016, y: -0.07608321}
-      - {x: -1.0443583, y: -0.46072334}
-      - {x: -0.830019, y: -0.5618438}
-      - {x: -0.7995906, y: -0.5748341}
-      - {x: 0.45677102, y: -1.1518829}
-      - {x: 0.7474842, y: -0.8766364}
+      - {x: -0.98444176, y: -0.41987115}
+      - {x: -0.691484, y: -0.55981016}
+      - {x: -0.37954855, y: -0.6899313}
+      - {x: 0.54187024, y: -1.0214527}
+      - {x: 0.7895231, y: -0.95020413}
 --- !u!1 &2034409842
 GameObject:
   m_ObjectHideFlags: 3
@@ -3792,7 +3792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1929241356815425127, guid: 52ded44a5837f1e49960149f219a5839, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1929241356815425127, guid: 52ded44a5837f1e49960149f219a5839, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
@@ -3804,27 +3804,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1929241356815425127, guid: 52ded44a5837f1e49960149f219a5839, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
-      value: 0.4888755
+      value: 0.54930604
       objectReference: {fileID: 0}
     - target: {fileID: 1929241356815425127, guid: 52ded44a5837f1e49960149f219a5839, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].y
-      value: -1.101165
+      value: -0.99869573
       objectReference: {fileID: 0}
     - target: {fileID: 1929241356815425127, guid: 52ded44a5837f1e49960149f219a5839, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
-      value: 0.9928665
+      value: 0.80869913
       objectReference: {fileID: 0}
     - target: {fileID: 1929241356815425127, guid: 52ded44a5837f1e49960149f219a5839, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].y
-      value: -0.66934687
+      value: -0.96334505
       objectReference: {fileID: 0}
     - target: {fileID: 1929241356815425127, guid: 52ded44a5837f1e49960149f219a5839, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].x
-      value: -0.82164097
+      value: 0.9928665
       objectReference: {fileID: 0}
     - target: {fileID: 1929241356815425127, guid: 52ded44a5837f1e49960149f219a5839, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].y
-      value: -0.51437056
+      value: -0.66934687
       objectReference: {fileID: 0}
     - target: {fileID: 1929241356815425127, guid: 52ded44a5837f1e49960149f219a5839, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[5].x
@@ -4578,6 +4578,10 @@ PrefabInstance:
       propertyPath: Reference
       value: 
       objectReference: {fileID: 1636430197}
+    - target: {fileID: 5826089254539280862, guid: 52ded44a5837f1e49960149f219a5839, type: 3}
+      propertyPath: Difference
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5826089254539280862, guid: 52ded44a5837f1e49960149f219a5839, type: 3}
       propertyPath: TargetSprite.Array.data[0]
       value: 

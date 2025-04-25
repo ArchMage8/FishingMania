@@ -200,12 +200,14 @@ public class DialogueManager : MonoBehaviour
             Temp_Shop = Sell_To_NPC_UI;
 
             InventoryManager.Instance.SomeUIEnabled = true;
+
+            
         }
     }
 
     public void EnterDialogue_Buy(TextAsset NPCDialogue, GameObject Sell_UI, Animator PassedAnimator)
     {
-        if (NpcInRange == true && canDialogue && !InventoryManager.Instance.SomeUIEnabled)
+        if (!InventoryManager.Instance.SomeUIEnabled)
         {
 
             NPCDialogueAnimator = PassedAnimator;
@@ -278,7 +280,7 @@ public class DialogueManager : MonoBehaviour
         canSkip = false;
     }
 
-    public  void ContinueStory()
+    public void ContinueStory()
     {
         if (currentStory.canContinue)
         {
@@ -286,15 +288,22 @@ public class DialogueManager : MonoBehaviour
             {
                 StopCoroutine(displayLineCoroutine);
             }
-            
-            displayLineCoroutine = StartCoroutine(DisplayLine(currentStory.Continue()));
-            HandleTags(currentStory.currentTags);
+
+            string line = currentStory.Continue();
+            displayLineCoroutine = StartCoroutine(DisplayLine(line));
+
+            if (currentStory.currentTags != null && currentStory.currentTags.Count > 0)
+            {
+                HandleTags(currentStory.currentTags);
+            }
         }
-        else if (currentStory.canContinue == false)
+        else
         {
             ExitDialogueMode();
         }
     }
+
+
 
     private void DisplayChoices()
     {
@@ -545,7 +554,7 @@ public class DialogueManager : MonoBehaviour
 
     #region Buying from NPC
 
-    private void BindNPCShop()
+    public void BindNPCShop()
     {
         Debug.Log("cll");
         currentStory.BindExternalFunction("EnableShop", () => MakeShopUIAppear());

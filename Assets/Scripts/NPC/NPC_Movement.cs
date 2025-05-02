@@ -1,78 +1,69 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class NPC_Movement : MonoBehaviour
 {
-    public enum DiagonalDirection
-    {
-        NorthEast,
-        SouthEast,
-        SouthWest,
-        NorthWest
-    }
+    public float distance = 1f;
+    [Range(0f, 90f)]
+    public float angleDegrees = 22.7f;
+    public float moveSpeed = 1f;
 
-    public DiagonalDirection direction = DiagonalDirection.NorthEast;
-    public float distance = 5f;
-    public float moveSpeed = 5f;
-    [Range(0, 90)] public float diagonalAngle = 45f;
+    public Direction direction = Direction.NE;
 
-    private Rigidbody2D rb;
-    private Vector2 startPoint;
-    private Vector2 targetPoint;
+    private Vector2 destination;
     private bool isMoving = false;
 
-    void Start()
+    public enum Direction
     {
-        rb = GetComponent<Rigidbody2D>();
-        startPoint = rb.position;
+        NE,
+        SE,
+        SW,
+        NW
+    }
 
-        // Calculate movement direction based on selected diagonal angle
-        float angleRad = diagonalAngle * Mathf.Deg2Rad;
-        float x = Mathf.Cos(angleRad);
-        float y = Mathf.Sin(angleRad);
-
-        Vector2 moveDirection = Vector2.zero;
-
-        switch (direction)
-        {
-            case DiagonalDirection.NorthEast:
-                moveDirection = new Vector2(x, y);
-                break;
-            case DiagonalDirection.SouthEast:
-                moveDirection = new Vector2(x, -y);
-                break;
-            case DiagonalDirection.SouthWest:
-                moveDirection = new Vector2(-x, -y);
-                break;
-            case DiagonalDirection.NorthWest:
-                moveDirection = new Vector2(-x, y);
-                break;
-        }
-
-        moveDirection.Normalize();
-        targetPoint = startPoint + moveDirection * distance;
+    void Awake()
+    {
+        Vector2 origin = transform.position;
+        destination = CalculateDestination(origin, distance, angleDegrees, direction);
         isMoving = true;
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        if (!isMoving) return;
-
-        Vector2 currentPosition = rb.position;
-        Vector2 toTarget = (targetPoint - currentPosition).normalized;
-
-        // Apply the same Y adjustment as in your player script
-        Vector2 adjustedMove = new Vector2(toTarget.x, toTarget.y * 0.75f);
-        Vector2 newPosition = currentPosition + adjustedMove * moveSpeed * Time.fixedDeltaTime;
-
-        // If we're close enough to the target, snap and stop
-        if (Vector2.Distance(newPosition, targetPoint) <= 0.05f)
+        if (isMoving)
         {
-            rb.MovePosition(targetPoint);
+            MoveTowardsDestination();
+        }
+    }
+
+    void MoveTowardsDestination()
+    {
+        Vector2 currentPosition = transform.position;
+        Vector2 newPosition = Vector2.MoveTowards(currentPosition, destination, moveSpeed * Time.deltaTime);
+        transform.position = newPosition;
+
+        if (Vector2.Distance(newPosition, destination) < 0.01f)
+        {
+            transform.position = destination; // Snap to final position
             isMoving = false;
+            Debug.Log("NPC reached destination: " + destination);
         }
-        else
+    }
+
+    Vector2 CalculateDestination(Vector2 origin, float distance, float angleDegrees, Direction direction)
+    {
+        float angleRad = angleDegrees * Mathf.Deg2Rad;
+
+        float offsetX = Mathf.Cos(angleRad) * distance;
+        float offsetY = Mathf.Sin(angleRad) * distance;
+
+        switch (direction)
         {
-            rb.MovePosition(newPosition);
+            case Direction.NE: break;
+            case Direction.SE: offsetY *= -1; break;
+            case Direction.SW: offsetX *= -1; offsetY *= -1; break;
+            case Direction.NW: offsetX *= -1; break;
         }
+
+        return origin + new Vector2(offsetX, offsetY);
     }
 }

@@ -30,12 +30,12 @@ Transform:
   m_Children:
   - {fileID: 4362038955411491259}
   - {fileID: 4362038955071988734}
-  - {fileID: 4362038956695575458}
   - {fileID: 4362038956648853746}
   - {fileID: 4362038956639992580}
   - {fileID: 4362038956404094914}
   - {fileID: 4362038955497946296}
   - {fileID: 4362038956795126434}
+  - {fileID: 4362038956695575458}
   m_Father: {fileID: 4362038955591704187}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -825,7 +825,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4362038955071988732}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.6200004, y: -0.7910001, z: -0.5}
+  m_LocalPosition: {x: 0.324, y: -1.363, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -909,7 +909,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4362038955411491257}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.24500036, y: -1.2740002, z: -0.5}
+  m_LocalPosition: {x: 1.623, y: -0.706, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -979,7 +979,7 @@ GameObject:
   - component: {fileID: 4362038955497946296}
   - component: {fileID: 4362038955497946299}
   m_Layer: 0
-  m_Name: House_3_2
+  m_Name: WoodenCanopy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -998,7 +998,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4394279514240485228}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4362038955497946299
 SpriteRenderer:
@@ -1097,7 +1097,7 @@ GameObject:
   - component: {fileID: 4362038956404094914}
   - component: {fileID: 4362038956404094925}
   m_Layer: 0
-  m_Name: House_3_0
+  m_Name: RoofMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1116,7 +1116,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4394279514240485228}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4362038956404094925
 SpriteRenderer:
@@ -1181,7 +1181,7 @@ GameObject:
   - component: {fileID: 4362038956639992580}
   - component: {fileID: 4362038956639992583}
   m_Layer: 0
-  m_Name: House_3_1
+  m_Name: CanpyMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1200,7 +1200,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4394279514240485228}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4362038956639992583
 SpriteRenderer:
@@ -1265,7 +1265,7 @@ GameObject:
   - component: {fileID: 4362038956648853746}
   - component: {fileID: 4362038956648853757}
   m_Layer: 0
-  m_Name: House_3_7
+  m_Name: DoorWay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1284,7 +1284,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4394279514240485228}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4362038956648853757
 SpriteRenderer:
@@ -1349,7 +1349,7 @@ GameObject:
   - component: {fileID: 4362038956695575458}
   - component: {fileID: 4362038956695575469}
   m_Layer: 0
-  m_Name: House_3_6
+  m_Name: MainBottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1368,7 +1368,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4394279514240485228}
-  m_RootOrder: 2
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4362038956695575469
 SpriteRenderer:
@@ -1433,7 +1433,7 @@ GameObject:
   - component: {fileID: 4362038956795126434}
   - component: {fileID: 4362038956795126445}
   m_Layer: 0
-  m_Name: House_3_3
+  m_Name: TopMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1452,7 +1452,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4394279514240485228}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4362038956795126445
 SpriteRenderer:
@@ -1494,7 +1494,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: -1270496907, guid: e71e0452015c1c545a6e9c3c0e5383f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1984,11 +1984,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5958578489571544614, guid: cf378500cd641614fa2312fbb790d197, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.3099995
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5958578489571544614, guid: cf378500cd641614fa2312fbb790d197, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.61800003
+      value: -1.106
       objectReference: {fileID: 0}
     - target: {fileID: 5958578489571544614, guid: cf378500cd641614fa2312fbb790d197, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2055,11 +2055,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5958578489571544614, guid: cf378500cd641614fa2312fbb790d197, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5489998
+      value: 0.339
       objectReference: {fileID: 0}
     - target: {fileID: 5958578489571544614, guid: cf378500cd641614fa2312fbb790d197, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5239999
+      value: -1.005
       objectReference: {fileID: 0}
     - target: {fileID: 5958578489571544614, guid: cf378500cd641614fa2312fbb790d197, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2126,11 +2126,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5958578489571544614, guid: cf378500cd641614fa2312fbb790d197, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.7849998
+      value: 1.321
       objectReference: {fileID: 0}
     - target: {fileID: 5958578489571544614, guid: cf378500cd641614fa2312fbb790d197, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.43499994
+      value: -0.624
       objectReference: {fileID: 0}
     - target: {fileID: 5958578489571544614, guid: cf378500cd641614fa2312fbb790d197, type: 3}
       propertyPath: m_LocalPosition.z

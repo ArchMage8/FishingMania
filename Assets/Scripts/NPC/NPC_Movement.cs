@@ -15,11 +15,9 @@ public class NPC_Movement : MonoBehaviour
     }
 
     public List<RouteCheckpoint> route = new List<RouteCheckpoint>();
-
-    [Range(0f, 90f)]
-    public float angleDegrees = 22.7f;
-
+    [Range(0f, 90f)] public float angleDegrees = 22.7f;
     public float moveSpeed = 1f;
+    public float RestartLoopDelay = 1f;
 
     private Vector2 origin;
     private Vector2 currentDestination;
@@ -56,14 +54,17 @@ public class NPC_Movement : MonoBehaviour
         }
 
         Vector2 finalPosition = transform.position;
+
         if (Vector2.Distance(finalPosition, origin) < 0.1f)
         {
             yield return new WaitForSeconds(route[route.Count - 1].waitTime);
-            StartCoroutine(FollowRoute()); // Restart route
+            StartCoroutine(FollowRoute()); // Loop again
         }
         else
         {
-            StartCoroutine(ReturnToOrigin());
+            yield return StartCoroutine(ReturnToOrigin());
+            yield return new WaitForSeconds(RestartLoopDelay);
+            StartCoroutine(FollowRoute()); // Restart from beginning after return
         }
     }
 
@@ -75,11 +76,20 @@ public class NPC_Movement : MonoBehaviour
         {
             if (i < route.Count)
             {
-                yield return StartCoroutine(MoveTo(visitedPositions[i], route[i]));
-                yield return new WaitForSeconds(route[i].waitTime);
+                RouteCheckpoint originalCheckpoint = route[i];
+                RouteCheckpoint reversedCheckpoint = new RouteCheckpoint
+                {
+                    distance = 0f, // distance is irrelevant here
+                    direction = GetReversedDirection(originalCheckpoint.direction),
+                    waitTime = originalCheckpoint.waitTime
+                };
+
+                yield return StartCoroutine(MoveTo(visitedPositions[i], reversedCheckpoint));
+                yield return new WaitForSeconds(reversedCheckpoint.waitTime);
             }
             else
             {
+                // Fallback if no matching checkpoint
                 yield return StartCoroutine(MoveTo(visitedPositions[i], new RouteCheckpoint
                 {
                     direction = Direction.SW,
@@ -122,6 +132,18 @@ public class NPC_Movement : MonoBehaviour
         }
 
         return origin + new Vector2(offsetX, offsetY);
+    }
+
+    Direction GetReversedDirection(Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.NE: return Direction.SW;
+            case Direction.SE: return Direction.NW;
+            case Direction.SW: return Direction.NE;
+            case Direction.NW: return Direction.SE;
+            default: return dir;
+        }
     }
 
     int GetDirectionCode(Direction dir)

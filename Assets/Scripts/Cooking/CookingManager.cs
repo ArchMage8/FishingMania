@@ -24,8 +24,7 @@ public class CookingManager : MonoBehaviour
 
     public GameObject CloseButton;
     public GameObject CookingUI;
-
-    private GameObject cookingAnimation; // Animation object
+    public Item FailureDish;
 
     [Space(20)]
 
@@ -34,6 +33,13 @@ public class CookingManager : MonoBehaviour
     private Recipe currentRecipe;
     private int maxCookQuantity = 1;
     private int selectedCookQuantity = 1;
+
+    public enum CookingMethod
+    {
+        Fry,
+        Boil,
+        Bake
+    }
 
 
     private void Awake()
@@ -61,9 +67,8 @@ public class CookingManager : MonoBehaviour
             obj.MainObject.SetActive(false);
         }
 
-      
     }
-    
+
     private void EnableIngredients()
     {
         foreach (var obj in ingredientDisplays)
@@ -72,14 +77,13 @@ public class CookingManager : MonoBehaviour
         }
     }
 
-    public void RecieveRecipe(Recipe recipe, GameObject animationObject)
+    public void RecieveRecipe(Recipe recipe, string CookingMethod)
     {
 
         EnableIngredients();
 
         currentRecipe = recipe;
-        cookingAnimation = animationObject;
-
+    
         // Determine max cook quantity
         maxCookQuantity = CalculateMaxQuantity(recipe);
         selectedCookQuantity = 1;
@@ -181,36 +185,42 @@ public class CookingManager : MonoBehaviour
             return;
         }
 
-        if (!inventoryManager.AddItem(currentRecipe.resultDish, selectedCookQuantity))
+        if (!CheckInventorySpace())
         {
             Debug.Log("Inventory is full!");
             return;
         }
 
-        // Show cooking animation
-        StartCoroutine(ShowCookingAnimation());
+        
+       
     }
 
-    private IEnumerator ShowCookingAnimation()
+    private bool CheckInventorySpace()
     {
-        CloseButton.SetActive(false);
-        CookingUI.SetActive(false);
-
-        if (cookingAnimation)
+        if (inventoryManager.CanAddItem(currentRecipe.resultDish, selectedCookQuantity))
         {
-            cookingAnimation.SetActive(true);
-            yield return new WaitForSecondsRealtime(5f);
-
-            Animator cookComic = cookingAnimation.GetComponent<Animator>();
-            cookComic.SetTrigger("Exit");
-
-            yield return new WaitForSecondsRealtime(1.5f);
-            cookingAnimation.SetActive(false);
-            CloseButton.SetActive(true);
-            CookingUI.SetActive(true);
-
+            if(inventoryManager.CanAddItem(currentRecipe.perfectDish, selectedCookQuantity))
+            {
+                if(inventoryManager.CanAddItem(FailureDish, selectedCookQuantity))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
         }
     }
+ 
 
     //Very important this ya
     public void TurnOffCookingUI(GameObject target)

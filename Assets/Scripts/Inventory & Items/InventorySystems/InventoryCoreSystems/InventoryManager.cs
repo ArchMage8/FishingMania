@@ -290,7 +290,43 @@ public class InventoryManager : MonoBehaviour
         }
         return true; // If all slots are occupied and stacked to max, inventory is full
     }
+    public bool CanAddItem(Item item, int quantity)
+    {
+        if (item == null || quantity <= 0) return false;
+
+        int remainingQuantity = quantity;
+
+        // Check existing stacks that aren't full
+        foreach (var slot in inventory)
+        {
+            if (slot.item == item && slot.quantity < maxStack)
+            {
+                int spaceAvailable = maxStack - slot.quantity;
+                remainingQuantity -= Mathf.Min(spaceAvailable, remainingQuantity);
+
+                if (remainingQuantity <= 0)
+                    return true; // There's enough space
+            }
+        }
+
+        // Check empty slots
+        foreach (var slot in inventory)
+        {
+            if (slot.item == null)
+            {
+                int spaceAvailable = maxStack;
+                remainingQuantity -= Mathf.Min(spaceAvailable, remainingQuantity);
+
+                if (remainingQuantity <= 0)
+                    return true; // There's enough space
+            }
+        }
+
+        return false; // Not enough space
+    }
 }
+
+
 
 [System.Serializable]
 public class InventorySlot

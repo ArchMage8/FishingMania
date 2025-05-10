@@ -12,5 +12,9 @@ public class Recipe : ScriptableObject
 
     public string recipeName; // Name of the recipe
     public RecipeIngredient[] ingredients; // List of required ingredients
+
+    [Space(10)]
+
     public Item resultDish; // The dish created after cooking
+    public Item perfectDish; // The perfect version of the created dish
 }

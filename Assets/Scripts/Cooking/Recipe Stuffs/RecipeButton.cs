@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static CookingManager;
 
 public class RecipeButton : MonoBehaviour
 {
     public Recipe assignedRecipe;
+    public CookingMethod cookingMethod;
 
     [Space(20)]
 
@@ -14,24 +16,26 @@ public class RecipeButton : MonoBehaviour
     [SerializeField] private GameObject cookComic;
     [SerializeField] private Color inactiveColor;
 
+    private string methodName;
+
     private void Awake()
     {
         ButtonSetup();
         cookComic.SetActive(false);
 
-       
+
     }
 
     private void ButtonSetup()
     {
-       
+        methodName = cookingMethod.ToString();
 
         if (assignedRecipe == null) return;
 
         // Set button icon to recipe's target dish
         else if (assignedRecipe.resultDish != null && assignedRecipe.resultDish.icon != null)
         {
-            
+
             buttonImage.sprite = assignedRecipe.resultDish.icon;
         }
 
@@ -40,7 +44,7 @@ public class RecipeButton : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("banana1");
+        //Debug.Log("banana1");
         SetState();
     }
 
@@ -66,7 +70,7 @@ public class RecipeButton : MonoBehaviour
     {
         if (assignedRecipe != null)
         {
-            CookingManager.Instance.RecieveRecipe(assignedRecipe, cookComic);
+            CookingManager.Instance.RecieveRecipe(assignedRecipe, methodName);
         }
     }
 }

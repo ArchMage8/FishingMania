@@ -7,10 +7,11 @@ public class WorldLight_Handler : MonoBehaviour
 {
     public Light2D LightSource;
 
-    private float On_Percentage = 75f;
-    private float Off_Percentage = 12f;
+    private float onPercentage = 80f;
+    private float offPercentage = 12f;
 
-    private float fadeDuration = 5f;
+    private float fadeOnDuration = 7f;
+    private float fadeOffDuration = 3f;
 
     private Daylight_Handler daylight_handler;
     private float maxTime;
@@ -33,11 +34,11 @@ public class WorldLight_Handler : MonoBehaviour
 
     private void CalculateFadeWindows()
     {
-        offEndTime = maxTime * (Off_Percentage / 100f);
-        offStartTime = offEndTime - fadeDuration;
+        offEndTime = maxTime * (offPercentage / 100f);
+        offStartTime = offEndTime - fadeOffDuration;
 
-        onEndTime = maxTime * (On_Percentage / 100f);
-        onStartTime = onEndTime - fadeDuration;
+        onEndTime = maxTime * (onPercentage / 100f);
+        onStartTime = onEndTime - fadeOnDuration;
     }
 
     private void Update()

@@ -100,7 +100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5403881986111819433
 Transform:
   m_ObjectHideFlags: 0
@@ -208,6 +208,7 @@ GameObject:
   - component: {fileID: 5403881986297485361}
   - component: {fileID: 5403881986297485362}
   - component: {fileID: 5403881986297485363}
+  - component: {fileID: 2439480150181448615}
   m_Layer: 0
   m_Name: GroundLantern
   m_TagString: Untagged
@@ -352,6 +353,21 @@ PolygonCollider2D:
       - {x: 0.10648321, y: -0.15223193}
       - {x: 0.105975814, y: -0.10036945}
       - {x: 0.0005221069, y: -0.057198554}
+--- !u!114 &2439480150181448615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403881986297485366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ffacd9d7088f72478a46cb4287c4356, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LightSource: {fileID: 5403881986111819432}
+  On_Percentage: 75
+  Off_Percentage: 12
 --- !u!1 &5403881986962900131
 GameObject:
   m_ObjectHideFlags: 0

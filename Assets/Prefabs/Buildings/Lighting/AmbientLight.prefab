@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4340304691952167570}
   - component: {fileID: 644618078170337330}
+  - component: {fileID: 1090046924524233559}
   m_Layer: 0
   m_Name: AmbientLight
   m_TagString: Untagged
@@ -39,7 +40,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8633504644854176538}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
@@ -282,3 +283,18 @@ MonoBehaviour:
   - {x: 0.28296798, y: -0.0067293644, z: 0}
   - {x: 0.28339702, y: 0.09254256, z: 0}
   - {x: -0.5109057, y: -0.22097707, z: 0}
+--- !u!114 &1090046924524233559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8633504644854176538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ffacd9d7088f72478a46cb4287c4356, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LightSource: {fileID: 644618078170337330}
+  On_Percentage: 75
+  Off_Percentage: 12

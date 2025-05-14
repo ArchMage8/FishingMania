@@ -3,9 +3,12 @@ using UnityEngine.Rendering.Universal; // Required for Light2D
 
 public class Daylight_Handler : MonoBehaviour
 {
-    
+
+    public static Daylight_Handler Instance { get; private set; }
+
+
     [SerializeField] private Light2D globalLight;
-    [SerializeField] private float dayDuration = 60f;
+    public float dayDuration = 60f;
 
     [Space(20)]
 
@@ -15,7 +18,20 @@ public class Daylight_Handler : MonoBehaviour
 
     [SerializeField] private AnimationCurve intensityOverDay;
 
-    private float currentTime = 0f;
+    public float currentTime = 0f;
+
+    void Awake()
+    {
+        // Singleton pattern setup
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+
 
     void Update()
     {
@@ -51,5 +67,15 @@ public class Daylight_Handler : MonoBehaviour
     public float GetNormalizedTime()
     {
         return currentTime / dayDuration;
+    }
+
+    public float GetDayDuration()
+    {
+        return dayDuration;
+    }
+
+    public float GetCurrentTime()
+    {
+        return currentTime;
     }
 }

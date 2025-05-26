@@ -33,6 +33,7 @@ public class CookingManager : MonoBehaviour
     private Recipe currentRecipe;
     private int maxCookQuantity = 1;
     private int selectedCookQuantity = 1;
+    private string Current_Cooking_Method = null;
 
     public enum CookingMethod
     {
@@ -83,6 +84,8 @@ public class CookingManager : MonoBehaviour
         EnableIngredients();
 
         currentRecipe = recipe;
+
+        Current_Cooking_Method = CookingMethod;
     
         // Determine max cook quantity
         maxCookQuantity = CalculateMaxQuantity(recipe);
@@ -185,14 +188,16 @@ public class CookingManager : MonoBehaviour
             return;
         }
 
+
+        // Inventory Be full
         if (!CheckInventorySpace())
         {
             Debug.Log("Inventory is full!");
             return;
         }
 
-        
-       
+        StartMinigameCycle();
+
     }
 
     private bool CheckInventorySpace()
@@ -220,7 +225,12 @@ public class CookingManager : MonoBehaviour
             return false;
         }
     }
- 
+
+
+    private void StartMinigameCycle()
+    {
+        Cooking_Minigame_Manager.Instance.StartMinigameSequence(currentRecipe, Current_Cooking_Method, selectedCookQuantity);
+    }
 
     //Very important this ya
     public void TurnOffCookingUI(GameObject target)

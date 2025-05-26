@@ -1,108 +1,168 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class Bake_TargetMover : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] private Transform targetTransform; // Object that rotates
+    [Header("Target Rotation Settings")]
+    [SerializeField] private float rotationSpeed = 90f; // Degrees per second
+    [SerializeField] private float pauseDuration = 1f;  // Time between rotations
+    [SerializeField] private int sectionPadding = 5;
 
-    [Header("Rotation Settings")]
-    [SerializeField] private float rotationSpeed = 60f; // Degrees per second
-    [SerializeField] private float waitTimeBetweenMoves = 2f;
-    [SerializeField] private int sectionPadding = 5; // Degrees trimmed from each end of a section
+    [Header("Debug Info")]
+    [SerializeField] private string targetSection; // A, B, or C
+    [SerializeField] private int targetAngle;
 
-    [Header("Runtime Debug")]
-    public int currentAngle = 0;              // Current Z rotation (0–359)
-    public bool isMoving = false;             // Whether target is rotating
-    public Section currentSection = Section.A; // Current section target is in
+    public int currentAngle { get; private set; } = 0;
+    public bool isMoving { get; private set; } = false;
 
-    public enum Section { A, B, C }
+    private Coroutine movementCoroutine;
 
-    private void Start()
+    private void OnEnable()
     {
-        SetInitialRotation();
-        StartCoroutine(MoveTargetRoutine());
+        ResetRotation();
     }
 
-    private void SetInitialRotation()
+    public void ResetRotation()
     {
-        currentAngle = GetRandomAngleInSection(currentSection);
-        ApplyRotation(currentAngle);
-    }
+        transform.localEulerAngles = new Vector3(0f, -180f, 0f);
+        currentAngle = 0;
+        targetAngle = 0;
+        isMoving = false;
 
-    private IEnumerator MoveTargetRoutine()
-    {
-        while (true)
+        if (movementCoroutine != null)
         {
-            yield return new WaitForSeconds(waitTimeBetweenMoves);
-            Section nextSection = GetNextSection(currentSection);
-            int nextAngle = GetRandomAngleInSection(nextSection);
-            isMoving = true;
-            yield return StartCoroutine(RotateToAngleClockwise(currentAngle, nextAngle));
-            currentAngle = nextAngle;
-            currentSection = nextSection;
-            isMoving = false;
+            StopCoroutine(movementCoroutine);
         }
     }
 
-    private IEnumerator RotateToAngleClockwise(int fromAngle, int toAngle)
+    public void StartTargetMovement()
     {
-        float current = fromAngle;
-        float target = toAngle;
+        movementCoroutine = StartCoroutine(InitialMoveThenLoop());
+    }
 
-        // Always move clockwise, wrap if needed
-        if (target <= current)
-            target += 360f;
+    private IEnumerator InitialMoveThenLoop()
+    {
+        // Immediate first move
+        ChooseNewTarget();
+        yield return RotateToTarget();
 
-        while (current < target)
+        // Then start looping normally
+        while (true)
         {
-            current += rotationSpeed * Time.deltaTime;
-            float displayAngle = current % 360f;
-            currentAngle = Mathf.RoundToInt(displayAngle);
-            targetTransform.rotation = Quaternion.Euler(0f, 180f, displayAngle);
+            yield return new WaitForSeconds(pauseDuration);
+            ChooseNewTarget();
+            yield return RotateToTarget();
+        }
+    }
+
+    private void ChooseNewTarget()
+    {
+        int currentSection = GetSection(currentAngle);
+        int newSection;
+
+        // Ensure a different section is chosen
+        do
+        {
+            newSection = Random.Range(0, 3);
+        } while (newSection == currentSection);
+
+        // Save debug info
+        targetSection = SectionName(newSection);
+
+        int min = 0, max = 0;
+
+        switch (newSection)
+        {
+            case 0: min = 0 + sectionPadding; max = 120 - sectionPadding; break;   // A
+            case 1: min = 120 + sectionPadding; max = 240 - sectionPadding; break; // B
+            case 2: min = 240 + sectionPadding; max = 360 - sectionPadding; break; // C
+        }
+
+        targetAngle = Random.Range(min, max + 1); // Inclusive of max
+    }
+
+    private IEnumerator RotateToTarget()
+    {
+        isMoving = true;
+        float zRotation = currentAngle;
+
+        while (Mathf.Abs(Mathf.DeltaAngle(zRotation, targetAngle)) > 0.1f)
+        {
+            float step = rotationSpeed * Time.deltaTime;
+
+            if (targetAngle > zRotation)
+                zRotation += step;
+            else
+                zRotation -= step;
+
+            zRotation = Mathf.Clamp(zRotation, Mathf.Min(currentAngle, targetAngle), Mathf.Max(currentAngle, targetAngle));
+            transform.localEulerAngles = new Vector3(0f, -180f, zRotation);
             yield return null;
         }
 
-        // Final snap
-        currentAngle = toAngle % 360;
-        targetTransform.rotation = Quaternion.Euler(0f, 180f, currentAngle);
+        zRotation = targetAngle;
+        transform.localEulerAngles = new Vector3(0f, -180f, zRotation);
+        currentAngle = Mathf.RoundToInt(zRotation);
+        isMoving = false;
     }
 
-    private int GetRandomAngleInSection(Section section)
+    private int GetSection(int angle)
     {
-        int min = 0, max = 0;
+        if (angle >= 0 + sectionPadding && angle < 120 - sectionPadding) return 0;   // A
+        if (angle >= 120 + sectionPadding && angle < 240 - sectionPadding) return 1; // B
+        return 2; // C
+    }
+
+    private string SectionName(int section)
+    {
         switch (section)
         {
-            case Section.A:
-                min = 0 + sectionPadding;
-                max = 120 - sectionPadding;
-                break;
-            case Section.B:
-                min = 120 + sectionPadding;
-                max = 240 - sectionPadding;
-                break;
-            case Section.C:
-                min = 240 + sectionPadding;
-                max = 360 - sectionPadding;
-                break;
+            case 0: return "A";
+            case 1: return "B";
+            case 2: return "C";
+            default: return "?";
         }
-        return Random.Range(min, max);
     }
 
-    private Section GetNextSection(Section current)
+    public void SetImmediateAngle(int angle)
     {
-        Section[] options = current switch
+        angle = Mathf.Clamp(angle, 0, 360);
+        currentAngle = angle;
+        targetAngle = angle;
+        transform.localEulerAngles = new Vector3(0f, -180f, angle);
+    }
+
+    public IEnumerator RotateToAngle(int angle)
+    {
+        isMoving = true;
+        float zRotation = currentAngle;
+
+        while (Mathf.Abs(Mathf.DeltaAngle(zRotation, angle)) > 0.1f)
         {
-            Section.A => new[] { Section.B, Section.C },
-            Section.B => new[] { Section.A, Section.C },
-            Section.C => new[] { Section.A, Section.B },
-            _ => new[] { Section.A }
-        };
-        return options[Random.Range(0, options.Length)];
+            float step = rotationSpeed * Time.deltaTime;
+
+            if (angle > zRotation)
+                zRotation += step;
+            else
+                zRotation -= step;
+
+            zRotation = Mathf.Clamp(zRotation, Mathf.Min(currentAngle, angle), Mathf.Max(currentAngle, angle));
+            transform.localEulerAngles = new Vector3(0f, -180f, zRotation);
+            yield return null;
+        }
+
+        zRotation = angle;
+        transform.localEulerAngles = new Vector3(0f, -180f, zRotation);
+        currentAngle = angle;
+        targetAngle = angle;
+        isMoving = false;
     }
 
-    private void ApplyRotation(int angle)
+    public void ResetTarget()
     {
-        targetTransform.rotation = Quaternion.Euler(0f, 180f, angle);
+        isMoving = false;
+        targetAngle = 0;
+        transform.rotation = Quaternion.Euler(0f, -180f, 0f); // Reset rotation visually
     }
+
 }

@@ -1,0 +1,20 @@
+How the daylight cycle works:
+
+- The "handler" script's job is to:
+	1. Manage the actual time in game
+	2. Control the world light's color and intensity
+
+- The "UI" script's job is to show the time in text format [subject to expansion]
+
+- The "Image" script's job is to show correct icon based on the time
+
+- WorldLight Handler's job is:
+	1. Take the time from the handler script
+	2. Adjust street and house lights to be appropriate to the time in game
+	*Is to be attached to world light prefabs
+
+[Incomplete]
+- Exception script -> prevents handler from looking for a world light indoors
+- Varying interruptions:
+	1. Handler for when we exit a building
+	2. Image for when we save

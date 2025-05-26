@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Fry_Marker : MonoBehaviour
 {
@@ -7,27 +8,27 @@ public class Fry_Marker : MonoBehaviour
     private Fry_Minigame minigameRef;
     private float barHeight;
     private bool movingUp = true;
-    private bool isMoving = false;
+    [HideInInspector] public bool isMoving = false;
 
     [Header("Movement Settings")]
     public float MinSpeed = 2f;
     public float MaxSpeed = 4f;
 
-    private float currentSpeed; // Internally used (scaled)
+    private float currentSpeed;
 
     public void Initialize(Fry_Minigame minigame)
     {
         minigameRef = minigame;
         barHeight = minigame.barTransform.rect.height;
-        isMoving = true;
 
-        // Pick a new speed from range and scale it
         float rawSpeed = Random.Range(MinSpeed, MaxSpeed);
         currentSpeed = rawSpeed * 100f;
 
-        // Optionally reset marker position
-        markerTransform.localPosition = new Vector3(markerTransform.localPosition.x, -barHeight / 2f, markerTransform.localPosition.z);
         movingUp = true;
+        isMoving = false;
+
+        // Start at center
+        markerTransform.localPosition = new Vector3(markerTransform.localPosition.x, 0f, markerTransform.localPosition.z);
     }
 
     void Update()
@@ -52,6 +53,27 @@ public class Fry_Marker : MonoBehaviour
             movingUp = true;
         }
 
+        markerTransform.localPosition = pos;
+    }
+
+    public void SetMovementActive(bool state)
+    {
+        isMoving = state;
+    }
+
+    public IEnumerator ScriptedMoveToY(float targetY, float speed = 300f)
+    {
+        isMoving = false;
+        Vector3 pos = markerTransform.localPosition;
+
+        while (Mathf.Abs(pos.y - targetY) > 1f)
+        {
+            pos.y = Mathf.MoveTowards(pos.y, targetY, speed * Time.deltaTime);
+            markerTransform.localPosition = pos;
+            yield return null;
+        }
+
+        pos.y = targetY;
         markerTransform.localPosition = pos;
     }
 

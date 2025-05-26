@@ -1,40 +1,104 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System.Collections;
 
 public class Bake_Minigame : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Slider playerSlider;         // Circular angle slider (0–360)
-    [SerializeField] private Slider progressSlider;       // Vertical progress bar
-    [SerializeField] private Bake_TargetMover targetMover; // Reference to get current target info
+    [SerializeField] private Slider playerSlider;
+    [SerializeField] private Slider progressSlider;
+    [SerializeField] private Bake_TargetMover targetMover;
+    [SerializeField] private TMP_Text Timer_Text;
 
     [Header("Player Slider Settings")]
-    [SerializeField] private float increaseRate = 60f;    // Degrees per second when holding F
-    [SerializeField] private float decayRate = 30f;       // Degrees per second when not holding F
-    [SerializeField] private float angleTolerance = 5f;   // +/- range around target angle
+    [SerializeField] private float increaseRate = 60f;
+    [SerializeField] private float decayRate = 30f;
+    [SerializeField] private float angleTolerance = 5f;
 
     [Header("Progress Settings")]
-    [SerializeField] private float holdDurationRequired = 1.5f; // Seconds to hold before progress begins
-    [SerializeField] private float progressFillRate = 10f;      // Progress per second
+    [SerializeField] private float holdDurationRequired = 1.5f;
+    [SerializeField] private float progressFillRate = 10f;
     [SerializeField] private float progressMaxValue = 100f;
+
+    [Header("Timer Settings")]
+    [SerializeField] private int timeLimit = 30;
+    private int currentTime;
+    private Coroutine timerCoroutine;
 
     private float holdTimer = 0f;
     private bool canMakeProgress = false;
+    private bool gameEnded = false;
+    private bool gameStarted = false;
 
-    private void Start()
+    private void OnEnable()
     {
+        StartCoroutine(PregameSequence());
+    }
+
+    private IEnumerator PregameSequence()
+    {
+        targetMover.enabled = true;
+
+        gameStarted = false;
+        gameEnded = false;
+
+        // Reset all values
         playerSlider.minValue = 0f;
         playerSlider.maxValue = 360f;
+        playerSlider.value = 0f;
 
         progressSlider.minValue = 0f;
         progressSlider.maxValue = progressMaxValue;
         progressSlider.value = 0f;
+
+        currentTime = timeLimit;
+
+        // Step 1: Reset timer text
+        Timer_Text.text = "3";
+
+        // Step 2: Force target to 0°
+        targetMover.SetImmediateAngle(0);
+
+        yield return new WaitForSeconds(0.5f);
+        yield return targetMover.RotateToAngle(270);
+        yield return targetMover.RotateToAngle(0);
+
+        // Step 3: Countdown (3 → 1)
+        for (int i = 3; i > 0; i--)
+        {
+            Timer_Text.text = i.ToString();
+            yield return new WaitForSeconds(1f);
+        }
+        targetMover.StartTargetMovement();
+        StartMinigame();
+    }
+
+    private void StartMinigame()
+    {
+        Timer_Text.text = currentTime.ToString();
+        gameStarted = true;
+        timerCoroutine = StartCoroutine(TimerCountdown());
     }
 
     private void Update()
     {
-        HandlePlayerInput();
-        HandleProgress();
+        if(Cooking_Minigame_Manager.Instance.health == 0)
+        {
+            StopMinigame();
+        }
+        
+        if (!gameStarted || gameEnded)
+        {
+            return;
+        }
+
+        else
+        {
+            HandlePlayerInput();
+            HandleProgress();
+        }
+
     }
 
     private void HandlePlayerInput()
@@ -50,7 +114,7 @@ public class Bake_Minigame : MonoBehaviour
             value -= decayRate * Time.deltaTime;
         }
 
-        value = Mathf.Clamp(value, 0f, 360f); // FIXED: Prevent reset to 0
+        value = Mathf.Clamp(value, 0f, 360f);
         playerSlider.value = value;
     }
 
@@ -60,16 +124,13 @@ public class Bake_Minigame : MonoBehaviour
         int targetAngle = targetMover.currentAngle;
         bool targetMoving = targetMover.isMoving;
 
-        // Calculate if within tolerance range
         float minAngle = (targetAngle - angleTolerance + 360f) % 360f;
         float maxAngle = (targetAngle + angleTolerance) % 360f;
-
         bool isInRange = IsAngleWithinRange(sliderAngle, minAngle, maxAngle);
 
         if (isInRange && !targetMoving)
         {
             holdTimer += Time.deltaTime;
-
             if (holdTimer >= holdDurationRequired)
             {
                 canMakeProgress = true;
@@ -94,21 +155,82 @@ public class Bake_Minigame : MonoBehaviour
 
     private bool IsAngleWithinRange(float value, float min, float max)
     {
-        // Handle wraparound between 359° → 0°
-        if (min < max)
+        return min < max ? value >= min && value <= max : value >= min || value <= max;
+    }
+
+    private IEnumerator TimerCountdown()
+    {
+        while (currentTime > 0)
         {
-            return value >= min && value <= max;
+            yield return new WaitForSeconds(1f);
+            currentTime--;
+            Timer_Text.text = currentTime.ToString();
         }
-        else
+
+        if (!gameEnded)
         {
-            return value >= min || value <= max;
+            if (progressSlider.value >= progressMaxValue)
+            {
+                CompleteMinigame();
+            }
+
+            else
+            {
+                OnMinigameFail();
+            }
         }
     }
 
+    public void StopMinigame()
+    {
+        // Stop logic execution
+        enabled = false;
+
+        // Stop timer coroutine
+        if (timerCoroutine != null)
+        {
+            StopCoroutine(timerCoroutine);
+            timerCoroutine = null;
+        }
+
+        // Disable the target mover
+        if (targetMover != null)
+        {
+            targetMover.enabled = false;
+        }
+
+        // Reset gameplay variables
+        holdTimer = 0f;
+        canMakeProgress = false;
+        playerSlider.value = 0f;
+        progressSlider.value = 0f;
+        Timer_Text.text = "";
+
+        // Reset target mover (optional: re-enable later via StartMinigame)
+        if (targetMover != null)
+        {
+            targetMover.ResetTarget(); // Make sure this method exists in Bake_TargetMover
+        }
+    }
+
+
     private void CompleteMinigame()
     {
-        Debug.Log("Minigame Complete!");
-        enabled = false;
-        // Optional: Trigger events or callback here
+        OnMinigameSuccess();
+        StopMinigame();
+    }
+
+    private void OnMinigameSuccess()
+    {
+        Cooking_Minigame_Manager.Instance.CookingMinigameComplete();
+    }
+
+    private void OnMinigameFail()
+    {
+        Cooking_Minigame_Manager minigameManager = Cooking_Minigame_Manager.Instance;
+
+        minigameManager.LoseHealth();
+        minigameManager.CookingMinigameComplete();
+
     }
 }

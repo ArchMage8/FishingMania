@@ -109,4 +109,13 @@ public class Boil_TargetHandler : MonoBehaviour
             yield return null;
         }
     }
+
+    public void ResetTarget()
+    {
+        StopAllCoroutines();
+        IsTargetIdle = false;
+
+        // You can also re-center the target or reinitialize internal logic here if needed
+    }
+
 }

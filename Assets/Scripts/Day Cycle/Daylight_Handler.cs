@@ -1,24 +1,26 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using System.Collections;
 
 public class Daylight_Handler : MonoBehaviour
 {
     public static Daylight_Handler Instance { get; private set; }
 
-    [SerializeField] private Light2D globalLight;
+    public Light2D globalLight;
     public float dayDuration = 60f;
 
-    [Space(20)]
-    [SerializeField] private Gradient colorOverDay;
+    [Header("Lighting Curves")]
+    public Gradient colorOverDay;
+    public AnimationCurve intensityOverDay;
 
-    [Space(10)]
-    [SerializeField] private AnimationCurve intensityOverDay;
-
+    [Header("Clock State")]
     public float currentTime = 0f;
+    public bool TimeRunning = true;
 
-    void Awake()
+    private float endDayResumeDelay = 0.5f;
+
+    private void Awake()
     {
-        // Singleton pattern setup
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -28,13 +30,23 @@ public class Daylight_Handler : MonoBehaviour
         Instance = this;
     }
 
-    void Update()
+    private void Update()
     {
-        if (globalLight == null || dayDuration <= 0f) return;
+        if (!TimeRunning)
+        {
+            return;
+        }
+
+        if (globalLight == null || dayDuration <= 0f)
+        {
+            return;
+        }
 
         currentTime += Time.deltaTime;
         if (currentTime > dayDuration)
+        {
             currentTime -= dayDuration;
+        }
 
         float timePercent = currentTime / dayDuration;
 
@@ -42,14 +54,16 @@ public class Daylight_Handler : MonoBehaviour
         globalLight.intensity = intensityOverDay.Evaluate(timePercent);
     }
 
-    public void ResetDayCycle()
-    {
-        currentTime = 0f;
-    }
-
     public void SetTime(float newTime)
     {
         currentTime = Mathf.Clamp(newTime, 0f, dayDuration);
+        UpdateLighting();
+    }
+
+    public void ResetDayCycle()
+    {
+        currentTime = 0f;
+        UpdateLighting();
     }
 
     public float GetNormalizedTime()
@@ -65,5 +79,42 @@ public class Daylight_Handler : MonoBehaviour
     public float GetCurrentTime()
     {
         return currentTime;
+    }
+
+    public void End_Day()
+    {
+        TimeRunning = false;
+        SetTime(System_HourConvertor(7)); // Set to 07:00
+        StartCoroutine(ResumeTimeAfterDelay());
+    }
+
+    private IEnumerator ResumeTimeAfterDelay()
+    {
+        yield return new WaitForSeconds(endDayResumeDelay);
+        TimeRunning = true;
+    }
+
+    private void UpdateLighting()
+    {
+        float timePercent = currentTime / dayDuration;
+
+        if (globalLight != null)
+        {
+            globalLight.color = colorOverDay.Evaluate(timePercent);
+            globalLight.intensity = intensityOverDay.Evaluate(timePercent);
+        }
+    }
+
+    private float System_HourConvertor(int hour)
+    {
+        return (dayDuration / 24f) * Mathf.Clamp(hour, 0, 23);
+    }
+
+    public float GetCurrentHour() 
+    {
+        return (currentTime / dayDuration) * 24f;
+
+        //To be used by external scripts to get the current time in hours
+        //Ex : if (Handler.GetCurrentHour == 5) do X
     }
 }

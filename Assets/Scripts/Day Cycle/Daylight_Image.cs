@@ -15,7 +15,6 @@ public class Daylight_Image : MonoBehaviour
 {
     public static Daylight_Image Instance { get; private set; }
 
-    [Header("Time of Day Sprites in Order (ascending hour_marker)")]
     public List<Image_Info> timeOfDayImages;
 
     [Header("UI References")]

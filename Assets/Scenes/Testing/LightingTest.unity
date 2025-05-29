@@ -225,7 +225,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 331, y: -159}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &314975458
 MonoBehaviour:
@@ -1148,22 +1148,22 @@ MonoBehaviour:
   dayDuration: 30
   colorOverDay:
     serializedVersion: 2
-    key0: {r: 0.22352941, g: 0.2627451, b: 0.5686275, a: 1}
+    key0: {r: 0.22352943, g: 0.2627451, b: 0.5686275, a: 1}
     key1: {r: 0.5030899, g: 0.4188679, b: 1, a: 1}
-    key2: {r: 1, g: 1, b: 1, a: 1}
-    key3: {r: 0.8301887, g: 0.7195413, b: 0.700178, a: 1}
-    key4: {r: 0.67058825, g: 0.29411766, b: 0.24313726, a: 1}
-    key5: {r: 0.6603774, g: 0.1764706, b: 0.28235295, a: 0}
-    key6: {r: 0.22352941, g: 0.2627451, b: 0.5686275, a: 0}
-    key7: {r: 0.1535084, g: 0.11222852, b: 0.6132076, a: 0}
-    ctime0: 9305
-    ctime1: 13501
-    ctime2: 18701
-    ctime3: 42784
-    ctime4: 49169
-    ctime5: 50447
-    ctime6: 56376
-    ctime7: 56376
+    key2: {r: 0.9811321, g: 0.9780831, b: 0.9292987, a: 1}
+    key3: {r: 0.96470594, g: 0.9450981, b: 0.8705883, a: 1}
+    key4: {r: 0.8962264, g: 0.62607944, b: 0.36694553, a: 1}
+    key5: {r: 0.6981132, g: 0.32818922, b: 0.23314342, a: 0}
+    key6: {r: 0.36434835, g: 0.10964753, b: 0.5188679, a: 0}
+    key7: {r: 0.22352941, g: 0.2627451, b: 0.5686275, a: 0}
+    ctime0: 5200
+    ctime1: 15326
+    ctime2: 23171
+    ctime3: 43058
+    ctime4: 47071
+    ctime5: 49352
+    ctime6: 54369
+    ctime7: 58748
     atime0: 0
     atime1: 65535
     atime2: 65535
@@ -1173,7 +1173,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 7
+    m_NumColorKeys: 8
     m_NumAlphaKeys: 2
   intensityOverDay:
     serializedVersion: 2
@@ -1526,7 +1526,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8928963854532838732, guid: 73f96e48cc2701248bfdea4c49a5ecbe, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[16].second.m_AnimationSpeed
-      value: 7
+      value: 7.0000005
       objectReference: {fileID: 0}
     - target: {fileID: 8928963854532838732, guid: 73f96e48cc2701248bfdea4c49a5ecbe, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[17].second.m_AnimationSpeed
@@ -1558,7 +1558,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8928963854532838732, guid: 73f96e48cc2701248bfdea4c49a5ecbe, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[24].second.m_AnimationSpeed
-      value: 7
+      value: 7.0000005
       objectReference: {fileID: 0}
     - target: {fileID: 8928963854532838732, guid: 73f96e48cc2701248bfdea4c49a5ecbe, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[25].second.m_AnimationSpeed
@@ -1665,7 +1665,7 @@ MonoBehaviour:
   currentImage: {fileID: 610348318}
   nextImage: {fileID: 392949707}
   scrollDuration: 1
-  verticalSpacing: 0
+  verticalSpacing: -60
 --- !u!1 &2004706612
 GameObject:
   m_ObjectHideFlags: 0

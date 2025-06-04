@@ -108,9 +108,10 @@ public class FishingCoreSystems : MonoBehaviour
     {
         Debug.Log("Call 1");
 
+        int BaitQTY = InventoryManager.Instance.GetTotalQuantity(Inventory_EquipmentManager.Instance.activeBaitTile.BaitItem);
         reelQTY = 50;
 
-        if (!InventoryManager.Instance.IsInventoryFull() && InventoryManager.Instance.GetTotalQuantity(BaitAndHookManager.Instance.activeBait) > 0)
+        if (!InventoryManager.Instance.IsInventoryFull() && BaitQTY > 0)
         {
             MinigameIndicator.SetActive(false);
             StartCoroutine(StartMiniGame());
@@ -123,7 +124,7 @@ public class FishingCoreSystems : MonoBehaviour
                 Debug.LogError("Ur Inventory Be full");
                 InventoryError.SetActive(true);
             }
-            else if (InventoryManager.Instance.GetTotalQuantity(BaitAndHookManager.Instance.activeBait) == 0)
+            else if (BaitQTY == 0)
             {
                 Debug.LogError("Ur bait has been exhausted");
                 BaitError.SetActive(true);
@@ -276,7 +277,7 @@ public class FishingCoreSystems : MonoBehaviour
 
     private void DeductBait()
     {
-        Item activeBait = BaitAndHookManager.Instance.activeBait;
+        Item activeBait = Inventory_EquipmentManager.Instance.activeBaitTile.BaitItem;
 
         List<ItemRemovalRequest> removalRequests = new List<ItemRemovalRequest>();
         removalRequests.Add(new ItemRemovalRequest { item = activeBait, quantity = 1 });

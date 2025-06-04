@@ -51,9 +51,8 @@ public class FishGenerator : MonoBehaviour
 
     public void SelectFish()
     {
-        // Get HookClass and BaitClass from BaitAndHookManager
-        BaitClass = BaitAndHookManager.Instance.activeBait.baitClass;
-        HookClass = BaitAndHookManager.Instance.activeHook.hookClass;
+        
+        Separate_Combo();
 
         int[] probabilities;
         switch (HookClass)
@@ -119,6 +118,12 @@ public class FishGenerator : MonoBehaviour
         StartCoroutine(CatchFishUI(selectedFish));
         InventoryManager.Instance.AddItem(selectedFish, 1);
         DeductStock();
+    }
+
+    private void Separate_Combo() //Meant to handle the overhauled equipment system
+    {
+        BaitClass = Inventory_EquipmentManager.Instance.currentCombo / 10;
+        HookClass = Inventory_EquipmentManager.Instance.currentCombo % 10;
     }
 
     private void DeductStock()

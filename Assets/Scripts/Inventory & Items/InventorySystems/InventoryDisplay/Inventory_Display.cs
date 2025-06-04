@@ -16,16 +16,22 @@ public class Inventory_Display : MonoBehaviour
     public TMP_Text previewDescription;
 
     [Header("Delete Mode UI")]
-    public GameObject deleteTab;
+   
     public Button deleteButton;
+    public GameObject deleteinterface;
+    public TMP_Text deleteQtyText;
+
+    private Sprite button_default;
 
     private InventoryManager inventoryManager;
-    private Item activeItem;
-    private Inventory_Slot activeSlot; // NEW: track the active slot
+    [HideInInspector] public Item activeItem;
+    private Inventory_Slot activeSlot;
 
-    private bool deleteActive = false;
+    [HideInInspector] public bool deleteActive = false;
     private int deleteQTY = 0;
     private int maxDeleteQty = 0;
+
+    public Inventory_Slot ActiveSlot => activeSlot;
 
     private void Awake()
     {
@@ -40,18 +46,26 @@ public class Inventory_Display : MonoBehaviour
     private void Start()
     {
         inventoryManager = InventoryManager.Instance;
+
+        deleteinterface.SetActive(false);
+        button_default = deleteButton.GetComponent<Image>().sprite;
     }
 
     private void OnEnable()
     {
         RefreshDisplay();
+
+        if (deleteActive)
+        {
+            ExitDeleteMode();
+        }
     }
 
     public void RefreshDisplay()
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (i < inventoryManager.MaxSlots)
+            if (i <= inventoryManager.MaxSlots)
             {
                 var (item, qty) = inventoryManager.GetItemInSlot(i);
                 slots[i].AssignItem(item, qty);
@@ -64,21 +78,35 @@ public class Inventory_Display : MonoBehaviour
         UpdatePreview();
     }
 
-    public void SetActiveItem(Item item, Inventory_Slot slot)
+    public void SetActiveSlot(Inventory_Slot newSlot)
     {
         if (deleteActive) return;
 
-        // Disable previous active slot's effect
         if (activeSlot != null)
-            activeSlot.SetSelectedEffect(false);
+            activeSlot.ClearActiveSlot();
+
+        activeSlot = newSlot;
+        activeItem = newSlot.assignedItem;
+
+        activeSlot.SetAsActiveSlot();
+        UpdatePreview();
+    }
+
+    public void SetActiveItem(Item item)
+    {
+        if (deleteActive) return;
 
         activeItem = item;
-
-        // Set new active slot and enable effect
-        activeSlot = slot;
-        activeSlot.SetSelectedEffect(true);
-
+        ExitDeleteMode();
         UpdatePreview();
+
+        // Reset activeSlot (no highlight) if item is manually set
+        if (activeSlot != null)
+        {
+            activeSlot.ClearActiveSlot();
+            activeSlot = null;
+        }
+
         Debug.Log($"Active Item set to: {activeItem?.itemName ?? "None"}");
     }
 
@@ -98,19 +126,21 @@ public class Inventory_Display : MonoBehaviour
         previewDescription.text = activeItem.description;
     }
 
+    
     // --- Delete Mode Functions ---
-
-    public void ActivateDelete(Button callingButton)
+   
+    public void ActivateDelete()
     {
         if (activeItem == null)
+        {
             return;
+        }
 
-        deleteTab.SetActive(true);
         deleteActive = true;
-
-        deleteButton = callingButton;
         deleteButton.interactable = false;
 
+
+        deleteinterface.SetActive(true);
         maxDeleteQty = inventoryManager.GetTotalQuantity(activeItem);
         deleteQTY = maxDeleteQty > 0 ? 1 : 0;
     }
@@ -120,7 +150,10 @@ public class Inventory_Display : MonoBehaviour
         if (!deleteActive) return;
 
         if (deleteQTY < maxDeleteQty)
+        {
             deleteQTY++;
+            UpdateDeleteQtyText();
+        }
     }
 
     public void DecreaseDeleteQTY()
@@ -128,7 +161,19 @@ public class Inventory_Display : MonoBehaviour
         if (!deleteActive) return;
 
         if (deleteQTY > 1)
+        {
             deleteQTY--;
+            UpdateDeleteQtyText();
+        }
+
+    }
+
+    private void UpdateDeleteQtyText()
+    {
+        if (deleteQtyText != null)
+        {
+            deleteQtyText.text = deleteQTY.ToString();
+        }
     }
 
     public void ConfirmDelete()
@@ -136,7 +181,6 @@ public class Inventory_Display : MonoBehaviour
         if (!deleteActive || activeItem == null || deleteQTY <= 0)
             return;
 
-        // Create removal request and pass to inventory manager
         List<ItemRemovalRequest> removalRequests = new List<ItemRemovalRequest>
         {
             new ItemRemovalRequest { item = activeItem, quantity = deleteQTY }
@@ -145,22 +189,34 @@ public class Inventory_Display : MonoBehaviour
         inventoryManager.RemoveItems(removalRequests);
 
         RefreshDisplay();
-        SetActiveItem(null, null); // Clear active slot too
 
+        SetActiveItem(null);
         ExitDeleteMode();
     }
 
     public void ExitDeleteMode()
     {
         deleteActive = false;
-        deleteTab.SetActive(false);
+       deleteinterface.SetActive(false);
 
         if (deleteButton != null)
         {
+            activeItem = null;
             deleteButton.interactable = true;
-            deleteButton = null;
+           
         }
-
+        RefreshDisplay();
+        
+        MoveRight();
         UpdatePreview();
+    }
+
+    private void MoveRight() //Called on exit
+    {
+        RectTransform rt = deleteButton.GetComponent<RectTransform>();
+        rt.anchoredPosition += new Vector2(165f, 0);
+
+        //deleteButton.GetComponent<Image>().sprite = button_default;
+        rt.rotation = Quaternion.Euler(0, 0, 0);
     }
 }

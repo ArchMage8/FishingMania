@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Inventory_HookManager : MonoBehaviour
 {
-    public static Inventory_HookManager Instance { get; private set; }
-
     [System.Serializable]
     public class HookData
     {
@@ -14,32 +12,31 @@ public class Inventory_HookManager : MonoBehaviour
     }
 
     [System.Serializable]
-    private class HookDataListWrapper
+    private class SaveData
     {
         public List<HookData> Hooks;
+        public int CurrentCombo;
     }
+
+    public static Inventory_HookManager Instance { get; private set; }
 
     private List<HookData> hooksInGame = new List<HookData>();
     private string savePath;
 
+    public int currentCombo; // Store the combo here!
+
     private void Awake()
     {
-        Instance = this;
-        savePath = Path.Combine(Application.persistentDataPath, "hooks.json");
-    }
-
-    public void Hook_NewGame()
-    {
-        hooksInGame.Clear();
-        for (int i = 1; i <= 5; i++)
+        if (Instance == null)
         {
-            hooksInGame.Add(new HookData
-            {
-                Class = i,
-                Unlocked = (i == 1)
-            });
+            Instance = this;
         }
-        SaveHooks();
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        savePath = Path.Combine(Application.persistentDataPath, "hooks.json");
     }
 
     public bool GetHookStatus(int hookClass)
@@ -84,20 +81,28 @@ public class Inventory_HookManager : MonoBehaviour
         if (File.Exists(savePath))
         {
             string json = File.ReadAllText(savePath);
-            HookDataListWrapper wrapper = JsonUtility.FromJson<HookDataListWrapper>(json);
-            hooksInGame = wrapper.Hooks;
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            hooksInGame = data.Hooks;
+            currentCombo = data.CurrentCombo;
         }
-        else
+        else //NewGame
         {
             ResetHooks();
+            currentCombo = 11;
             SaveHooks();
         }
     }
 
     public void SaveHooks()
     {
-        HookDataListWrapper wrapper = new HookDataListWrapper { Hooks = hooksInGame };
-        string json = JsonUtility.ToJson(wrapper, true);
+        SaveData data = new SaveData
+        {
+            Hooks = hooksInGame,
+            CurrentCombo = currentCombo
+        };
+
+        string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(savePath, json);
     }
 }

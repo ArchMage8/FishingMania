@@ -1,43 +1,83 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using TMPro;
 
-public class Inventory_Slot : MonoBehaviour
+public class Inventory_Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [Header("Slot UI Elements")]
+    [Header("Item Info")]
+    [HideInInspector] public Item assignedItem;
+    [HideInInspector] public int quantity;
+
+    [Header("UI Elements")]
     public Image icon;
-    public GameObject selectedEffect; // NEW: Reference to the effect GameObject
+    public TMP_Text quantityText;
+    private Button slotButton;
 
-    private Item assignedItem;
+    [Space(20)]
+    public Sprite activeEffectSprite;
+    private Sprite defaultSprite;
 
-    public void AssignItem(Item item, int quantity)
+    private Image buttonImage;
+
+    private void Awake()
+    {
+        if (slotButton == null)
+            slotButton = GetComponent<Button>();
+
+        buttonImage = slotButton.GetComponent<Image>();
+
+        if (buttonImage != null && defaultSprite == null)
+            defaultSprite = buttonImage.sprite;
+    }
+
+    public void AssignItem(Item item, int qty)
     {
         assignedItem = item;
+        quantity = qty;
 
-        if (assignedItem != null)
+        if (assignedItem == null)
         {
-            icon.sprite = assignedItem.icon;
-            icon.gameObject.SetActive(true);
+            icon.gameObject.SetActive(false);
+            quantityText.text = "";
         }
         else
         {
-            icon.gameObject.SetActive(false);
-            SetSelectedEffect(false); // Clear effect when no item
+            icon.gameObject.SetActive(true);
+            icon.sprite = assignedItem.icon;
+            quantityText.text = qty.ToString(); // Always show qty
         }
     }
 
-    // NEW: Method to set the selected effect state
-    public void SetSelectedEffect(bool state)
+    public void SetAsActiveSlot()
     {
-        if (selectedEffect != null)
-            selectedEffect.SetActive(state);
+        if (buttonImage != null)
+            buttonImage.sprite = activeEffectSprite;
     }
 
-    // Called by UI button
-    public void PassItem()
+    public void ClearActiveSlot()
     {
-        if (assignedItem == null)
-            return;
+        if (buttonImage != null)
+            buttonImage.sprite = defaultSprite;
+    }
 
-        Inventory_Display.Instance.SetActiveItem(assignedItem, this);
+    // Hook this to the button's onClick in the Inspector
+    public void OnSlotClicked()
+    {
+        if (assignedItem != null)
+            Inventory_Display.Instance.SetActiveSlot(this);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        buttonImage.sprite = activeEffectSprite;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (Inventory_Display.Instance.ActiveSlot != this)
+        {
+            buttonImage.sprite = defaultSprite;
+        }
     }
 }

@@ -2,20 +2,41 @@ using UnityEngine;
 
 public class Inventory_EquipmentManager : MonoBehaviour
 {
+    public static Inventory_EquipmentManager Instance { get; private set; }
+
     [Header("Tile Arrays")]
     public Inventory_HookTile[] hookTiles;
     public Inventory_BaitTile[] baitTiles;
 
     [Header("Active Selections")]
-    private Inventory_HookTile activeHookTile;
-    private Inventory_BaitTile activeBaitTile;
+    public Inventory_HookTile activeHookTile;
+    public Inventory_BaitTile activeBaitTile;
 
     [Header("Current Combo")]
     public int currentCombo;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnEnable()
     {
+        LoadCurrentCombo();
         RestoreActiveEffects();
+    }
+
+    private void LoadCurrentCombo()
+    {
+        // Load current combo from HookManager
+        currentCombo = Inventory_HookManager.Instance.currentCombo;
     }
 
     private void RestoreActiveEffects()
@@ -25,7 +46,6 @@ public class Inventory_EquipmentManager : MonoBehaviour
             int baitClass = currentCombo / 10;
             int hookClass = currentCombo % 10;
 
-            // Since arrays are ordered by class, index = class
             if (baitClass >= 0 && baitClass < baitTiles.Length)
             {
                 activeBaitTile = baitTiles[baitClass];
@@ -74,6 +94,10 @@ public class Inventory_EquipmentManager : MonoBehaviour
             int baitClass = activeBaitTile.BaitClass;
 
             currentCombo = int.Parse($"{baitClass}{hookClass}");
+
+            // Update HookManager's current combo to keep save data in sync
+            Inventory_HookManager.Instance.currentCombo = currentCombo;
+            Inventory_HookManager.Instance.SaveHooks();
         }
     }
 }

@@ -10,6 +10,7 @@ public class InventoryManager : MonoBehaviour
     public int maxStack = 9;            // Maximum quantity per slot
 
     private List<InventorySlot> inventory = new List<InventorySlot>(); //The in game inventory list
+    private Dictionary<string, Item> itemCache;
 
     public bool SomeUIEnabled = false;
 
@@ -122,6 +123,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         SortInventory(); // Ensure inventory is sorted after removal
+        CompactInventory();
         return true;
     }
 
@@ -156,12 +158,35 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    private void InitializeItemCache()
+    {
+        itemCache = new Dictionary<string, Item>();
+        Item[] allItems = Resources.LoadAll<Item>("Items");
+
+        foreach (var item in allItems)
+        {
+            if (!itemCache.ContainsKey(item.name))
+            {
+                itemCache.Add(item.name, item);
+            }
+            else
+            {
+                Debug.LogWarning($"Duplicate item name found: {item.name}. Consider giving unique names to items.");
+            }
+        }
+    }
+
     public void LoadInventory()
     {
         if (!File.Exists(saveFilePath))
         {
             Debug.LogWarning("Save file be missing.");
             return;
+        }
+
+        if (itemCache == null)
+        {
+            InitializeItemCache();
         }
 
         string json = File.ReadAllText(saveFilePath);
@@ -172,18 +197,15 @@ public class InventoryManager : MonoBehaviour
 
         foreach (var slotData in saveData.slots)
         {
-            Item item = Resources.Load<Item>($"Items/{slotData.itemName}");
-            if (item == null)
+            if (!itemCache.TryGetValue(slotData.itemName, out Item item))
             {
-                // **Debug: Load failed if item doesn't exist in Resources**
-                Debug.LogError($"Failed to load item: {slotData.itemName}. Ensure it exists in Resources/Items.");
+                Debug.LogError($"Failed to load item: {slotData.itemName}. Ensure it exists in Resources/Items or subfolders.");
                 continue;
             }
 
             AddItem(item, slotData.quantity);
         }
 
-        // **Debug: Load successful**
         Debug.Log("Load successful.");
     }
 
@@ -230,6 +252,29 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
+
+    private void CompactInventory()
+    {
+        List<InventorySlot> compacted = new List<InventorySlot>();
+
+        // Collect all filled slots
+        foreach (var slot in inventory)
+        {
+            if (slot.item != null)
+            {
+                compacted.Add(slot);
+            }
+        }
+
+        // Add empty slots to reach maxSlots
+        while (compacted.Count < maxSlots)
+        {
+            compacted.Add(new InventorySlot());
+        }
+
+        inventory = compacted;
+    }
+
 
     public void DeleteSaveFile()
     {

@@ -40,6 +40,8 @@ public class Inventory_Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             icon.gameObject.SetActive(false);
             quantityText.text = "";
+
+            this.GetComponent<Button>().enabled = false;
         }
         else
         {

@@ -13,8 +13,8 @@ public class Inventory_EquipmentManager : MonoBehaviour
     public Inventory_BaitTile activeBaitTile;
 
     [Header("Current Combo")]
-    public int currentCombo;
-
+    public int currentCombo; //Is the In-Game list
+                             //Look at documentation for explanation
     private void Awake()
     {
         if (Instance == null)
@@ -29,31 +29,36 @@ public class Inventory_EquipmentManager : MonoBehaviour
 
     private void OnEnable()
     {
-        LoadCurrentCombo();
-        RestoreActiveEffects();
+        
     }
 
-    private void LoadCurrentCombo()
+    public void LoadCurrentCombo()
     {
         // Load current combo from HookManager
-        currentCombo = Inventory_HookManager.Instance.currentCombo;
+        currentCombo = Inventory_HookManager.Instance.SavedCombo;
+        RestoreActiveEffects();
+
     }
 
     private void RestoreActiveEffects()
     {
+        //Debug.Log("Call");
+       
         if (currentCombo > 0)
         {
-            int baitClass = currentCombo / 10;
-            int hookClass = currentCombo % 10;
+           
+            int baitClass = (currentCombo / 10) - 1;
+            int hookClass = (currentCombo % 10) - 1;
 
-            if (baitClass >= 0 && baitClass < baitTiles.Length)
-            {
+            if (baitClass >= 0)
+            {        
                 activeBaitTile = baitTiles[baitClass];
                 activeBaitTile.EnableEffect();
             }
 
-            if (hookClass >= 0 && hookClass < hookTiles.Length)
+            if (hookClass >= 0)
             {
+              
                 activeHookTile = hookTiles[hookClass];
                 activeHookTile.EnableEffect();
             }
@@ -95,9 +100,7 @@ public class Inventory_EquipmentManager : MonoBehaviour
 
             currentCombo = int.Parse($"{baitClass}{hookClass}");
 
-            // Update HookManager's current combo to keep save data in sync
-            Inventory_HookManager.Instance.currentCombo = currentCombo;
-            Inventory_HookManager.Instance.SaveHooks();
+            //Look at documentation to understand why we are not updating the Hook Manager's Combo
         }
     }
 }

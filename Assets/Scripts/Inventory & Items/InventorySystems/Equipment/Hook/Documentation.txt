@@ -1,0 +1,25 @@
+How the new hook system works:
+
+- Firstly a hook is no longer a scriptable object but rather just a piece of data
+- Hooks are differentiated based on their class
+
+- The data stored (in a JSON File) is a list of the hooks and their unlocked state
+- Upon the game starting, the hook manager loads the current saved data onto an in-game list
+- Note the list is temporary, and is only added to the save file when the centralized save file is called
+
+- The equipment UI + fishing minigames, interact with this in-game list
+
+Equipment Combo:
+- The current equipment combo is a saved value
+- It is updated when the player changes his equipment through the Inventory_Equipment Menu
+
+Relationship between the Equipment and Hook Manager
+(Specifically for the equipment combo):
+
+- The hook manager's role here is to save/load the value when loading and saving the game
+- This is to prevent making the Equipment manager even more complex
+
+- Once passed onto the Equipment Manager, that is the In-game value
+- All systems reference this value, not the one stored by the Hook Manager
+- The value is only passed back to the hook manager when we want to save the game
+

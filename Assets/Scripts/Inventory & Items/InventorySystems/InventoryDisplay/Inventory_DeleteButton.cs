@@ -14,7 +14,7 @@ public class Inventory_DeleteButton : MonoBehaviour, IPointerClickHandler, IPoin
     private Image ButtonImage;
     
     [Header("Sprites")]
-    public Sprite activeEffectSprite;
+    //public Sprite activeEffectSprite;
     private Sprite defaultSprite;
 
    
@@ -36,7 +36,7 @@ public class Inventory_DeleteButton : MonoBehaviour, IPointerClickHandler, IPoin
             rt.rotation = Quaternion.Euler(0, 0, -10);
             StartCoroutine(FlickerProtect_Toggle());
 
-            Debug.Log("Enter");
+         
         }
     }
 
@@ -48,13 +48,14 @@ public class Inventory_DeleteButton : MonoBehaviour, IPointerClickHandler, IPoin
             rt.rotation = Quaternion.Euler(0, 0, 0);
             StartCoroutine(FlickerProtect_Toggle());
 
-            Debug.Log("Exit");
 
         }
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void DeleteClick()
     {
+    
+        
         if (!display.deleteActive && display.activeItem != null)
         {
             //ButtonImage.sprite = activeEffectSprite;
@@ -67,10 +68,15 @@ public class Inventory_DeleteButton : MonoBehaviour, IPointerClickHandler, IPoin
         }
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        
+    }
+
     public void MoveLeft()
     {
         RectTransform rt = GetComponent<RectTransform>();
-        rt.anchoredPosition -= new Vector2(165f, 0);
+        rt.anchoredPosition -= new Vector2(135f, 0);
     }
 
     private bool FlickerProtect = false;
@@ -78,7 +84,7 @@ public class Inventory_DeleteButton : MonoBehaviour, IPointerClickHandler, IPoin
 
     private IEnumerator FlickerProtect_Toggle()
     {
-        Debug.Log("Call");
+        
 
         FlickerProtect = true;
         yield return new WaitForSeconds(0.01f);

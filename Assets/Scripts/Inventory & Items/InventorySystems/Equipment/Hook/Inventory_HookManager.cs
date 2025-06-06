@@ -23,30 +23,45 @@ public class Inventory_HookManager : MonoBehaviour
     private List<HookData> hooksInGame = new List<HookData>();
     private string savePath;
 
-    public int currentCombo; // Store the combo here!
+    public int SavedCombo; // Store the combo here!
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+           
         }
         else
         {
             Destroy(gameObject);
         }
 
+        
         savePath = Path.Combine(Application.persistentDataPath, "hooks.json");
+    }
+
+    private void Start()
+    {
+        LoadHooks();
+        Inventory_EquipmentManager.Instance.LoadCurrentCombo();
     }
 
     public bool GetHookStatus(int hookClass)
     {
         HookData hook = hooksInGame.Find(h => h.Class == hookClass);
         if (hook != null)
+        {
             return hook.Unlocked;
+        }
 
-        Debug.LogWarning($"Hook class {hookClass} not found!");
-        return false;
+        else
+        {
+            Debug.LogWarning($"Hook class {hookClass} not found!");
+            return false;
+        }
+
+       
     }
 
     public void UnlockHook(int hookClass)
@@ -55,7 +70,6 @@ public class Inventory_HookManager : MonoBehaviour
         if (hook != null)
         {
             hook.Unlocked = true;
-            SaveHooks();
         }
         else
         {
@@ -63,7 +77,7 @@ public class Inventory_HookManager : MonoBehaviour
         }
     }
 
-    public void ResetHooks()
+    public void ResetHooks() //This Resets the In-Game list to inital settings
     {
         hooksInGame.Clear();
         for (int i = 1; i <= 5; i++)
@@ -74,35 +88,53 @@ public class Inventory_HookManager : MonoBehaviour
                 Unlocked = (i == 1)
             });
         }
+
+        
     }
 
     public void LoadHooks()
     {
         if (File.Exists(savePath))
         {
+            //Debug.Log(savePath);
+
+            //Debug.Log("Call A");
+            
             string json = File.ReadAllText(savePath);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
             hooksInGame = data.Hooks;
-            currentCombo = data.CurrentCombo;
+            SavedCombo = data.CurrentCombo;
         }
         else //NewGame
         {
+           
+
             ResetHooks();
-            currentCombo = 11;
-            SaveHooks();
+            Inventory_EquipmentManager.Instance.currentCombo = 11;
+            SaveEquipmentData();
         }
     }
 
-    public void SaveHooks()
+    public void SaveEquipmentData()
     {
         SaveData data = new SaveData
         {
             Hooks = hooksInGame,
-            CurrentCombo = currentCombo
+            CurrentCombo = Inventory_EquipmentManager.Instance.currentCombo
+
+            //This "CurrentCombo" is a variable within the JSON Data
         };
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(savePath, json);
+    }
+
+    public void DeleteHookData()
+    {
+        if (File.Exists(savePath))
+        {
+            File.Delete(savePath);
+        }
     }
 }

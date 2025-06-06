@@ -41,12 +41,11 @@ public class Inventory_Display : MonoBehaviour
             return;
         }
         Instance = this;
+        inventoryManager = InventoryManager.Instance;
     }
 
     private void Start()
     {
-        inventoryManager = InventoryManager.Instance;
-
         deleteinterface.SetActive(false);
         button_default = deleteButton.GetComponent<Image>().sprite;
     }
@@ -80,7 +79,10 @@ public class Inventory_Display : MonoBehaviour
 
     public void SetActiveSlot(Inventory_Slot newSlot)
     {
-        if (deleteActive) return;
+        if (deleteActive)
+        {
+            ExitDeleteMode();
+        }
 
         if (activeSlot != null)
             activeSlot.ClearActiveSlot();
@@ -97,7 +99,7 @@ public class Inventory_Display : MonoBehaviour
         if (deleteActive) return;
 
         activeItem = item;
-        ExitDeleteMode();
+       
         UpdatePreview();
 
         // Reset activeSlot (no highlight) if item is manually set
@@ -116,7 +118,7 @@ public class Inventory_Display : MonoBehaviour
         {
             previewIcon.gameObject.SetActive(false);
             previewName.text = "";
-            previewDescription.text = "";
+            previewDescription.text = "Select an Item... :v";
             return;
         }
 
@@ -131,6 +133,8 @@ public class Inventory_Display : MonoBehaviour
    
     public void ActivateDelete()
     {
+        
+        
         if (activeItem == null)
         {
             return;
@@ -138,6 +142,7 @@ public class Inventory_Display : MonoBehaviour
 
         deleteActive = true;
         deleteButton.interactable = false;
+        deleteButton.GetComponent<Image>().raycastTarget = false;
 
 
         deleteinterface.SetActive(true);
@@ -199,9 +204,12 @@ public class Inventory_Display : MonoBehaviour
         deleteActive = false;
        deleteinterface.SetActive(false);
 
+        deleteQTY = 1;
+        UpdateDeleteQtyText();
+
         if (deleteButton != null)
         {
-            activeItem = null;
+            //activeItem = null;
             deleteButton.interactable = true;
            
         }
@@ -214,7 +222,9 @@ public class Inventory_Display : MonoBehaviour
     private void MoveRight() //Called on exit
     {
         RectTransform rt = deleteButton.GetComponent<RectTransform>();
-        rt.anchoredPosition += new Vector2(165f, 0);
+        rt.anchoredPosition += new Vector2(135f, 0);
+
+        deleteButton.GetComponent<Image>().raycastTarget = true;
 
         //deleteButton.GetComponent<Image>().sprite = button_default;
         rt.rotation = Quaternion.Euler(0, 0, 0);

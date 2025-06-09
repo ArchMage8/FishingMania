@@ -1,0 +1,13 @@
+
+How the new cooking system works
+
+- The new system works similarly to old system
+- It involves a recipe passing on the required information to the cooking manager
+- The cooking manager then accesses the minigame manager and lets it handle the rest of process
+*Note that recipes and the recipe list SOs are carried through to the new system
+
+- The minigame cycle is started by the Execute Cooking function
+- The function already checks that there are enough ingredients
+- And there is enough space
+
+

@@ -5,7 +5,7 @@ using static CookingManager;
 public class RecipeButton : MonoBehaviour
 {
     public Recipe assignedRecipe;
-    public CookingMethod cookingMethod;
+    //public CookingMethod cookingMethod;
 
     [Space(20)]
 
@@ -28,7 +28,7 @@ public class RecipeButton : MonoBehaviour
 
     private void ButtonSetup()
     {
-        methodName = cookingMethod.ToString();
+      
 
         if (assignedRecipe == null) return;
 
@@ -70,7 +70,7 @@ public class RecipeButton : MonoBehaviour
     {
         if (assignedRecipe != null)
         {
-            CookingManager.Instance.RecieveRecipe(assignedRecipe, methodName);
+            //CookingManager.Instance.RecieveRecipe(assignedRecipe, methodName);
         }
     }
 }

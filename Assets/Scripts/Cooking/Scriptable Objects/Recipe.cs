@@ -10,8 +10,16 @@ public class Recipe : ScriptableObject
         public int quantityRequired; // How much of it is needed
     }
 
+    public enum CookingMethod
+    {
+        Fry,
+        Boil,
+        Bake
+    }
+
     public string recipeName; // Name of the recipe
     public RecipeIngredient[] ingredients; // List of required ingredients
+    public CookingMethod method;
 
     [Space(10)]
 

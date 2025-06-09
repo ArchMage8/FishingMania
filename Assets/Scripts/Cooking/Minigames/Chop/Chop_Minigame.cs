@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,12 +26,12 @@ public class Chop_Minigame : MonoBehaviour
 
     private void Update()
     {
-        if(Cooking_Minigame_Manager.Instance.health == 0)
+        if (Cooking_Minigame_Manager.Instance.health == 0)
         {
             EndFail();
         }
 
-        if(marker.HitCount == activeSections.Count)
+        if (marker.HitCount == activeSections.Count)
         {
             EndSuccess();
         }

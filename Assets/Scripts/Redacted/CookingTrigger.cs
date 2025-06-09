@@ -32,7 +32,7 @@ public class CookingTrigger : MonoBehaviour
         CookingUI.SetActive(true);
         Time.timeScale = 0f;
         InventoryManager.Instance.SomeUIEnabled = true;
-        CookingManager.Instance.CloseButton.SetActive(true);
+        //CookingManager.Instance.CloseButton.SetActive(true);
     }
 
     public void CloseRecipeBook()

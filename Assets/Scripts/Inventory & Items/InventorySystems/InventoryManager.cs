@@ -350,7 +350,14 @@ public class InventoryManager : MonoBehaviour
                 remainingQuantity -= Mathf.Min(spaceAvailable, remainingQuantity);
 
                 if (remainingQuantity <= 0)
+                {
                     return true; // There's enough space
+                }
+
+                else
+                {
+                    return false;
+                }
             }
         }
 

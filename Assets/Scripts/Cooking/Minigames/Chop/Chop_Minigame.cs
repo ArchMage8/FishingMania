@@ -15,7 +15,12 @@ public class Chop_Minigame : MonoBehaviour
     public TMP_Text countdownText;
     public Chop_Marker marker;
 
+    [Space(10)]
+
+    public Slider ProgressSlider;
+
     private List<RectTransform> activeSections = new List<RectTransform>();
+    
 
     private Coroutine minigameRoutine;
 

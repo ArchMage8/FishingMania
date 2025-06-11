@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Cooking_Minigame_Manager : MonoBehaviour
 {
@@ -18,11 +19,16 @@ public class Cooking_Minigame_Manager : MonoBehaviour
 
     [Space(10)]
 
-    [Header("Minigame Complete Preview")]
-    public GameObject Preview_Canvas;
+    [Header("Health Visuals")]
+     public Image[] heartImages; 
+     public Sprite EmptyHeartSprite; 
+     public Sprite FullHeartSprite;
 
+    [Header("Preview System")]
+    public Image Dish_Preview_Image;
+    public TMPro.TextMeshProUGUI Method_Preview_Text;
 
-    private Recipe activeRecipe;
+    [HideInInspector] public Recipe activeRecipe;
     private string currentMethod;
 
     private int Dish_QTY;
@@ -32,11 +38,11 @@ public class Cooking_Minigame_Manager : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton pattern
+       
         if (Instance == null)
         {
             Instance = this;
-            //DontDestroyOnLoad(gameObject); // Optional if persisting between scenes
+            
         }
         else
         {
@@ -44,37 +50,63 @@ public class Cooking_Minigame_Manager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        health = 3;
+        isInProgress = false;
+    }
+
     // Called by CookingManager to begin the minigame process
     public void StartMinigameSequence(Recipe recipe, string method, int qty)
     {
-        if (isInProgress) return;
+        if (isInProgress)
+        {
+           
+            return; //Safeguard
+        }
+
+      
 
         isInProgress = true;
         activeRecipe = recipe;
         currentMethod = method;
 
-        Dish_QTY = qty;
+       
+        UpdateHearts();
 
+        //Resulting dish is extracted from the activeRecipe
+        //And will be set in the finalize minigame
+
+        Dish_QTY = qty;
         health = 3;
 
         // Start with chop phase
+        StartCoroutine(StartChop());
+        
+    }
+
+    private IEnumerator StartChop()
+    {
+        yield return new WaitForSeconds(0.8f);
         Chop_Minigame.SetActive(true);
     }
 
     // Called by Chop Minigame when it's complete
-    public void OnChopMinigameComplete()
+    public IEnumerator OnChopMinigameComplete()
     {
-       
-        Chop_Minigame.SetActive(false);
-        StartCoroutine(BeginCookingPhase(1.5f));
+        yield return new WaitForSeconds(2f);
+        
+        Chop_Minigame.GetComponent<Animator>().SetTrigger("Exit");
+        StartCoroutine(BeginCookingPhase());
     }
 
-    // Handles transition after delay to cooking method phase
-    private IEnumerator BeginCookingPhase(float delay)
-    {
-        yield return new WaitForSeconds(delay);
 
-        
+    // Handles transition after delay to cooking method phase
+    private IEnumerator BeginCookingPhase()
+    {
+       
+        yield return new WaitForSeconds(0.5f);
+        Chop_Minigame.SetActive(false);
 
         switch (currentMethod)
         {
@@ -110,10 +142,15 @@ public class Cooking_Minigame_Manager : MonoBehaviour
         }
     }
 
+    
     // Call this from minigames to reduce health
     public void LoseHealth()
     {
+        //Debug.Log("Health");
+        
+       
         health--;
+        UpdateHearts();
     }
 
     // Determine reward and finalize minigame cycle
@@ -140,6 +177,7 @@ public class Cooking_Minigame_Manager : MonoBehaviour
     private void HandleSuccess()
     {
         //Need logic to show preview
+
         InventoryManager.Instance.AddItem(ResultDish, Dish_QTY);
         
     }
@@ -152,20 +190,43 @@ public class Cooking_Minigame_Manager : MonoBehaviour
         
     }
 
+    public void SetPreview()
+    {
+        string method = activeRecipe.method.ToString();
+
+        Dish_Preview_Image.sprite = activeRecipe.resultDish.icon;
+        Method_Preview_Text.text = $"2. {method} the fish";
+    }
+
     private void ResetMinigameCycle()
     {
         health = 3;
         isInProgress = false;
+
+        StartCoroutine(Minigame_Exit());
     }
+
+    private IEnumerator Minigame_Exit()
+    {
+        GameObject ActiveMinigame = GetActiveMinigame();
+
+        yield return new WaitForSeconds(2f);
+
+        ActiveMinigame.GetComponent<Animator>().SetTrigger("Exit");
+        yield return new WaitForSeconds(0.5f);
+
+        CookingManager.Instance.Minigame_ContentHolder.GetComponent<Animator>().SetTrigger("Exit");
+        yield return new WaitForSeconds(0.5f);
+
+        CookingManager.Instance.Manager_ContentHolder.SetActive(true);
+        CookingManager.Instance.Minigame_ContentHolder.SetActive(false);
+    }
+
 
     //CloseButton Logic Required
 
-    public void CloseCookingButton() //Button cannot call coroutine directly, so separate script is needed
-    {
-        StartCoroutine(CloseCookingMinigame());
-    }
-
-    private IEnumerator CloseCookingMinigame()
+    private IEnumerator CloseCookingMinigame() //This should be internally called
+                                               //Player cannot close on-going minigame
     {
         GameObject ActiveMinigame = GetActiveMinigame();
         Animator MinigameAnimator = ActiveMinigame.GetComponent<Animator>();
@@ -198,6 +259,24 @@ public class Cooking_Minigame_Manager : MonoBehaviour
         }
 
         return null; // No minigame is currently active
+    }
+
+    public void UpdateHearts()
+    {
+        Debug.Log("Beans");
+
+        for (int i = 0; i < heartImages.Length; i++)
+        {
+            // Determine if this heart should be full or empty
+            if (i < health)
+            {
+                heartImages[i].sprite = FullHeartSprite;
+            }
+            else
+            {
+                heartImages[i].sprite = EmptyHeartSprite;
+            }
+        }
     }
 
 }

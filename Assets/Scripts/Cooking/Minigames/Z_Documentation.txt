@@ -10,4 +10,17 @@ How the new cooking system works
 - The function already checks that there are enough ingredients
 - And there is enough space
 
+- Once all criteria are met, the minigame system enables the chop minigame
+- Once the chop minigame is completed, the next minigame (depending on recipe) is called
+
+- All the while the minigame health acts as an exit function
+- If the player reaches 0 health, the minigame cycle is stopped
+- And the player gets a failure dish
+
+
+Checking minigame sucess:
+- There are 2 primary ways to check the current status of the minigame
+- ie still running, failed or succeded
+
+-
 

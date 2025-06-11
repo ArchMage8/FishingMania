@@ -9,6 +9,7 @@ public class Chop_Marker : MonoBehaviour
     public int HitCount = 0;
     public float coyoteTime = 0.15f;
 
+    public Slider ProgressSlider;
 
     private bool bounce = true;
     private RectTransform barRect;
@@ -23,9 +24,13 @@ public class Chop_Marker : MonoBehaviour
     private RectTransform lastValidSection;
     private float timeSinceLastValidSection = Mathf.Infinity;
 
+    private int sectionCount;
+
     public void Initialize(List<RectTransform> sectionRects, RectTransform bar)
     {
         HitCount = 0;
+
+       
 
         marker = GetComponent<RectTransform>();
         barRect = bar;
@@ -38,6 +43,11 @@ public class Chop_Marker : MonoBehaviour
         timeSinceLastValidSection = Mathf.Infinity;
         currentSectionOver = null;
         lastValidSection = null;
+
+        sectionCount = sections.Count;
+
+        ProgressSlider.maxValue = sectionCount;
+        ProgressSlider.value = 0;
     }
 
     void Update()
@@ -128,11 +138,17 @@ public class Chop_Marker : MonoBehaviour
         {
             hitSection.SetActive(false);
             HitCount++;
+
+            if(HitCount <= sectionCount)
+            {
+                ProgressSlider.value++;
+            }
         }
     }
 
     private void HandleMissedHit()
     {
+        //Debug.Log("bb");
         Cooking_Minigame_Manager.Instance.LoseHealth();
     }
 

@@ -48,19 +48,21 @@ public class Boil_Minigame : MonoBehaviour
 
     void OnEnable()
     {
+        StartCoroutine(Start_WithAnimation());
+    }
+
+    private IEnumerator Start_WithAnimation()
+    {
+        yield return new WaitForSeconds(0.5f);
         StartCoroutine(PregameSequence());
     }
 
     void Update()
     {
-        if(Cooking_Minigame_Manager.Instance.health == 0)
-        {
-            StopMinigame();
-        }
-
 
         if (hasCompleted || isPregame)
         {
+            
             return;
 
         }
@@ -183,7 +185,9 @@ public class Boil_Minigame : MonoBehaviour
             {
                 lastDisplayedTime = (int)remainingTime;
                 if (timerText != null)
+                {
                     timerText.text = lastDisplayedTime.ToString();
+                }
             }
 
             yield return new WaitForSeconds(1f);
@@ -192,7 +196,9 @@ public class Boil_Minigame : MonoBehaviour
             if (remainingTime <= 0f && currentProgress < maxProgress)
             {
                 if (timerText != null)
+                {
                     timerText.text = "0";
+                }
 
                 CompleteMinigame(false);
             }
@@ -201,6 +207,8 @@ public class Boil_Minigame : MonoBehaviour
 
     private IEnumerator PregameSequence()
     {
+        
+
         isPregame = true;
         hasCompleted = false;
 
@@ -260,8 +268,7 @@ public class Boil_Minigame : MonoBehaviour
         remainingTime = failureTimeLimit;
         lastDisplayedTime = -1;
 
-        if (timerText != null)
-            timerText.text = ((int)remainingTime).ToString();
+  
 
         if (failureTimerRoutine != null)
             StopCoroutine(failureTimerRoutine);
@@ -283,17 +290,21 @@ public class Boil_Minigame : MonoBehaviour
         hasCompleted = true;
 
         if (targetHandler != null)
+        {
             targetHandler.enabled = false;
+        }
 
         StopMinigame();
 
         if (success)
         {
+            Debug.Log("call a");
             End_Succeed();
         }
 
         else
         {
+            Debug.Log("call b");
             End_Fail();
         }
     }

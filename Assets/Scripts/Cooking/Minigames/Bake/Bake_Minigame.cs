@@ -31,10 +31,17 @@ public class Bake_Minigame : MonoBehaviour
     private bool gameEnded = false;
     private bool gameStarted = false;
 
-    private void OnEnable()
+    void OnEnable()
     {
+        StartCoroutine(Start_WithAnimation());
+    }
+
+    private IEnumerator Start_WithAnimation()
+    {
+        yield return new WaitForSeconds(0.5f);
         StartCoroutine(PregameSequence());
     }
+
 
     private IEnumerator PregameSequence()
     {
@@ -83,10 +90,6 @@ public class Bake_Minigame : MonoBehaviour
 
     private void Update()
     {
-        if(Cooking_Minigame_Manager.Instance.health == 0)
-        {
-            StopMinigame();
-        }
         
         if (!gameStarted || gameEnded)
         {
@@ -127,7 +130,7 @@ public class Bake_Minigame : MonoBehaviour
         float minAngle = (targetAngle - angleTolerance + 360f) % 360f;
         float maxAngle = (targetAngle + angleTolerance) % 360f;
         bool isInRange = IsAngleWithinRange(sliderAngle, minAngle, maxAngle);
-
+        
         if (isInRange && !targetMoving)
         {
             holdTimer += Time.deltaTime;
@@ -148,7 +151,7 @@ public class Bake_Minigame : MonoBehaviour
 
             if (progressSlider.value >= progressMaxValue)
             {
-                CompleteMinigame();
+                CompleteMinigame(); //Success before time runs out
             }
         }
     }
@@ -167,18 +170,23 @@ public class Bake_Minigame : MonoBehaviour
             Timer_Text.text = currentTime.ToString();
         }
 
-        if (!gameEnded)
-        {
+       
             if (progressSlider.value >= progressMaxValue)
             {
-                CompleteMinigame();
+                CompleteMinigame(); //Success exactly when timer runs out
             }
 
             else
             {
-                OnMinigameFail();
+                OnMinigameFail(); //Timer ran out, progress not 100 yet
             }
-        }
+        
+    }
+
+    private void CompleteMinigame()
+    {
+        OnMinigameSuccess();
+        StopMinigame();
     }
 
     public void StopMinigame()
@@ -213,21 +221,16 @@ public class Bake_Minigame : MonoBehaviour
         }
     }
 
+    Cooking_Minigame_Manager minigameManager = Cooking_Minigame_Manager.Instance;
 
-    private void CompleteMinigame()
-    {
-        OnMinigameSuccess();
-        StopMinigame();
-    }
 
     private void OnMinigameSuccess()
     {
-        Cooking_Minigame_Manager.Instance.CookingMinigameComplete();
+       minigameManager.CookingMinigameComplete();
     }
 
     private void OnMinigameFail()
     {
-        Cooking_Minigame_Manager minigameManager = Cooking_Minigame_Manager.Instance;
 
         minigameManager.LoseHealth();
         minigameManager.CookingMinigameComplete();

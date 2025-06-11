@@ -17,16 +17,30 @@ public class Chop_Minigame : MonoBehaviour
 
     [Space(10)]
 
-    public Slider ProgressSlider;
+  
 
     private List<RectTransform> activeSections = new List<RectTransform>();
-    
 
+    private bool MinigameStarted = false;
     private Coroutine minigameRoutine;
 
     private void OnEnable()
     {
+        StartCoroutine(Start_WithAnimation());
+    }
+
+    private IEnumerator Start_WithAnimation()
+    {
+        yield return new WaitForSeconds(0.5f);
+  
         minigameRoutine = StartCoroutine(Start_Minigame());
+        marker.HitCount = 0;
+        MinigameStarted = false;
+    }
+
+    private void OnDisable()
+    {
+        ResetMinigame();
     }
 
     private void Update()
@@ -36,7 +50,7 @@ public class Chop_Minigame : MonoBehaviour
             EndFail();
         }
 
-        if (marker.HitCount == activeSections.Count)
+        if (marker.HitCount == activeSections.Count && MinigameStarted)
         {
             EndSuccess();
         }
@@ -44,6 +58,8 @@ public class Chop_Minigame : MonoBehaviour
 
     private IEnumerator Start_Minigame()
     {
+        
+
         marker.EnableMovement(false);
         countdownText.gameObject.SetActive(true);
 
@@ -141,21 +157,26 @@ public class Chop_Minigame : MonoBehaviour
             }
         }
 
+        MinigameStarted = true;
         marker.EnableMovement(true);
     }
 
 
     private void EndFail() //Losing Health is handled by the Chop_Marker
     {                      //This script is called when the player runs out of health
+
+        
+
         StopMinigame();
-        Cooking_Minigame_Manager.Instance.CookingMinigameComplete();
+        Cooking_Minigame_Manager.Instance.CookingMinigameComplete(); //Pay attention
+                                                                     //This function ends the cooking phase
 
     }
 
     private void EndSuccess()
     {
         StopMinigame();
-        Cooking_Minigame_Manager.Instance.OnChopMinigameComplete();
+        StartCoroutine(Cooking_Minigame_Manager.Instance.OnChopMinigameComplete()); //While this one ends the chop phase
     }
 
     public void StopMinigame()
@@ -178,6 +199,30 @@ public class Chop_Minigame : MonoBehaviour
         countdownText.gameObject.SetActive(false);
 
         // Optional: reset marker to center
+        //marker.SetMarkerPosition(Vector2.zero);
+    }
+
+    public void ResetMinigame()
+    {
+        if (minigameRoutine != null)
+        {
+            StopCoroutine(minigameRoutine);
+            minigameRoutine = null;
+        }
+
+        marker.EnableMovement(false);
+        marker.HitCount = 0;
+        MinigameStarted = false;
+
+        foreach (var sec in activeSections)
+        {
+            if (sec != null)
+                sec.gameObject.SetActive(false);
+        }
+        activeSections.Clear();
+
+        countdownText.gameObject.SetActive(false);
+
         marker.SetMarkerPosition(Vector2.zero);
     }
 }

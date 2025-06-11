@@ -22,9 +22,9 @@ public class CookingManager : MonoBehaviour
     [Space(10)]
     [Header("System Requirements")]
 
-   // public GameObject CloseButton;
-   // public GameObject CookingUI;
-   public Item FailureDish;
+    public GameObject Manager_ContentHolder;
+    public GameObject Minigame_ContentHolder;
+    public Item FailureDish;
 
     [Space(20)]
 
@@ -32,15 +32,14 @@ public class CookingManager : MonoBehaviour
 
     [HideInInspector] public Recipe currentRecipe;
     [HideInInspector] public int maxCookQuantity = 1;
-    public int selectedCookQuantity = 1;
+    private int selectedCookQuantity = 1;
     private string Current_Cooking_Method = null;
     private bool RecipeUnlocked;
 
 
     private void Awake()
     {
-        //CloseButton.SetActive(true);
-
+       
         DisableIngredients();
         inventoryManager = InventoryManager.Instance;
 
@@ -54,6 +53,13 @@ public class CookingManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void Start()
+    {
+        Minigame_ContentHolder.SetActive(false);
+
+    }
+
 
     private void DisableIngredients()
     {
@@ -74,6 +80,7 @@ public class CookingManager : MonoBehaviour
 
     public void RecieveRecipe(Recipe recipe, string CookingMethod, bool recipeUnlocked)
     {
+
         RecipeUnlocked = recipeUnlocked;
 
         EnableIngredients();
@@ -126,11 +133,13 @@ public class CookingManager : MonoBehaviour
         if (RecipeUnlocked)
         {
             Unlocked_UI();
+            dishIcon.gameObject.SetActive(true);
         }
 
         else if (!RecipeUnlocked)
         {
             Locked_UI();
+            dishIcon.gameObject.SetActive(true);
         }
        
     }
@@ -159,6 +168,7 @@ public class CookingManager : MonoBehaviour
     }
 
 
+   
 
     private void Locked_UI()
     {
@@ -257,16 +267,41 @@ public class CookingManager : MonoBehaviour
 
     private void StartMinigameCycle()
     {
-        Debug.Log("Playing");
+        StartCoroutine(StartMinigameCoroutine());
+    }
+
+    private IEnumerator StartMinigameCoroutine()
+    {
+
+        Manager_ContentHolder.GetComponent<Animator>().SetTrigger("Exit");
+        yield return new WaitForSeconds(0.5f);
+        Manager_ContentHolder.SetActive(false);
+
+        SetupMinigamePreview();
+
+        Minigame_ContentHolder.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
         Cooking_Minigame_Manager.Instance.StartMinigameSequence(currentRecipe, Current_Cooking_Method, selectedCookQuantity);
+
+    }
+
+    private void SetupMinigamePreview()
+    {
+       Cooking_Minigame_Manager minigame_Manager = Cooking_Minigame_Manager.Instance;
+
+        minigame_Manager.activeRecipe = currentRecipe;
+        minigame_Manager.SetPreview();
     }
 
     public void TurnOnCookingUI(GameObject target)
     {
         target.SetActive(true);
         inventoryManager.SomeUIEnabled = true;
-        Reset_Preview();
-        Time.timeScale = 0f;
+        
+        //Time.timeScale = 0f;
+
+        DefaultPreview();
     }
 
     public void TurnOffCookingUI(GameObject target)
@@ -278,12 +313,18 @@ public class CookingManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public void Reset_Preview()
+    private void DefaultPreview()
     {
-        selectedCookQuantity = 0;
-        dishName.text = "Select a recipe";
-        dishDescription.text = "";
+        if (currentRecipe == null)
+        {
+            dishName.text = "Select a Recipe!";
+            dishDescription.text = "";
+
+            dishIcon.gameObject.SetActive(false);
+        }
     }
+
+   
 }
 
 [System.Serializable]

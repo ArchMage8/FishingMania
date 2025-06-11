@@ -9,6 +9,9 @@ public class Fry_Minigame : MonoBehaviour
     public RectTransform barTransform;
     public RectTransform sectionTransform;
     public Fry_Marker marker;
+
+    [Space(10)]
+
     public Slider progressSlider;
     public TextMeshProUGUI countdownText;
 
@@ -27,6 +30,12 @@ public class Fry_Minigame : MonoBehaviour
 
     void OnEnable()
     {
+        StartCoroutine(Start_WithAnimation());
+    }
+
+    private IEnumerator Start_WithAnimation()
+    {
+        yield return new WaitForSeconds(0.5f);
         Start_Minigame();
     }
 
@@ -154,6 +163,8 @@ public class Fry_Minigame : MonoBehaviour
 
     private void End_Success()
     {
+        Debug.Log("BB");
+
         marker.isMoving = false;
         Cooking_Minigame_Manager.Instance.CookingMinigameComplete();
     }

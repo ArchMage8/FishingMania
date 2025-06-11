@@ -35,7 +35,7 @@ public class Cooking_RecipeButton : MonoBehaviour, IPointerEnterHandler, IPointe
 
        
         SetupRecipeButton();
-        Debug.Log(unlocked);
+        //Debug.Log(unlocked);
     }
 
     public void SendRecipe()
@@ -57,15 +57,18 @@ public class Cooking_RecipeButton : MonoBehaviour, IPointerEnterHandler, IPointe
         if (!isUnlocked)
         {
             DimEffect();
+            dishName.gameObject.SetActive(false);
             
         }
         else if(isUnlocked && cookQTY == 0)
         {
             DimEffect();
+            dishName.gameObject.SetActive(false);
         }
         else if (isUnlocked && cookQTY > 0)
         {
             NormalEffect();
+            dishName.gameObject.SetActive(true);
         }
     }
 

@@ -57,6 +57,7 @@ public class InventoryManager : MonoBehaviour
                 if (remainingQuantity == 0)
                 {
                     SortInventory();
+                    Debug.Log(quantity + " " + item.name + " has been added");
                     return true; // Item added successfully
                 }
             }

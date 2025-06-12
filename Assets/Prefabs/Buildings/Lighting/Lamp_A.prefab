@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4347059069250504919}
   - component: {fileID: 4347059069250504918}
+  - component: {fileID: 8625373654105143249}
+  - component: {fileID: 7685171017056641032}
   m_Layer: 0
   m_Name: Lamp_A
   m_TagString: Untagged
@@ -75,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -270837270, guid: c7a0b942e4593a04688567521967c0cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -87,6 +89,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &8625373654105143249
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4347059069250504913}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.16}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.29, y: 0.75}
+    newSize: {x: 0.29, y: 0.75}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.13394386, y: -0.11880717}
+      - {x: -0.113904014, y: -0.14313197}
+      - {x: -0.08916903, y: -0.16329983}
+      - {x: -0.045390204, y: -0.1768837}
+      - {x: 0.005315967, y: -0.18222177}
+      - {x: 0.0647437, y: -0.17054486}
+      - {x: 0.10648321, y: -0.15223193}
+      - {x: 0.1398831, y: -0.1248754}
+      - {x: 0.13147181, y: -0.09877586}
+      - {x: 0.07003069, y: -0.06442556}
+      - {x: 0.0005221069, y: -0.04763773}
+--- !u!114 &7685171017056641032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4347059069250504913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ffacd9d7088f72478a46cb4287c4356, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LightSource: {fileID: 4347059069704648621}
 --- !u!1 &4347059069704648623
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,7 +411,7 @@ MonoBehaviour:
   TargetSprite:
   - {fileID: 4347059069250504918}
   - {fileID: 4347059069781795139}
-  Difference: 14
+  Difference: 5
 --- !u!60 &4347059069797815667
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -386,12 +437,13 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.0061466694, y: 0.29076755}
-      - {x: -0.17556834, y: 0.2085793}
-      - {x: -0.49687403, y: 0.05982074}
+    - - {x: 0.000076532364, y: 0.3576643}
+      - {x: -0.24402118, y: 0.2599187}
+      - {x: -0.5777723, y: 0.101825655}
       - {x: -0.13499498, y: -0.09676814}
       - {x: -0.0011786819, y: -0.045232862}
       - {x: 0.09068918, y: -0.078045666}
       - {x: 0.12484121, y: -0.06776136}
       - {x: 0.4887205, y: 0.0480811}
-      - {x: 0.29373193, y: 0.14582738}
+      - {x: 0.5040059, y: 0.15039836}
+      - {x: 0.37307477, y: 0.19716674}

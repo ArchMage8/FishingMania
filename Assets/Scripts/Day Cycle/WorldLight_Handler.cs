@@ -12,54 +12,44 @@ public class WorldLight_Handler : MonoBehaviour
 
     public Light2D LightSource;
 
-    private float onPercentage = 75f;
-    private float offPercentage = 21f;
-
-    private float fadeOn_Percentage = 73f;
-    private float fadeOff_Percentage = 83f;
-
     private Daylight_Handler daylight_handler;
-    private float maxTime;
+    private float DayDuration;
     private float originalIntensity;
 
-    private float offStartTime;
-    private float offEndTime;
-    private float onStartTime;
-    private float onEndTime;
+    private float offStartTime = 4.5f;
+    private float offEndTime = 6;
+    private float onStartTime = 16.5f;
+    private float onEndTime = 18f;
+
+    private float currentTime;
+    private float currentGameTime;
 
     private void Start()
     {
         daylight_handler = Daylight_Handler.Instance;
-        maxTime = daylight_handler.GetDayDuration();
+        DayDuration = daylight_handler.GetDayDuration();
 
         originalIntensity = LightSource.intensity;
-
-
-        CalculateFadeWindows();
     }
 
-    private void CalculateFadeWindows()
+    private void GetGameTime()
     {
+
+        float normalizedTime = currentTime / DayDuration;
+        currentGameTime = normalizedTime * 24f;
         
-        offEndTime = maxTime * (offPercentage / 100f); //Time all lights are off
-
-        offStartTime = offEndTime * (fadeOff_Percentage/100f);
-
-        //----------------------------------------------------------
-
-        onEndTime = maxTime * (onPercentage / 100f); //Time  all lights are on
-
-        onStartTime = onEndTime * (fadeOn_Percentage/100f);
     }
 
     private void Update()
     {
         if (daylight_handler == null) return;
 
-        float currentTime = daylight_handler.GetCurrentTime();
+        currentTime = daylight_handler.GetCurrentTime();
 
-        HandleFadeOff(currentTime);
-        HandleFadeOn(currentTime);
+        GetGameTime();
+
+        HandleFadeOff(currentGameTime);
+        HandleFadeOn(currentGameTime);
     }
 
     private void HandleFadeOff(float currentTime)

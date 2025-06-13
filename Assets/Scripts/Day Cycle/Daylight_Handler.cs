@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Daylight_Handler : MonoBehaviour
@@ -18,6 +19,7 @@ public class Daylight_Handler : MonoBehaviour
     public bool TimeRunning = true;
 
     private float endDayResumeDelay = 0.5f;
+    private bool exceptionExists;
 
     private void Awake()
     {
@@ -28,10 +30,27 @@ public class Daylight_Handler : MonoBehaviour
         }
 
         Instance = this;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        var exception = FindObjectOfType<Daylight_Exception>();
+        if (exception == null)
+        {
+            exceptionExists = false;
+        }
+
+        else
+        {
+            exceptionExists = true;
+        }
+            UpdateLighting();
     }
 
     private void Update()
     {
+        
         if (!TimeRunning)
         {
             return;
@@ -43,15 +62,25 @@ public class Daylight_Handler : MonoBehaviour
         }
 
         currentTime += Time.deltaTime;
-        if (currentTime > dayDuration)
-        {
-            currentTime -= dayDuration;
-        }
+        currentTime = Mathf.Repeat(currentTime, dayDuration);
+
 
         float timePercent = currentTime / dayDuration;
 
-        globalLight.color = colorOverDay.Evaluate(timePercent);
-        globalLight.intensity = intensityOverDay.Evaluate(timePercent);
+
+        if (!exceptionExists)
+        {
+            globalLight.gameObject.SetActive(true);
+
+            globalLight.color = colorOverDay.Evaluate(timePercent);
+            globalLight.intensity = intensityOverDay.Evaluate(timePercent);
+        }
+
+        else if(exceptionExists)
+        {
+            globalLight.gameObject.SetActive(false);
+
+        }
     }
 
     public void SetTime(float newTime)

@@ -4,6 +4,8 @@ public class Inventory_BookManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] pages; // Array of page GameObjects
 
+    public GameObject HUD;
+
     private int currentPageIndex = 0;
     private bool hasPlayedEntryAnimation = false; // Tracks if first page entry animation has been played
 
@@ -17,6 +19,14 @@ public class Inventory_BookManager : MonoBehaviour
 
     public void OpenBook()
     {
+        if (InventoryManager.Instance.SomeUIEnabled)
+        {
+            return;
+        }
+
+        HUD.SetActive(false);
+        InventoryManager.Instance.SomeUIEnabled = true;
+        
         foreach (var page in pages)
         {
             page.SetActive(false);
@@ -34,6 +44,7 @@ public class Inventory_BookManager : MonoBehaviour
             }
             hasPlayedEntryAnimation = true;
         }
+
     }
 
     public void ChangePage(int targetIndex)
@@ -67,6 +78,8 @@ public class Inventory_BookManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         pages[pageIndex].SetActive(false);
+        InventoryManager.Instance.SomeUIEnabled = false;
+        HUD.SetActive(true);
     }
 
     private float GetAnimationClipLength(Animator animator, string clipName)

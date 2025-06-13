@@ -41,6 +41,7 @@ public class FishingCoreSystems : MonoBehaviour
     private float decreaseInterval = 1f;
     private bool isReeling;
 
+
     private void Awake()
     {
         if (instance == null) 
@@ -108,7 +109,7 @@ public class FishingCoreSystems : MonoBehaviour
     {
         Debug.Log("Call 1");
 
-        int BaitQTY = InventoryManager.Instance.GetTotalQuantity(Inventory_EquipmentManager.Instance.activeBaitTile.BaitItem);
+        int BaitQTY = InventoryManager.Instance.GetTotalQuantity(Inventory_EquipmentManager.Instance.ActiveBaitType);
         reelQTY = 50;
 
         if (!InventoryManager.Instance.IsInventoryFull() && BaitQTY > 0)

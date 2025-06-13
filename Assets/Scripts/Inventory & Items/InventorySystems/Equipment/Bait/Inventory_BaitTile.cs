@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections;
 using UnityEngine.UI;
 
 public class Inventory_BaitTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -22,7 +23,7 @@ public class Inventory_BaitTile : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     private void Start()
     {
-        TileImage = this.gameObject.GetComponent<Image>();
+       
         originalSprite = GetComponent<Image>().sprite;
         equipmentManager = Inventory_EquipmentManager.Instance;
     }
@@ -31,8 +32,8 @@ public class Inventory_BaitTile : MonoBehaviour, IPointerEnterHandler, IPointerE
     {
         if (BaitItem != null)
         {
-            CheckAvailable();
-            TileSetup();
+            TileImage = this.gameObject.GetComponent<Image>();
+            StartCoroutine(SetupSlot());
         }
 
         else
@@ -41,6 +42,14 @@ public class Inventory_BaitTile : MonoBehaviour, IPointerEnterHandler, IPointerE
            temp.enabled = false;
         }
        
+    }
+
+    private IEnumerator SetupSlot()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+       
+        CheckAvailable();
+        TileSetup();
     }
 
     private void CheckAvailable()
@@ -86,7 +95,17 @@ public class Inventory_BaitTile : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void EnableEffect()
     {
-        TileImage.sprite = Active_Effect;
+        if (TileImage == null)
+        {
+            Debug.Log("Call A");
+        }
+
+        else if (Active_Effect == null)
+        {
+            Debug.Log("Call B");
+        }
+
+            TileImage.sprite = Active_Effect;
     }
 
     public void DisableEffect()

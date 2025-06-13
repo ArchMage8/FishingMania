@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GivePlayerMoney : MonoBehaviour
 {
+    //This is the script meant to be called when the game is saved
+
+
     [Header("UI References")]
     public TMP_Text Earnings_Preview;
     public TMP_Text Expenses_Preview;

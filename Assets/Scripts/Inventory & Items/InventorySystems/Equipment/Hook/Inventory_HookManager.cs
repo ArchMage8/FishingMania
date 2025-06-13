@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using System.Collections;
 
 public class Inventory_HookManager : MonoBehaviour
 {
@@ -45,7 +46,9 @@ public class Inventory_HookManager : MonoBehaviour
     {
         LoadHooks();
         Inventory_EquipmentManager.Instance.LoadCurrentCombo();
+        Inventory_EquipmentManager.Instance.RestoreActiveEffects();
     }
+
 
     public bool GetHookStatus(int hookClass)
     {

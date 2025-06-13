@@ -15,6 +15,10 @@ public class Inventory_EquipmentManager : MonoBehaviour
     [Header("Current Combo")]
     public int currentCombo; //Is the In-Game list
                              //Look at documentation for explanation
+
+
+    public Item ActiveBaitType;
+
     private void Awake()
     {
         if (Instance == null)
@@ -27,23 +31,16 @@ public class Inventory_EquipmentManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        
-    }
-
     public void LoadCurrentCombo()
     {
         // Load current combo from HookManager
         currentCombo = Inventory_HookManager.Instance.SavedCombo;
-        RestoreActiveEffects();
+        //RestoreActiveEffects();
 
     }
 
-    private void RestoreActiveEffects()
+    public void RestoreActiveEffects()
     {
-        //Debug.Log("Call");
-       
         if (currentCombo > 0)
         {
            
@@ -51,9 +48,15 @@ public class Inventory_EquipmentManager : MonoBehaviour
             int hookClass = (currentCombo % 10) - 1;
 
             if (baitClass >= 0)
-            {        
+            {
+               Debug.Log("Bait Class: " + baitClass);
+
                 activeBaitTile = baitTiles[baitClass];
                 activeBaitTile.EnableEffect();
+
+                ActiveBaitType = activeBaitTile.BaitItem;
+               
+
             }
 
             if (hookClass >= 0)

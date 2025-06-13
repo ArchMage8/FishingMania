@@ -29,7 +29,8 @@ public class MoneyManager : MonoBehaviour
 
     public void TransferToPermanentBalance()
     {
-        playerBalance += tempBalance;
+        playerBalance = Mathf.Min(playerBalance + tempBalance, 99999999);
+
         tempBalance = 0;
         ResetTempAccount();
         Debug.Log($"Transferred to permanent balance. Current playerBalance: {playerBalance}");

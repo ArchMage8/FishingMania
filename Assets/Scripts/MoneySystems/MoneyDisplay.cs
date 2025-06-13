@@ -9,7 +9,7 @@ public class MoneyDisplay : MonoBehaviour
     {
         if (Money_UI != null && MoneyManager.Instance != null)
         {
-            Money_UI.text = $"Money: {MoneyManager.Instance.playerBalance}";
+            Money_UI.text = MoneyManager.Instance.playerBalance.ToString();
         }
     }
 }

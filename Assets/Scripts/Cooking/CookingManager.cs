@@ -25,7 +25,10 @@ public class CookingManager : MonoBehaviour
     public GameObject Manager_ContentHolder;
     public GameObject Minigame_ContentHolder;
     public Item FailureDish;
-    public GameObject GameHUD;
+    public GameObject BG_Effect;
+
+
+    private GameObject GameHUD;
 
     [Space(20)]
 
@@ -302,6 +305,7 @@ public class CookingManager : MonoBehaviour
             return;
         }
         
+        BG_Effect.SetActive(true);
         GameHUD.SetActive(false);
         target.SetActive(true);
         inventoryManager.SomeUIEnabled = true;
@@ -314,6 +318,7 @@ public class CookingManager : MonoBehaviour
     public void TurnOffCookingUI(GameObject target)
     {
         //CloseButton.SetActive(false);
+        BG_Effect.SetActive(true);
         target.SetActive(false);
         GameHUD.SetActive(false);
         InventoryManager.Instance.SomeUIEnabled = false;

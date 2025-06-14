@@ -3,6 +3,7 @@ using UnityEngine;
 public class Inventory_BookManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] pages; // Array of page GameObjects
+    public GameObject BG_Effect;
 
     private GameObject HUD;
 
@@ -25,7 +26,7 @@ public class Inventory_BookManager : MonoBehaviour
         }
 
         HUD = InventoryManager.Instance.HUD;
-
+        BG_Effect.SetActive(true);
         HUD.SetActive(false);
         InventoryManager.Instance.SomeUIEnabled = true;
         
@@ -79,6 +80,7 @@ public class Inventory_BookManager : MonoBehaviour
     private System.Collections.IEnumerator DeactivatePageAfterDelay(float delay, int pageIndex)
     {
         yield return new WaitForSeconds(delay);
+        BG_Effect.SetActive(false);
         pages[pageIndex].SetActive(false);
         InventoryManager.Instance.SomeUIEnabled = false;
         HUD.SetActive(true);

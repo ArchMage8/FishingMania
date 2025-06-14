@@ -21,6 +21,7 @@ public class UIButton_Rotate : MonoBehaviour, IPointerEnterHandler, IPointerExit
 {
     public GameObject Visual;
     public float target_Rotation = -10;
+    public GameObject HoverEffect;
 
     private float initial_Rotation;
     private RectTransform RT;
@@ -36,13 +37,23 @@ public class UIButton_Rotate : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         if (!FlickerProtect)
         {
-            RT.rotation = Quaternion.Euler(0, 0, target_Rotation);
+            if(HoverEffect != null)
+            {
+                HoverEffect.SetActive(true);
+            }
+
+            RT.rotation = Quaternion.Euler(0, 0, target_Rotation);   
             StartCoroutine(FlickerProtect_Toggle());
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (HoverEffect != null)
+        {
+            HoverEffect.SetActive(false);
+        }
+
         if (!FlickerProtect)
         {
             RT.rotation = Quaternion.Euler(0, 0, initial_Rotation);

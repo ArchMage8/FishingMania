@@ -278,6 +278,14 @@ PrefabInstance:
       propertyPath: m_AnimatedTiles.Array.data[39].second.m_AnimationSpeed
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 879743996850081083, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
+      propertyPath: TargetSprite.Array.size
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 879743996850081083, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
+      propertyPath: TargetSprite.Array.data[14]
+      value: 
+      objectReference: {fileID: 1829579803}
     - target: {fileID: 879743997409083421, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -334,6 +342,10 @@ PrefabInstance:
       propertyPath: m_AnimatedTiles.Array.data[0].second.m_AnimationSpeed
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1111939011141470055, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
+      propertyPath: m_Name
+      value: Collider
+      objectReference: {fileID: 0}
     - target: {fileID: 2335090983889707668, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
       value: -0.034552336
@@ -373,6 +385,14 @@ PrefabInstance:
     - target: {fileID: 6037241111642570625, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].y
       value: -0.061231315
+      objectReference: {fileID: 0}
+    - target: {fileID: 6956789276430451695, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6956789276430451695, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.84
       objectReference: {fileID: 0}
     - target: {fileID: 7172025619934952485, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
       propertyPath: m_Name
@@ -2313,6 +2333,11 @@ MonoBehaviour:
   maxSlots: 36
   maxStack: 9
   SomeUIEnabled: 0
+--- !u!483693784 &1829579803 stripped
+TilemapRenderer:
+  m_CorrespondingSourceObject: {fileID: 1675709750718281640, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
+  m_PrefabInstance: {fileID: 107608425}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &1870405847 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6250523421888518368, guid: 6242aa54143c3144996039af05a2af78, type: 3}

@@ -14,7 +14,7 @@ public class InventoryManager : MonoBehaviour
     private List<InventorySlot> inventory = new List<InventorySlot>(); //The in game inventory list
     private Dictionary<string, Item> itemCache;
 
-    [HideInInspector] public bool SomeUIEnabled = false;
+   public bool SomeUIEnabled = false;
 
     private string saveFilePath;
 

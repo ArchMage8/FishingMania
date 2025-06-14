@@ -187,7 +187,8 @@ public class Cooking_Minigame_Manager : MonoBehaviour
         //Needs logic to show preview
 
         InventoryManager.Instance.AddItem(CookingManager.Instance.FailureDish, Dish_QTY);
-        
+        ResetMinigameCycle();
+
     }
 
     public void SetPreview()
@@ -215,6 +216,7 @@ public class Cooking_Minigame_Manager : MonoBehaviour
         ActiveMinigame.GetComponent<Animator>().SetTrigger("Exit");
         yield return new WaitForSeconds(0.5f);
 
+        ActiveMinigame.SetActive(false);
         CookingManager.Instance.Minigame_ContentHolder.GetComponent<Animator>().SetTrigger("Exit");
         yield return new WaitForSeconds(0.5f);
 

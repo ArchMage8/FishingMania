@@ -297,7 +297,7 @@ public class CookingManager : MonoBehaviour
 
     public void TurnOnCookingUI(GameObject target)
     {
-        if (inventoryManager.SomeUIEnabled)
+        if (inventoryManager.SomeUIEnabled == true)
         {
             return;
         }

@@ -29,7 +29,7 @@ public class CookingTrigger : MonoBehaviour
     public void OpenBook()
     {
         interactIndicator.SetActive(false);
-        CookingUI.SetActive(true);
+        //CookingUI.SetActive(true);
         CookingManager.Instance.TurnOnCookingUI(CookingUI);
         InventoryManager.Instance.SomeUIEnabled = true;
         //CookingManager.Instance.CloseButton.SetActive(true);

@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 297214898529555253, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[3].second.m_AnimationSpeed
-      value: 7
+      value: 7.0000005
       objectReference: {fileID: 0}
     - target: {fileID: 297214898529555253, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[4].second.m_AnimationSpeed
@@ -156,7 +156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 297214898529555253, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[6].second.m_AnimationSpeed
-      value: 7
+      value: 7.0000005
       objectReference: {fileID: 0}
     - target: {fileID: 297214898529555253, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[7].second.m_AnimationSpeed
@@ -208,7 +208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 297214898529555253, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[21].second.m_AnimationSpeed
-      value: 7.0000005
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 297214898529555253, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[22].second.m_AnimationSpeed
@@ -244,7 +244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 297214898529555253, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[31].second.m_AnimationSpeed
-      value: 7.0000005
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 297214898529555253, guid: cdbd3cdce70be784b95e9f0c9cbb6620, type: 3}
       propertyPath: m_AnimatedTiles.Array.data[32].second.m_AnimationSpeed
@@ -2550,6 +2550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSlots: 36
   maxStack: 9
+  HUD: {fileID: 1355259914}
   SomeUIEnabled: 0
 --- !u!483693784 &1829579803 stripped
 TilemapRenderer:

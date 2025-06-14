@@ -318,7 +318,7 @@ public class CookingManager : MonoBehaviour
     public void TurnOffCookingUI(GameObject target)
     {
         //CloseButton.SetActive(false);
-        BG_Effect.SetActive(true);
+        BG_Effect.SetActive(false);
         target.SetActive(false);
         GameHUD.SetActive(false);
         InventoryManager.Instance.SomeUIEnabled = false;

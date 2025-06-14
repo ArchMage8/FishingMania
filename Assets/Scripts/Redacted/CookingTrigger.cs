@@ -30,7 +30,7 @@ public class CookingTrigger : MonoBehaviour
     {
         interactIndicator.SetActive(false);
         CookingUI.SetActive(true);
-        Time.timeScale = 0f;
+        CookingManager.Instance.TurnOnCookingUI(CookingUI);
         InventoryManager.Instance.SomeUIEnabled = true;
         //CookingManager.Instance.CloseButton.SetActive(true);
     }

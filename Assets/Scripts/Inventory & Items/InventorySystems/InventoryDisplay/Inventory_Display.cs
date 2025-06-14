@@ -7,7 +7,7 @@ public class Inventory_Display : MonoBehaviour
 {
     public static Inventory_Display Instance { get; private set; }
 
-    [Tooltip("Assign the Inventory Slot GameObjects here (each must have an Inventory_Slot script attached)")]
+    //[Tooltip("Assign the Inventory Slot GameObjects here (each must have an Inventory_Slot script attached)")]
     public Inventory_Slot[] slots;
 
     [Header("Preview UI")]

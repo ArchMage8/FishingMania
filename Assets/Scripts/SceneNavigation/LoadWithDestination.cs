@@ -6,6 +6,11 @@ using UnityEngine.UI;
 
 public class LoadWithDestination : MonoBehaviour
 {
+    //Documentation:
+    //There are 2 ways we can get from 1 scene to another, either using a "button" or a "world trigger"
+    //Unless we are entering a fishing minigame scene
+    
+
 
     [Header("Teleport Information")]
     public Vector3 TargetPosition;

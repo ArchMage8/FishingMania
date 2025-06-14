@@ -9,10 +9,12 @@ public class InventoryManager : MonoBehaviour
     public int maxSlots = 36;            // Maximum number of inventory slots
     public int maxStack = 9;            // Maximum quantity per slot
 
+    public GameObject HUD;
+
     private List<InventorySlot> inventory = new List<InventorySlot>(); //The in game inventory list
     private Dictionary<string, Item> itemCache;
 
-    public bool SomeUIEnabled = false;
+    [HideInInspector] public bool SomeUIEnabled = false;
 
     private string saveFilePath;
 

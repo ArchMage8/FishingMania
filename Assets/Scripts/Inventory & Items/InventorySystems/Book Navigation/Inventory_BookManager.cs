@@ -4,7 +4,7 @@ public class Inventory_BookManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] pages; // Array of page GameObjects
 
-    public GameObject HUD;
+    private GameObject HUD;
 
     private int currentPageIndex = 0;
     private bool hasPlayedEntryAnimation = false; // Tracks if first page entry animation has been played
@@ -23,6 +23,8 @@ public class Inventory_BookManager : MonoBehaviour
         {
             return;
         }
+
+        HUD = InventoryManager.Instance.HUD;
 
         HUD.SetActive(false);
         InventoryManager.Instance.SomeUIEnabled = true;

@@ -25,6 +25,7 @@ public class CookingManager : MonoBehaviour
     public GameObject Manager_ContentHolder;
     public GameObject Minigame_ContentHolder;
     public Item FailureDish;
+    public GameObject GameHUD;
 
     [Space(20)]
 
@@ -46,7 +47,7 @@ public class CookingManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            StartCoroutine(GetHUD());
         }
         else
         {
@@ -296,6 +297,12 @@ public class CookingManager : MonoBehaviour
 
     public void TurnOnCookingUI(GameObject target)
     {
+        if (inventoryManager.SomeUIEnabled)
+        {
+            return;
+        }
+        
+        GameHUD.SetActive(false);
         target.SetActive(true);
         inventoryManager.SomeUIEnabled = true;
         
@@ -308,7 +315,7 @@ public class CookingManager : MonoBehaviour
     {
         //CloseButton.SetActive(false);
         target.SetActive(false);
-
+        GameHUD.SetActive(false);
         InventoryManager.Instance.SomeUIEnabled = false;
         Time.timeScale = 1f;
     }
@@ -322,6 +329,12 @@ public class CookingManager : MonoBehaviour
 
             dishIcon.gameObject.SetActive(false);
         }
+    }
+
+    private IEnumerator GetHUD()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        GameHUD = InventoryManager.Instance.HUD;
     }
 
    

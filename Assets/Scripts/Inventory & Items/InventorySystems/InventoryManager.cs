@@ -326,7 +326,7 @@ public class InventoryManager : MonoBehaviour
     // Retrieves the total number of inventory slots
     public int MaxSlots => maxSlots;
 
-    public bool IsInventoryFull()
+    public bool  IsInventoryFull()
     {
         foreach (var slot in inventory) // Assuming inventorySlots is your storage list
         {

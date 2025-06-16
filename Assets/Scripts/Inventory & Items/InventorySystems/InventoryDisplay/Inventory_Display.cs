@@ -41,7 +41,7 @@ public class Inventory_Display : MonoBehaviour
             return;
         }
         Instance = this;
-        inventoryManager = InventoryManager.Instance;
+        
     }
 
     private void Start()
@@ -62,6 +62,8 @@ public class Inventory_Display : MonoBehaviour
 
     public void RefreshDisplay()
     {
+        inventoryManager = InventoryManager.Instance;
+
         for (int i = 0; i < slots.Length; i++)
         {
             if (i <= inventoryManager.MaxSlots)

@@ -33,22 +33,48 @@ public class HUD_VisualHandler : MonoBehaviour
 
     private void Update()
     {
-        SetTime();
-
-        if (Daylight_Exception.Instance != null)
+        if (Daylight_Handler.Instance != null)
         {
-            SetTargetColor(Color.white);
+            SetTime();
+
+
+
+
+            if (Daylight_Exception.Instance != null)
+            {
+                SetTargetColor(Color.white);
+            }
+            else
+            {
+                UpdateTargetColorFromTime();
+            }
+
+            if (isTransitioning)
+            {
+                LerpHUDColorsToTarget();
+            }
         }
+
         else
         {
-            UpdateTargetColorFromTime();
-        }
-
-        if (isTransitioning)
-        {
-            LerpHUDColorsToTarget();
+            if (Daylight_Exception.Instance == null)
+            {
+                SetTargetColor(Color.white);
+            }
+            else
+            {
+                SetTargetColor(HexToColor("767676"));
+            }
         }
     }
+
+    Color HexToColor(string hex)
+    {
+        if (ColorUtility.TryParseHtmlString("#" + hex, out var color))
+            return color;
+        return Color.white; // Fallback color
+    }
+
 
     private void SetTime()
     {

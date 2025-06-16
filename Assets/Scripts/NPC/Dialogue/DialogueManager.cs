@@ -23,6 +23,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject ChoicesHolder;
 
     private Animator NPCDialogueAnimator;
+    private GameObject PlayerHUD;
     
 
     [Space(15)]
@@ -93,6 +94,8 @@ public class DialogueManager : MonoBehaviour
         dialogueRunning = false;
         dialoguePanel.SetActive(false);
 
+       
+
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
         foreach(GameObject choice in choices)
@@ -137,6 +140,9 @@ public class DialogueManager : MonoBehaviour
     {
         if (!InventoryManager.Instance.SomeUIEnabled)
         {
+            Debug.Log("Call A");
+            InventoryManager.Instance.HUD.SetActive(false);  
+
             NPCDialogueAnimator = PassedAnimator;
 
             currentStory = new Story(NPCDialogue.text);
@@ -154,7 +160,7 @@ public class DialogueManager : MonoBehaviour
         {
             NPCDialogueAnimator = PassedAnimator;
 
-           
+            
 
             QuestCompleted = false;
 
@@ -189,6 +195,8 @@ public class DialogueManager : MonoBehaviour
 
             NPCDialogueAnimator = PassedAnimator;
 
+            InventoryManager.Instance.HUD.SetActive(false);
+
             //We are selling to the NPC
             currentStory = new Story(NPCDialogue.text);
             dialogueRunning = true;
@@ -211,6 +219,8 @@ public class DialogueManager : MonoBehaviour
         {
 
             NPCDialogueAnimator = PassedAnimator;
+
+            InventoryManager.Instance.HUD.SetActive(false);
 
             //We are buying from the NPC
             currentStory = new Story(NPCDialogue.text);
@@ -237,6 +247,7 @@ public class DialogueManager : MonoBehaviour
         InventoryManager.Instance.SomeUIEnabled = false;
 
         NPCDialogueAnimator.gameObject.SetActive(false);
+        InventoryManager.Instance.HUD.SetActive(true);
 
         NPCDialogueAnimator = null;
 

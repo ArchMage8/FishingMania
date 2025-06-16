@@ -46,7 +46,7 @@ public class Inventory_BaitTile : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     private IEnumerator SetupSlot()
     {
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0f);
        
         CheckAvailable();
         TileSetup();
@@ -121,7 +121,7 @@ public class Inventory_BaitTile : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (equipmentManager.activeHookTile != this)
+        if (equipmentManager.activeBaitTile != this)
         {
             TileImage.sprite = originalSprite;
         }

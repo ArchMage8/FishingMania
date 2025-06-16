@@ -24,10 +24,18 @@ public class WorldLight_Handler : MonoBehaviour
     private float currentTime;
     private float currentGameTime;
 
+
+    //There is an exception built in to this script to handle the absense of the daylight handler
+    //This is for the tutorial
+
     private void Start()
     {
         daylight_handler = Daylight_Handler.Instance;
-        DayDuration = daylight_handler.GetDayDuration();
+
+        if (daylight_handler != null)
+        {
+            DayDuration = daylight_handler.GetDayDuration();
+        }
 
         originalIntensity = LightSource.intensity;
     }

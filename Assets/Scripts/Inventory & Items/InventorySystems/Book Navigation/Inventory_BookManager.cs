@@ -7,7 +7,7 @@ public class Inventory_BookManager : MonoBehaviour
 
     private GameObject HUD;
 
-    private int currentPageIndex = 0;
+    public int currentPageIndex = 0;
     private bool hasPlayedEntryAnimation = false; // Tracks if first page entry animation has been played
 
     private void Start()

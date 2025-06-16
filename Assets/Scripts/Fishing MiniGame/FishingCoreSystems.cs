@@ -41,6 +41,8 @@ public class FishingCoreSystems : MonoBehaviour
     private float decreaseInterval = 1f;
     private bool isReeling;
 
+    private GameObject ActiveError;
+    private Animator ErrorAnimator;
 
     private void Awake()
     {
@@ -124,13 +126,31 @@ public class FishingCoreSystems : MonoBehaviour
             {
                 Debug.LogError("Ur Inventory Be full");
                 InventoryError.SetActive(true);
+                ActiveError = InventoryError;
+                StartCoroutine(RemoveErrorBoard());
             }
             else if (BaitQTY == 0)
             {
                 Debug.LogError("Ur bait has been exhausted");
                 BaitError.SetActive(true);
+                ActiveError = BaitError;
+                StartCoroutine(RemoveErrorBoard());
             }
         }
+    }
+
+    private IEnumerator RemoveErrorBoard()
+    {
+        ErrorAnimator = ActiveError.GetComponent<Animator>();
+        yield return new WaitForSecondsRealtime(1.5f);
+
+        ErrorAnimator.SetTrigger("Exit");
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        ActiveError.SetActive(false);
+        ActiveError = null;
+  
+        
     }
 
     private IEnumerator StartMiniGame()
@@ -138,6 +158,8 @@ public class FishingCoreSystems : MonoBehaviour
 
         Debug.Log("Call 2");
         FishingPlayer.SetTrigger("Next");
+
+        InventoryManager.Instance.SomeUIEnabled = true;
 
         yield return new WaitForSeconds(0.5f);
 
@@ -273,6 +295,7 @@ public class FishingCoreSystems : MonoBehaviour
     {
         Debug.Log("Call 7");
         MinigameIndicator.SetActive(true);
+        InventoryManager.Instance.SomeUIEnabled = false;
         StartCoroutine(WaitForInput());
     }
 

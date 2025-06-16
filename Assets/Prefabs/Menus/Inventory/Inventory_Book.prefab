@@ -76,13 +76,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 857159513725169714}
+  - component: {fileID: 2322142212912319483}
   m_Layer: 5
   m_Name: Equipment Page
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &857159513725169714
 RectTransform:
   m_ObjectHideFlags: 0
@@ -105,6 +106,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &2322142212912319483
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3470179495507652893}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9240952f133d1854b86db40c1210e6ca, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &7210376264276478749
 GameObject:
   m_ObjectHideFlags: 0
@@ -2587,6 +2608,7 @@ MonoBehaviour:
   - {fileID: 7959266160340801227}
   - {fileID: 3470179495507652893}
   BG_Effect: {fileID: 7210376264276478749}
+  currentPageIndex: 0
 --- !u!114 &555196870483633160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4854,14 +4876,13 @@ GameObject:
   m_Component:
   - component: {fileID: 7959266161839958630}
   - component: {fileID: 7959266161839958631}
-  - component: {fileID: 7959266161839958552}
   m_Layer: 5
   m_Name: Inventory_Equipment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7959266161839958630
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4904,26 +4925,6 @@ MonoBehaviour:
   activeBaitTile: {fileID: 0}
   currentCombo: 0
   ActiveBaitType: {fileID: 0}
---- !u!95 &7959266161839958552
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7959266161839958629}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9240952f133d1854b86db40c1210e6ca, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &1789018736094670039
 PrefabInstance:
   m_ObjectHideFlags: 0

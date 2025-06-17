@@ -29,7 +29,7 @@ public class Inventory_BookManager : MonoBehaviour
         BG_Effect.SetActive(true);
         HUD.SetActive(false);
         InventoryManager.Instance.SomeUIEnabled = true;
-        
+
         foreach (var page in pages)
         {
             page.SetActive(false);

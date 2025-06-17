@@ -28,7 +28,9 @@ public class CloseMenuButton : MonoBehaviour
     private IEnumerator CloseWithAnimations()
     {
         animator.SetTrigger("Exit");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
+        Time.timeScale = 1f;
         TargetObject.SetActive(false);
+        InventoryManager.Instance.SomeUIEnabled = false;
     }
 }

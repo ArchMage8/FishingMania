@@ -47,6 +47,7 @@ public class Inventory_Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             icon.gameObject.SetActive(true);
             icon.sprite = assignedItem.icon;
+            this.GetComponent<Button>().enabled = true;
             quantityText.text = qty.ToString(); // Always show qty
         }
     }

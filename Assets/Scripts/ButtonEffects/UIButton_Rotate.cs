@@ -67,7 +67,7 @@ public class UIButton_Rotate : MonoBehaviour, IPointerEnterHandler, IPointerExit
         //Debug.Log("Call");
 
         FlickerProtect = true;
-        yield return new WaitForSeconds(0.001f);
+        yield return new WaitForSecondsRealtime(0.001f);
         FlickerProtect = false;
 
     }

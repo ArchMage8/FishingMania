@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Daylight_UI : MonoBehaviour
@@ -9,7 +10,12 @@ public class Daylight_UI : MonoBehaviour
 
     private Daylight_Handler daylight;
 
-    private void Start()
+    private void Awake()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         daylight = Daylight_Handler.Instance;
     }

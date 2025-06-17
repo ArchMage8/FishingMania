@@ -62,6 +62,8 @@ public class Inventory_Display : MonoBehaviour
 
     public void RefreshDisplay()
     {
+        Debug.Log("Appls");
+        
         inventoryManager = InventoryManager.Instance;
 
         for (int i = 0; i < slots.Length; i++)

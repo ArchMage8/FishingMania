@@ -27,6 +27,7 @@ public class Cooking_Minigame_Manager : MonoBehaviour
     [Header("Preview System")]
     public Image Dish_Preview_Image;
     public TMPro.TextMeshProUGUI Method_Preview_Text;
+    public GameObject FailDisplay;
 
     [HideInInspector] public Recipe activeRecipe;
     private string currentMethod;
@@ -187,8 +188,24 @@ public class Cooking_Minigame_Manager : MonoBehaviour
         //Needs logic to show preview
 
         InventoryManager.Instance.AddItem(CookingManager.Instance.FailureDish, Dish_QTY);
-        ResetMinigameCycle();
+        StartCoroutine(ShowFail());
 
+    }
+
+    private IEnumerator ShowFail()
+    {
+        FailDisplay.SetActive(true);
+        yield return new WaitForSecondsRealtime(0.5f); //Enable
+        
+        Animator animator = FailDisplay.GetComponent<Animator>();
+        yield return new WaitForSecondsRealtime(1f); //Hold
+
+        animator.SetTrigger("Exit");
+        yield return new WaitForSecondsRealtime(0.5f); //Close
+
+        FailDisplay.SetActive(false);
+
+        ResetMinigameCycle();
     }
 
     public void SetPreview()

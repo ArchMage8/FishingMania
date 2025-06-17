@@ -1,4 +1,4 @@
-Hi! #speaker: Fia
+Hi! #speaker: Fia #trigger: next
 Welcome to Fia's Restaurant! #speaker: Fia
 I've never seen you around before... #speaker: Fia
 

@@ -1,6 +1,6 @@
 EXTERNAL EnableShop()
 
-Hmm?
+Hmm?#trigger: next
 Looking to go fishing? #speaker: Tofu #trigger: next
 Got all you need? #speaker: Tofu #trigger: next
 ->main

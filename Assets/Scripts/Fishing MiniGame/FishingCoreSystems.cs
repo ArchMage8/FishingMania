@@ -149,7 +149,8 @@ public class FishingCoreSystems : MonoBehaviour
 
         ActiveError.SetActive(false);
         ActiveError = null;
-  
+        
+        GoToIdle();
         
     }
 

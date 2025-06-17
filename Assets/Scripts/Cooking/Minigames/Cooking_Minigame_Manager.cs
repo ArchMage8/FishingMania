@@ -198,7 +198,7 @@ public class Cooking_Minigame_Manager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f); //Enable
         
         Animator animator = FailDisplay.GetComponent<Animator>();
-        yield return new WaitForSecondsRealtime(1f); //Hold
+        yield return new WaitForSecondsRealtime(0.5f); //Hold
 
         animator.SetTrigger("Exit");
         yield return new WaitForSecondsRealtime(0.5f); //Close

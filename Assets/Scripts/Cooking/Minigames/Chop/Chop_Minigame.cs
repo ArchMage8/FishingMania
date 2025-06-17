@@ -50,7 +50,7 @@ public class Chop_Minigame : MonoBehaviour
             EndFail();
         }
 
-        if (marker.HitCount == activeSections.Count && MinigameStarted)
+        else if (marker.HitCount == activeSections.Count && MinigameStarted)
         {
             EndSuccess();
         }

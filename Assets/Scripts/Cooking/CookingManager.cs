@@ -317,12 +317,15 @@ public class CookingManager : MonoBehaviour
 
     public void TurnOffCookingUI(GameObject target)
     {
-        //CloseButton.SetActive(false);
-        BG_Effect.SetActive(false);
-        target.SetActive(false);
-        GameHUD.SetActive(false);
-        InventoryManager.Instance.SomeUIEnabled = false;
-        Time.timeScale = 1f;
+        if (Cooking_Minigame_Manager.Instance.isTranstitioning == false)
+        {
+            //CloseButton.SetActive(false);
+            BG_Effect.SetActive(false);
+            target.SetActive(false);
+            GameHUD.SetActive(true);
+            InventoryManager.Instance.SomeUIEnabled = false;
+            Time.timeScale = 1f;
+        }
     }
 
     private void DefaultPreview()

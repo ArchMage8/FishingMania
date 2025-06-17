@@ -37,6 +37,8 @@ public class Cooking_Minigame_Manager : MonoBehaviour
 
     private bool isInProgress = false;
 
+    [HideInInspector] public bool isTranstitioning;
+
     private void Awake()
     {
        
@@ -187,6 +189,8 @@ public class Cooking_Minigame_Manager : MonoBehaviour
     {
         //Needs logic to show preview
 
+        Debug.Log(CookingManager.Instance.FailureDish.name + " of qty " + Dish_QTY);
+
         InventoryManager.Instance.AddItem(CookingManager.Instance.FailureDish, Dish_QTY);
         StartCoroutine(ShowFail());
 
@@ -198,7 +202,7 @@ public class Cooking_Minigame_Manager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f); //Enable
         
         Animator animator = FailDisplay.GetComponent<Animator>();
-        yield return new WaitForSecondsRealtime(0.5f); //Hold
+     
 
         animator.SetTrigger("Exit");
         yield return new WaitForSecondsRealtime(0.5f); //Close
@@ -226,6 +230,8 @@ public class Cooking_Minigame_Manager : MonoBehaviour
 
     private IEnumerator Minigame_Exit()
     {
+        isTranstitioning = true;
+
         GameObject ActiveMinigame = GetActiveMinigame();
 
         yield return new WaitForSeconds(2f);
@@ -239,6 +245,8 @@ public class Cooking_Minigame_Manager : MonoBehaviour
 
         CookingManager.Instance.Manager_ContentHolder.SetActive(true);
         CookingManager.Instance.Minigame_ContentHolder.SetActive(false);
+
+        isTranstitioning = false;
     }
 
 

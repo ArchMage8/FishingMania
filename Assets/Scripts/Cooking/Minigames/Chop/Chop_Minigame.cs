@@ -15,6 +15,9 @@ public class Chop_Minigame : MonoBehaviour
     public TMP_Text countdownText;
     public Chop_Marker marker;
 
+    private bool InProgress = false;
+    private bool Failed = false;
+
     [Space(10)]
 
   
@@ -40,17 +43,23 @@ public class Chop_Minigame : MonoBehaviour
 
     private void OnDisable()
     {
+        marker.ProgressSlider.value = 0;
+        countdownText.text = "3";
+        Failed = false;
+        
         ResetMinigame();
     }
 
     private void Update()
     {
-        if (Cooking_Minigame_Manager.Instance.health == 0)
+        if (Cooking_Minigame_Manager.Instance.health == 0 && InProgress)
         {
+            Failed = true;
+            InProgress = false; 
             EndFail();
         }
 
-        else if (marker.HitCount == activeSections.Count && MinigameStarted)
+        else if (marker.HitCount == activeSections.Count && MinigameStarted && !Failed)
         {
             EndSuccess();
         }
@@ -58,7 +67,7 @@ public class Chop_Minigame : MonoBehaviour
 
     private IEnumerator Start_Minigame()
     {
-        
+        InProgress = true;
 
         marker.EnableMovement(false);
         countdownText.gameObject.SetActive(true);
@@ -175,7 +184,10 @@ public class Chop_Minigame : MonoBehaviour
 
     private void EndSuccess()
     {
+        InProgress = false;
+
         StopMinigame();
+         
         StartCoroutine(Cooking_Minigame_Manager.Instance.OnChopMinigameComplete()); //While this one ends the chop phase
     }
 

@@ -28,6 +28,8 @@ public class Fry_Minigame : MonoBehaviour
     private float originalSectionY;
     private bool isPregameActive = true;
 
+    private bool inProgress = false;
+
     void OnEnable()
     {
         StartCoroutine(Start_WithAnimation());
@@ -41,6 +43,8 @@ public class Fry_Minigame : MonoBehaviour
 
     public void Start_Minigame()
     {
+        inProgress = true;
+
         sectionTransform.gameObject.SetActive(false);
 
         isTop = true;
@@ -70,8 +74,9 @@ public class Fry_Minigame : MonoBehaviour
 
         UpdateCoyoteTime();
 
-        if (Cooking_Minigame_Manager.Instance.health == 0)
+        if (Cooking_Minigame_Manager.Instance.health == 0 && inProgress == true)
         {
+            inProgress = false;
             End_Fail();
         }
 

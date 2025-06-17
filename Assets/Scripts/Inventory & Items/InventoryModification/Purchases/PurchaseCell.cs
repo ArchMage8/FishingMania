@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,9 +8,15 @@ public class PurchaseCell : MonoBehaviour
     public Item item;
     public int price; //Sell price from an NPC != object's value
 
-    [Header("UI References")]
-    public Image itemIcon;
+   
+    
     private Button button;
+
+    [Header("Details UI")]
+    public Image itemIcon;
+    public TMP_Text DisplayName;
+    public TMP_Text DisplayPrice;
+
 
     private PurchaseManager purchaseManager;
 
@@ -29,6 +36,17 @@ public class PurchaseCell : MonoBehaviour
         if (item != null)
         {
             itemIcon.sprite = item.icon;
+            DisplayName.text = item.name;
+
+            if (price > 0)
+            {
+                DisplayPrice.text = price.ToString();
+            }
+
+            if (price == 0)
+            {
+                DisplayPrice.text = "Free";
+            }
         }
         else
         {

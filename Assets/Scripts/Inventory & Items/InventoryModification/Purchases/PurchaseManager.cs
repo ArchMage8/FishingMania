@@ -8,8 +8,8 @@ public class PurchaseManager : MonoBehaviour
 {
     [Header("Preview UI")]
 
-    public TMP_Text itemNameText;
-    public TMP_Text itemPriceText;
+   // public TMP_Text itemNameText;
+   // public TMP_Text itemPriceText;
     public Image itemIcon;
 
     [Space(20)]
@@ -61,19 +61,19 @@ public class PurchaseManager : MonoBehaviour
         selectedItemPrice = price;
 
         // Update UI with selected item details
-        itemNameText.text = item.itemName;
+        //itemNameText.text = item.itemName;
         //itemDescriptionText.text = item.description;
 
         Object_Description.text = item.description;
 
         if (price != 0)
         {
-            itemPriceText.text = $"{price * purchaseQuantity} Coins";
+            //itemPriceText.text = $"{price * purchaseQuantity} Coins";
         }
 
         else if (price == 0)
         {
-            itemPriceText.text = "Free";
+            //itemPriceText.text = "Free";
         }
         itemIcon.sprite = item.icon;
 
@@ -148,9 +148,9 @@ public class PurchaseManager : MonoBehaviour
         purchaseQuantity = 1;
 
         // Clear UI
-        itemNameText.text = "";
+        //itemNameText.text = "";
         //itemDescriptionText.text = "";
-        itemPriceText.text = "";
+        //itemPriceText.text = "";
         ContentHolder.SetActive(false);
         purchaseQtyText.text = "1";
     }

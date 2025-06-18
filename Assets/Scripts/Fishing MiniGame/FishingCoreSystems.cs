@@ -44,6 +44,10 @@ public class FishingCoreSystems : MonoBehaviour
     private GameObject ActiveError;
     private Animator ErrorAnimator;
 
+    [Space(20)]
+
+    public Item AssignedBait;
+
     private void Awake()
     {
         if (instance == null) 
@@ -111,7 +115,7 @@ public class FishingCoreSystems : MonoBehaviour
     {
         Debug.Log("Call 1");
 
-        int BaitQTY = InventoryManager.Instance.GetTotalQuantity(Inventory_EquipmentManager.Instance.ActiveBaitType);
+        int BaitQTY = InventoryManager.Instance.GetTotalQuantity(AssignedBait);
         reelQTY = 50;
 
         if (!InventoryManager.Instance.IsInventoryFull() && BaitQTY > 0)

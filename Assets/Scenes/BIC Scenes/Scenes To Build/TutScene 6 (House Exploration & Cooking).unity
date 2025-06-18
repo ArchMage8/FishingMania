@@ -3752,8 +3752,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemToGive: {fileID: 11400000, guid: 4798220f7b50e084f93c7746200e96a1, type: 2}
-  ItemQty: 0
-  SendAuto: 0
+  ItemQty: 10
+  SendAuto: 1
 --- !u!1 &1677631570
 GameObject:
   m_ObjectHideFlags: 0
@@ -11221,6 +11221,7 @@ MonoBehaviour:
   Method_Preview_Text: {fileID: 5433401653015135091}
   FailDisplay: {fileID: 1377917544}
   activeRecipe: {fileID: 0}
+  isTranstitioning: 0
 --- !u!224 &5433401653161391155
 RectTransform:
   m_ObjectHideFlags: 0

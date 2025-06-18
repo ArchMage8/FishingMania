@@ -41,6 +41,7 @@ public class Inventory_EquipmentManager : MonoBehaviour
 
     public void RestoreActiveEffects()
     {
+        
         if (currentCombo > 0)
         {
            

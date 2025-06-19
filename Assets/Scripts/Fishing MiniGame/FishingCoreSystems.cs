@@ -35,22 +35,18 @@ public class FishingCoreSystems : MonoBehaviour
     public ColorManager colorManager;
 
     private bool error = false;
-   [HideInInspector] public int reelQTY;
-   [HideInInspector] public int increaseRate = 10;
-   [HideInInspector] public int decreaseRate = 5;
+    [HideInInspector] public int reelQTY;
+    [HideInInspector] public int increaseRate = 10;
+    [HideInInspector] public int decreaseRate = 5;
     private float decreaseInterval = 1f;
     private bool isReeling;
 
     private GameObject ActiveError;
     private Animator ErrorAnimator;
 
-    [Space(20)]
-
-    public Item AssignedBait;
-
     private void Awake()
     {
-        if (instance == null) 
+        if (instance == null)
         {
             instance = this;
         }
@@ -78,7 +74,7 @@ public class FishingCoreSystems : MonoBehaviour
 
     private void Update()
     {
-        if(isReeling == true)
+        if (isReeling == true)
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -115,7 +111,7 @@ public class FishingCoreSystems : MonoBehaviour
     {
         Debug.Log("Call 1");
 
-        int BaitQTY = InventoryManager.Instance.GetTotalQuantity(AssignedBait);
+        int BaitQTY = InventoryManager.Instance.GetTotalQuantity(Inventory_EquipmentManager.Instance.ActiveBaitType);
         reelQTY = 50;
 
         if (!InventoryManager.Instance.IsInventoryFull() && BaitQTY > 0)
@@ -153,9 +149,9 @@ public class FishingCoreSystems : MonoBehaviour
 
         ActiveError.SetActive(false);
         ActiveError = null;
-        
+
         GoToIdle();
-        
+
     }
 
     private IEnumerator StartMiniGame()
@@ -212,7 +208,7 @@ public class FishingCoreSystems : MonoBehaviour
         FishingPlayer.SetTrigger("Next");
         yield return new WaitForSeconds(0.5f);
         BiteIndicator.SetActive(true);
-        
+
 
         float biteTime = 2f;
         float elapsedTime = 0f;
@@ -229,7 +225,7 @@ public class FishingCoreSystems : MonoBehaviour
                 yield break;
             }
             elapsedTime += Time.deltaTime;
- 
+
             yield return null;
         }
 
@@ -241,7 +237,7 @@ public class FishingCoreSystems : MonoBehaviour
     {
         Debug.Log("Reeling Phase Started");
         reelQTY = 50;
-        
+
         ReelSlider.value = reelQTY;
         ReelSlider.maxValue = 100;
 

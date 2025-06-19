@@ -17,7 +17,7 @@ public class Inventory_EquipmentManager : MonoBehaviour
                              //Look at documentation for explanation
 
 
-    public Item ActiveBaitType;
+    public string ActiveBaitName;
 
     private void Awake()
     {

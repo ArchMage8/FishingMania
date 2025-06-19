@@ -4772,6 +4772,7 @@ MonoBehaviour:
   Method_Preview_Text: {fileID: 236718020}
   FailDisplay: {fileID: 1685527178}
   activeRecipe: {fileID: 0}
+  isTranstitioning: 0
 --- !u!1 &544602409
 GameObject:
   m_ObjectHideFlags: 0
@@ -11635,7 +11636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetPosition: {x: -1.27, y: -5.74, z: -0.3793393}
-  DestinationScene: 8
+  DestinationScene: 0
   Teleport_Button: {fileID: 0}
   sceneLoader: {fileID: 1542665702}
   LoadWithButton: 0

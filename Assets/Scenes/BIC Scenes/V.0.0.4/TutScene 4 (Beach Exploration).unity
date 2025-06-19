@@ -285,7 +285,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.76
+  orthographic size: 1.3499999
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -931,6 +931,53 @@ PolygonCollider2D:
       - {x: -0.5994955, y: -0.16810152}
       - {x: 0.13417011, y: -0.42606676}
       - {x: 0.9133892, y: -0.08021122}
+--- !u!1 &1154708339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1154708341}
+  - component: {fileID: 1154708340}
+  m_Layer: 0
+  m_Name: GiveStuffs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1154708340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154708339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a862891195a5340a5a3514fac5af12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemToGive: {fileID: 11400000, guid: e932802e53cf6a846a9c691d367c31fb, type: 2}
+  ItemQty: 5
+  SendAuto: 1
+--- !u!4 &1154708341
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154708339}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.1080178, y: -3.901999, z: -0.027379377}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1164730862
 GameObject:
   m_ObjectHideFlags: 0

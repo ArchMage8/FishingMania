@@ -111,8 +111,12 @@ public class FishingCoreSystems : MonoBehaviour
     {
         Debug.Log("Call 1");
 
+        
+
         int BaitQTY = InventoryManager.Instance.GetTotalQuantity(Inventory_EquipmentManager.Instance.ActiveBaitType);
         reelQTY = 50;
+
+        CallDebugs(BaitQTY);
 
         if (!InventoryManager.Instance.IsInventoryFull() && BaitQTY > 0)
         {
@@ -136,6 +140,22 @@ public class FishingCoreSystems : MonoBehaviour
                 ActiveError = BaitError;
                 StartCoroutine(RemoveErrorBoard());
             }
+        }
+    }
+
+    private void CallDebugs(int qty)
+    {
+        Debug.Log("FishingCoreSystems Debugs");
+
+        if (Inventory_EquipmentManager.Instance.ActiveBaitType != null)
+        {
+            Debug.Log("Current Active Bait: " + Inventory_EquipmentManager.Instance.ActiveBaitType);
+            Debug.Log("QTY: " + qty);
+        }
+
+        else
+        {
+            Debug.Log("Problem");
         }
     }
 

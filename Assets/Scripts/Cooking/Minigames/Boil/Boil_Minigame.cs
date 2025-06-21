@@ -51,6 +51,11 @@ public class Boil_Minigame : MonoBehaviour
         StartCoroutine(Start_WithAnimation());
     }
 
+    void OnDisable()
+    {
+        ResetVisuals();
+    }
+
     private IEnumerator Start_WithAnimation()
     {
         yield return new WaitForSeconds(0.5f);
@@ -76,21 +81,25 @@ public class Boil_Minigame : MonoBehaviour
         float input = Input.GetAxisRaw("Horizontal");
         if (Mathf.Approximately(input, 0f)) return;
 
-        Vector3 newPosition = marker.position + new Vector3(input * markerSpeed * Time.deltaTime, 0f, 0f);
+        Vector2 newAnchoredPos = marker.anchoredPosition + new Vector2(input * markerSpeed * Time.deltaTime, 0f);
 
-        float leftBound = bar.position.x - (bar.rect.width * 0.5f);
-        float rightBound = bar.position.x + (bar.rect.width * 0.5f);
-        newPosition.x = Mathf.Clamp(newPosition.x, leftBound, rightBound);
+        float halfBarWidth = bar.rect.width * 0.5f;
+        float leftBound = bar.anchoredPosition.x - halfBarWidth;
+        float rightBound = bar.anchoredPosition.x + halfBarWidth;
+        newAnchoredPos.x = Mathf.Clamp(newAnchoredPos.x, leftBound, rightBound);
 
-        marker.position = newPosition;
+        marker.anchoredPosition = newAnchoredPos;
+
     }
 
     private void CheckIfInsideTarget()
     {
         bool currentlyInside = IsMarkerInsideTarget();
+        Debug.Log($"CurrentlyInside: {currentlyInside}, IsTargetIdle: {targetHandler.IsTargetIdle}");
 
         if (currentlyInside && targetHandler.IsTargetIdle)
         {
+          
             if (!isInTarget)
             {
                 isInTarget = true;
@@ -117,14 +126,17 @@ public class Boil_Minigame : MonoBehaviour
         }
     }
 
+
     private bool IsMarkerInsideTarget()
     {
         float markerX = marker.position.x;
-        float targetLeft = target.position.x - (target.rect.width * 0.5f);
-        float targetRight = target.position.x + (target.rect.width * 0.5f);
+        float targetLeft = target.position.x - (target.rect.width * target.lossyScale.x * 0.5f);
+        float targetRight = target.position.x + (target.rect.width * target.lossyScale.x * 0.5f);
+
 
         return markerX >= targetLeft && markerX <= targetRight;
     }
+
 
     private IEnumerator ProgressWhenInsideTarget()
     {
@@ -233,8 +245,13 @@ public class Boil_Minigame : MonoBehaviour
         timerText.text = ((int)failureTimeLimit).ToString();
         isPregame = false;
 
+        targetHandler.enabled = true;
+
         if (targetHandler != null)
-            targetHandler.enabled = true;
+        {
+            
+            targetHandler.BeginTargetMovement();
+        }
 
         failureTimerRoutine = StartCoroutine(FailureTimer());
     }
@@ -287,36 +304,24 @@ public class Boil_Minigame : MonoBehaviour
 
     private void CompleteMinigame(bool success)
     {
-        hasCompleted = true;
-
-        if (targetHandler != null)
-        {
-            targetHandler.enabled = false;
-        }
 
         StopMinigame();
+        hasCompleted = true;
+
+        targetHandler.StopAllTargetMovement();
 
         if (success)
         {
-            Debug.Log("call a");
-            End_Succeed();
+            Debug.Log("Success");
+            Cooking_Minigame_Manager.Instance.CookingMinigameComplete();
         }
 
         else
         {
-            Debug.Log("call b");
-            End_Fail();
+            Debug.Log("Fail");
+            Cooking_Minigame_Manager.Instance.LoseHealth();
+            Cooking_Minigame_Manager.Instance.CookingMinigameComplete();
         }
-    }
-
-    private void End_Succeed()
-    {
-        Cooking_Minigame_Manager.Instance.CookingMinigameComplete();
-    }
-
-    private void End_Fail()
-    {
-        Cooking_Minigame_Manager.Instance.LoseHealth();
     }
 
     public void StopMinigame()
@@ -351,6 +356,19 @@ public class Boil_Minigame : MonoBehaviour
         // Stop the target from moving
         if (targetHandler != null)
             targetHandler.enabled = false;
+    }
+
+    private void ResetVisuals()
+    {
+        if (progressBar != null)
+        {
+            progressBar.value = 0f;
+        }
+
+        if (timerText != null)
+        {
+            timerText.text = "3";
+        }
     }
 
 }

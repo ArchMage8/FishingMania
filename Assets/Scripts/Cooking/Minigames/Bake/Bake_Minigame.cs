@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using System;
 
 public class Bake_Minigame : MonoBehaviour
 {
@@ -33,7 +34,13 @@ public class Bake_Minigame : MonoBehaviour
 
     void OnEnable()
     {
+        progressSlider.value = 0f;
         StartCoroutine(Start_WithAnimation());
+    }
+
+    private void OnDisable()
+    {
+        ResetVisuals();
     }
 
     private IEnumerator Start_WithAnimation()
@@ -151,7 +158,7 @@ public class Bake_Minigame : MonoBehaviour
 
             if (progressSlider.value >= progressMaxValue)
             {
-                CompleteMinigame(); //Success before time runs out
+                OnMinigameSuccess(); //Success before time runs out
             }
         }
     }
@@ -166,6 +173,9 @@ public class Bake_Minigame : MonoBehaviour
         while (currentTime > 0)
         {
             yield return new WaitForSeconds(1f);
+
+            if (gameEnded) yield break;
+
             currentTime--;
             Timer_Text.text = currentTime.ToString();
         }
@@ -173,7 +183,7 @@ public class Bake_Minigame : MonoBehaviour
        
             if (progressSlider.value >= progressMaxValue)
             {
-                CompleteMinigame(); //Success exactly when timer runs out
+                OnMinigameSuccess(); //Success exactly when timer runs out
             }
 
             else
@@ -183,16 +193,12 @@ public class Bake_Minigame : MonoBehaviour
         
     }
 
-    private void CompleteMinigame()
-    {
-        OnMinigameSuccess();
-        StopMinigame();
-    }
-
     public void StopMinigame()
     {
-        // Stop logic execution
-        enabled = false;
+        Debug.Log("Stop");
+
+        gameEnded = true;
+        targetMover.StopTargetMovement();
 
         // Stop timer coroutine
         if (timerCoroutine != null)
@@ -201,24 +207,12 @@ public class Bake_Minigame : MonoBehaviour
             timerCoroutine = null;
         }
 
-        // Disable the target mover
-        if (targetMover != null)
-        {
-            targetMover.enabled = false;
-        }
-
         // Reset gameplay variables
         holdTimer = 0f;
         canMakeProgress = false;
-        playerSlider.value = 0f;
-        progressSlider.value = 0f;
-        Timer_Text.text = "";
-
-        // Reset target mover (optional: re-enable later via StartMinigame)
-        if (targetMover != null)
-        {
-            targetMover.ResetTarget(); // Make sure this method exists in Bake_TargetMover
-        }
+        //playerSlider.value = 0f;
+        //progressSlider.value = 0f;
+        
     }
 
     Cooking_Minigame_Manager minigameManager = Cooking_Minigame_Manager.Instance;
@@ -226,14 +220,26 @@ public class Bake_Minigame : MonoBehaviour
 
     private void OnMinigameSuccess()
     {
-       minigameManager.CookingMinigameComplete();
+        StopMinigame();
+        minigameManager.CookingMinigameComplete();
     }
 
     private void OnMinigameFail()
     {
-
+        StopMinigame();
         minigameManager.LoseHealth();
         minigameManager.CookingMinigameComplete();
 
+    }
+
+    private void ResetVisuals()
+    {
+        
+        targetMover.ResetTarget();
+        gameEnded = false;
+        
+        playerSlider.value = 0f;
+        
+        Timer_Text.text = "3";
     }
 }

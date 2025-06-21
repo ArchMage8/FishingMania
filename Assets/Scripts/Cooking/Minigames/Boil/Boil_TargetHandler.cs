@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Boil_TargetHandler : MonoBehaviour
 {
-    
+
     public List<RectTransform> sections;
 
     [Space(10)]
@@ -24,12 +24,12 @@ public class Boil_TargetHandler : MonoBehaviour
     public float bounceAmplitude = 5f; // How far left/right it bounces
     public float bounceSpeed = 4f;      // How fast it bounces
 
-   [HideInInspector] public bool IsTargetIdle  = false;
+    [HideInInspector] public bool IsTargetIdle = false;
 
     private int currentSectionIndex = -1;
     private Coroutine bounceRoutine;
 
-    void Start()
+    public void BeginTargetMovement()
     {
         if (sections.Count < 2)
         {
@@ -42,10 +42,15 @@ public class Boil_TargetHandler : MonoBehaviour
 
     private IEnumerator TargetMovementRoutine()
     {
+
+
         while (true)
         {
             int nextSectionIndex = GetNextSectionIndex();
-            Vector3 destination = sections[nextSectionIndex].position;
+
+
+
+            Vector2 destination = sections[nextSectionIndex].anchoredPosition;
 
             IsTargetIdle = false;
             if (bounceRoutine != null)
@@ -58,30 +63,33 @@ public class Boil_TargetHandler : MonoBehaviour
             currentSectionIndex = nextSectionIndex;
 
             IsTargetIdle = true;
-            bounceRoutine = StartCoroutine(BounceWhileIdle(target.position));
+            Debug.Log("Now idle");
+
+            bounceRoutine = StartCoroutine(BounceWhileIdle(target.anchoredPosition));
 
             float waitTime = Random.Range(minWaitTime, maxWaitTime);
             yield return new WaitForSeconds(waitTime);
 
-            // Stop bouncing before moving again
+            // Snap back before moving again
             if (bounceRoutine != null)
             {
                 StopCoroutine(bounceRoutine);
                 bounceRoutine = null;
-                target.position = sections[currentSectionIndex].position;
+                target.anchoredPosition = sections[currentSectionIndex].anchoredPosition;
             }
         }
     }
 
+
     private IEnumerator MoveTarget(Vector3 destination)
     {
-        while (Vector3.Distance(target.position, destination) > 0.1f)
+        while (Vector3.Distance(target.anchoredPosition, destination) > 0.1f)
         {
-            target.position = Vector3.MoveTowards(target.position, destination, moveSpeed * Time.deltaTime);
+            target.anchoredPosition = Vector3.MoveTowards(target.anchoredPosition, destination, moveSpeed * Time.deltaTime);
             yield return null;
         }
 
-        target.position = destination;
+        target.anchoredPosition = destination;
     }
 
     private int GetNextSectionIndex()
@@ -103,7 +111,7 @@ public class Boil_TargetHandler : MonoBehaviour
         while (true)
         {
             float offsetX = Mathf.Sin(timer * bounceSpeed) * bounceAmplitude;
-            target.position = basePosition + new Vector3(offsetX, 0f, 0f);
+            target.anchoredPosition = basePosition + new Vector3(offsetX, 0f, 0f);
 
             timer += Time.deltaTime;
             yield return null;
@@ -118,4 +126,23 @@ public class Boil_TargetHandler : MonoBehaviour
         // You can also re-center the target or reinitialize internal logic here if needed
     }
 
+    public void StopAllTargetMovement()
+    {
+        StopAllCoroutines(); // stop move + bounce
+
+        if (bounceRoutine != null)
+        {
+            StopCoroutine(bounceRoutine);
+            bounceRoutine = null;
+        }
+
+        IsTargetIdle = false;
+
+        // Optionally reset the target to its current section position
+        if (currentSectionIndex >= 0 && currentSectionIndex < sections.Count)
+        {
+            target.anchoredPosition = sections[currentSectionIndex].anchoredPosition;
+        }
+
+    }
 }

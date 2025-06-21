@@ -165,4 +165,15 @@ public class Bake_TargetMover : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, -180f, 0f); // Reset rotation visually
     }
 
+    public void StopTargetMovement()
+    {
+        if (movementCoroutine != null)
+        {
+            StopCoroutine(movementCoroutine);
+            movementCoroutine = null;
+        }
+
+        isMoving = false;
+    }
+
 }

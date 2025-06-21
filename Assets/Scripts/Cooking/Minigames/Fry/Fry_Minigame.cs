@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class Fry_Minigame : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class Fry_Minigame : MonoBehaviour
     private bool isTop = true;
     private float originalSectionY;
     private bool isPregameActive = true;
-
+    private float originalSectionHeight;
     private bool inProgress = false;
 
     void OnEnable()
@@ -38,14 +39,20 @@ public class Fry_Minigame : MonoBehaviour
     private IEnumerator Start_WithAnimation()
     {
         yield return new WaitForSeconds(0.5f);
+
         Start_Minigame();
+    }
+
+    private void OnDisable()
+    {
+        Reset_Minigame();
     }
 
     public void Start_Minigame()
     {
         inProgress = true;
 
-        sectionTransform.gameObject.SetActive(false);
+        
 
         isTop = true;
         lastTimeInSection = -Mathf.Infinity;
@@ -64,6 +71,12 @@ public class Fry_Minigame : MonoBehaviour
             marker.Initialize(this);
 
         MoveSection(isTop);
+
+        if (sectionTransform != null)
+        {
+            originalSectionY = sectionTransform.localPosition.y;
+            originalSectionHeight = sectionTransform.rect.height; // Store initial height
+        }
 
         StartCoroutine(RunPregamePhase());
     }
@@ -179,4 +192,42 @@ public class Fry_Minigame : MonoBehaviour
         marker.isMoving = false;
         Cooking_Minigame_Manager.Instance.CookingMinigameComplete();
     }
+
+    public void Reset_Minigame()
+    {
+        // Reset game state flags
+        isPregameActive = true;
+        inProgress = false;
+        isTop = true;
+        lastTimeInSection = -Mathf.Infinity;
+
+        // Reset progress bar
+        if (progressSlider != null)
+        {
+            progressSlider.value = 0f;
+        }
+
+        // Reset countdown text
+        if (countdownText != null)
+        {
+            countdownText.text = "3";
+            countdownText.gameObject.SetActive(false);
+        }
+
+        // Reset section height and position
+        if (sectionTransform != null)
+        {
+            sectionTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, originalSectionHeight);
+            sectionTransform.localPosition = new Vector2(sectionTransform.localPosition.x, originalSectionY);
+            sectionTransform.gameObject.SetActive(false); // Hide again before pregame
+        }
+
+        // Reset marker position (optional)
+        if (marker != null)
+        {
+            marker.markerTransform.localPosition = new Vector3(marker.markerTransform.localPosition.x, 0f, marker.markerTransform.localPosition.z);
+            marker.SetMovementActive(false);
+        }
+    }
+
 }

@@ -27,7 +27,7 @@ public class HUD_VisualHandler : MonoBehaviour
     [System.Serializable]
     public class TimeColorData
     {
-        public int time;
+        public float time;
         public Color targetColor;
     }
 
@@ -36,8 +36,6 @@ public class HUD_VisualHandler : MonoBehaviour
         if (Daylight_Handler.Instance != null)
         {
             SetTime();
-
-
 
 
             if (Daylight_Exception.Instance != null)
@@ -55,15 +53,18 @@ public class HUD_VisualHandler : MonoBehaviour
             }
         }
 
-        else
+        else if(Daylight_Handler.Instance == null)
         {
-            if (Daylight_Exception.Instance == null)
+            if (Daylight_Exception.Instance != null)
             {
                 SetTargetColor(Color.white);
+                SetHUDColorsToTarget();
             }
-            else
+            else if(Daylight_Exception.Instance == null)
             {
+               
                 SetTargetColor(HexToColor("767676"));
+                SetHUDColorsToTarget();
             }
         }
     }
@@ -71,8 +72,14 @@ public class HUD_VisualHandler : MonoBehaviour
     Color HexToColor(string hex)
     {
         if (ColorUtility.TryParseHtmlString("#" + hex, out var color))
+        {
+            Debug.Log(color);
             return color;
-        return Color.white; // Fallback color
+        }
+        else
+        {
+            return Color.white; // Fallback color
+        }
     }
 
 
@@ -125,6 +132,19 @@ public class HUD_VisualHandler : MonoBehaviour
         foreach (var text in hudTexts)
         {
             text.color = Color.Lerp(text.color, currentTargetColor, Time.deltaTime * colorLerpSpeed);
+        }
+    }
+
+    private void SetHUDColorsToTarget()
+    {
+        foreach (var img in hudImages)
+        {
+            img.color = currentTargetColor;
+        }
+
+        foreach (var text in hudTexts)
+        {
+            text.color = currentTargetColor;
         }
     }
 }

@@ -95,7 +95,7 @@ public class Boil_Minigame : MonoBehaviour
     private void CheckIfInsideTarget()
     {
         bool currentlyInside = IsMarkerInsideTarget();
-        Debug.Log($"CurrentlyInside: {currentlyInside}, IsTargetIdle: {targetHandler.IsTargetIdle}");
+        //Debug.Log($"CurrentlyInside: {currentlyInside}, IsTargetIdle: {targetHandler.IsTargetIdle}");
 
         if (currentlyInside && targetHandler.IsTargetIdle)
         {

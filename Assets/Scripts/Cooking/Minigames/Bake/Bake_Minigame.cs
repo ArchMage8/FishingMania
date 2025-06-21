@@ -32,6 +32,8 @@ public class Bake_Minigame : MonoBehaviour
     private bool gameEnded = false;
     private bool gameStarted = false;
 
+    private Cooking_Minigame_Manager minigameManager;
+
     void OnEnable()
     {
         progressSlider.value = 0f;
@@ -90,6 +92,8 @@ public class Bake_Minigame : MonoBehaviour
 
     private void StartMinigame()
     {
+        minigameManager = Cooking_Minigame_Manager.Instance;
+
         Timer_Text.text = currentTime.ToString();
         gameStarted = true;
         timerCoroutine = StartCoroutine(TimerCountdown());
@@ -215,7 +219,7 @@ public class Bake_Minigame : MonoBehaviour
         
     }
 
-    Cooking_Minigame_Manager minigameManager = Cooking_Minigame_Manager.Instance;
+    
 
 
     private void OnMinigameSuccess()

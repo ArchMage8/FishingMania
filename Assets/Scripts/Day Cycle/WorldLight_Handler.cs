@@ -52,6 +52,12 @@ public class WorldLight_Handler : MonoBehaviour
     {
         if (daylight_handler == null) return;
 
+        if(daylight_handler.VisualsTest_Day == true)
+        {
+            LightSource.enabled = false;
+            return;
+        }
+
         currentTime = daylight_handler.GetCurrentTime();
 
         GetGameTime();

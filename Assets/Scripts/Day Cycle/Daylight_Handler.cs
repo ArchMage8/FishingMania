@@ -18,6 +18,9 @@ public class Daylight_Handler : MonoBehaviour
     public float currentTime = 0f;
     public bool TimeRunning = true;
 
+    [Header("Test")]
+    public bool VisualsTest_Day = false;
+
     private float endDayResumeDelay = 0.5f;
     private bool exceptionExists;
 

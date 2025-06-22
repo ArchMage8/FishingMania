@@ -57,6 +57,7 @@ public class Cooking_Minigame_Manager : MonoBehaviour
     {
         health = 3;
         isInProgress = false;
+        
     }
 
     // Called by CookingManager to begin the minigame process
@@ -68,20 +69,23 @@ public class Cooking_Minigame_Manager : MonoBehaviour
             return; //Safeguard
         }
 
-      
+  
 
         isInProgress = true;
         activeRecipe = recipe;
         currentMethod = method;
 
        
-        UpdateHearts();
+        
 
         //Resulting dish is extracted from the activeRecipe
         //And will be set in the finalize minigame
 
         Dish_QTY = qty;
+        
+        //Fail Safe
         health = 3;
+        UpdateHearts();
 
         // Start with chop phase
         StartCoroutine(StartChop());
@@ -90,7 +94,7 @@ public class Cooking_Minigame_Manager : MonoBehaviour
 
     private IEnumerator StartChop()
     {
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.4f);
         Chop_Minigame.SetActive(true);
     }
 
@@ -236,7 +240,7 @@ public class Cooking_Minigame_Manager : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        ActiveMinigame.GetComponent<Animator>().SetTrigger("Exit");
+        //ActiveMinigame.GetComponent<Animator>().SetTrigger("Exit");
         yield return new WaitForSeconds(0.5f);
 
         ActiveMinigame.SetActive(false);

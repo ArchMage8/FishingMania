@@ -271,6 +271,8 @@ public class CookingManager : MonoBehaviour
 
     private void StartMinigameCycle()
     {
+        
+
         StartCoroutine(StartMinigameCoroutine());
     }
 
@@ -284,6 +286,8 @@ public class CookingManager : MonoBehaviour
         SetupMinigamePreview();
 
         Minigame_ContentHolder.SetActive(true);
+        Cooking_Minigame_Manager.Instance.health = 3;
+        Cooking_Minigame_Manager.Instance.UpdateHearts();
 
         yield return new WaitForSeconds(0.5f);
         Cooking_Minigame_Manager.Instance.StartMinigameSequence(currentRecipe, Current_Cooking_Method, selectedCookQuantity);

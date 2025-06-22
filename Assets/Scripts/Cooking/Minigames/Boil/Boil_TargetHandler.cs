@@ -63,7 +63,7 @@ public class Boil_TargetHandler : MonoBehaviour
             currentSectionIndex = nextSectionIndex;
 
             IsTargetIdle = true;
-            Debug.Log("Now idle");
+            //Debug.Log("Now idle");
 
             bounceRoutine = StartCoroutine(BounceWhileIdle(target.anchoredPosition));
 
@@ -139,10 +139,10 @@ public class Boil_TargetHandler : MonoBehaviour
         IsTargetIdle = false;
 
         // Optionally reset the target to its current section position
-        if (currentSectionIndex >= 0 && currentSectionIndex < sections.Count)
-        {
-            target.anchoredPosition = sections[currentSectionIndex].anchoredPosition;
-        }
+        //if (currentSectionIndex >= 0 && currentSectionIndex < sections.Count)
+        //{
+        //    target.anchoredPosition = sections[currentSectionIndex].anchoredPosition;
+        //}
 
     }
 }

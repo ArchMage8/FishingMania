@@ -5,6 +5,8 @@ using System.Collections;
 
 public class Daylight_Handler : MonoBehaviour
 {
+    public static event System.Action OnNewDayStarted;
+
     public static Daylight_Handler Instance { get; private set; }
 
     public Light2D globalLight;
@@ -20,9 +22,13 @@ public class Daylight_Handler : MonoBehaviour
 
     [Header("Test")]
     public bool VisualsTest_Day = false;
+    private float lastCheckedHour = -1f;
 
     private float endDayResumeDelay = 0.5f;
     private bool exceptionExists;
+
+    private bool NewDayHandled = false;
+    private bool TimeLoopBack = false;
 
     private void Awake()
     {
@@ -67,7 +73,24 @@ public class Daylight_Handler : MonoBehaviour
         currentTime += Time.deltaTime;
         currentTime = Mathf.Repeat(currentTime, dayDuration);
 
+        float currentHour = GetCurrentHour();
 
+        if(currentHour >= 5f && TimeLoopBack == true && NewDayHandled == false)
+        {
+            Debug.Log("Potato");
+            HandleNewDay_Visuals();
+        }
+
+        if(currentHour > 5f)
+        {
+            TimeLoopBack = false;
+        }
+
+        else if(currentHour < 5f && currentHour > 0f)
+        {
+            TimeLoopBack = true;
+        }
+        
         float timePercent = currentTime / dayDuration;
 
 
@@ -113,18 +136,7 @@ public class Daylight_Handler : MonoBehaviour
         return currentTime;
     }
 
-    public void End_Day()
-    {
-        TimeRunning = false;
-        SetTime(System_HourConvertor(7)); // Set to 07:00
-        StartCoroutine(ResumeTimeAfterDelay());
-    }
-
-    private IEnumerator ResumeTimeAfterDelay()
-    {
-        yield return new WaitForSeconds(endDayResumeDelay);
-        TimeRunning = true;
-    }
+    
 
     private void UpdateLighting()
     {
@@ -137,7 +149,7 @@ public class Daylight_Handler : MonoBehaviour
         }
     }
 
-    private float System_HourConvertor(int hour)
+    private float System_HourConvertor(float hour)
     {
         return (dayDuration / 24f) * Mathf.Clamp(hour, 0, 23);
     }
@@ -148,5 +160,41 @@ public class Daylight_Handler : MonoBehaviour
 
         //To be used by external scripts to get the current time in hours
         //Ex : if (Handler.GetCurrentHour == 5) do X
+    }
+
+    public void CallNewDay()
+    {
+        TimeRunning = false;
+        currentTime = System_HourConvertor(4.9833f);
+        UpdateLighting();
+
+        HandleNewDay_Visuals();
+        StartCoroutine(ResumeTimeAfterDelay());
+        OnNewDayStarted?.Invoke();
+        
+    }
+
+    private IEnumerator ResumeTimeAfterDelay()
+    {
+        yield return new WaitForSeconds(0f);
+        TimeRunning = true;
+    }
+
+
+    private void HandleNewDay_System()
+    {
+
+    }
+
+    private void HandleNewDay_Visuals ()
+    {
+        if (NewDayHandled == false)
+        {
+            NewDayHandled = true;
+            Weather_Handler.Instance.ResetWeather();
+            Debug.Log("New day started at 5AM.");
+        }
+
+        NewDayHandled = false;
     }
 }

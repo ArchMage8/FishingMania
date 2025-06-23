@@ -28,12 +28,18 @@ public class WorldLight_Handler : MonoBehaviour
     //There is an exception built in to this script to handle the absense of the daylight handler
     //This is for the tutorial
 
+    private void OnDestroy()
+    {
+        Daylight_Handler.OnNewDayStarted -= HandleNewDay;
+    }
+
     private void Start()
     {
         daylight_handler = Daylight_Handler.Instance;
 
         if (daylight_handler != null)
         {
+            Daylight_Handler.OnNewDayStarted += HandleNewDay;
             DayDuration = daylight_handler.GetDayDuration();
         }
 
@@ -81,6 +87,25 @@ public class WorldLight_Handler : MonoBehaviour
         {
             float t = Mathf.InverseLerp(onStartTime, onEndTime, currentTime);
             LightSource.intensity = Mathf.Lerp(0f, originalIntensity, t);
+        }
+    }
+
+    private void HandleNewDay()
+    {
+        ForceCorrectLightState(5f); // new day always resets to 5am
+    }
+
+    private void ForceCorrectLightState(float time)
+    {
+        // If time is before OffStart or after OffEnd but also before OnStart
+        if (time < offStartTime || (time > offEndTime && time < onStartTime))
+        {
+            LightSource.intensity = 0f;
+        }
+        // If time is after OnEnd
+        else if (time > onEndTime)
+        {
+            LightSource.intensity = originalIntensity;
         }
     }
 }

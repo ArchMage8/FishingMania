@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class Weather_Handler : MonoBehaviour
@@ -6,25 +7,32 @@ public class Weather_Handler : MonoBehaviour
     public static Weather_Handler Instance;
 
     public enum WeatherType { Sunny, Rainy }
-    public WeatherType CurrentWeather { get; private set; }
+    public WeatherType CurrentWeather { get; private set;}
+    public bool IsSunny;
+    public bool IsRainy;
 
-    [Header("Streak Tracking")]
+
+
+    [Header("Weather Odds & Streaks")]
+    private float sunnyChance = 0.6f;
     private int sunnyStreak = 0;
     private int rainyStreak = 0;
 
-    [Header("Weather Odds")]
-    [Range(0f, 1f)] public float sunnyChance = 0.6f;
-
-    //[Header("Sunny Particle Systems")]
-    [SerializeField] private List<ParticleSystem> sunnyParticles = new List<ParticleSystem>();
-
-    //[Header("Rain Particle Systems")]
-    [SerializeField] private List<ParticleSystem> rainParticles = new List<ParticleSystem>();
+    // Scene-specific particle system references
+    private List<ParticleSystem> sunnyParticles = new List<ParticleSystem>();
+    private List<ParticleSystem> rainParticles = new List<ParticleSystem>();
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Persist through scene changes
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Update()
@@ -49,18 +57,12 @@ public class Weather_Handler : MonoBehaviour
 
         CurrentWeather = nextWeather;
 
-        if (CurrentWeather == WeatherType.Rainy)
-        {
-            PlayRainParticles();
-            StopSunnyParticles(); // Stop in case it was active
-        }
-        else
-        {
-            StopRainParticles();
-            // Sunny particles handled by time in Update()
-        }
+        IsSunny = (CurrentWeather == WeatherType.Sunny);
+        IsRainy = (CurrentWeather == WeatherType.Rainy);
 
-        //Debug.Log($"New Day Weather: {CurrentWeather} (Sunny: {sunnyStreak}, Rainy: {rainyStreak})");
+        ApplyWeatherVisuals(CurrentWeather);
+
+        Debug.Log($"New Day Weather: {CurrentWeather} (Sunny: {sunnyStreak}, Rainy: {rainyStreak})");
     }
 
     private WeatherType DetermineNextWeather()
@@ -91,14 +93,10 @@ public class Weather_Handler : MonoBehaviour
             else if (!shouldPlay && ps.isPlaying)
                 ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         }
-
-        
     }
 
     private void PlayRainParticles()
     {
-       
-
         foreach (var ps in rainParticles)
         {
             if (ps != null && !ps.isPlaying)
@@ -121,6 +119,45 @@ public class Weather_Handler : MonoBehaviour
         {
             if (ps != null && ps.isPlaying)
                 ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+    }
+
+    public void RegisterSceneParticles(Weather_ParticlesHolder holder)
+    {
+        StartCoroutine(ApplyWeatherAfterDelay(holder));
+    }
+
+    private IEnumerator ApplyWeatherAfterDelay(Weather_ParticlesHolder holder)
+    {
+        yield return null; // Wait one frame to ensure async scene is fully loaded
+
+        sunnyParticles.Clear();
+        rainParticles.Clear();
+
+        if (holder != null)
+        {
+            sunnyParticles.AddRange(holder.sunnyParticles);
+            rainParticles.AddRange(holder.rainParticles);
+
+            ApplyWeatherVisuals(CurrentWeather);
+        }
+        else
+        {
+            Debug.Log("No Weather_ParticlesHolder found in this scene. Skipping weather visuals.");
+        }
+    }
+
+    private void ApplyWeatherVisuals(WeatherType type)
+    {
+        if (type == WeatherType.Rainy)
+        {
+            PlayRainParticles();
+            StopSunnyParticles();
+        }
+        else
+        {
+            StopRainParticles();
+            // Sunny visuals handled per hour in Update()
         }
     }
 }

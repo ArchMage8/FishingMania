@@ -97,9 +97,17 @@ public class Daylight_Handler : MonoBehaviour
         if (!exceptionExists)
         {
             globalLight.gameObject.SetActive(true);
-
             globalLight.color = colorOverDay.Evaluate(timePercent);
-            globalLight.intensity = intensityOverDay.Evaluate(timePercent);
+
+            if (Weather_Handler.Instance != null && Weather_Handler.Instance.CurrentWeather == Weather_Handler.WeatherType.Rainy)
+            {
+                globalLight.intensity = 0.55f;
+            }
+            else
+            {
+                globalLight.intensity = intensityOverDay.Evaluate(timePercent);
+            }
+
         }
 
         else if(exceptionExists)

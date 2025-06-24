@@ -100,7 +100,7 @@ public class DialogueTrigger : MonoBehaviour
         {
             if (interactIndicator != null)
             {
-                Debug.Log("Pp");
+                //Debug.Log("Pp");
                 interactIndicator.SetActive(true);
             }
             playerInRange = true;

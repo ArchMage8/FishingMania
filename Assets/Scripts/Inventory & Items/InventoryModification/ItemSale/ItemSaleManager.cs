@@ -216,7 +216,8 @@ public class ItemSaleManager : MonoBehaviour
         if (removed)
         {
             int salePrice = selectedItemPrice * deductQty;
-            //moneyManager.AddToTempBalance(salePrice);
+            moneyManager.AddToTempBalance(salePrice);
+            moneyManager.TransferToPermanentBalance();
 
             Debug.Log($"Sold {deductQty} {selectedItem.itemName} for {salePrice}.");
 

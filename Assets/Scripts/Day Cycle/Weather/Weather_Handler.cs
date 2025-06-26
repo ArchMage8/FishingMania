@@ -14,7 +14,7 @@ public class Weather_Handler : MonoBehaviour
 
 
     [Header("Weather Odds & Streaks")]
-    [Range(0f, 1f)] public float sunnyChance = 0f;
+    [Range(0f, 1f)] public float sunnyChance = 0.6f;
     private int sunnyStreak = 0;
     private int rainyStreak = 0;
 

@@ -25,7 +25,7 @@ We sell a bunch of convenient items for your needs. #speaker: Sugu
     ->Section1A
 
 === Section1A ===
-Unfortunately we're waiting for the courier.. sorry for the inconvenience. #speaker: Sugu
+Unfortunately we're still closed.. sorry for the inconvenience. #speaker: Sugu
 ->END
 
 === Section2 ===

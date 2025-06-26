@@ -1,0 +1,87 @@
+This is how the dialogue system works when the INK File is meant to interact with C# scripts:
+==============================================================================================
+
+- Basically the INK file works the same as a keyframe in the animator
+- So the INK file can call an event, which in our case is a Function found in the dialogue manager
+
+
+
+Basic Outline as to how the INK File can call a function:
+===================================================================================================
+
+- The dialogue manager is assigned and "active" INK file, whose data is used to generate dialogue
+- But we can add a variable to this INK file, which will act as a container for the function
+
+- So for example the variable is: EXTERNAL EnableShop()
+- The dialogue manager assigns the needed function to this variable
+
+- But just like any other variable in a script, it needs to be used for something to happen
+- So in the appropriate position, call the variable
+- Which in turn will call the function it was assigned
+
+
+
+*Important Note*
+==================
+
+- The variable's name (just like any other variable) must be consistent when accessing it
+- So if the dialogue manager wants to assign something to said variable, the name must be the same
+
+
+How to use it (25/6/2025)
+===========================
+
+- Based on the current dialoguemanager there are 4 functionalities that need to work with an INK File
+
+	1. Selling to an NPC
+	2. Buying from an NPC
+	3. Quest System
+	4. Default (just basic dialogue)
+
+
+
+Default:
+	- Has no functions that need to be integrated/called by the INK File
+
+
+Selling/Buying:
+	- These 2 work in the same way
+	- Both their functions involve disabling the dialogue box and others
+	- Then enabling the corresponding shop UI
+	
+	*Note that each NPC must hold their shop UI locally in their dialogue trigger*
+
+	- The names of the Function variables:
+		1. EnableShop
+		2. EnablePlayerShop
+		
+		*These are determined by the dialogueManager for consistency
+		*And need to be declared and called in the INK File
+
+
+Quest System:
+	- This is the most complex, since it works with the quest handler system
+
+	- Summary to how the quest system works:
+		1. The player approaches an NPC that has a quest
+
+		2. If the player doesn't have an active quest, he can start a new quest
+
+		3. If the player does have a quest:
+			a. Either he is returning to the quest give to complete the quest
+			b. Or he will be not allowed to start a new quest
+
+	- To find the long list of variables/functions that need to be assigned/called
+	- Look ath the end of the Quest System Region in the dialogue manager
+
+	Summary as to how the dialogue manager handles quests:
+
+	There are 4 paths the dialogue manager can take:
+
+	1. No active quests -> Player given a quest
+
+	2. Yes active quest -> Talking to new quest giver -> reject new quest dialogue
+
+	3. a. Yes active quest -> Returning to original quest giver -> Submit needed items -> Quest complete
+																-> Quest not completed -> End dialogue
+

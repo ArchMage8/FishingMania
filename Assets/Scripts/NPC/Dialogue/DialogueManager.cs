@@ -558,9 +558,11 @@ public class DialogueManager : MonoBehaviour
 
     //1. #speaker -> Tag
     //2. #trigger -> Tag
+
     //3. hasActiveQuest     -> bool
     //4. correspondingNPC   -> bool
     //5. Success            -> bool
+
     //6. SetVariables   -> function
     //6. SubmitQuest    -> function
     //7. SetActiveQuest -> function

@@ -2,8 +2,12 @@ using UnityEngine;
 
 public enum ItemType
 {
+    None = -1,
     Default,
-    Bait
+    Bait,
+    Food,
+    Ingredient,
+    Fish
 }
 
 [CreateAssetMenu(fileName = "NewItem", menuName = "Inventory/Item", order = 1)]

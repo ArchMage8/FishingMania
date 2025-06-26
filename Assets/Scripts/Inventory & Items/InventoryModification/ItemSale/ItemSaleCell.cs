@@ -20,25 +20,45 @@ public class ItemSaleCell : MonoBehaviour
         cellButton.onClick.AddListener(OnCellClicked);
     }
 
-    public void UpdateCell(Item item, int quantity, Sprite emptySprite)
+    public void UpdateCell(Item item, int quantity)
     {
-        if (item == null || quantity <= 0)
+        bool hasItem = item != null && quantity > 0;
+
+        // Toggle icon and text
+        iconImage.enabled = hasItem;
+        quantityText.enabled = hasItem;
+        cellButton.interactable = hasItem;
+
+        // Button background image
+        Image buttonBackground = GetComponent<Image>();
+        if (buttonBackground != null)
         {
-            // If the slot is empty, show empty state
-            iconImage.sprite = emptySprite;
-            iconImage.color = new Color(1, 1, 1, 0.5f); // Dimmed effect
-            quantityText.text = string.Empty;
-            cellButton.interactable = false;
+            if (hasItem)
+            {
+                iconImage.sprite = item.icon;
+                buttonBackground.color = Color.white;
+            }
+            else
+            {
+                ColorUtility.TryParseHtmlString("#CDCDCD", out Color dimmed);
+                buttonBackground.color = dimmed;
+            }
+        }
+
+        // Apply icon sprite and qty if valid
+        if (hasItem)
+        {
+            iconImage.sprite = item.icon;
+            quantityText.text = quantity.ToString();
         }
         else
         {
-            // If the slot has an item, display its details
-            iconImage.sprite = item.icon;
-            iconImage.color = Color.white;
-            quantityText.text = quantity.ToString();
-            cellButton.interactable = true;
+            iconImage.sprite = null;
+            quantityText.text = string.Empty;
         }
     }
+
+
 
     public void OnCellClicked()
     {

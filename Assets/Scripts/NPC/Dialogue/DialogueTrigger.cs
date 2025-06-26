@@ -27,7 +27,7 @@ public class DialogueTrigger : MonoBehaviour
 
         if(Shop_NPC_UI != null)
         {
-            Shop_NPC_UI.SetActive(false);
+            Shop_NPC_UI.SetActive(false); 
         }
 
         if (Sell_To_NPC_UI != null)

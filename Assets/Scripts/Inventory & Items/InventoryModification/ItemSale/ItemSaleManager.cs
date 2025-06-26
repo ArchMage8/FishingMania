@@ -15,24 +15,24 @@ public class ItemSaleManager : MonoBehaviour
     private MoneyManager moneyManager; // Reference to the MoneyManager
     //public GameObject saleUI; // The GameObject holding the sale UI (local to each NPC)
 
-    [Space(20)]
-    public ItemSaleCell[] cells; // Array of cells representing inventory slots
-    [Space(20)]
-    public Sprite emptySprite; // Sprite for empty cells
-    [Space(30)]
+    [Space(10)]
+    public ItemSaleCell[] cells;
+    public List<ItemType> filterTypes = new List<ItemType>();
+    public Scrollbar scrollbar;
+    public ScrollRect scrollRect;
 
     [Header("UI Elements")]
-    public TMP_Text selectedItemNameText; // Displays the selected item's name
-    public TMP_Text selectedItemPriceText; // Displays the selected item's price
-    public Image selectedItemIconImage; // Displays the selected item's icon
-    public TMP_Text deductQtyText; // Displays the current deduction quantity
+    public TMP_Text selectedItemNameText;
+    public TMP_Text selectedItemPriceText; 
+    public Image selectedItemIconImage;
+    public TMP_Text deductQtyText; 
 
 
-    private int deductQty = 1; // Quantity to deduct
-    private int selectedSlotIndex = -1; // Currently selected slot index
-    private Item selectedItem; // Currently selected item
-    private int selectedItemPrice = 0; // Price of the selected item
-    private int storedQty = 0; // Total quantity of the selected item across inventory
+    private int deductQty = 1; 
+    private int selectedSlotIndex = -1; 
+    private Item selectedItem; 
+    private int selectedItemPrice = 0; 
+    private int storedQty = 0; 
 
     private bool standbyEnable;
 
@@ -43,6 +43,12 @@ public class ItemSaleManager : MonoBehaviour
 
         UpdateUI();
 
+    }
+
+    private void OnEnable()
+    {
+        UpdateUI();
+        SelectFirstItem();
     }
 
     private void Update()
@@ -57,36 +63,94 @@ public class ItemSaleManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        // Populate cells with inventory data
-        for (int i = 0; i < cells.Length; i++)
+        int filledIndex = 0;
+        int visibleCount = 0;
+
+        // Fill cells with filtered inventory items
+        for (int i = 0; i < inventoryManager.MaxSlots && filledIndex < cells.Length; i++)
         {
             var (item, quantity) = inventoryManager.GetItemInSlot(i);
+
+            if (item == null || quantity <= 0)
+                continue;
+
+            if (filterTypes != null && filterTypes.Count > 0 && !filterTypes.Contains(item.itemType))
+                continue;
+
+            cells[filledIndex].Initialize(this, i);
+            cells[filledIndex].UpdateCell(item, quantity);
+
+            filledIndex++;
+            visibleCount++;
+        }
+
+        // Clear remaining unused cells
+        for (int i = filledIndex; i < cells.Length; i++)
+        {
             cells[i].Initialize(this, i);
-            cells[i].UpdateCell(item, quantity, emptySprite);
+            cells[i].UpdateCell(null, 0);
         }
 
         // Reset selection UI
-        if (selectedItem == null)
+        selectedItemNameText.text = string.Empty;
+        selectedItemPriceText.text = string.Empty;
+        selectedItemIconImage.enabled = false;
+        deductQtyText.text = "1";
+        selectedSlotIndex = -1;
+        selectedItem = null;
+
+        // Update scroll UI based on number of visible items
+        UpdateScrollUI(visibleCount);
+    }
+
+
+    private void UpdateScrollUI(int visibleCount)
+    {
+        bool shouldEnableScroll = visibleCount > 24;
+
+        // ScrollRect toggle
+        if (scrollRect != null)
+            scrollRect.enabled = shouldEnableScroll;
+
+        // Scrollbar + handle toggle
+        if (scrollbar != null)
         {
-            selectedItemNameText.text = string.Empty;
-            selectedItemPriceText.text = string.Empty;
-            selectedItemIconImage.enabled = false;
-            deductQtyText.text = "1";
+            scrollbar.interactable = shouldEnableScroll;
+
+            var scrollImage = scrollbar.GetComponent<Image>();
+            if (scrollImage != null)
+                scrollImage.enabled = shouldEnableScroll;
+
+            if (scrollbar.handleRect != null)
+            {
+                var handleImage = scrollbar.handleRect.GetComponent<Image>();
+                if (handleImage != null)
+                    handleImage.enabled = shouldEnableScroll;
+            }
         }
     }
+
+
+
 
     private void SelectFirstItem()
     {
         for (int i = 0; i < inventoryManager.MaxSlots; i++)
         {
             var (item, quantity) = inventoryManager.GetItemInSlot(i);
-            if (item != null)
-            {
-                OnCellClicked(i);
-                return;
-            }
+
+            if (item == null || quantity <= 0)
+                continue;
+
+            if (filterTypes != null && filterTypes.Count > 0 && !filterTypes.Contains(item.itemType))
+    continue;
+
+
+            OnCellClicked(i);
+            return;
         }
     }
+
 
     public void OnCellClicked(int slotIndex)
     {
@@ -103,7 +167,7 @@ public class ItemSaleManager : MonoBehaviour
 
         // Update UI for the selected item
         selectedItemNameText.text = selectedItem.itemName;
-        selectedItemPriceText.text = $"Price: {selectedItem.price}";
+        selectedItemPriceText.text = (selectedItem.price * deductQty).ToString();
         selectedItemIconImage.sprite = selectedItem.icon;
         deductQtyText.text = deductQty.ToString();
     }
@@ -122,6 +186,7 @@ public class ItemSaleManager : MonoBehaviour
         if (deductQty < totalQuantity)
         {
             deductQty++;
+            selectedItemPriceText.text = (selectedItem.price * deductQty).ToString();
             UpdateDeductQtyText();
         }
     }
@@ -134,6 +199,7 @@ public class ItemSaleManager : MonoBehaviour
         if (deductQty > 1)
         {
             deductQty--;
+            selectedItemPriceText.text = (selectedItem.price * deductQty).ToString();
             UpdateDeductQtyText();
         }
     }
@@ -150,7 +216,7 @@ public class ItemSaleManager : MonoBehaviour
         if (removed)
         {
             int salePrice = selectedItemPrice * deductQty;
-            moneyManager.AddToTempBalance(salePrice);
+            //moneyManager.AddToTempBalance(salePrice);
 
             Debug.Log($"Sold {deductQty} {selectedItem.itemName} for {salePrice}.");
 

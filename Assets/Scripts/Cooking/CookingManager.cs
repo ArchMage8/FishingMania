@@ -313,8 +313,8 @@ public class CookingManager : MonoBehaviour
         GameHUD.SetActive(false);
         target.SetActive(true);
         inventoryManager.SomeUIEnabled = true;
-        
-        //Time.timeScale = 0f;
+
+        Daylight_Handler.Instance.TimeRunning = false;
 
         DefaultPreview();
     }
@@ -328,7 +328,8 @@ public class CookingManager : MonoBehaviour
             target.SetActive(false);
             GameHUD.SetActive(true);
             InventoryManager.Instance.SomeUIEnabled = false;
-            Time.timeScale = 1f;
+
+            Daylight_Handler.Instance.TimeRunning = true;
         }
     }
 

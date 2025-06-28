@@ -24,7 +24,7 @@ public class Daylight_Handler : MonoBehaviour
     public bool VisualsTest_Day = false;
     private float lastCheckedHour = -1f;
 
-    private float endDayResumeDelay = 0.5f;
+    //private float endDayResumeDelay = 0.5f;
     private bool exceptionExists;
 
     private bool NewDayHandled = false;
@@ -77,7 +77,7 @@ public class Daylight_Handler : MonoBehaviour
 
         if(currentHour >= 5f && TimeLoopBack == true && NewDayHandled == false)
         {
-            Debug.Log("Potato");
+            //Debug.Log("Potato");
             HandleNewDay_Visuals();
         }
 
@@ -200,7 +200,7 @@ public class Daylight_Handler : MonoBehaviour
         {
             NewDayHandled = true;
             Weather_Handler.Instance.ResetWeather();
-            Debug.Log("New day started at 5AM.");
+            Debug.Log("Weather Reset");
         }
 
         NewDayHandled = false;

@@ -26,7 +26,7 @@ public class Daylight_Image : MonoBehaviour
     public float verticalSpacing = 0f; // Keep this 0 for no visible gap
 
     private int currentIndex = -1;
-    private bool isTransitioning = false;
+    public bool isTransitioning = false;
     private Daylight_Handler daylight;
 
     private void Awake()
@@ -38,6 +38,20 @@ public class Daylight_Image : MonoBehaviour
         else
         {
             Instance = this;
+        }
+    }
+
+    private void OnEnable()
+    {
+        if(isTransitioning == true)
+        {
+            SetImageImmediatelyByHour(daylight.GetCurrentHour());
+            isTransitioning = false;
+        }
+
+        else
+        {
+            return;
         }
     }
 
@@ -80,7 +94,7 @@ public class Daylight_Image : MonoBehaviour
         }
     }
 
-    private int GetImageIndexForHour(int hour)
+    private int GetImageIndexForHour(float hour)
     {
         if (timeOfDayImages == null || timeOfDayImages.Count == 0)
             return 0;
@@ -99,7 +113,6 @@ public class Daylight_Image : MonoBehaviour
             }
         }
 
-        // If no marker was found below current hour, wrap to the last marker
         if (selectedIndex == -1)
         {
             selectedIndex = timeOfDayImages.Count - 1;
@@ -108,7 +121,8 @@ public class Daylight_Image : MonoBehaviour
         return selectedIndex;
     }
 
-    public void SetImageImmediatelyByHour(int hour)
+
+    public void SetImageImmediatelyByHour(float hour)
     {
         int selectedIndex = GetImageIndexForHour(hour);
 
@@ -121,6 +135,7 @@ public class Daylight_Image : MonoBehaviour
 
         currentIndex = selectedIndex;
     }
+
 
     private IEnumerator ScrollToImage(int newIndex)
     {

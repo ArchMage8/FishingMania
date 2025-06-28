@@ -92,8 +92,8 @@ public class ItemSaleManager : MonoBehaviour
         }
 
         // Reset selection UI
-        selectedItemNameText.text = string.Empty;
-        selectedItemPriceText.text = string.Empty;
+        selectedItemNameText.text = "-";
+        selectedItemPriceText.text = "0";
         selectedItemIconImage.enabled = false;
         deductQtyText.text = "1";
         selectedSlotIndex = -1;

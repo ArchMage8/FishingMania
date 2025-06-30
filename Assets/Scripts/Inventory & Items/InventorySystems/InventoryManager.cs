@@ -214,17 +214,37 @@ public class InventoryManager : MonoBehaviour
 
     public void SortInventory()
     {
-        // **Sorting: Arrange items alphabetically**
         inventory.Sort((a, b) =>
         {
             if (a.item == null && b.item == null) return 0;
             if (a.item == null) return 1;
             if (b.item == null) return -1;
-            return string.Compare(a.item.itemName, b.item.itemName);
+
+            // 1. Compare by ItemType
+            int typeComparison = GetItemTypeOrder(a.item.itemType).CompareTo(GetItemTypeOrder(b.item.itemType));
+            if (typeComparison != 0) return typeComparison;
+
+            // 2. Compare by cleaned name
+            string nameA = GetComparableItemName(a.item);
+            string nameB = GetComparableItemName(b.item);
+            int nameComparison = string.Compare(nameA, nameB);
+            if (nameComparison != 0) return nameComparison;
+
+            // 3. For Food only: normal comes before tasty
+            if (a.item.itemType == ItemType.Food)
+            {
+                bool aIsTasty = IsTasty(a.item);
+                bool bIsTasty = IsTasty(b.item);
+                return aIsTasty.CompareTo(bIsTasty); // false (normal) < true (tasty)
+            }
+
+            return 0; // Final fallback
         });
 
-        ConsolidateStacks(); // Ensure stacks are consolidated after sorting
+        ConsolidateStacks();
     }
+
+
 
     private void ConsolidateStacks()
     {
@@ -379,6 +399,38 @@ public class InventoryManager : MonoBehaviour
 
         return false; // Not enough space
     }
+
+    //Meant for item type sort order
+
+    private int GetItemTypeOrder(ItemType type)
+    {
+        // Define your custom sort order here
+        switch (type)
+        {
+            case ItemType.Bait: return 0;
+            case ItemType.Fish: return 1;
+            case ItemType.Ingredient: return 2;
+            case ItemType.Food: return 3;
+            case ItemType.Others: return 4;
+            default: return 99; // Unknown types go last
+        }
+    }
+
+    private string GetComparableItemName(Item item)
+    {
+        if (item.itemType == ItemType.Food)
+        {
+            return item.itemName.Replace("Tasty", "").Trim(); // Remove 'Tasty' from food names
+        }
+
+        return item.itemName;
+    }
+
+    private bool IsTasty(Item item)
+    {
+        return item.itemName.StartsWith("Tasty");
+    }
+
 }
 
 
@@ -408,3 +460,5 @@ public class ItemRemovalRequest
     public Item item;
     public int quantity;
 }
+
+

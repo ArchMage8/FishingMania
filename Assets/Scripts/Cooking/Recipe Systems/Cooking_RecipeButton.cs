@@ -17,7 +17,7 @@ public class Cooking_RecipeButton : MonoBehaviour, IPointerEnterHandler, IPointe
     [Space(10)]
 
     public Sprite Active_Sprite;
-
+    
     private Button button;
     private bool unlocked;
     private Sprite OriginalSprite;
@@ -41,12 +41,12 @@ public class Cooking_RecipeButton : MonoBehaviour, IPointerEnterHandler, IPointe
     public void SendRecipe()
     {
         string Method = recipe.method.ToString();
-        CookingManager.Instance.RecieveRecipe(recipe, Method, unlocked);
+        CookingManager.Instance.RecieveRecipe(recipe, Method, unlocked, this);
     }
 
-    private void SetupRecipeButton()
+    public void SetupRecipeButton()
     {
-        int cookQTY = CookingManager.Instance.CalculateMaxQuantity(recipe);
+       int cookQTY = CookingManager.Instance.CalculateMaxQuantity(recipe);
 
         dishIcon.sprite = recipe.resultDish.icon;
         dishName.text = recipe.resultDish.itemName;

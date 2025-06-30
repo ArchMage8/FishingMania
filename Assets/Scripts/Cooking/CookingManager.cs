@@ -22,8 +22,8 @@ public class CookingManager : MonoBehaviour
     [Space(10)]
     [Header("System Requirements")]
 
-    public GameObject Manager_ContentHolder;
-    public GameObject Minigame_ContentHolder;
+    public GameObject Manager_ContentHolder; //Manager
+    public GameObject Minigame_ContentHolder; //Minigame
     public Item FailureDish;
     public GameObject BG_Effect;
 
@@ -34,11 +34,19 @@ public class CookingManager : MonoBehaviour
 
     [SerializeField] private IngredientDisplay[] ingredientDisplays; // UI elements for ingredients
 
+    [Space(10)]
+    [Header("Error Messages")]
+    public GameObject InventoryErrorMessage;
+    public GameObject IngredientErrorMessage;
+
     [HideInInspector] public Recipe currentRecipe;
     [HideInInspector] public int maxCookQuantity = 1;
     private int selectedCookQuantity = 1;
     private string Current_Cooking_Method = null;
     private bool RecipeUnlocked;
+
+    private bool ErrorDisplaying = false;
+    private Cooking_RecipeButton activeRecipeButton;
 
 
     private void Awake()
@@ -82,7 +90,7 @@ public class CookingManager : MonoBehaviour
         }
     }
 
-    public void RecieveRecipe(Recipe recipe, string CookingMethod, bool recipeUnlocked)
+    public void RecieveRecipe(Recipe recipe, string CookingMethod, bool recipeUnlocked, Cooking_RecipeButton senderButton)
     {
 
         RecipeUnlocked = recipeUnlocked;
@@ -93,10 +101,19 @@ public class CookingManager : MonoBehaviour
 
         Current_Cooking_Method = CookingMethod;
 
+        activeRecipeButton = senderButton;
+
         if (recipeUnlocked)
         {
             maxCookQuantity = CalculateMaxQuantity(recipe);
-            selectedCookQuantity = 1;
+            if (maxCookQuantity > 0)
+            {
+                selectedCookQuantity = 1;
+            }
+            else if (maxCookQuantity == 0)
+            {
+                selectedCookQuantity = 0;
+            }
         }
         else
         {
@@ -124,7 +141,7 @@ public class CookingManager : MonoBehaviour
             }
         }
 
-        return Mathf.Max(1, maxQty);
+        return Mathf.Max(0, maxQty);
     }
 
     private void UpdateRecipeUI()
@@ -214,18 +231,61 @@ public class CookingManager : MonoBehaviour
 
     public void ExecuteCooking()
     {
-        if (currentRecipe == null || maxCookQuantity == 0)
+        if (ErrorDisplaying == false)
         {
-            return;
-        }
+            if (currentRecipe == null || maxCookQuantity == 0 || !RecipeUnlocked)
+            {
+                return;
+            }
 
-        if (!RecipeUnlocked)
-        {
-            return;
-        }
+            if (!TryRemoveIngredients())
+            {
+                ErrorDisplaying = true;
+                StartCoroutine(IngredientError());
+                return;
+            }
 
-        // Create a list of item removal requests
+            if (!CheckInventorySpace())
+            {
+                ErrorDisplaying = true;
+                StartCoroutine(InventoryError());
+                return;
+            }
+
+            StartMinigameCycle();
+        }
+    }
+
+    private IEnumerator IngredientError()
+    {
+        Animator animator = IngredientErrorMessage.GetComponent<Animator>();
+        IngredientErrorMessage.SetActive(true);
+
+        yield return new WaitForSecondsRealtime(1.5f);
+
+        animator.SetTrigger("Exit");
+        IngredientErrorMessage.SetActive(false);
+
+        yield return new WaitForSecondsRealtime(0.5f);
+        ErrorDisplaying = false;
+    }
+
+    private IEnumerator InventoryError()
+    {
+        Animator animator = InventoryErrorMessage.GetComponent<Animator>();
+        InventoryErrorMessage.SetActive(true);
+
+        yield return new WaitForSecondsRealtime(1.5f);
+        InventoryErrorMessage.SetActive(false);
+
+        yield return new WaitForSecondsRealtime(0.5f);
+        ErrorDisplaying = false;
+    }
+
+    private bool TryRemoveIngredients()
+    {
         List<ItemRemovalRequest> removalRequests = new List<ItemRemovalRequest>();
+
         foreach (var ingredient in currentRecipe.ingredients)
         {
             removalRequests.Add(new ItemRemovalRequest
@@ -235,25 +295,10 @@ public class CookingManager : MonoBehaviour
             });
         }
 
-        // Attempt to remove the required ingredients
-        //Technically this is not required as the system has calculated max quantity
-        if (!inventoryManager.RemoveItems(removalRequests))
-        {
-            Debug.Log("Not enough ingredients to cook!");
-            return;
-        }
-
-
-        // Inventory Be full
-        if (!CheckInventorySpace())
-        {
-            Debug.Log("Inventory is full!");
-            return;
-        }
-
-        StartMinigameCycle();
-
+        return inventoryManager.RemoveItems(removalRequests);
     }
+
+
 
     private bool CheckInventorySpace()
     {
@@ -271,7 +316,19 @@ public class CookingManager : MonoBehaviour
 
     private void StartMinigameCycle()
     {
-        
+        selectedCookQuantity = 1;
+        maxCookQuantity = CalculateMaxQuantity(currentRecipe);
+
+        if (maxCookQuantity == 0)
+        {
+            selectedCookQuantity = 0;
+            cookQuantityText.text = "0";
+
+            if (activeRecipeButton != null)
+            {
+                activeRecipeButton.SetupRecipeButton();
+            }
+        }
 
         StartCoroutine(StartMinigameCoroutine());
     }
@@ -323,14 +380,25 @@ public class CookingManager : MonoBehaviour
     {
         if (Cooking_Minigame_Manager.Instance.isTranstitioning == false)
         {
-            //CloseButton.SetActive(false);
-            BG_Effect.SetActive(false);
-            target.SetActive(false);
-            GameHUD.SetActive(true);
-            InventoryManager.Instance.SomeUIEnabled = false;
 
-            Daylight_Handler.Instance.TimeRunning = true;
+            StartCoroutine(DisableCoroutine(target));
+           
         }
+    }
+
+    private IEnumerator DisableCoroutine(GameObject Target)
+    {
+
+        //Target is the content being disabled
+        Animator animator = Target.GetComponent<Animator>();
+
+        animator.SetTrigger("Exit");
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        BG_Effect.SetActive(false);
+        GameHUD.SetActive(true);
+        InventoryManager.Instance.SomeUIEnabled = false;
+        Daylight_Handler.Instance.TimeRunning = true;
     }
 
     private void DefaultPreview()

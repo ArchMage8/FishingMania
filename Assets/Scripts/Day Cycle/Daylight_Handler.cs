@@ -200,7 +200,7 @@ public class Daylight_Handler : MonoBehaviour
         {
             NewDayHandled = true;
             Weather_Handler.Instance.ResetWeather();
-            Debug.Log("Weather Reset");
+            //Debug.Log("Weather Reset");
         }
 
         NewDayHandled = false;

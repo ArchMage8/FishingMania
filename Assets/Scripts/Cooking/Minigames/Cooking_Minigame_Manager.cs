@@ -203,10 +203,10 @@ public class Cooking_Minigame_Manager : MonoBehaviour
     private IEnumerator ShowFail()
     {
         FailDisplay.SetActive(true);
-        yield return new WaitForSecondsRealtime(0.5f); //Enable
+        yield return new WaitForSecondsRealtime(1.5f); //Enable
         
         Animator animator = FailDisplay.GetComponent<Animator>();
-     
+        
 
         animator.SetTrigger("Exit");
         yield return new WaitForSecondsRealtime(0.5f); //Close
@@ -294,7 +294,7 @@ public class Cooking_Minigame_Manager : MonoBehaviour
 
     public void UpdateHearts()
     {
-        Debug.Log("Beans");
+        //Debug.Log("Beans");
 
         for (int i = 0; i < heartImages.Length; i++)
         {

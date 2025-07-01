@@ -30,7 +30,10 @@ public class Inventory_BookManager : MonoBehaviour
         HUD.SetActive(false);
         InventoryManager.Instance.SomeUIEnabled = true;
 
-        Daylight_Handler.Instance.TimeRunning = false;
+        if (Daylight_Handler.Instance != null)
+        {
+            Daylight_Handler.Instance.TimeRunning = false;
+        }
 
         foreach (var page in pages)
         {
@@ -75,7 +78,11 @@ public class Inventory_BookManager : MonoBehaviour
         }
 
         hasPlayedEntryAnimation = false;
-        Daylight_Handler.Instance.TimeRunning = true;
+        if (Daylight_Handler.Instance != null)
+        {
+            Daylight_Handler.Instance.TimeRunning = true;
+        }
+
         float exitAnimDuration = GetAnimationClipLength(pageAnimator, "Exit"); 
         StartCoroutine(DeactivatePageAfterDelay(exitAnimDuration, currentPageIndex));
     }

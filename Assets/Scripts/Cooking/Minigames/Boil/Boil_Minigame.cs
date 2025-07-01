@@ -140,6 +140,13 @@ public class Boil_Minigame : MonoBehaviour
 
     private IEnumerator ProgressWhenInsideTarget()
     {
+        if (dwellTimeRequired <= 0f)
+        {
+            progressRoutine = StartCoroutine(MakeProgress());
+            dwellRoutine = null;
+            yield break;
+        }
+
         float timer = 0f;
 
         while (timer < dwellTimeRequired)
@@ -154,6 +161,7 @@ public class Boil_Minigame : MonoBehaviour
         progressRoutine = StartCoroutine(MakeProgress());
         dwellRoutine = null;
     }
+
 
     private IEnumerator MakeProgress()
     {

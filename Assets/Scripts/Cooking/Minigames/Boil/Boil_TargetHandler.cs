@@ -42,16 +42,12 @@ public class Boil_TargetHandler : MonoBehaviour
 
     private IEnumerator TargetMovementRoutine()
     {
-
-
         while (true)
         {
             int nextSectionIndex = GetNextSectionIndex();
-
-
-
             Vector2 destination = sections[nextSectionIndex].anchoredPosition;
 
+            // Disable idle state and stop bouncing
             IsTargetIdle = false;
             if (bounceRoutine != null)
             {
@@ -59,18 +55,28 @@ public class Boil_TargetHandler : MonoBehaviour
                 bounceRoutine = null;
             }
 
+            // Move to the new target section
             yield return StartCoroutine(MoveTarget(destination));
             currentSectionIndex = nextSectionIndex;
 
+            // Enter idle state and start bouncing
             IsTargetIdle = true;
-            //Debug.Log("Now idle");
-
             bounceRoutine = StartCoroutine(BounceWhileIdle(target.anchoredPosition));
 
+            // Get wait time between moves
             float waitTime = Random.Range(minWaitTime, maxWaitTime);
-            yield return new WaitForSeconds(waitTime);
 
-            // Snap back before moving again
+            // If wait time is zero, still yield once so IsTargetIdle is detectable for at least 1 frame
+            if (waitTime <= 0f)
+            {
+                yield return null;
+            }
+            else
+            {
+                yield return new WaitForSeconds(waitTime);
+            }
+
+            // Stop bouncing before moving again
             if (bounceRoutine != null)
             {
                 StopCoroutine(bounceRoutine);
@@ -79,6 +85,7 @@ public class Boil_TargetHandler : MonoBehaviour
             }
         }
     }
+
 
 
     private IEnumerator MoveTarget(Vector3 destination)

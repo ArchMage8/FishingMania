@@ -5,35 +5,33 @@ Hello there #speaker: Sugu #trigger: next
 Another "Tourist" i see? #speaker: Sugu #trigger: next
     +[Who are you?]
     ->Section1
-    
-    +[What is this building?]
-    ->Section2
-    
-    +[See ya]
-    ->Section3
+
 
 
 === Section1 ===
 I should ask you that... #speaker: Sugu
 
 But nevermind... Ahem! #speaker: Sugu
-I am Sugu! Owner of the largest shop in town! #speaker: Sugu
+I am Sugu! Owner of the town's general store! #speaker: Sugu
+We sell a bunch of goods for your needs. #speaker: Sugu
 
-We sell a bunch of convenient items for your needs. #speaker: Sugu
-
-    +[Can I buy something?]
+    +[What do you sell specifically?]
     ->Section1A
 
 === Section1A ===
-Unfortunately we're still closed.. sorry for the inconvenience. #speaker: Sugu
-->END
+Do you really want me to list everything I sell here?
+    +[Uh... Not all]
+    ->Section2
 
 === Section2 ===
-It's a general store! #speaker: Sugu
-People come here everyday to shop for daily goods. #speaker: Sugu
-But we are currently closed during this hour. #speaker: Sugu
+Ughh... Nevermind
+We sell goods you normally need for cooking
+Like salt, soy sauce, etc...
 
-->END
+    +[Ah ok...]
+    ->Section3
+    
 === Section3 ===
-Come back next time!
+I'm open from 5am to 7pm
+So come back soon...
 ->END

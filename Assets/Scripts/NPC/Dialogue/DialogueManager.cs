@@ -24,7 +24,7 @@ public class DialogueManager : MonoBehaviour
 
     private Animator NPCDialogueAnimator;
     private GameObject PlayerHUD;
-    
+
 
     [Space(15)]
     // Choices UI
@@ -43,7 +43,8 @@ public class DialogueManager : MonoBehaviour
     private bool WantSkip = false;
     private bool QuestCompleted;
 
-    
+    private bool EnablingChoices = false;
+
 
     [Space(15)]
     // Typing and Animation
@@ -70,6 +71,11 @@ public class DialogueManager : MonoBehaviour
     private Vector2 SpeakerNameOriginalPosition = new Vector2(740f, -459f);
     private Vector2 SpeakerNameMovedPosition = new Vector2(-697f, -459f); //Iris is talking
 
+    private Vector2 topPos;
+    private Vector2 middlePos;
+    private Vector2 bottomPos;
+
+
 
     private void Awake()
     {
@@ -85,7 +91,7 @@ public class DialogueManager : MonoBehaviour
 
     public static DialogueManager GetInstance()
     {
-    
+
         return instance;
     }
 
@@ -94,15 +100,19 @@ public class DialogueManager : MonoBehaviour
         dialogueRunning = false;
         dialoguePanel.SetActive(false);
 
-       
+
 
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
-        foreach(GameObject choice in choices)
+        foreach (GameObject choice in choices)
         {
             choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
             index++;
         }
+
+        topPos = choices[0].GetComponent<RectTransform>().anchoredPosition;
+        middlePos = choices[1].GetComponent<RectTransform>().anchoredPosition;
+        bottomPos = choices[2].GetComponent<RectTransform>().anchoredPosition;
     }
 
     private void Update()
@@ -118,7 +128,7 @@ public class DialogueManager : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
-                    if (dialogueRunning)
+                    if (dialogueRunning && EnablingChoices == false)
                     {
                         ContinueStory();
                     }
@@ -129,7 +139,7 @@ public class DialogueManager : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
-                   
+
                     WantSkip = true;
                 }
             }
@@ -141,7 +151,7 @@ public class DialogueManager : MonoBehaviour
         if (!InventoryManager.Instance.SomeUIEnabled)
         {
             Debug.Log("Call A");
-            InventoryManager.Instance.HUD.SetActive(false);  
+            InventoryManager.Instance.HUD.SetActive(false);
 
             NPCDialogueAnimator = PassedAnimator;
 
@@ -160,7 +170,7 @@ public class DialogueManager : MonoBehaviour
         {
             NPCDialogueAnimator = PassedAnimator;
 
-            
+
 
             QuestCompleted = false;
 
@@ -175,10 +185,10 @@ public class DialogueManager : MonoBehaviour
             BindSubmit();
             BindSetQuest();
 
-         
 
 
-            
+
+
             dialogueRunning = true;
             dialoguePanel.SetActive(true);
 
@@ -209,7 +219,7 @@ public class DialogueManager : MonoBehaviour
 
             InventoryManager.Instance.SomeUIEnabled = true;
 
-            
+
         }
     }
 
@@ -275,7 +285,7 @@ public class DialogueManager : MonoBehaviour
 
             if (canSkip && WantSkip)
             {
-              
+
                 dialogueText.text = line;
                 WantSkip = false;
                 break; // Exit the loop early
@@ -292,29 +302,30 @@ public class DialogueManager : MonoBehaviour
     }
 
     public void ContinueStory()
-    {  if (currentStory.canContinue)
+    {
+        if (currentStory.canContinue)
+        {
+            if (displayLineCoroutine != null)
             {
-                if (displayLineCoroutine != null)
-                {
-                    StopCoroutine(displayLineCoroutine);
-                }
-
-                    if (currentStory != null)
-                    {
-                        string line = currentStory.Continue();
-                        displayLineCoroutine = StartCoroutine(DisplayLine(line));
-                    }
-
-                if (currentStory.currentTags != null && currentStory.currentTags.Count > 0)
-                {
-                    HandleTags(currentStory.currentTags);
-                }
+                StopCoroutine(displayLineCoroutine);
             }
-            else
+
+            if (currentStory != null)
             {
-                ExitDialogueMode();
+                string line = currentStory.Continue();
+                displayLineCoroutine = StartCoroutine(DisplayLine(line));
             }
-        
+
+            if (currentStory.currentTags != null && currentStory.currentTags.Count > 0)
+            {
+                HandleTags(currentStory.currentTags);
+            }
+        }
+        else
+        {
+            ExitDialogueMode();
+        }
+
     }
 
 
@@ -323,25 +334,50 @@ public class DialogueManager : MonoBehaviour
     {
         List<Choice> currentChoices = currentStory.currentChoices;
 
-        if(currentChoices.Count > choices.Length)
+        if (currentChoices.Count > choices.Length)
         {
             Debug.LogError("More choices were given than possible");
+            return;
         }
 
-        int index = 0;
-
-        foreach(Choice choice in currentChoices)
+        // Hide all first
+        for (int i = 0; i < choices.Length; i++)
         {
-            choices[index].gameObject.SetActive(true);
-            choicesText[index].text = choice.text;
-            index++;
+            choices[i].SetActive(false);
         }
 
-        for(int i = index; i< choices.Length; i++)
+        switch (currentChoices.Count)
         {
-            choices[i].gameObject.SetActive(false);
+            case 1:
+                choices[0].SetActive(true);
+                choicesText[0].text = currentChoices[0].text;
+                choices[0].GetComponent<RectTransform>().anchoredPosition = bottomPos;
+                break;
+
+            case 2:
+                choices[0].SetActive(true);
+                choices[1].SetActive(true);
+                choicesText[0].text = currentChoices[0].text;
+                choicesText[1].text = currentChoices[1].text;
+                choices[0].GetComponent<RectTransform>().anchoredPosition = middlePos;
+                choices[1].GetComponent<RectTransform>().anchoredPosition = bottomPos;
+                break;
+
+            case 3:
+                for (int i = 0; i < 3; i++)
+                {
+                    choices[i].SetActive(true);
+                    choicesText[i].text = currentChoices[i].text;
+
+                    RectTransform rect = choices[i].GetComponent<RectTransform>();
+                    if (i == 0) rect.anchoredPosition = topPos;
+                    else if (i == 1) rect.anchoredPosition = middlePos;
+                    else if (i == 2) rect.anchoredPosition = bottomPos;
+                }
+                break;
         }
-    } 
+    }
+
 
 
     public void MakeChoice(int choiceIndex)
@@ -349,9 +385,9 @@ public class DialogueManager : MonoBehaviour
         if (canContinueToNextLine)
         {
             currentStory.ChooseChoiceIndex(choiceIndex);
-            
+
             ContinueStory();
-            //EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(null);
         }
     }
 
@@ -360,12 +396,12 @@ public class DialogueManager : MonoBehaviour
         //Function needs to handle 2 types of tags
         //1. Speaker Name
         //2. Next Trigger
-        
-        
-        foreach(string tag in currentTags)
+
+
+        foreach (string tag in currentTags)
         {
             string[] splitTag = tag.Split(':');
-            if(splitTag.Length != 2)
+            if (splitTag.Length != 2)
             {
                 Debug.Log("Incorrect parsing on tag: " + tag);
             }
@@ -393,7 +429,7 @@ public class DialogueManager : MonoBehaviour
 
     private void HandleWhoseTalking(string SpeakerName) //Moves Objects based on the speaker
     {
-        if(ChoicesHolder == null)
+        if (ChoicesHolder == null)
         {
             Debug.LogError("Ur setup be missing the ability to move choices");
         }
@@ -423,7 +459,7 @@ public class DialogueManager : MonoBehaviour
 
     private void HideChoices()
     {
-        foreach(GameObject choiceButton in choices)
+        foreach (GameObject choiceButton in choices)
         {
             choiceButton.SetActive(false);
         }
@@ -431,7 +467,7 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator CanSkip()
     {
-      
+
 
         canSkip = false;
         yield return new WaitForSecondsRealtime(0.05f);
@@ -446,7 +482,7 @@ public class DialogueManager : MonoBehaviour
 
     private void BindVariables()
     {
-        
+
         currentStory.BindExternalFunction("SetVariables", () => {
             SetVariables_Before();
         });
@@ -465,7 +501,7 @@ public class DialogueManager : MonoBehaviour
         currentStory.variablesState["hasActiveQuest"] = QuestManager.Instance.activeQuestPresent;
 
         //2. If 1. is true, are we talking to the NPC that quested us?
-        if(QuestManager.Instance.activeQuestID == DialogueQuest.questID)
+        if (QuestManager.Instance.activeQuestID == DialogueQuest.questID)
         {
             currentStory.variablesState["correspondingNPC"] = true;
         }
@@ -476,12 +512,12 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-//=====================================================================================
+    //=====================================================================================
 
     private void BindSubmit()
     {
         //This is called when we enter dialogue mode
-        
+
         currentStory.BindExternalFunction("SubmitQuest", () => {
             SubmitQuest();
         });
@@ -498,7 +534,10 @@ public class DialogueManager : MonoBehaviour
         {
             currentStory.variablesState["Success"] = true;
             QuestCompleted = true;
-            
+
+            //Logic to update the NPC Quest
+            NPCManager.Instance.AddFriendshipLevel(DialogueQuest.npcName);
+            NPCManager.Instance.ModifyIsFullState(DialogueQuest.npcName, true);
         }
 
         else if (QuestManager.Instance.SubmitQuest(DialogueQuest.desiredItem, DialogueQuest.requiredQuantity) == false)
@@ -511,19 +550,19 @@ public class DialogueManager : MonoBehaviour
         //within the INK file
     }
 
-//=====================================================================================
-    
-     private void BindSetQuest()
+    //=====================================================================================
+
+    private void BindSetQuest()
     {
         //This is called when we enter dialogue mode as "Not Busy"
-        
+
         currentStory.BindExternalFunction("SetActiveQuest", () => {
             SetActiveQuest();
         });
     }
-    
-    
-    
+
+
+
     private void SetActiveQuest()
     {
         if (!QuestManager.Instance.activeQuestPresent)
@@ -532,9 +571,9 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-//=====================================================================================
+    //=====================================================================================
 
-      private void QuestCompleteUpdate()
+    private void QuestCompleteUpdate()
     {
         NPCData npcData = NPCManager.Instance?.npcTempList.Find(npc => npc.npcName == DialogueQuest.npcName);
 
@@ -542,7 +581,7 @@ public class DialogueManager : MonoBehaviour
 
         if (npcData != null)
         {
-            npcData.friendshipLevel += 1;
+            
             npcData.isFull = true;
 
             //StateHandler will transition to full state after x seconds
@@ -578,7 +617,7 @@ public class DialogueManager : MonoBehaviour
 
     private void MakeShopUIAppear()
     {
-        if(Temp_Shop != null)
+        if (Temp_Shop != null)
         {
             ExitDialogueMode();
             Debug.Log("CAll");
@@ -587,7 +626,7 @@ public class DialogueManager : MonoBehaviour
             Time.timeScale = 0f;
 
             Temp_Shop = null;
-            
+
         }
     }
 

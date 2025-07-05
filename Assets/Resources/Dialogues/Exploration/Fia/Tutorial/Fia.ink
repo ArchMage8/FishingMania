@@ -1,30 +1,36 @@
 Hi! #speaker: Fia #trigger: next
 Welcome to Fia's Restaurant! #speaker: Fia
 I've never seen you around before... #speaker: Fia
+Hey you looking for a job?
 
-    +[Restaurant?]
+    +[Job?]
     ->Section1
-    +[Yes I just "arrived"]
-    ->Section2
-    +[See ya]
-    ->Section3
     
 
 
 === Section1 ===
-Yes, It is Fia's place, serving from 5am! #speaker: Fia
-->END
-
+Yes a job?
+Wait you can cook right?
+    +[Cook?]
+    ->Section2
+    
+    +[Weird question to ask someone...]
+    ->Section3
+    
 === Section2 ===
-Ah! Can you cook? #speaker: Fia
-    +[Yes?]
-    ->Section2A
-
-=== Section2A
-I'm looking for a new cook! #speaker: Fia
-Comeback later when the place is open! #speaker: Fia
-->END
+Yes cook!
+    +[I guess so...]
+    ->Section4
 
 === Section3 ===
-Bye Bye! #speaker: Fia
+Never mind that...
+Can you cook?
+    +[I guess so...]
+    ->Section4
+    
+=== Section4 ===
+Great I'll be open from 5am to 10pm
+You can sell me the dishes you made!
+Or even the fishes you catch!
+See you soon!
 ->END

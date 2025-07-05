@@ -1,11 +1,11 @@
 EXTERNAL EnableShop()
 
-Welcome to my store! #speaker: Sugu #trigger: next
+Welcome back to my store! #speaker: Sugu #trigger: next
 How can i help you?  #speaker: Sugu
 ->main
 
 === main ===
-    +[What is this place?]
+    +[Do you sell everything here?]
         -> section1
     +[I want to buy some stuff]
         -> section2
@@ -13,10 +13,10 @@ How can i help you?  #speaker: Sugu
         -> section3
 
 === section1 ===
-This is the general store.  #speaker: Sugu
-I sell everything you need here to make dishes.  #speaker: Sugu
-Well... Everything you can't fish out of the sea.  #speaker: Sugu
--> main
+Well no...
+There are several stores here and across the other islands
+Each specializing in something...
+-> section4
 
 === section2 ===
 Sure take a look...  #speaker: Sugu
@@ -26,3 +26,9 @@ Sure take a look...  #speaker: Sugu
 === section3 ===
 Come again!  #speaker: Sugu
 ->END
+
+=== section4 ===
+  +[I want to buy some stuff]
+        -> section2
+    +[See ya!]
+        -> section3

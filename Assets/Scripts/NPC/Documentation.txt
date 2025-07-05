@@ -60,28 +60,5 @@ Selling/Buying:
 
 
 Quest System:
-	- This is the most complex, since it works with the quest handler system
-
-	- Summary to how the quest system works:
-		1. The player approaches an NPC that has a quest
-
-		2. If the player doesn't have an active quest, he can start a new quest
-
-		3. If the player does have a quest:
-			a. Either he is returning to the quest give to complete the quest
-			b. Or he will be not allowed to start a new quest
-
-	- To find the long list of variables/functions that need to be assigned/called
-	- Look ath the end of the Quest System Region in the dialogue manager
-
-	Summary as to how the dialogue manager handles quests:
-
-	There are 4 paths the dialogue manager can take:
-
-	1. No active quests -> Player given a quest
-
-	2. Yes active quest -> Talking to new quest giver -> reject new quest dialogue
-
-	3. a. Yes active quest -> Returning to original quest giver -> Submit needed items -> Quest complete
-																-> Quest not completed -> End dialogue
+	Present in a separate documentation located in the quest script
 

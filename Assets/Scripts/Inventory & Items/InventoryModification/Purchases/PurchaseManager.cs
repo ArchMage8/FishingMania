@@ -49,9 +49,12 @@ public class PurchaseManager : MonoBehaviour
 
     private void OnEnable()
     {
+
+
         UpdatePurchaseUI();
         ResetPurchaseDetails();
     }
+
 
     public void DisplayItemDetails(Item item, int price)
     {
@@ -149,7 +152,7 @@ public class PurchaseManager : MonoBehaviour
 
         // Clear UI
         //itemNameText.text = "";
-        //itemDescriptionText.text = "";
+        Object_Description.text = "Select an Item!";
         //itemPriceText.text = "";
         ContentHolder.SetActive(false);
         purchaseQtyText.text = "1";

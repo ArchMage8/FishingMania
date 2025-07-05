@@ -12,6 +12,8 @@ public class QuestManager : MonoBehaviour
     }
 
     public int activeQuestID;
+
+    public string NameOfQuestGiver;
     private string activeQuestDescription;
     [HideInInspector] public string activeQuestNPC;
     [HideInInspector] public bool activeQuestPresent;
@@ -25,7 +27,11 @@ public class QuestManager : MonoBehaviour
         activeQuestDescription = quest.questDescription;
         activeQuestNPC = quest.npcName;
         activeQuestPresent = true;
+
+        NameOfQuestGiver = quest.npcName;
     }
+
+
 
     public bool SubmitQuest(Item item, int quantity)
     {

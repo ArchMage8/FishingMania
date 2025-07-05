@@ -3,7 +3,7 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject interactIndicator;
-    [SerializeField] private Animator LocalDialogueAnimator;
+    public Animator LocalDialogueAnimator;
     private bool playerInRange = false;
 
     [Space(15)]
@@ -16,8 +16,8 @@ public class DialogueTrigger : MonoBehaviour
     public GameObject Shop_NPC_UI;
     public GameObject Sell_To_NPC_UI;
 
- 
 
+    private bool DialogueLaunched = false;
     private void Start()
     {
         if (interactIndicator != null)
@@ -45,10 +45,12 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.F) && !DialogueManager.GetInstance().dialogueRunning && !InventoryManager.Instance.SomeUIEnabled) 
+        if (playerInRange && Input.GetKeyDown(KeyCode.F) && !DialogueManager.GetInstance().dialogueRunning && !InventoryManager.Instance.SomeUIEnabled && DialogueLaunched == false) 
         {
             Debug.Log("Call");
 
+
+            DialogueLaunched = true;
             Time.timeScale = 0f;
 
             PlayerManager.instance.SnapDirection(this.gameObject.transform);
@@ -116,6 +118,7 @@ public class DialogueTrigger : MonoBehaviour
                 interactIndicator.SetActive(false);
             }
             playerInRange = false;
+            DialogueLaunched = false;
         }
     }
 

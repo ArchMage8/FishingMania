@@ -1,0 +1,30 @@
+TLDR:
+
+System interaction:
+----------------------
+The quest system works with Quest NPCs
+They pass on their active quest to the system when interacted with
+
+The system then decides if we can accept the new quest
+If yes we can either accept or reject the new quest
+
+But if we are returning to our quest giver, then the prompt changes to the NPC asking for what they requested
+Completing quest is simply a matter of giving the NPC what they requested
+
+
+
+Backend:
+------------
+The INK file has local variables that can influence the path of the dialogue
+These variables are adjusted automatically by the dialogue manager
+So the INK file's job is to just call the functions tasked in changing these variables
+
+
+INK File Branches:
+---------------------
+As mentioned above variables change the path of the dialogue, thus several branches need to be made in order for the dialogue to feel realistic
+
+IE it looks bad to simply just make the player not be able to talk to the player because they are occupied
+
+
+

@@ -96,7 +96,7 @@ public class NPC_Schedule : MonoBehaviour
 
         SetAlpha(toAlpha);
     }
-   
+
     private void SetAlpha(float alpha)
     {
         if (visualRenderer != null)
@@ -109,10 +109,14 @@ public class NPC_Schedule : MonoBehaviour
         if (shadowRenderer != null)
         {
             Color c = shadowRenderer.color;
-            c.a = alpha;
+
+            // Shadow alpha fades from 0 when invisible to 60/255 when visible
+            float shadowAlpha = Mathf.Lerp(0f, 60f / 255f, alpha);
+            c.a = shadowAlpha;
             shadowRenderer.color = c;
         }
     }
+
 
     private void UpdatePresenceImmediate()
     {

@@ -79,6 +79,7 @@ public class Daylight_Handler : MonoBehaviour
         {
             //Debug.Log("Potato");
             HandleNewDay_Visuals();
+            HandleNewDay_System();
         }
 
         if(currentHour > 5f)
@@ -191,7 +192,8 @@ public class Daylight_Handler : MonoBehaviour
 
     private void HandleNewDay_System()
     {
-
+        NPCManager.Instance.ResetNPCs();   
+        NPCStateRefresher.Instance.RefreshAllNPCStates();
     }
 
     private void HandleNewDay_Visuals ()

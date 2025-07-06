@@ -29,7 +29,7 @@ Can you cook?
     ->Section4
     
 === Section4 ===
-Great I'll be open from 5am to 10pm
+Great I'll be open from 7am to 10pm
 You can sell me the dishes you made!
 Or even the fishes you catch!
 See you soon!

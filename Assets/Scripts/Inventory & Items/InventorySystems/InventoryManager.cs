@@ -130,6 +130,90 @@ public class InventoryManager : MonoBehaviour
         return true;
     }
 
+    public bool RemoveForQuest(Item baseItem, int quantity)
+    {
+        if (baseItem == null || quantity <= 0) return false;
+
+        string baseName = baseItem.itemName.Trim();
+        int normalCount = 0;
+        int tastyCount = 0;
+
+        // First pass: count normal and tasty versions
+        foreach (var slot in inventory)
+        {
+            if (slot.item == null) continue;
+
+            string itemName = slot.item.itemName.Trim();
+
+            if (itemName == baseName)
+            {
+                normalCount += slot.quantity;
+            }
+            else if (itemName == $"Tasty {baseName}")
+            {
+                tastyCount += slot.quantity;
+            }
+        }
+
+        if (normalCount + tastyCount < quantity)
+        {
+            Debug.LogWarning($"Not enough {baseName} (including tasty variants) in inventory for quest.");
+            return false;
+        }
+
+        int remainingToRemove = quantity;
+
+        // Second pass: remove from normal dishes first
+        foreach (var slot in inventory)
+        {
+            if (slot.item == null) continue;
+
+            if (slot.item.itemName.Trim() == baseName)
+            {
+                int removeQty = Mathf.Min(slot.quantity, remainingToRemove);
+                slot.quantity -= removeQty;
+                remainingToRemove -= removeQty;
+
+                if (slot.quantity == 0)
+                {
+                    slot.item = null;
+                }
+
+                if (remainingToRemove == 0)
+                    break;
+            }
+        }
+
+        // Third pass: if still remaining, remove from tasty dishes
+        if (remainingToRemove > 0)
+        {
+            foreach (var slot in inventory)
+            {
+                if (slot.item == null) continue;
+
+                if (slot.item.itemName.Trim() == $"Tasty {baseName}")
+                {
+                    int removeQty = Mathf.Min(slot.quantity, remainingToRemove);
+                    slot.quantity -= removeQty;
+                    remainingToRemove -= removeQty;
+
+                    if (slot.quantity == 0)
+                    {
+                        slot.item = null;
+                    }
+
+                    if (remainingToRemove == 0)
+                        break;
+                }
+            }
+        }
+
+        SortInventory();
+        CompactInventory();
+        return true;
+    }
+
+
     public void SaveInventory()
     {
         List<InventorySlotData> saveData = new List<InventorySlotData>();
@@ -316,6 +400,17 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+
+    public void ClearInGameInventory()
+    {
+        inventory.Clear();
+        for (int i = 0; i < maxSlots; i++)
+        {
+            inventory.Add(new InventorySlot());
+        }
+
+        Debug.Log("In-game inventory has been cleared.");
+    }
 
     public int GetTotalQuantity(Item item)
     {

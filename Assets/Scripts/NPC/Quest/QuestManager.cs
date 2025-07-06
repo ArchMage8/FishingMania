@@ -35,12 +35,8 @@ public class QuestManager : MonoBehaviour
 
     public bool SubmitQuest(Item item, int quantity)
     {
-        List<ItemRemovalRequest> removalRequests = new List<ItemRemovalRequest>
-        {
-            new ItemRemovalRequest { item = item, quantity = quantity }
-        };
 
-        if (InventoryManager.Instance.RemoveItems(removalRequests))
+        if (InventoryManager.Instance.RemoveForQuest(item, quantity))
         {
             ResetActiveQuest();
             return true;

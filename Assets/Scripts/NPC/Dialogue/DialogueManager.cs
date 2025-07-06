@@ -260,13 +260,14 @@ public class DialogueManager : MonoBehaviour
         InventoryManager.Instance.HUD.SetActive(true);
 
         NPCDialogueAnimator = null;
-
+       
         currentStory = null;
 
 
         if (QuestCompleted)
         {
             QuestCompleteUpdate();
+           
         }
     }
 
@@ -535,6 +536,8 @@ public class DialogueManager : MonoBehaviour
             currentStory.variablesState["Success"] = true;
             QuestCompleted = true;
 
+            Debug.Log("ptoa");
+
             //Logic to update the NPC Quest
             NPCManager.Instance.AddFriendshipLevel(DialogueQuest.npcName);
             NPCManager.Instance.ModifyIsFullState(DialogueQuest.npcName, true);
@@ -581,8 +584,10 @@ public class DialogueManager : MonoBehaviour
 
         if (npcData != null)
         {
-            
+            Debug.Log("ptatoe");
+
             npcData.isFull = true;
+            QuestCompleted = false;
 
             //StateHandler will transition to full state after x seconds
         }

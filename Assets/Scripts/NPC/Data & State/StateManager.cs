@@ -78,6 +78,26 @@ public class StateManager : MonoBehaviour
         }
     }
 
+    public void NewDayAdjust()
+    {
+        if (npcDataSO == null) return;
+
+            bool isFull = NPCManager.Instance.GetIsFullState(npcDataSO.npcName);
+            
+            npcFull.SetActive(false);
+
+           //NPCManager.Instance.AddFriendshipLevel(npcDataSO.npcName);
+            NPCManager.Instance.ModifyIsFullState(npcDataSO.npcName, false);
+
+            int level = NPCManager.Instance.GetFriendshipLevel(npcDataSO.npcName);
+
+            for (int i = 0; i < npcObjects.Length; i++)
+            {
+                npcObjects[i].SetActive(i == level);
+            }
+        
+    }
+
     private void TransitionBoolHandler()
     {
         bool isFull = NPCManager.Instance.GetIsFullState(npcDataSO.npcName);

@@ -14,8 +14,17 @@ public class MoneyManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+          
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
         saveFilePath = Path.Combine(Application.persistentDataPath, "playerBalance.json");
+
+
     }
 
     public void AddToTempBalance(int amount)

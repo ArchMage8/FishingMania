@@ -26,7 +26,7 @@ public class NPCStateRefresher : MonoBehaviour
             if (manager != null)
             {
                 NPCManager.Instance.ModifyIsFullState(manager.npcDataSO.npcName, false);
-                manager.AdjustVersion();
+                manager.NewDayAdjust();
             }
         }
     }

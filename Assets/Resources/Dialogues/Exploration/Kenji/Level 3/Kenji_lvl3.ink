@@ -1,4 +1,4 @@
-Hmm?
+Hmm? #speaker: Kenji #trigger: next
 What's up?
 ->main
 
@@ -9,11 +9,11 @@ What's up?
     ->Section2
 
 === Section1 ===
-What?
+What? #speaker: Kenji #trigger: next1
 Do you expect me to vanish or something?
     +[Guess not...]
     ->Section2
 
 === Section2 ===
-Hmmm....
+Hmmm.... #speaker: Kenji #trigger: next2
 ->END

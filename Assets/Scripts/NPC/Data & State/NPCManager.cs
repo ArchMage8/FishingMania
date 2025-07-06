@@ -84,6 +84,8 @@ public class NPCManager : MonoBehaviour
 
     public void ModifyIsFullState(string npcName, bool isFull)
     {
+     
+
         foreach (var npc in npcTempList)
         {
             if (npc.npcName == npcName)

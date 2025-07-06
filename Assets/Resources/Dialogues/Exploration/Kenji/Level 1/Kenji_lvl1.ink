@@ -16,7 +16,7 @@ VAR Success = false
 }
 
 === Start ===
-Hmm?  #speaker: Kenji #trigger: next
+Hmm?  #speaker: Kenji #trigger: normal
 You again?
 What now?
     +[How long until the bridge is fixed]
@@ -49,11 +49,12 @@ Look I just need to eat something, then I'll get the bridge fixed #speaker: Kenj
 
 
 === QuestStart ===
-Ooh that would be great!
+Ooh that would be great! #speaker: Kenji #trigger: next
 2 grilled fish would be amazing
 
-Dude just wants a free meal... #speaker: Iris #trigger: next
 ~ SetActiveQuest()
+Dude just wants a free meal... #speaker: Iris #trigger: next
+
 ->END
 
 
@@ -78,7 +79,7 @@ Hmm....
 
 
 === Submit ===
-You got the food? #speaker: Kenji #trigger: next
+You got the food? #speaker: Kenji #trigger: submit
     +[Yup Here it is]
     ~ SubmitQuest()
     ->SumbitCheck
@@ -94,10 +95,12 @@ You got the food? #speaker: Kenji #trigger: next
 }
 
 === SubmitComplete ===
-Thank you so much!
+Thank you so much! #speaker: Kenji #trigger: submit
+I should be able to get to work now...
+Well... After eating of course...
 ->END
 === SumbitIncomplete ===
-Um... Where is it?
+Um... Where is it? #speaker: Kenji #trigger: next
 ->END
 
 

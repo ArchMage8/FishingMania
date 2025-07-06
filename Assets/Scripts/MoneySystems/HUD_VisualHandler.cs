@@ -37,36 +37,39 @@ public class HUD_VisualHandler : MonoBehaviour
         {
             SetTime();
 
-
+            // If there's a Daylight_Exception, set the color to white.
             if (Daylight_Exception.Instance != null)
             {
                 SetTargetColor(Color.white);
             }
             else
             {
+                // Otherwise, update the color based on time.
                 UpdateTargetColorFromTime();
             }
 
+            // If transitioning, adjust HUD colors.
             if (isTransitioning)
             {
                 LerpHUDColorsToTarget();
             }
         }
-
-        else if(Daylight_Handler.Instance == null)
+        else
         {
+            // If Daylight_Handler is null, check the Daylight_Exception status.
             if (Daylight_Exception.Instance != null)
             {
                 SetTargetColor(Color.white);
                 SetHUDColorsToTarget();
             }
-            else if(Daylight_Exception.Instance == null)
+            else
             {
-               
+                // Otherwise, set the color to a neutral gray tone.
                 SetTargetColor(HexToColor("767676"));
                 SetHUDColorsToTarget();
             }
         }
+
     }
 
     Color HexToColor(string hex)

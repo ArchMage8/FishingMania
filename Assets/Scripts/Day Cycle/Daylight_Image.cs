@@ -27,7 +27,7 @@ public class Daylight_Image : MonoBehaviour
 
     private int currentIndex = -1;
     public bool isTransitioning = false;
-    private Daylight_Handler daylight;
+    //private Daylight_Handler daylight;
 
     private void Awake()
     {
@@ -45,7 +45,7 @@ public class Daylight_Image : MonoBehaviour
     {
         if(isTransitioning == true)
         {
-            SetImageImmediatelyByHour(daylight.GetCurrentHour());
+            SetImageImmediatelyByHour(Daylight_Handler.Instance.GetCurrentHour());
             isTransitioning = false;
         }
 
@@ -59,21 +59,15 @@ public class Daylight_Image : MonoBehaviour
     {
         SetImageImmediatelyByHour(0);
 
-        daylight = Daylight_Handler.Instance;
-
-        if (daylight == null)
-        {
-            Debug.LogError("Daylight_Handler instance not found!");
-            enabled = false;
-            return;
-        }
-
         UpdateImageBasedOnTime(true); // Initialize immediately
     }
 
     private void Update()
     {
-        UpdateImageBasedOnTime();
+        if (Daylight_Handler.Instance != null)
+        {
+            UpdateImageBasedOnTime();
+        }
     }
 
     private void UpdateImageBasedOnTime(bool forceInstant = false)
@@ -81,7 +75,7 @@ public class Daylight_Image : MonoBehaviour
         if (isTransitioning || timeOfDayImages.Count == 0)
             return;
 
-        int currentHour = Mathf.FloorToInt((daylight.GetCurrentTime() / daylight.GetDayDuration()) * 24f);
+        int currentHour = Mathf.FloorToInt((Daylight_Handler.Instance.GetCurrentTime() / Daylight_Handler.Instance.GetDayDuration()) * 24f);
 
         int newIndex = GetImageIndexForHour(currentHour);
 

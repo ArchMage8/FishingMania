@@ -6,7 +6,8 @@ Hmm what do you want? #speaker: Kenji #trigger: next
     ->Section1
 
 === Section1 ===
-I'm the person tasked in making sure we don't get stuck on this side of the island
+I'm Kenji...
+The person tasked in making sure we don't get stuck on this side of the island
 I mean who builds a town with only one bridge?
     +[But your just standing here...]
     ->Section2

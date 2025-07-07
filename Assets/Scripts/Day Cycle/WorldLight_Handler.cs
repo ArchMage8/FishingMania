@@ -23,6 +23,7 @@ public class WorldLight_Handler : MonoBehaviour
 
     private float currentTime;
     private float currentGameTime;
+    private Animator animator;
 
 
     //There is an exception built in to this script to handle the absense of the daylight handler
@@ -36,6 +37,8 @@ public class WorldLight_Handler : MonoBehaviour
     private void Start()
     {
         daylight_handler = Daylight_Handler.Instance;
+
+        animator = GetComponent<Animator>();
 
         if (daylight_handler != null)
         {
@@ -68,17 +71,25 @@ public class WorldLight_Handler : MonoBehaviour
 
         GetGameTime();
 
+      
+
         HandleFadeOff(currentGameTime);
         HandleFadeOn(currentGameTime);
     }
 
     private void HandleFadeOff(float currentTime)
     {
+      
+
         if (currentTime >= offStartTime && currentTime <= offEndTime)
         {
             float t = Mathf.InverseLerp(offStartTime, offEndTime, currentTime);
             LightSource.intensity = Mathf.Lerp(originalIntensity, 0f, t);
+            
+          
         }
+
+       
     }
 
     private void HandleFadeOn(float currentTime)
@@ -106,6 +117,19 @@ public class WorldLight_Handler : MonoBehaviour
         else if (time > onEndTime)
         {
             LightSource.intensity = originalIntensity;
+        }
+    }
+
+    private void PauseAnimator()
+    {
+        if (Mathf.Abs(LightSource.intensity) < 0.001)
+        {
+            animator.speed = 0f;
+        }
+
+        else
+        {
+            animator.speed = 1f;
         }
     }
 }

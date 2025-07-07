@@ -5,11 +5,7 @@ using System.Collections.Generic;
 public class QuestManager : MonoBehaviour
 {
     public static QuestManager Instance;
-    private void Awake() 
-    {
-        Instance = this;
-        LoadActiveQuest();
-    }
+   
 
     public int activeQuestID;
 
@@ -20,6 +16,19 @@ public class QuestManager : MonoBehaviour
 
     private string savePath => Path.Combine(Application.persistentDataPath, "ActiveQuest.json");
 
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        LoadActiveQuest();
+    }
 
     public void SetActiveQuest(QuestSO quest)
     {

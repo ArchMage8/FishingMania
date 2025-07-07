@@ -41,6 +41,10 @@ public class InventoryManager : MonoBehaviour
 
     public bool AddItem(Item item, int quantity)
     {
+        Debug.Log($"AddItem CALLED with item: {item?.itemName ?? "NULL"}, qty: {quantity}");
+        if (item == null) Debug.LogError("AddItem received a NULL item");
+
+
         if (item == null || quantity <= 0) return false;
 
         int remainingQuantity = quantity;
@@ -79,6 +83,7 @@ public class InventoryManager : MonoBehaviour
                 if (remainingQuantity == 0)
                 {
                     SortInventory();
+                    Debug.Log(quantity + " " + item.name + " has been added");
                     return true; // Item added successfully
                 }
             }
@@ -459,7 +464,7 @@ public class InventoryManager : MonoBehaviour
 
         int remainingQuantity = quantity;
 
-        // Check existing stacks that aren't full
+        // 1. Fill existing partial stacks
         foreach (var slot in inventory)
         {
             if (slot.item == item && slot.quantity < maxStack)
@@ -468,18 +473,11 @@ public class InventoryManager : MonoBehaviour
                 remainingQuantity -= Mathf.Min(spaceAvailable, remainingQuantity);
 
                 if (remainingQuantity <= 0)
-                {
-                    return true; // There's enough space
-                }
-
-                else
-                {
-                    return false;
-                }
+                    return true;
             }
         }
 
-        // Check empty slots
+        // 2. Use empty slots
         foreach (var slot in inventory)
         {
             if (slot.item == null)
@@ -488,12 +486,13 @@ public class InventoryManager : MonoBehaviour
                 remainingQuantity -= Mathf.Min(spaceAvailable, remainingQuantity);
 
                 if (remainingQuantity <= 0)
-                    return true; // There's enough space
+                    return true;
             }
         }
 
         return false; // Not enough space
     }
+
 
     //Meant for item type sort order
 

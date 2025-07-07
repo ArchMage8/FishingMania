@@ -185,8 +185,25 @@ public class Cooking_Minigame_Manager : MonoBehaviour
     {
         //Need logic to show preview
 
+        if (ResultDish == null)
+        {
+            Debug.LogError("ResultDish is NULL before AddItem");
+        }
+        else
+        {
+            Debug.Log($"Adding {Dish_QTY} x {ResultDish.itemName}");
+        }
+
+
+        ResetQTYUI();
         InventoryManager.Instance.AddItem(ResultDish, Dish_QTY);
         
+    }
+
+    private void ResetQTYUI()
+    {
+        CookingManager.Instance.selectedCookQuantity = 0;
+        CookingManager.Instance.cookQuantityText.text = "0";
     }
 
     private void HandleFailure() //Ran out of health
@@ -198,6 +215,7 @@ public class Cooking_Minigame_Manager : MonoBehaviour
         InventoryManager.Instance.AddItem(CookingManager.Instance.FailureDish, Dish_QTY);
         StartCoroutine(ShowFail());
 
+        ResetQTYUI();
     }
 
     private IEnumerator ShowFail()

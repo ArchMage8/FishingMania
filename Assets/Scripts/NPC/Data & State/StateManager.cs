@@ -107,9 +107,11 @@ public class StateManager : MonoBehaviour
     private IEnumerator transitionChange()
     {
         canCoroutine = false;
-        yield return new WaitForSeconds(1.5f);
+        InventoryManager.Instance.SomeUIEnabled = true;
+        yield return new WaitForSeconds(0.5f);
 
         npcFull.SetActive(true);
+        InventoryManager.Instance.SomeUIEnabled = false;
         foreach (var obj in npcObjects)
         {
             obj.SetActive(false);

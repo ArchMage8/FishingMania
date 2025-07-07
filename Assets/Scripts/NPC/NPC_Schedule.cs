@@ -29,7 +29,10 @@ public class NPC_Schedule : MonoBehaviour
 
         UpdatePresenceImmediate();
     }
-
+    private void OnEnable()
+    {
+        UpdatePresenceImmediate();
+    }
     private void Update()
     {
         float currentHour = Daylight_Handler.Instance.GetCurrentHour();

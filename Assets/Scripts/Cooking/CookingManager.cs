@@ -15,7 +15,7 @@ public class CookingManager : MonoBehaviour
     [Header("Preview Components")]
 
     [SerializeField] private Image dishIcon; // UI display for dish icon
-    [SerializeField] private TMP_Text cookQuantityText; // Display for selected cook quantity
+    public TMP_Text cookQuantityText; // Display for selected cook quantity
     [SerializeField] private TMP_Text dishName; // Display for dish name
     [SerializeField] private TMP_Text dishDescription;
 
@@ -41,7 +41,7 @@ public class CookingManager : MonoBehaviour
 
     [HideInInspector] public Recipe currentRecipe;
     [HideInInspector] public int maxCookQuantity = 1;
-    private int selectedCookQuantity = 1;
+    [HideInInspector] public int selectedCookQuantity = 1;
     private string Current_Cooking_Method = null;
     private bool RecipeUnlocked;
 
@@ -231,7 +231,7 @@ public class CookingManager : MonoBehaviour
 
     public void ExecuteCooking()
     {
-        if (ErrorDisplaying == false)
+        if (ErrorDisplaying == false && selectedCookQuantity > 0)
         {
             if (currentRecipe == null || maxCookQuantity == 0 || !RecipeUnlocked)
             {
@@ -316,22 +316,12 @@ public class CookingManager : MonoBehaviour
 
     private void StartMinigameCycle()
     {
-        selectedCookQuantity = 1;
-        maxCookQuantity = CalculateMaxQuantity(currentRecipe);
-
-        if (maxCookQuantity == 0)
-        {
-            selectedCookQuantity = 0;
-            cookQuantityText.text = "0";
-
-            if (activeRecipeButton != null)
-            {
-                activeRecipeButton.SetupRecipeButton();
-            }
-        }
+        // Preserve selectedCookQuantity
+        int originalQuantity = selectedCookQuantity;
 
         StartCoroutine(StartMinigameCoroutine());
     }
+
 
     private IEnumerator StartMinigameCoroutine()
     {

@@ -397,6 +397,7 @@ public class CookingManager : MonoBehaviour
 
         BG_Effect.SetActive(false);
         GameHUD.SetActive(true);
+        Target.SetActive(false);
         InventoryManager.Instance.SomeUIEnabled = false;
         Daylight_Handler.Instance.TimeRunning = true;
     }

@@ -29,10 +29,9 @@ public class CookingTrigger : MonoBehaviour
     public void OpenBook()
     {
         interactIndicator.SetActive(false);
-        //CookingUI.SetActive(true);
         CookingManager.Instance.TurnOnCookingUI(CookingUI);
         InventoryManager.Instance.SomeUIEnabled = true;
-        //CookingManager.Instance.CloseButton.SetActive(true);
+       
     }
 
     public void CloseRecipeBook()
@@ -51,6 +50,9 @@ public class CookingTrigger : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
         Time.timeScale = 1f;
         InventoryManager.Instance.SomeUIEnabled = false;
+
+        Debug.Log("ass");
+
         CookingUI.SetActive(false);
     }
 

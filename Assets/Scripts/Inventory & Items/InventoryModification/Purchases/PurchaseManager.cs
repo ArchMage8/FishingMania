@@ -18,15 +18,24 @@ public class PurchaseManager : MonoBehaviour
     public TMP_Text purchaseQtyText;
     public GameObject ContentHolder;
 
+    [Space(10)]
+    public Image PurchaseButton;
+    public GameObject FinanceError;
+    public GameObject InventoryError;
+
     [Header("External Managers")]
     private MoneyManager moneyManager;
     private InventoryManager inventoryManager;
 
+    private Animator ErrorAnimator;
     private Item selectedItem;
     private int selectedItemPrice;
     private int purchaseQuantity = 1;
     private const int maxPurchaseQty = 99;
     private bool standbyEnable = false;
+
+    private bool CanPurchase = true;
+    private bool ErrorEnabled = false;  
 
     private void Start()
     {
@@ -91,6 +100,7 @@ public class PurchaseManager : MonoBehaviour
         {
             purchaseQuantity++;
             UpdatePurchaseUI();
+            CheckCanPurchase();
         }
     }
 
@@ -100,6 +110,7 @@ public class PurchaseManager : MonoBehaviour
         {
             purchaseQuantity--;
             UpdatePurchaseUI();
+            CheckCanPurchase();
         }
     }
 
@@ -119,29 +130,47 @@ public class PurchaseManager : MonoBehaviour
             return;
         }
 
-        int totalCost = selectedItemPrice * purchaseQuantity;
-
-        // Check if the player has enough money
-        if (!moneyManager.ReduceMoney(totalCost))
+        if (CanPurchase && purchaseQuantity > 0 && !ErrorEnabled)
         {
-            Debug.Log(totalCost);
-            Debug.Log("Not enough money to complete the purchase.");
-            return;
+            if (inventoryManager.CanAddItem(selectedItem, purchaseQuantity))
+            {
+                int totalPrice = selectedItemPrice * purchaseQuantity;
+
+                moneyManager.ReduceMoney(totalPrice);
+
+                inventoryManager.AddItem(selectedItem, purchaseQuantity);
+                // Reset selection
+                ResetPurchaseDetails();
+            }
+
+            else
+            {
+                ErrorEnabled = true;
+                InventoryError.SetActive(true);
+                ErrorAnimator = InventoryError.GetComponent<Animator>();
+            }
         }
 
-        // Check if there is enough space in the inventory
-        if (!inventoryManager.AddItem(selectedItem, purchaseQuantity))
+        else
         {
-            Debug.Log("Not enough space in the inventory.");
-            return;
+            ErrorEnabled = true;
+            FinanceError.SetActive(true);
+            ErrorAnimator = FinanceError.GetComponent<Animator>();
         }
+    }
 
-        // Process transaction
-        //moneyManager.DeductMoney(totalCost);
-        //Debug.Log($"Purchased {purchaseQuantity} of {selectedItem.itemName} for {totalCost} coins.");
+    private IEnumerator DisableError()
+    {
+        yield return new WaitForSecondsRealtime(1.5f);
 
-        // Reset selection
-        ResetPurchaseDetails();
+        ErrorAnimator.SetTrigger("Exit");
+
+        yield return new WaitForSecondsRealtime(1.5f);
+
+        ErrorAnimator.gameObject.SetActive(false);
+        ErrorAnimator = null;
+
+        ErrorEnabled = false;
     }
 
     private void ResetPurchaseDetails()
@@ -172,5 +201,37 @@ public class PurchaseManager : MonoBehaviour
     {
         standbyEnable = true;
         DialogueManager.GetInstance().canDialogue = false;
+    }
+
+    private void CheckCanPurchase()
+    {
+        int tempCost = selectedItemPrice * purchaseQuantity;
+
+        if (tempCost <= moneyManager.playerBalance)
+        {
+            EnablePurchaseButton();
+        }
+
+        else if(tempCost > moneyManager.playerBalance)
+        {
+            DisablePurchaseButton();
+        }
+
+    }
+
+    private void EnablePurchaseButton()
+    {
+        PurchaseButton.color = Color.white;
+        CanPurchase = true;
+    }
+
+    private void DisablePurchaseButton()
+    {
+        CanPurchase = false;
+        Color newColor;
+        if (ColorUtility.TryParseHtmlString("#C3AA87", out newColor))
+        {
+            PurchaseButton.color = newColor;
+        }
     }
 }

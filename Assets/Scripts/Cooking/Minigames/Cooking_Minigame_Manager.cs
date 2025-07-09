@@ -202,8 +202,8 @@ public class Cooking_Minigame_Manager : MonoBehaviour
 
     private void ResetQTYUI()
     {
-        CookingManager.Instance.selectedCookQuantity = 0;
-        CookingManager.Instance.cookQuantityText.text = "0";
+        CookingManager.Instance.selectedCookQuantity = 1;
+        CookingManager.Instance.cookQuantityText.text = "1";
     }
 
     private void HandleFailure() //Ran out of health

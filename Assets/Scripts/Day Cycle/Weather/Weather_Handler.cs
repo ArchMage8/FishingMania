@@ -22,8 +22,10 @@ public class Weather_Handler : MonoBehaviour
     private List<ParticleSystem> sunnyParticles = new List<ParticleSystem>();
     private List<ParticleSystem> rainParticles = new List<ParticleSystem>();
 
+    private ParticleSystem MainRain;
+
     private void Awake()
-    {
+    {   
         if (Instance == null)
         {
             Instance = this;
@@ -40,7 +42,7 @@ public class Weather_Handler : MonoBehaviour
         HandleSunnyParticles();
     }
 
-    public void ResetWeather()
+    public void ResetWeather() //Called on day reset
     {
         WeatherType nextWeather = DetermineNextWeather();
 
@@ -60,9 +62,18 @@ public class Weather_Handler : MonoBehaviour
         IsSunny = (CurrentWeather == WeatherType.Sunny);
         IsRainy = (CurrentWeather == WeatherType.Rainy);
 
-        ApplyWeatherVisuals(CurrentWeather);
+        
 
-        Debug.Log($"New Day Weather: {CurrentWeather} (Sunny: {sunnyStreak}, Rainy: {rainyStreak})");
+        ApplyWeatherVisuals(CurrentWeather);
+        var emission = MainRain.emission;
+        emission.rateOverTime = 0;
+
+        if (CurrentWeather == WeatherType.Rainy)
+        {
+            MainRain.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            MainRain.Play();
+            StartCoroutine(RainFadeIn(MainRain, 10f, 45f));
+        }
     }
 
     private WeatherType DetermineNextWeather()
@@ -137,7 +148,9 @@ public class Weather_Handler : MonoBehaviour
         if (holder != null)
         {
             sunnyParticles.AddRange(holder.sunnyParticles);
-            rainParticles.AddRange(holder.rainParticles);
+            rainParticles.AddRange(holder.rainSplashes);
+
+            MainRain = holder.MainRain;
 
             ApplyWeatherVisuals(CurrentWeather);
         }
@@ -157,7 +170,28 @@ public class Weather_Handler : MonoBehaviour
         else
         {
             StopRainParticles();
-            // Sunny visuals handled per hour in Update()
+          
         }
+    }
+
+    private IEnumerator RainFadeIn(ParticleSystem system, float duration, float maxEmission)
+    {
+        var emission = system.emission;
+          
+        emission.rateOverTime = 0;
+
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            float currentRate = Mathf.Lerp(0, maxEmission, t);
+            emission.rateOverTime = currentRate;
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        emission.rateOverTime = maxEmission;
     }
 }

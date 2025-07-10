@@ -27,6 +27,9 @@ public class CookingManager : MonoBehaviour
     public Item FailureDish;
     public GameObject BG_Effect;
 
+    [Space(10)]
+
+    public Image ConfirmButton;
 
     private GameObject GameHUD;
 
@@ -47,6 +50,8 @@ public class CookingManager : MonoBehaviour
 
     private bool ErrorDisplaying = false;
     private Cooking_RecipeButton activeRecipeButton;
+
+    private bool enoughIngredients = true;
 
 
     private void Awake()
@@ -106,13 +111,17 @@ public class CookingManager : MonoBehaviour
         if (recipeUnlocked)
         {
             maxCookQuantity = CalculateMaxQuantity(recipe);
+
             if (maxCookQuantity > 0)
             {
                 selectedCookQuantity = 1;
+                EnableCookButton();
             }
             else if (maxCookQuantity == 0)
             {
                 selectedCookQuantity = 0;
+                cookQuantityText.text = "0";
+                DisableCookButton();
             }
         }
         else
@@ -207,7 +216,7 @@ public class CookingManager : MonoBehaviour
     {
         if (RecipeUnlocked)
         {
-            if (selectedCookQuantity < maxCookQuantity)
+            if (selectedCookQuantity < maxCookQuantity && enoughIngredients)
             {
                 selectedCookQuantity++;
                 cookQuantityText.text = selectedCookQuantity.ToString();
@@ -220,7 +229,7 @@ public class CookingManager : MonoBehaviour
     {
         if (RecipeUnlocked)
         {
-            if (selectedCookQuantity > 1)
+            if (selectedCookQuantity > 1 && enoughIngredients)
             {
                 selectedCookQuantity--;
                 cookQuantityText.text = selectedCookQuantity.ToString();
@@ -231,28 +240,33 @@ public class CookingManager : MonoBehaviour
 
     public void ExecuteCooking()
     {
-        if (ErrorDisplaying == false && selectedCookQuantity > 0)
+        if (ErrorDisplaying == false)
         {
-            if (currentRecipe == null || maxCookQuantity == 0 || !RecipeUnlocked)
+            if (currentRecipe != null || maxCookQuantity != 0 || RecipeUnlocked)
             {
-                return;
-            }
+                if (CheckInventorySpace())
+                {
+                    if (enoughIngredients)
+                    {
+                        RemoveIngredients();
+                        StartMinigameCycle();
+                    }
 
-            if (!TryRemoveIngredients())
-            {
-                ErrorDisplaying = true;
-                StartCoroutine(IngredientError());
-                return;
-            }
+                    else
+                    {
+                        ErrorDisplaying = true;
+                        StartCoroutine(IngredientError());
+                        return;
+                    }
+                }
 
-            if (!CheckInventorySpace())
-            {
-                ErrorDisplaying = true;
-                StartCoroutine(InventoryError());
-                return;
+                else
+                {
+                    ErrorDisplaying = true;
+                    StartCoroutine(InventoryError());
+                    return;
+                }
             }
-
-            StartMinigameCycle();
         }
     }
 
@@ -264,6 +278,7 @@ public class CookingManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(1.5f);
 
         animator.SetTrigger("Exit");
+        yield return new WaitForSecondsRealtime(1.5f);
         IngredientErrorMessage.SetActive(false);
 
         yield return new WaitForSecondsRealtime(0.5f);
@@ -276,13 +291,16 @@ public class CookingManager : MonoBehaviour
         InventoryErrorMessage.SetActive(true);
 
         yield return new WaitForSecondsRealtime(1.5f);
+
+        animator.SetTrigger("Exit");
+        yield return new WaitForSecondsRealtime(1.5f);
         InventoryErrorMessage.SetActive(false);
 
         yield return new WaitForSecondsRealtime(0.5f);
         ErrorDisplaying = false;
     }
 
-    private bool TryRemoveIngredients()
+    private void RemoveIngredients()
     {
         List<ItemRemovalRequest> removalRequests = new List<ItemRemovalRequest>();
 
@@ -295,7 +313,7 @@ public class CookingManager : MonoBehaviour
             });
         }
 
-        return inventoryManager.RemoveItems(removalRequests);
+        inventoryManager.RemoveItems(removalRequests);
     }
 
 
@@ -318,6 +336,7 @@ public class CookingManager : MonoBehaviour
     {
         // Preserve selectedCookQuantity
         int originalQuantity = selectedCookQuantity;
+        
 
         StartCoroutine(StartMinigameCoroutine());
     }
@@ -338,7 +357,7 @@ public class CookingManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         Cooking_Minigame_Manager.Instance.StartMinigameSequence(currentRecipe, Current_Cooking_Method, selectedCookQuantity);
-
+        CheckCanCook();
     }
 
     private void SetupMinigamePreview()
@@ -409,6 +428,37 @@ public class CookingManager : MonoBehaviour
         GameHUD = InventoryManager.Instance.HUD;
     }
 
+    private void CheckCanCook()
+    {
+        int tempQTY = CalculateMaxQuantity(currentRecipe);
+
+        if (tempQTY > 0)
+        {
+            EnableCookButton();
+        }
+
+        else if(tempQTY == 0)
+        {
+            DisableCookButton();
+        }
+    }
+
+    private void EnableCookButton()
+    {
+        enoughIngredients = true;
+        ConfirmButton.color = Color.white;
+    }
+
+    private void DisableCookButton()
+    {
+        enoughIngredients = false;
+
+        Color newColor;
+        if (ColorUtility.TryParseHtmlString("#C3AA87", out newColor))
+        {
+            ConfirmButton.color = newColor;
+        }
+    }
    
 }
 

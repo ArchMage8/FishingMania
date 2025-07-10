@@ -20739,14 +20739,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sunnyParticles:
   - {fileID: 1930145572}
-  rainParticles:
-  - {fileID: 263356529}
-  - {fileID: 717637777}
-  - {fileID: 964841638}
-  - {fileID: 1012443274}
-  - {fileID: 647340062}
-  - {fileID: 416375000}
-  - {fileID: 1595627666}
+  rainSplashes: []
+  MainRain: {fileID: 263356529}
 --- !u!4 &821154159
 Transform:
   m_ObjectHideFlags: 0
@@ -36383,7 +36377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4072285439757229462, guid: 8f15dee386e71764ba589f18f0994e09, type: 3}
       propertyPath: orthographic size
-      value: 1.675
+      value: 1.3499999
       objectReference: {fileID: 0}
     - target: {fileID: 4072285439757229462, guid: 8f15dee386e71764ba589f18f0994e09, type: 3}
       propertyPath: m_CullingMask.m_Bits

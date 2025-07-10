@@ -4,8 +4,9 @@ using UnityEngine;
 public class Weather_ParticlesHolder : MonoBehaviour
 {
     public List<ParticleSystem> sunnyParticles = new List<ParticleSystem>();
+    public List<ParticleSystem> rainSplashes = new List<ParticleSystem>();
 
-    public List<ParticleSystem> rainParticles = new List<ParticleSystem>();
+    public ParticleSystem MainRain;
 
     private void Start()
     {

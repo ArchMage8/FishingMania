@@ -11420,6 +11420,7 @@ MonoBehaviour:
   Minigame_ContentHolder: {fileID: 1282929375656402511}
   FailureDish: {fileID: 11400000, guid: d37f30e4caccbb54b902d8f74811e416, type: 2}
   BG_Effect: {fileID: 7299115334568019142}
+  ConfirmButton: {fileID: 6533231554918851329}
   ingredientDisplays:
   - MainObject: {fileID: 2616016980659076771}
     ingredientImage: {fileID: 2616016978981382020}
@@ -11445,6 +11446,7 @@ MonoBehaviour:
   IngredientErrorMessage: {fileID: 0}
   currentRecipe: {fileID: 0}
   maxCookQuantity: 1
+  selectedCookQuantity: 1
 --- !u!114 &6533231555969487624
 MonoBehaviour:
   m_ObjectHideFlags: 0

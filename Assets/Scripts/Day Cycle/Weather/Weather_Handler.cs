@@ -7,29 +7,26 @@ public class Weather_Handler : MonoBehaviour
     public static Weather_Handler Instance;
 
     public enum WeatherType { Sunny, Rainy }
-    public WeatherType CurrentWeather { get; private set;}
+    public WeatherType CurrentWeather { get; private set; }
     public bool IsSunny;
     public bool IsRainy;
-
-
 
     [Header("Weather Odds & Streaks")]
     [Range(0f, 1f)] public float sunnyChance = 0.6f;
     private int sunnyStreak = 0;
     private int rainyStreak = 0;
 
-    // Scene-specific particle system references
     private List<ParticleSystem> sunnyParticles = new List<ParticleSystem>();
     private List<ParticleSystem> rainParticles = new List<ParticleSystem>();
-
-    private ParticleSystem MainRain;
+    private List<ParticleSystem> rainSystems = new List<ParticleSystem>();
+    private Dictionary<ParticleSystem, float> rainMaxEmissions = new Dictionary<ParticleSystem, float>();
 
     private void Awake()
-    {   
+    {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Persist through scene changes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -42,7 +39,7 @@ public class Weather_Handler : MonoBehaviour
         HandleSunnyParticles();
     }
 
-    public void ResetWeather() //Called on day reset
+    public void ResetWeather()
     {
         WeatherType nextWeather = DetermineNextWeather();
 
@@ -62,17 +59,19 @@ public class Weather_Handler : MonoBehaviour
         IsSunny = (CurrentWeather == WeatherType.Sunny);
         IsRainy = (CurrentWeather == WeatherType.Rainy);
 
-        
-
         ApplyWeatherVisuals(CurrentWeather);
-        var emission = MainRain.emission;
-        emission.rateOverTime = 0;
 
         if (CurrentWeather == WeatherType.Rainy)
         {
-            MainRain.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            MainRain.Play();
-            StartCoroutine(RainFadeIn(MainRain, 10f, 45f));
+            foreach (var ps in rainSystems)
+            {
+                var emission = ps.emission;
+                emission.rateOverTime = 0;
+                ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                ps.Play();
+            }
+
+            StartCoroutine(RainFadeInMultiple(rainSystems, 10f));
         }
     }
 
@@ -140,17 +139,28 @@ public class Weather_Handler : MonoBehaviour
 
     private IEnumerator ApplyWeatherAfterDelay(Weather_ParticlesHolder holder)
     {
-        yield return null; // Wait one frame to ensure async scene is fully loaded
+        yield return null;
 
         sunnyParticles.Clear();
         rainParticles.Clear();
+        rainSystems.Clear();
+        rainMaxEmissions.Clear();
 
         if (holder != null)
         {
             sunnyParticles.AddRange(holder.sunnyParticles);
-            rainParticles.AddRange(holder.rainSplashes);
 
-            MainRain = holder.MainRain;
+            foreach (var ps in holder.rainSplashes)
+            {
+                if (ps != null)
+                {
+                    rainParticles.Add(ps);
+                    rainSystems.Add(ps);
+
+                    var emission = ps.emission;
+                    rainMaxEmissions[ps] = emission.rateOverTime.constant;
+                }
+            }
 
             ApplyWeatherVisuals(CurrentWeather);
         }
@@ -170,28 +180,37 @@ public class Weather_Handler : MonoBehaviour
         else
         {
             StopRainParticles();
-          
         }
     }
 
-    private IEnumerator RainFadeIn(ParticleSystem system, float duration, float maxEmission)
+    private IEnumerator RainFadeInMultiple(List<ParticleSystem> systems, float duration)
     {
-        var emission = system.emission;
-          
-        emission.rateOverTime = 0;
-
         float elapsed = 0f;
 
         while (elapsed < duration)
         {
             float t = elapsed / duration;
-            float currentRate = Mathf.Lerp(0, maxEmission, t);
-            emission.rateOverTime = currentRate;
+
+            foreach (var ps in systems)
+            {
+                if (rainMaxEmissions.TryGetValue(ps, out float maxEmission))
+                {
+                    var emission = ps.emission;
+                    emission.rateOverTime = Mathf.Lerp(0f, maxEmission, t);
+                }
+            }
 
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        emission.rateOverTime = maxEmission;
+        foreach (var ps in systems)
+        {
+            if (rainMaxEmissions.TryGetValue(ps, out float maxEmission))
+            {
+                var emission = ps.emission;
+                emission.rateOverTime = maxEmission;
+            }
+        }
     }
 }

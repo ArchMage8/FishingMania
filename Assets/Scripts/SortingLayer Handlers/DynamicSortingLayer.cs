@@ -2,10 +2,21 @@ using UnityEngine;
 
 public class DynamicSortingLayer : MonoBehaviour
 {
+    //Documentation:
+    //This script works with the NPC_SortingHandler
+    //This side handles what happens if the player is within in range of the object that requires
+    //a sorting layer adjustment
+
+    //But this may cause the layer's to break should an NPC move in range of the object being adjusted
+    //So the NPC sorting layer's job is to adjust the NPC's layer
+
+
     //public SpriteRenderer Reference;
     public Renderer[] TargetSprite;
     public int Difference;
     private int[] originalLayer;
+
+    public NPC_SortingHandler npcSortingHandler; // Assign if needed
 
     private void Start()
     {

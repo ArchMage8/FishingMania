@@ -15,7 +15,9 @@ public class NPC_Movement : MonoBehaviour
     }
 
     public List<RouteCheckpoint> route = new List<RouteCheckpoint>();
-    [Range(0f, 90f)] public float angleDegrees = 22.7f;
+    private float angleDegrees = 22.7f;
+
+    public float StartDelay = 1f;
     public float moveSpeed = 1f;
     public float RestartLoopDelay = 1f;
 
@@ -31,11 +33,20 @@ public class NPC_Movement : MonoBehaviour
     {
         origin = transform.position;
         animator = GetComponent<Animator>();
+
+        if (route != null && route.Count > 0)
+        {
+            int initialDirection = GetDirectionCode(route[0].direction);
+            ProcessDirectionCode(initialDirection);
+        }
+
         StartCoroutine(FollowRoute());
     }
 
     IEnumerator FollowRoute()
     {
+        yield return new WaitForSeconds(StartDelay);
+        
         visitedPositions.Clear();
         routeIndex = 0;
         isReturning = false;

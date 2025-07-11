@@ -1195,6 +1195,7 @@ MonoBehaviour:
   - {fileID: 1544338917}
   - {fileID: 1699211370}
   Difference: 10
+  npcSortingHandler: {fileID: 0}
 --- !u!1 &599424820
 GameObject:
   m_ObjectHideFlags: 0
@@ -2665,6 +2666,7 @@ MonoBehaviour:
   - {fileID: 1726768195}
   - {fileID: 1699211370}
   Difference: 10
+  npcSortingHandler: {fileID: 0}
 --- !u!1 &1078595691
 GameObject:
   m_ObjectHideFlags: 0
@@ -3561,6 +3563,7 @@ MonoBehaviour:
   - {fileID: 1726768195}
   - {fileID: 1699211370}
   Difference: 10
+  npcSortingHandler: {fileID: 0}
 --- !u!1 &1640012002
 GameObject:
   m_ObjectHideFlags: 0
@@ -4314,6 +4317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetSprite: []
   Difference: 9
+  npcSortingHandler: {fileID: 0}
 --- !u!114 &1825883854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4332,6 +4336,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 1435415851}
   Difference: 10
+  npcSortingHandler: {fileID: 0}
 --- !u!1 &1851865135
 GameObject:
   m_ObjectHideFlags: 0
@@ -5841,7 +5846,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1991041747, guid: 005ae5279621d63498dd8452b0dfc195, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4b180587b2a844c47bb9025474631060, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6013,7 +6018,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1991041747, guid: 005ae5279621d63498dd8452b0dfc195, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4b180587b2a844c47bb9025474631060, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6322,8 +6327,8 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.41509432, g: 0.41313633, b: 0.41313633, a: 1}
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.23921569, g: 0.23921569, b: 0.23921569, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -8783,8 +8788,8 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.41509432, g: 0.41313633, b: 0.41313633, a: 1}
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.23921569, g: 0.23921569, b: 0.23921569, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -13306,6 +13311,7 @@ MonoBehaviour:
   Minigame_ContentHolder: {fileID: 5433401654563833120}
   FailureDish: {fileID: 11400000, guid: e9805dedb70baa241aa9d9184c09d23b, type: 2}
   BG_Effect: {fileID: 8396481849324419884}
+  ConfirmButton: {fileID: 0}
   ingredientDisplays:
   - MainObject: {fileID: 3855104291297902921}
     ingredientImage: {fileID: 3855104289485936750}
@@ -13331,6 +13337,7 @@ MonoBehaviour:
   IngredientErrorMessage: {fileID: 2320780490816083995}
   currentRecipe: {fileID: 0}
   maxCookQuantity: 1
+  selectedCookQuantity: 1
 --- !u!224 &5433401653729996013
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18141,7 +18148,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1991041747, guid: 005ae5279621d63498dd8452b0dfc195, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4b180587b2a844c47bb9025474631060, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -18222,8 +18229,8 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.41509432, g: 0.41313633, b: 0.41313633, a: 1}
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.23921569, g: 0.23921569, b: 0.23921569, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}

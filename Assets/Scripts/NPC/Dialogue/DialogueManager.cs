@@ -1,9 +1,10 @@
+using Ink.Runtime;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using Ink.Runtime;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -64,8 +65,8 @@ public class DialogueManager : MonoBehaviour
 
     private RectTransform rectTransform;
     //Choices
-    private Vector2 ChoicesOriginalPosition = new Vector2(-642f, -31f);
-    private Vector2 ChoicesMovedPosition = new Vector2(25f, 0f); //Iris is talking
+    private Vector2 ChoicesOriginalPosition = new Vector2(-323f, 147f);
+    private Vector2 ChoicesMovedPosition = new Vector2(323f, 147f); //Iris is talking
 
     //Speaker Name
     private Vector2 SpeakerNameOriginalPosition = new Vector2(740f, -459f);
@@ -341,43 +342,48 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        // Hide all first
+        // Hide all choices first
         for (int i = 0; i < choices.Length; i++)
         {
             choices[i].SetActive(false);
         }
 
-        switch (currentChoices.Count)
+        Vector2[] positions = new Vector2[] { topPos, middlePos, bottomPos };
+
+        for (int i = 0; i < currentChoices.Count; i++)
         {
-            case 1:
-                choices[0].SetActive(true);
-                choicesText[0].text = currentChoices[0].text;
-                choices[0].GetComponent<RectTransform>().anchoredPosition = bottomPos;
-                break;
+            GameObject choiceObj = choices[i];
+            choiceObj.SetActive(true);
 
-            case 2:
-                choices[0].SetActive(true);
-                choices[1].SetActive(true);
-                choicesText[0].text = currentChoices[0].text;
-                choicesText[1].text = currentChoices[1].text;
-                choices[0].GetComponent<RectTransform>().anchoredPosition = middlePos;
-                choices[1].GetComponent<RectTransform>().anchoredPosition = bottomPos;
-                break;
+            RectTransform choiceRect = choiceObj.GetComponent<RectTransform>();
+            TextMeshProUGUI textComp = choicesText[i];
+            RectTransform textRect = textComp.GetComponent<RectTransform>();
 
-            case 3:
-                for (int i = 0; i < 3; i++)
-                {
-                    choices[i].SetActive(true);
-                    choicesText[i].text = currentChoices[i].text;
+            // Set the text and force update for wrapping detection
+            textComp.text = currentChoices[i].text;
+            textComp.ForceMeshUpdate(); // Twice to be safe
+            textComp.ForceMeshUpdate();
 
-                    RectTransform rect = choices[i].GetComponent<RectTransform>();
-                    if (i == 0) rect.anchoredPosition = topPos;
-                    else if (i == 1) rect.anchoredPosition = middlePos;
-                    else if (i == 2) rect.anchoredPosition = bottomPos;
-                }
-                break;
+            bool isWrapped = textComp.textInfo.lineCount > 1;
+
+            // Apply scaling based on wrapping status
+            if (isWrapped)
+            {
+                choiceRect.localScale = new Vector3(1f, 1.25f, 1f);       // Stretch button
+                textRect.localScale = new Vector3(1f, 0.8f, 1f);          // Shrink text
+            }
+            else
+            {
+                choiceRect.localScale = Vector3.one;                     // Reset button
+                textRect.localScale = Vector3.one;                       // Reset text
+            }
+
+            // Position the choice based on count
+            choiceRect.anchoredPosition = positions[Mathf.Min(i, positions.Length - 1)];
         }
     }
+
+
 
 
 

@@ -73,7 +73,12 @@ public class Weather_Handler : MonoBehaviour
 
             StartCoroutine(RainFadeInMultiple(rainSystems, 10f));
         }
+        else // transitioning to sunny
+        {
+            StartCoroutine(RainFadeOutMultiple(rainSystems, 10f));
+        }
     }
+
 
     private WeatherType DetermineNextWeather()
     {
@@ -213,4 +218,34 @@ public class Weather_Handler : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator RainFadeOutMultiple(List<ParticleSystem> systems, float duration)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+
+            foreach (var ps in systems)
+            {
+                if (rainMaxEmissions.TryGetValue(ps, out float maxEmission))
+                {
+                    var emission = ps.emission;
+                    emission.rateOverTime = Mathf.Lerp(maxEmission, 0f, t);
+                }
+            }
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        foreach (var ps in systems)
+        {
+            var emission = ps.emission;
+            emission.rateOverTime = 0f;
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+    }
+
 }

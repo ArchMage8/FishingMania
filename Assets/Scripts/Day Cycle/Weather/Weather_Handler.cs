@@ -16,6 +16,8 @@ public class Weather_Handler : MonoBehaviour
     private int sunnyStreak = 0;
     private int rainyStreak = 0;
 
+    public Weather_AudioHandler audioHandler;
+
     private List<ParticleSystem> sunnyParticles = new List<ParticleSystem>();
     private List<ParticleSystem> rainParticles = new List<ParticleSystem>();
     private List<ParticleSystem> rainSystems = new List<ParticleSystem>();
@@ -40,7 +42,7 @@ public class Weather_Handler : MonoBehaviour
     }
 
     public void ResetWeather()
-    {
+    { 
         WeatherType nextWeather = DetermineNextWeather();
 
         if (nextWeather == WeatherType.Sunny)
@@ -63,15 +65,24 @@ public class Weather_Handler : MonoBehaviour
 
         if (CurrentWeather == WeatherType.Rainy)
         {
-            foreach (var ps in rainSystems)
+            if (Weather_ParticlesHolder.Instance != null)
             {
-                var emission = ps.emission;
-                emission.rateOverTime = 0;
-                ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-                ps.Play();
+
+                foreach (var ps in rainSystems)
+                {
+                    var emission = ps.emission;
+                    emission.rateOverTime = 0;
+                    ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                    ps.Play();
+                }
+
+                StartCoroutine(RainFadeInMultiple(rainSystems, 10f));
             }
 
-            StartCoroutine(RainFadeInMultiple(rainSystems, 10f));
+            else
+            {
+                audioHandler.FadeToVolume(audioHandler.IndoorVolume, 10f);
+            }
         }
         else // transitioning to sunny
         {
@@ -192,22 +203,32 @@ public class Weather_Handler : MonoBehaviour
     {
         float elapsed = 0f;
 
-        while (elapsed < duration)
+        if (Weather_ParticlesHolder.Instance != null)
         {
-            float t = elapsed / duration;
-
-            foreach (var ps in systems)
-            {
-                if (rainMaxEmissions.TryGetValue(ps, out float maxEmission))
-                {
-                    var emission = ps.emission;
-                    emission.rateOverTime = Mathf.Lerp(0f, maxEmission, t);
-                }
-            }
-
-            elapsed += Time.deltaTime;
-            yield return null;
+            audioHandler.FadeToVolume(audioHandler.MaxVolume, duration);
         }
+
+        else
+        {
+            audioHandler.FadeToVolume(audioHandler.IndoorVolume, duration);
+        }
+
+            while (elapsed < duration)
+            {
+                float t = elapsed / duration;
+
+                foreach (var ps in systems)
+                {
+                    if (rainMaxEmissions.TryGetValue(ps, out float maxEmission))
+                    {
+                        var emission = ps.emission;
+                        emission.rateOverTime = Mathf.Lerp(0f, maxEmission, t);
+                    }
+                }
+
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
 
         foreach (var ps in systems)
         {
@@ -222,6 +243,8 @@ public class Weather_Handler : MonoBehaviour
     private IEnumerator RainFadeOutMultiple(List<ParticleSystem> systems, float duration)
     {
         float elapsed = 0f;
+
+        audioHandler.FadeToVolume(0, duration);
 
         while (elapsed < duration)
         {

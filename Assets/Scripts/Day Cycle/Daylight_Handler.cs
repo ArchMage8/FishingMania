@@ -174,7 +174,7 @@ public class Daylight_Handler : MonoBehaviour
     public void CallNewDay()
     {
         TimeRunning = false;
-        currentTime = System_HourConvertor(4.9833f);
+        currentTime = 122f;
         UpdateLighting();
 
         HandleNewDay_Visuals();

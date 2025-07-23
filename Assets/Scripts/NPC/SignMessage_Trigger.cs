@@ -1,9 +1,17 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class SignMessage_Trigger : MonoBehaviour
 {
-    public GameObject signMessage; // Assign the "Sign Message" GameObject in the Inspector
+    public GameObject signPanel; // Assign the "Sign Message" GameObject in the Inspector
+    public TMP_Text signText;
+    
+    [TextArea]
+    public string Message;
+
+    [Space(10)]
+
     public GameObject F_Indicator;
 
 
@@ -16,8 +24,8 @@ public class SignMessage_Trigger : MonoBehaviour
 
     private void Start()
     {
-        animator = signMessage.GetComponent<Animator>();
-        signMessage.SetActive(false);
+        animator = signPanel.GetComponent<Animator>();
+        signPanel.SetActive(false);
     }
 
     private void Update()
@@ -33,20 +41,25 @@ public class SignMessage_Trigger : MonoBehaviour
        
         if (messageEnabled && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)))
         {
-            StartCoroutine(DisableSignMessage());
+            signPanel.SetActive(false);
+            InventoryManager.Instance.SomeUIEnabled = false;
+            messageEnabled = false;
+
+            //StartCoroutine(DisableSignMessage());
             FullyEnabled = false;
         }
     }
 
     private void EnableSignMessage()
     {
-        if (signMessage != null)
+        if (signPanel != null)
         {
             StartCoroutine(EnableBool());
             
             InventoryManager.Instance.SomeUIEnabled = true;
 
-            signMessage.SetActive(true);
+            signPanel.SetActive(true);
+            signText.text = Message;
             messageEnabled = true;
 
             F_Indicator.SetActive(false);
@@ -55,7 +68,7 @@ public class SignMessage_Trigger : MonoBehaviour
 
     private IEnumerator DisableSignMessage()
     {
-        if (signMessage != null)
+        if (signPanel != null)
         {
             animator.SetTrigger("Exit");
 

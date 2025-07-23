@@ -41,11 +41,7 @@ public class SignMessage_Trigger : MonoBehaviour
        
         if (messageEnabled && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)))
         {
-            signPanel.SetActive(false);
-            InventoryManager.Instance.SomeUIEnabled = false;
-            messageEnabled = false;
-
-            //StartCoroutine(DisableSignMessage());
+            StartCoroutine(DisableSignMessage());
             FullyEnabled = false;
         }
     }
@@ -54,6 +50,8 @@ public class SignMessage_Trigger : MonoBehaviour
     {
         if (signPanel != null)
         {
+            Message = null;
+            
             StartCoroutine(EnableBool());
             
             InventoryManager.Instance.SomeUIEnabled = true;
@@ -74,6 +72,7 @@ public class SignMessage_Trigger : MonoBehaviour
 
             yield return new WaitForSecondsRealtime(1.5f);
 
+            signPanel.SetActive(false);
             InventoryManager.Instance.SomeUIEnabled = false;
             messageEnabled = false;
         }

@@ -70,6 +70,7 @@ public class Bounty_Board : MonoBehaviour
         ui.completionStamp.SetActive(true);
         ui.icon.color = new Color(0.6f, 0.6f, 0.6f); // Darkened icon
         ui.submitButton.gameObject.SetActive(false);
+        ui.rewardText.text = "Completed!";
     }
 
     private void InsufficientItems(int index)

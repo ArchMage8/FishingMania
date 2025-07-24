@@ -32,7 +32,7 @@ public class SignMessage_Trigger : MonoBehaviour
     {
         if (InventoryManager.Instance.SomeUIEnabled == false)
         {
-            if (playerInRange && !messageEnabled && Input.GetKeyDown(KeyCode.F))
+            if (playerInRange && !messageEnabled && Input.GetKeyDown(KeyCode.F) && !messageEnabled)
             {
                 EnableSignMessage();
             }
@@ -70,7 +70,7 @@ public class SignMessage_Trigger : MonoBehaviour
         {
             animator.SetTrigger("Exit");
 
-            yield return new WaitForSecondsRealtime(1.5f);
+            yield return new WaitForSecondsRealtime(1f);
 
             signPanel.SetActive(false);
             InventoryManager.Instance.SomeUIEnabled = false;

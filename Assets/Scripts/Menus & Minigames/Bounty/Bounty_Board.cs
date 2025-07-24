@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Bounty_Board : MonoBehaviour
 {
@@ -109,5 +110,22 @@ public class Bounty_Board : MonoBehaviour
         SetCompletedUI(index);
 
         MoneyManager.Instance.playerBalance += bountyItem.price * 3;
+    }
+
+    public void DisableBoard()
+    {
+        StartCoroutine(CloseBoard());
+    }
+
+    private IEnumerator CloseBoard()
+    {
+        Animator temp = GetComponent<Animator>();
+
+        temp.SetTrigger("Exit");
+        yield return new WaitForSecondsRealtime(1f);
+        this.gameObject.SetActive(false);
+
+
+
     }
 }

@@ -42,12 +42,12 @@ public class Weather_AudioHandler : MonoBehaviour
         {
             if (Weather_ParticlesHolder.Instance != null) //Outdoors
             {
-                FadeToVolume(MaxVolume, 2f);
+                FadeToVolume(MaxVolume, 0.5f);
             }
 
             else if (Weather_ParticlesHolder.Instance == null) //Indoors
             {
-                FadeToVolume(IndoorVolume, 2f);
+                FadeToVolume(IndoorVolume, 0.5f);
             }
         }
 

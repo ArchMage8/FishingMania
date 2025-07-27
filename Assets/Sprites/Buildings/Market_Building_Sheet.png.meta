@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -67,10 +67,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -101,9 +101,357 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Market_Building_Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3801d32cbf88084ba55840f7e6287dc
+      internalID: 1714110786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Market_Building_Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 1126
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b706313f61a85f44fae20beaa1d4bec1
+      internalID: 96647528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Market_Building_Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 1689
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6059e4963c15a8148b99f27a70b7caa4
+      internalID: -835161766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Market_Building_Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 2252
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21a54826de3351847912105ab1dd73c5
+      internalID: 509456327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Market_Building_Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 2815
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b48c635343c0514c97a30b4414c1c4f
+      internalID: 1987852315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Market_Building_Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 3378
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e405e2eb00a69f64dbbdff2cc57995eb
+      internalID: 1297874235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Market_Building_Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 3941
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19fcc45d4e143ac4288b07d9a49a7636
+      internalID: -1321721487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Market_Building_Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 4504
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f152a9811f7b65c42bfe61e31fa6c855
+      internalID: 839423961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Market_Building_Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 5067
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c5fbb172e6a11b4d91cdd66fb24ef29
+      internalID: -1393822100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Market_Building_Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 5630
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf3344d251ff44e419bb7ee5b06610bb
+      internalID: 1331345935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Market_Building_Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 6193
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d19dad84636dff440952b73de4258c4b
+      internalID: 1233337017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Market_Building_Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 6756
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2e8a6f977ad39e47854d73280a72bbb
+      internalID: -284062550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Market_Building_Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 7319
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e990c7a62cb81c48bd2ef26361ab25d
+      internalID: 2117937333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Market_Building_Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 7882
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc223bae622ca344783c4d4ae39d39b5
+      internalID: -1481768812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Market_Building_Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 8445
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a91f30c8881655d49b50c49a07c5ae1c
+      internalID: 1049966303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Market_Building_Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 9008
+        y: 0
+        width: 563
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ada4df9c3df66f54d9a3c2697a8b2fba
+      internalID: 1021274679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -114,7 +462,23 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Market_Building_Sheet_14: 1049966303
+      Market_Building_Sheet_1: 96647528
+      Market_Building_Sheet_2: -835161766
+      Market_Building_Sheet_5: 1297874235
+      Market_Building_Sheet_15: 1021274679
+      Market_Building_Sheet_4: 1987852315
+      Market_Building_Sheet_11: -284062550
+      Market_Building_Sheet_3: 509456327
+      Market_Building_Sheet_12: 2117937333
+      Market_Building_Sheet_6: -1321721487
+      Market_Building_Sheet_0: 1714110786
+      Market_Building_Sheet_7: 839423961
+      Market_Building_Sheet_10: 1233337017
+      Market_Building_Sheet_9: 1331345935
+      Market_Building_Sheet_8: -1393822100
+      Market_Building_Sheet_13: -1481768812
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

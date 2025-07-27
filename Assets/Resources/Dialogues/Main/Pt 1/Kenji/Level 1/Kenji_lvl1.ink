@@ -8,12 +8,9 @@ VAR Success = false
 
 ~ SetVariables()   
 
-{hasActiveQuest && correspondingNPC: 
-->Submit
-
--else:
-->Start
-}
++{hasActiveQuest && correspondingNPC} -> Submit
++{hasActiveQuest && !correspondingNPC} -> Busy
++{!hasActiveQuest && !correspondingNPC} -> Start
 
 === Start ===
 Hmm?  #speaker: Kenji #trigger: normal
@@ -25,7 +22,23 @@ What now?
     +[You seem to be just standing around]
     ->Default_Dialogue
     
+
+=== Busy ===
+Hmm?  #speaker: Kenji #trigger: normal
+You again?
+What now?
+    +[How long until the bridge is fixed]
+    ->BusyA
     
+    +[You seem to be just standing around]
+    ->Default_Dialogue
+->END
+
+=== BusyA ===
+Look didn't someone give you a job?
+You should complete that first, and maybe check on me again later...
+
+->END
 
 === QuestPrompt ===
 Shouldn't be much longer, I should able finish it after my lunch break...

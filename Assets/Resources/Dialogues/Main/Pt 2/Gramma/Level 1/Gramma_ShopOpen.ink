@@ -3,39 +3,39 @@ Welcome back dear...  #speaker: Granny Makoto
 
 === main ===
 
-    +[Here for some ingredients granny]
+    +[Here for some ingredients granny!]
     ->section2
     
     +[How are things today granny?]
     ->section3
     
-    +[Sorry to bother you granny?]
+    +[Nevermind, sorry for bothering you granny...]
     ->section4
 
 === section2 ===
-Sure take a look dear... #speaker: Granny Makoto
+Sure! Take a look dear... #speaker: Granny Makoto
 //Insert Code to enable shop UI
 ->END
 
 === section3 ===
-Oh you know, the usual here and there... #speaker: Granny Makoto
+Oh, you know, the usual here and there... #speaker: Granny Makoto
 Stocking shelves, helping people decide what to make for dinner... #speaker: Granny Makoto
 
     +[So nothing really happened?]
     ->section3A
     
-    +[Ah ok then...]
+    +[Ah, ok then...]
     ->section3B
 
 === section3A ===
-Well that cranky Kyuri came by the shop... #speaker: Granny Makoto
+Well, that cranky Kyuri came by the shop... #speaker: Granny Makoto
 Complaining about something again... #speaker: Granny Makoto
-I've learnt to "nod and smile" if he goes on a rant... #speaker: Granny Makoto
+I've learned to "nod and smile" if he goes on a rant... #speaker: Granny Makoto
 ->END
 
 === section3B ===
-Well helping people with their cooking is alot of talking... #speaker: Granny Makoto
-I'm surprised how many people come to my store and not know what to buy... #speaker: Granny Makoto
+Well, helping people with their cooking is a lot of talking... #speaker: Granny Makoto
+I'm surprised by the number of people who come to my store not knowing what to buy... #speaker: Granny Makoto
 ->END
 
 === section4 ===

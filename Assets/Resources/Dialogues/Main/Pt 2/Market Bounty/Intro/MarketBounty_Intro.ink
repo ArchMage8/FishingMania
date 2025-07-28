@@ -15,7 +15,7 @@ Yes, but I'm in charge of the special supply orders, not just the day-to-day pur
 Yep, when the customers need something specific, that's my job!
 See this board behind me? Well, that's all the orders I have for today. Right now, I'm just waiting on the shipments to arrive.
 
-    +[Alright, I won't bother you then]
+    +[Alright, I won't bother you then.]
     ->section3
 
 === section3 ===

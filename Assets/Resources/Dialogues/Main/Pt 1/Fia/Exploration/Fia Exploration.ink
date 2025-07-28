@@ -6,16 +6,16 @@ Got anything to sell to me?
 ->main
 
 === main ===
-    +[What can I sell to you again]
+    +[What can I sell to you again?]
     ->Section1
     +[How much would you take for these?]
     ->Section2
-    +[Not at the moment]
+    +[Not at the moment.]
     ->Section3
 
 === Section1 ===
-The fish you catch, assuming you are a good fisherman...
-and dishes you cook up, assuming they are good dishes...
+The fish you catch, assuming you are a good fisherman.
+And dishes you cook up, assuming they are good dishes.
 ->Section6
 
 === Section2 ===
@@ -31,5 +31,5 @@ Ciao!
 So...?
     +[How much for these?]
     ->Section2
-    +[I don't have anything right now]
+    +[I don't have anything right now.]
     ->Section3

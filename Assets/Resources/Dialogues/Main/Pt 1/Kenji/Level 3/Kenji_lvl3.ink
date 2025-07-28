@@ -10,10 +10,10 @@ What's up?
 
 === Section1 ===
 What? #speaker: Kenji #trigger: next1
-Do you expect me to vanish or something?
+Do you expect me to disappear or something?
     +[Guess not...]
     ->Section2
 
 === Section2 ===
-Hmmm.... #speaker: Kenji #trigger: next2
+Hmmm... #speaker: Kenji #trigger: next2
 ->END

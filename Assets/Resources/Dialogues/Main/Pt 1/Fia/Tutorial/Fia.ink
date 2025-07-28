@@ -1,7 +1,7 @@
 Hi! #speaker: Fia #trigger: next
 Welcome to Fia's Restaurant! #speaker: Fia
 I've never seen you around before... #speaker: Fia
-Hey you looking for a job?
+Hey, you looking for a job?
 
     +[Job?]
     ->Section1
@@ -18,18 +18,18 @@ Wait you can cook right?
     ->Section3
     
 === Section2 ===
-Yes cook!
-    +[I guess so...]
+Yes, cook!
+    +[I guess?]
     ->Section4
 
 === Section3 ===
-Never mind that...
+Never mind that.
 Can you cook?
-    +[I guess so...]
+    +[I guess?]
     ->Section4
     
 === Section4 ===
-Great I'll be open from 7am to 10pm
+Great! I'll be open from 7am to 10pm!
 You can sell me the dishes you made!
 Or even the fishes you catch!
 See you soon!

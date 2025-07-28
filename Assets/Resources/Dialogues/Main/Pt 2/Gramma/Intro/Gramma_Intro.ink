@@ -1,15 +1,15 @@
-Oooh...  Hello dear!  #speaker: Granny Makoto
+Oooh, Hello dear!  #speaker: Granny Makoto
 I haven't seen you around before...  #speaker: Granny Makoto
 ->main
 
 === main ===
-We rarely get new visitors on the island nowadays...  #speaker: Granny Makoto
-I usually only see the same few faces everyday...  #speaker: Granny Makoto
+We rarely get new visitors on the island nowadays.  #speaker: Granny Makoto
+I usually only see the same few faces every day.  #speaker: Granny Makoto
 
     +[What is this place?]
     ->section1
 
-=== section1 ====
+=== section1 ===
 This is my produce store, dear...  #speaker: Granny Makoto
 
 Is it different from the store on the other side of the island?  #speaker: Iris
@@ -25,23 +25,23 @@ Say, do you like to cook dear?  #speaker: Granny Makoto
     ->section2
     
 === section2 ===
-Oooh... Thats great!  #speaker: Granny Makoto
+Oooh, Thats great!  #speaker: Granny Makoto
 Most young people nowadays just buy food from the restaurant back there...  #speaker: Granny Makoto
 
 Hmmm... #speaker: Iris
 -> section3
 
 === section3 ===
-Anyways if you do plan on doing some cooking feel free to look through what I have for sale...  #speaker: Granny Makoto
+Anyways, if you do plan on doing some cooking feel free to look through what I have for sale...  #speaker: Granny Makoto
 
-You can only get so far with fish and salt after all...  #speaker: Granny Makoto
+After all, you can only get so far with fish and salt...  #speaker: Granny Makoto
 
-    +[I'll be sure to check it out]
+    +[I'll be sure to check it out!]
     ->section4
 
 === section4 ===
 Great!  #speaker: Granny Makoto
-I'm open from 8am to 5pm, so feel free to stop by any time!  #speaker: Granny Makoto
+I'm open from 8am to 5pm, so feel free to stop by at any time!  #speaker: Granny Makoto
 
     +[See you soon granny!]
     ->section5

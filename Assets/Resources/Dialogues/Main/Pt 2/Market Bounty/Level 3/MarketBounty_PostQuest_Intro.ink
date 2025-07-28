@@ -1,30 +1,30 @@
-Ah your back!
+Ah, you're back!
 ->main
 
 === main ===
-Hey I got a business proposition for you!
+Hey, I got a business proposition for you!
 Remember the board I told you about?
     +[Yeah?]
     ->section1
     
-    +[Not really]
+    +[Not really.]
     ->clarify
     
 
 === clarify ===
 It's the board I place all my special orders on...
 
-Ah ok!
+Ah, ok!
 ->section1
 
 === section1 === 
-So here's my offer, everyday I'll put up some items I need for my orders
-And if you deliver them, I'll give you 3 times their normal price, just like before
-How's about it?
-    +[Sure I'll take a look]
+So here's my offer, everyday I'll put up some items I need for my orders.
+And if you deliver them, I'll give you 3 times their normal price, just like before.
+How about it?
+    +[Sure I'll take a look.]
     ->section2
     
-    +[I'll think about it]
+    +[I'll think about it.]
     ->section2
 
 
@@ -35,5 +35,5 @@ Well the board's right here, you can come up to me should you want to make some 
     ->Exit
 
 === Exit ===
-Don't mention it
+Don't mention it.
 ->END

@@ -9,7 +9,7 @@ Hello?
 ->main
 
 === main ===
-Um, hello??
+Um, hello?
 
 Oh, you're talking to me?
 
@@ -26,7 +26,7 @@ So, what do you need?
 
 === section1 ===
 
-Well... like I said before, I'm a dockworker working at the docks.  
+Well, like I said before, I'm a dockworker working at the docks.
 Boats from the other islands come here to... well, dock, I suppose.
 
     + [Wait, there are other islands?]
@@ -34,14 +34,14 @@ Boats from the other islands come here to... well, dock, I suppose.
 
 === section2 ===
 
-Well, yes...  
-Himawari Island is part of a series of several islands. People travel from town to town for various reasons...
+Well, yes. 
+Himawari Island is part of an archipelago. People travel from town to town for various reasons...
 
-I was on a boat that was headed to the mainland...  
+I was on a boat headed towards the mainland.
 Are there any boats that could take me there?
 
-Not really...  
-Most of the boats that dock here are small vessels...
+Not really...
+Most of the boats that dock here are small vessels.
 
 Crud...
 

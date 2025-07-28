@@ -2,8 +2,8 @@ Hmm...? #speaker: Magu #trigger: next
 ->main
 
 === main ===
-Whats do you want? #speaker: Magu #trigger: next
-    +[What is this place]
+What do you want? #speaker: Magu #trigger: next
+    +[What is this place?]
     ->Section1
     
     +[Who are you?]
@@ -31,9 +31,9 @@ And I own this house! #speaker: Magu #trigger: next
 A cat owns this house? #speaker: Iris #trigger: next
 
 ...#speaker: Magu #trigger: next
-Well the old owner left and sort of never came back... #speaker: Magu #trigger: next
+Well, the old owner left and sort of never came back... #speaker: Magu #trigger: next
 
-What happned to him? #speaker: Iris #trigger: next
+What happened to him? #speaker: Iris #trigger: next
 
 No idea! #speaker: Magu #trigger: next
 

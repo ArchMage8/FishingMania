@@ -13,11 +13,11 @@ VAR Success = false
 +{!hasActiveQuest && !correspondingNPC} -> Start
 
 === Start ===
-So... I've considered you request to go fishing
+So... I've considered your request to fish here.
 
-Umm ok...
+Umm, ok...
 
-Buy you have to do something first!
+But you have to do something first!
     +[Sure?]
     ->QuestStart
     
@@ -30,30 +30,30 @@ Not like those youngsters who just throw bread and worms into the water and make
 
 What do you need sir?
 
-I need you to catch 3 //insert fish name
+I need you to catch 3 Sea Bass.
 That should prove you actually know how to fish...
 
 ~ SetActiveQuest()
 
-Are you not just going eat them?
+Are you not just going to eat them?
 
-That's besides the point, now go!
+That's besides the point! Now go!
 ->END
 
 === Busy ===
-So... I've considered you request to go fishing
+So... I've considered your request to fish here.
 
-Umm ok...
+Umm, ok...
 
-But finish what the job you have now first!
-Can't be holding other people up...
+But finish the job you currently have first!
+Can't be holding other people up!
 
-Ok... ok geez
+Ok... Geez.
 ->END
 
 === Submit ===
-You caught them already?
-    +[Here take a look]
+Have you caught them?
+    +[Here take a look!]
     ~ SubmitQuest()
     ->SumbitCheck
     
@@ -69,10 +69,10 @@ You caught them already?
 }
 
 === SubmitComplete ===
-Ah yes these are fine indeed!
+Ah yes, these are fine indeed!
 I guess you can actually fish!
 
-Well I wouldn't ask to fish if I couldn't...
+Well, I wouldn't ask to fish if I couldn't...
 
 You have no idea how many people try to fish and just end up falling into the water...
 
@@ -84,8 +84,8 @@ Tomorrow, tomorrow!
 Now go!
 ->END
 === SumbitIncomplete ===
-Are you decieving me or something?
-Where is it?
+Are you trying to deceive me?
+Where is the 3 Sea Bass?
 ->END
 
 === Exit1 ===
@@ -94,5 +94,5 @@ My offer is not permanent you know!
 ->END
 
 === Exit2 ===
-You're taking so long...
+You're really slow for someone your age...
 ->END

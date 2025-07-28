@@ -1,5 +1,5 @@
 Haha! #speaker: Kenji #trigger: next
-What did i tell you!
+What did I tell you!
 Nice and sturdy bridge! 
 ->main
 
@@ -8,5 +8,5 @@ Nice and sturdy bridge!
     ->Section1
 
 === Section1===
-Yep, its all fixed! #speaker: Kenji #trigger: next
+Yep! Its all fixed! #speaker: Kenji #trigger: next
 ->END

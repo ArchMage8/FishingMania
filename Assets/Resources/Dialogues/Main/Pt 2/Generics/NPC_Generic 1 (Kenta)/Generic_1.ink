@@ -1,4 +1,4 @@
-Hey are you going to that fish farm over there? #speaker : Kenta
+Hey, are you going to that fish farm over there? #speaker : Kenta
 
     +[Yeah... Why?]
     ->section1
@@ -7,9 +7,9 @@ Hey are you going to that fish farm over there? #speaker : Kenta
     ->section2
     
 === section1 ===
-Don't go fishing there man... #speaker : Kenta
+Don't go fishing there, man... #speaker : Kenta
 
-I tried so and got a scolding from grandpa Kyuri... #speaker : Kenta
+I tried to and got a scolding from Grandpa Kyuri... #speaker : Kenta
 
 What did you do? #speaker : Iris
 

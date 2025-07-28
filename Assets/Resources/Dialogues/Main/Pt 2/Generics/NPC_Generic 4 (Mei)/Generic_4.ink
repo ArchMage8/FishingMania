@@ -2,7 +2,7 @@ Hmm? Need Something? #speaker : Mei
 
 What are you doing? #speaker : Iris
 
-Oh I'm just enjoying the waves, it has that soothing effect you know... #speaker : Mei
+Oh, I'm just enjoying the waves; it has that soothing effect, you know... #speaker : Mei
 
 Ah! #speaker : Iris
 

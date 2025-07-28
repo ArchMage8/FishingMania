@@ -15,7 +15,7 @@ Sorry I'm not good at making small talk... #speaker : Yui
     ->section2
 
 === section1 ===
-Getting a breathe of fresh air basically, and a bite to eat i suppose... #speaker : Yui
+Getting a breath of fresh air basically, and a bite to eat, I suppose... #speaker : Yui
 ->END
 
 === section2 ===

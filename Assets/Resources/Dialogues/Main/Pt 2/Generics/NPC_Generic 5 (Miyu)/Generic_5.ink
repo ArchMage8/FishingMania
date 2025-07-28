@@ -2,6 +2,6 @@ Hey what are you doing here? #speaker : Miyu
 
 Oh, I'm just passing through... #speaker : Iris
 
-Well alot of people come by here carrying heavy things, so make sure to stay clear! #speaker : Miyu
+Well, a lot of people come by here carrying heavy things, so make sure to stay clear! #speaker : Miyu
 
 Ah, got it! #speaker : Iris

@@ -40,7 +40,7 @@ What if something goes wrong?
 
 === QuestStart ===
 Oh alright then!
-I need 2 of Red Snappers
+I need 2 Red Snappers!
 
 ~ SetActiveQuest()
 

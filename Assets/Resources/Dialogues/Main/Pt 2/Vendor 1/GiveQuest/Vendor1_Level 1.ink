@@ -14,30 +14,30 @@ VAR Success = false
 
 
 === Start ===
-Hey you there!
-Are you busy, willing to help me out?
+Hey, you there!
+Are you busy? Willing to help me out?
     +[Umm... Sure?]
     ->QuestStart
     
-    +[Not right now, sorry]
+    +[Not right now, sorry.]
     ->Exit1
     
 === QuestStart ===
-So I need 1 //insert item name here
+So I need 2 Lemons!
 I ran out for my special dish!
 ~ SetActiveQuest()
 
-Sure I'll get it to you!
+Sure I'll get it for you!
 ->END
 
 === Busy ===
-Hey you there!
+Hey, you there!
 Ah you look busy, nevermind then...
 ->END
 
 === Submit ===
 You got the goods?
-    +[Yup here they are]
+    +[Yup here they are!]
     ~ SubmitQuest()
     ->SumbitCheck
     
@@ -52,12 +52,12 @@ You got the goods?
 }
 
 === SubmitComplete ===
-Ah great thanks a bunch!
+Ah great! Thanks a bunch!
 ->END
 
 === SumbitIncomplete ===
 Do my eyes decieve me?
-Or is it not there?
+Or is my 2 Lemons not there?
 ->END
 
 === Exit1 ===

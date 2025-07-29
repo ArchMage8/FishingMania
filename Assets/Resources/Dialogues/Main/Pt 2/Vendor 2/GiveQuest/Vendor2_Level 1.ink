@@ -18,34 +18,34 @@ Hey friend!
 
 Who me?
 
-Yes you, willing to help me out?
+Yes you! Willing to help me out?
     +[Sure whats up?]
     ->QuestStart
-    +[Umm, not right now]
+    +[Umm, not right now.]
     ->Exit1
     
 === QuestStart ===
-So I've been selling so much food, and I just realised I ran out of some ingredients...
+So, I've been selling so much food, and I just realised I ran out of some ingredients...
 
-Cam you get me 2 //Insert Item name
+Can you get me 2 Spring Onions?
 ~ SetActiveQuest()
 
-Sure, be back soon!
+Sure! I'll be back soon!
 ->END
 
 === Busy ===
 Hey friend!
-Ah wait, you look like you have something to do, nevermind then...
+Ah wait, you look like you have something to do, ignore what I just said.
 ->END
 
 
 === Submit ===
-You have it?
-    +[Sure do]
+Did you get my 2 Spring Onions??
+    +[Sure do!]
     ~ SubmitQuest()
     ->SumbitCheck
     
-    +[Ah... Not yet]
+    +[Ah, Not yet.]
     ->Exit1
 
 === SumbitCheck ===
@@ -56,12 +56,12 @@ You have it?
 }
 
 === SubmitComplete ===
-Wow, thanks so much...
+Wow, thank you so much!
 ->END
 
 === SumbitIncomplete ===
 Ehm, is it hidden in your bag?
-Cuz i can't see it...
+Because I can't see it...
 ->END
 
 === Exit1 ===

@@ -340,9 +340,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6806410638504980461}
   - component: {fileID: 6916944416360961305}
-  - component: {fileID: 1229393035973443651}
   - component: {fileID: 8851181882039354086}
-  - component: {fileID: 8206854102413955301}
   m_Layer: 0
   m_Name: DynamicSortingLayer
   m_TagString: Untagged
@@ -390,30 +388,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1, y: 1}
-      - {x: -1, y: 1}
-      - {x: -1, y: -1}
-      - {x: 1, y: -1}
---- !u!114 &1229393035973443651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2794041016280609674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f29089cf2422b34b97844768a79b47f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetSprite:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  Difference: 12
-  npcSortingHandler: {fileID: 0}
+    - - {x: -1.0903893, y: 1.3215983}
+      - {x: -3.1439888, y: 0.47293603}
+      - {x: -2.759858, y: 0.2685268}
+      - {x: -0.72412467, y: 1.0993226}
 --- !u!114 &8851181882039354086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,30 +405,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetSprite:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5401173130769634679}
   Difference: 13
-  npcSortingHandler: {fileID: 0}
---- !u!114 &8206854102413955301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2794041016280609674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f29089cf2422b34b97844768a79b47f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetSprite:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 4362038956695575469}
-  - {fileID: 0}
-  Difference: 11
   npcSortingHandler: {fileID: 0}
 --- !u!1 &4362038955591704184
 GameObject:
@@ -978,7 +934,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: -1393822100, guid: 75e3faa600c1edc4994ac8583dc95049, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

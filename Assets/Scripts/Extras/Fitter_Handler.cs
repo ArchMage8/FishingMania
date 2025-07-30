@@ -15,14 +15,16 @@ public class Fitter_Handler : MonoBehaviour
 
     public void RefreshLayout()
     {
+        Debug.Log("potatoes");
+        
         if (targetLayout != null)
         {
-            Debug.LogWarning("Bubss");
+            Debug.Log("Bubss");
             LayoutRebuilder.ForceRebuildLayoutImmediate(targetLayout);
         }
         else
         {
-            Debug.LogWarning("Buns");
+            Debug.Log("Buns");
         }
     }
 }

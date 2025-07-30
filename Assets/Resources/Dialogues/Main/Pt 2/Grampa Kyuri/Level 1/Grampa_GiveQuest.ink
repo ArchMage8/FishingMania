@@ -13,11 +13,11 @@ VAR Success = false
 +{!hasActiveQuest && !correspondingNPC} -> Start
 
 === Start ===
-So... I've considered your request to fish here.
+So... I've considered your request to fish here.  #speaker: Grandpa Kyuri #trigger: Start
 
-Umm, ok...
+Umm, ok... #speaker: Iris #trigger: next
 
-But you have to do something first!
+But you have to do something first! #speaker: Grandpa Kyuri #trigger: next
     +[Sure?]
     ->QuestStart
     
@@ -25,34 +25,34 @@ But you have to do something first!
     ->Exit1
 
 === QuestStart ===
-I need to make sure you actually know how to fish...
+I need to make sure you actually know how to fish... #speaker: Grandpa Kyuri #trigger: next
 Not like those youngsters who just throw bread and worms into the water and make it all dirty...
 
-What do you need sir?
+What do you need sir? #speaker: Iris #trigger: next
 
-I need you to catch 3 Sea Bass.
+I need you to catch 3 Sea Bass. #speaker: Grandpa Kyuri #trigger: next
 That should prove you actually know how to fish...
 
 ~ SetActiveQuest()
 
-Are you not just going to eat them?
+Are you not just going to eat them? #speaker: Iris #trigger: next
 
-That's besides the point! Now go!
+That's besides the point! Now go! #speaker: Grandpa Kyuri #trigger: next
 ->END
 
 === Busy ===
-So... I've considered your request to fish here.
+So... I've considered your request to fish here. #speaker: Grandpa Kyuri #trigger: BusyStart
 
-Umm, ok...
+Umm, ok... #speaker: Iris #trigger: next
 
-But finish the job you currently have first!
-Can't be holding other people up!
+But finish the job you currently have first! #speaker: Grandpa Kyuri #trigger: next
+Can't be holding other people up! 
 
-Ok... Geez.
+Ok... Geez. #speaker: Iris #trigger: next
 ->END
 
 === Submit ===
-Have you caught them?
+Have you caught them? #speaker: Grandpa Kyuri #trigger: SubmitStart
     +[Here take a look!]
     ~ SubmitQuest()
     ->SumbitCheck
@@ -69,30 +69,30 @@ Have you caught them?
 }
 
 === SubmitComplete ===
-Ah yes, these are fine indeed!
+Ah yes, these are fine indeed! #speaker: Grandpa Kyuri #trigger: Complete
 I guess you can actually fish!
 
-Well, I wouldn't ask to fish if I couldn't...
+Well, I wouldn't ask to fish if I couldn't... #speaker: Iris #trigger: next
 
-You have no idea how many people try to fish and just end up falling into the water...
+You have no idea how many people try to fish and just end up falling into the water... #speaker: Grandpa Kyuri #trigger: next
 
 Now leave, I want to enjoy these...
 
-But you said I could fish...
+But you said I could fish... #speaker: Iris #trigger: next
 
-Tomorrow, tomorrow!
+Tomorrow, tomorrow! #speaker: Grandpa Kyuri #trigger: next
 Now go!
 ->END
 === SumbitIncomplete ===
-Are you trying to deceive me?
+Are you trying to deceive me? #speaker: Grandpa Kyuri #trigger: Incomplete
 Where is the 3 Sea Bass?
 ->END
 
 === Exit1 ===
-Hmmm?
+Hmmm? #speaker: Grandpa Kyuri #trigger: Exit1
 My offer is not permanent you know!
 ->END
 
 === Exit2 ===
-You're really slow for someone your age...
+You're really slow for someone your age... #speaker: Grandpa Kyuri #trigger: Exit2
 ->END

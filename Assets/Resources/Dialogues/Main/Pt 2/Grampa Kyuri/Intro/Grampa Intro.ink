@@ -1,30 +1,30 @@
-Hmm?
+Hmm? #speaker: Grandpa Kyuri #trigger: next
 ->main
 
 === main ===
-You're not from around here, are you?
+You're not from around here, are you? 
 What do you want?
 
-Umm... Hello, sir! I’m just passing by. Didn’t mean to bother you.
+Umm... Hello, sir! I’m just passing by. Didn’t mean to bother you. #speaker: Iris
 
-You looking for someone? Or somethin'?
+You looking for someone? Or somethin'? #speaker: Grandpa Kyuri
 
-No, not really sir...
-Umm, but what is this place exactly?
+No, not really sir... #speaker: Iris
+Umm, but what is this place exactly? 
 
-This here is my fish farm...
+This here is my fish farm... #speaker: Grandpa Kyuri
 Which should have been obvious considering the massive fish on my sign...
 
-Ah... I didn't notice that before...
+Ah... I didn't notice that before... #speaker: Iris
 
-Hmm...
+Hmm... #speaker: Grandpa Kyuri
 I'm going to ask you again...
 What do you want...
 
-Well, if this is a fish farm...
+Well, if this is a fish farm... #speaker: Iris
 Can I fish here?
 
-What? no!
+What? no! #speaker: Grandpa Kyuri
 What a strange question to ask anyone...
 
 Now leave! I have business to attend to...

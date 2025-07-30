@@ -1,11 +1,11 @@
-Hello! #speaker : Iris
+Hello! #speaker : Iris #trigger: next
 
-Hello! #speaker : Yui
-Nice weather today huh? #speaker : Yui
+Hello! #speaker : Yui #trigger: next
+Nice weather today huh? #speaker : Yui #trigger: next
 
-Umm I guess so? #speaker : Iris
+Umm I guess so? #speaker : Iris #trigger: next
 
-Sorry I'm not good at making small talk... #speaker : Yui
+Sorry I'm not good at making small talk... #speaker : Yui #trigger: next
 ->main
 
 === main ===
@@ -15,9 +15,9 @@ Sorry I'm not good at making small talk... #speaker : Yui
     ->section2
 
 === section1 ===
-Getting a breath of fresh air basically, and a bite to eat, I suppose... #speaker : Yui
+Getting a breath of fresh air basically, and a bite to eat, I suppose... #speaker : Yui #trigger: next
 ->END
 
 === section2 ===
-See you around I suppose... #speaker : Yui
+See you around I suppose... #speaker : Yui #trigger: next
 ->END

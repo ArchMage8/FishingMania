@@ -1,10 +1,10 @@
-Yes?
+Yes? #speaker: Grandpa Kyuri #trigger: next
 
-Can I go fishing now?
+Can I go fishing now?  #speaker: Iris #trigger: next
 
-Hmm, what?
-Oh yes yes, just cast your line over there.
-Remember to not fall in or hit me with the hook.
+Hmm, what? #speaker: Grandpa Kyuri #trigger: next
+Oh yes yes, just cast your line over there. 
+Remember to not fall in or hit me with the hook. Or do anything bad! #trigger: next
 
-Yes sir!
+Yes sir!  #speaker: Iris #trigger: next
 ->END

@@ -1,4 +1,7 @@
-Welcome back dear...  #speaker: Granny Makoto
+EXTERNAL EnableShop()
+
+
+Welcome back dear...  #speaker: Granny Makoto #trigger: next
 ->main
 
 === main ===
@@ -14,7 +17,7 @@ Welcome back dear...  #speaker: Granny Makoto
 
 === section2 ===
 Sure! Take a look dear... #speaker: Granny Makoto
-//Insert Code to enable shop UI
+~ EnableShop()
 ->END
 
 === section3 ===

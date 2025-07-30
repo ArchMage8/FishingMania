@@ -141,7 +141,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: kyuri_exp_sheet_0
+      name: kyuri_default
       rect:
         serializedVersion: 2
         x: 0
@@ -149,7 +149,7 @@ TextureImporter:
         width: 1327.5
         height: 1981
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -162,7 +162,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kyuri_exp_sheet_1
+      name: kyuri_eyes closed
       rect:
         serializedVersion: 2
         x: 1327
@@ -170,7 +170,7 @@ TextureImporter:
         width: 1327.5
         height: 1981
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -183,7 +183,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kyuri_exp_sheet_2
+      name: kyuri_upset
       rect:
         serializedVersion: 2
         x: 2654
@@ -191,7 +191,7 @@ TextureImporter:
         width: 1327.5
         height: 1981
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -204,7 +204,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kyuri_exp_sheet_3
+      name: kyuri_happy
       rect:
         serializedVersion: 2
         x: 3981
@@ -212,7 +212,7 @@ TextureImporter:
         width: 1327.5
         height: 1981
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -235,10 +235,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      kyuri_exp_sheet_0: 176488576
-      kyuri_exp_sheet_1: 2128038855
-      kyuri_exp_sheet_3: -1013731296
-      kyuri_exp_sheet_2: 1867796043
+      kyuri_upset: 1867796043
+      kyuri_happy: -1013731296
+      kyuri_eyes closed: 2128038855
+      kyuri_default: 176488576
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

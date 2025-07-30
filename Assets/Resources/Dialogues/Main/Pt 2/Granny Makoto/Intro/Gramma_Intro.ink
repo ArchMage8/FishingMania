@@ -1,4 +1,4 @@
-Oooh, Hello dear!  #speaker: Granny Makoto
+Oooh, Hello dear!  #speaker: Granny Makoto #trigger: next
 I haven't seen you around before...  #speaker: Granny Makoto
 ->main
 
@@ -12,9 +12,9 @@ I usually only see the same few faces every day.  #speaker: Granny Makoto
 === section1 ===
 This is my produce store, dear...  #speaker: Granny Makoto
 
-Is it different from the store on the other side of the island?  #speaker: Iris
+Is it different from the store on the other side of the island?  #speaker: Iris #trigger: next
 
-Oooh... Do you mean that young Sugu's store?  #speaker: Granny Makoto
+Oooh... Do you mean that young Sugu's store?  #speaker: Granny Makoto #trigger: next
 That is the general store, here I sell fresh fruits and vegetables that people use for cooking...  #speaker: Granny Makoto
 
 Say, do you like to cook dear?  #speaker: Granny Makoto
@@ -28,11 +28,11 @@ Say, do you like to cook dear?  #speaker: Granny Makoto
 Oooh, Thats great!  #speaker: Granny Makoto
 Most young people nowadays just buy food from the restaurant back there...  #speaker: Granny Makoto
 
-Hmmm... #speaker: Iris
+Hmmm... #speaker: Iris #trigger: next
 -> section3
 
 === section3 ===
-Anyways, if you do plan on doing some cooking feel free to look through what I have for sale...  #speaker: Granny Makoto
+Anyways, if you do plan on doing some cooking feel free to look through what I have for sale...  #speaker: Granny Makoto #trigger: next
 
 After all, you can only get so far with fish and salt...  #speaker: Granny Makoto
 

@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1857780008650831029
 RectTransform:
   m_ObjectHideFlags: 0
@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 296, y: 176.2}
+  m_AnchoredPosition: {x: 296, y: 156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3728993873328148474
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: a8a208a8091ae4d40b4e5da5ed649c70, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -304,6 +304,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3728993873790447916}
+  - component: {fileID: 5355721045402067780}
   m_Layer: 0
   m_Name: Market_Sales
   m_TagString: Untagged
@@ -328,6 +329,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5355721045402067780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3728993873790447919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc10d45318dd97244a57552bbc371534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcDataSO: {fileID: 11400000, guid: b13989d2979041445a4be0d9fb904afa, type: 2}
+  npcObjects:
+  - {fileID: 3743176136528919223}
+  - {fileID: 3728993874247322656}
+  npcFull: {fileID: 0}
 --- !u!1 &3728993874155492736
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,7 +365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3728993874155492737
 RectTransform:
   m_ObjectHideFlags: 0
@@ -461,13 +479,14 @@ GameObject:
   - component: {fileID: 3728993874247322657}
   - component: {fileID: 3728993874247322663}
   - component: {fileID: 3728993874247322662}
+  - component: {fileID: 7345122017628706248}
   m_Layer: 0
   m_Name: Shun_ShopOpen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3728993874247322657
 Transform:
   m_ObjectHideFlags: 0
@@ -557,6 +576,38 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!60 &7345122017628706248
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3728993874247322656}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.39, y: 0.72}
+    newSize: {x: 0.37, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.009148419, y: -0.16690034}
+      - {x: -0.118647814, y: -0.21237528}
+      - {x: -0.14956611, y: -0.27684924}
+      - {x: -0.1372509, y: -0.31769815}
+      - {x: -0.016975164, y: -0.35071975}
+      - {x: 0.10080171, y: -0.33965367}
+      - {x: 0.11534575, y: -0.26005244}
 --- !u!1 &3728993874478139831
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,13 +703,14 @@ GameObject:
   - component: {fileID: 3743176136528919224}
   - component: {fileID: 3743176136528919225}
   - component: {fileID: 3743176136528919222}
+  - component: {fileID: 9184998783712208791}
   m_Layer: 0
   m_Name: Shun_Intro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3743176136528919224
 Transform:
   m_ObjectHideFlags: 0
@@ -748,6 +800,38 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!60 &9184998783712208791
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3743176136528919223}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.39, y: 0.72}
+    newSize: {x: 0.37, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.009148419, y: -0.16690034}
+      - {x: -0.118647814, y: -0.21237528}
+      - {x: -0.14956611, y: -0.27684924}
+      - {x: -0.1372509, y: -0.31769815}
+      - {x: -0.016975164, y: -0.35071975}
+      - {x: 0.10080171, y: -0.33965367}
+      - {x: 0.11534575, y: -0.26005244}
 --- !u!1 &3743176136637043705
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,8 +925,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3743176137270756472}
-  - component: {fileID: 3743176137270756474}
   - component: {fileID: 3743176137270756475}
+  - component: {fileID: 1519186317056344912}
   m_Layer: 0
   m_Name: DialogueTrigger
   m_TagString: Untagged
@@ -866,24 +950,6 @@ Transform:
   m_Father: {fileID: 3743176136528919224}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3743176137270756474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3743176137270756473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b1e665421b83a744aad6bb8161e2722, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactIndicator: {fileID: 0}
-  LocalDialogueAnimator: {fileID: 4564959270305991010}
-  NPC_Dialogue: {fileID: 4900000, guid: 3a6642fd0db074740b35f9476aa02d26, type: 3}
-  NPC_Quest: {fileID: 0}
-  Shop_NPC_UI: {fileID: 0}
-  Sell_To_NPC_UI: {fileID: 0}
 --- !u!60 &3743176137270756475
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -914,6 +980,23 @@ PolygonCollider2D:
       - {x: -0.44862622, y: -0.32828686}
       - {x: 0.07331979, y: -0.56443495}
       - {x: 0.5673156, y: -0.33617342}
+--- !u!114 &1519186317056344912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3743176137270756473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac9606e660c9004794d5a12a17e4cdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactIndicator: {fileID: 0}
+  LocalDialogueAnimator: {fileID: 4564959270305991010}
+  NPC_Dialogue: {fileID: 4900000, guid: 3a6642fd0db074740b35f9476aa02d26, type: 3}
+  npc_data: {fileID: 11400000, guid: b13989d2979041445a4be0d9fb904afa, type: 2}
+  stateManager: {fileID: 5355721045402067780}
 --- !u!1 &7835671755704919236
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,7 +1033,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 296, y: 176.2}
+  m_AnchoredPosition: {x: 296, y: 156}
   m_SizeDelta: {x: 1044, y: 1562}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8319977956026105170
@@ -981,7 +1064,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1677852016, guid: c21c02ed597dc1148ae6187a5b6a8206, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a8a208a8091ae4d40b4e5da5ed649c70, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

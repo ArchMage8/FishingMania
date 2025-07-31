@@ -18,11 +18,13 @@ public class Bounty_Board : MonoBehaviour
 
     public int boardID; // Local ID used to match with the BountyManager
     public BountyCardUI[] bountyCards = new BountyCardUI[3];
+    public GameObject BG_Effect;
 
     private List<Item> currentBounties;
 
     private void OnEnable()
     {
+        BG_Effect.SetActive(true);
         RefreshBoard();
     }
 
@@ -122,9 +124,11 @@ public class Bounty_Board : MonoBehaviour
         Animator temp = GetComponent<Animator>();
 
         temp.SetTrigger("Exit");
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(1.5f);
         this.gameObject.SetActive(false);
-
+        Time.timeScale = 1f;
+        InventoryManager.Instance.SomeUIEnabled = false;
+        BG_Effect.SetActive(false);
 
 
     }

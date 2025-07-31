@@ -93,6 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1511785579669767697}
+  - component: {fileID: 1904395861335747608}
   m_Layer: 0
   m_Name: FemaleVendor
   m_TagString: Untagged
@@ -118,6 +119,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1904395861335747608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511785579669767698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc10d45318dd97244a57552bbc371534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcDataSO: {fileID: 11400000, guid: 090999fb0d13b834f8d2d164edfde19f, type: 2}
+  npcObjects:
+  - {fileID: 5741351553154753199}
+  - {fileID: 1511785581429472463}
+  npcFull: {fileID: 1511785580884381370}
 --- !u!1 &1511785579819960139
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,7 +172,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 296, y: 176.2}
+  m_AnchoredPosition: {x: 296, y: 156}
   m_SizeDelta: {x: 1044, y: 1562}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1511785579819960143
@@ -185,7 +203,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1983539453, guid: c21c02ed597dc1148ae6187a5b6a8206, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 96a99e404e6842444b9713b9a41c5cd2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -310,7 +328,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1511785580053732344
 RectTransform:
   m_ObjectHideFlags: 0
@@ -531,7 +549,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 296, y: 176.2}
+  m_AnchoredPosition: {x: 296, y: 156}
   m_SizeDelta: {x: 1044, y: 1562}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1511785580789881689
@@ -562,7 +580,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1983539453, guid: c21c02ed597dc1148ae6187a5b6a8206, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 96a99e404e6842444b9713b9a41c5cd2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -597,6 +615,7 @@ GameObject:
   - component: {fileID: 1511785580884381369}
   - component: {fileID: 1511785580884381375}
   - component: {fileID: 1511785580884381368}
+  - component: {fileID: 3107336313410536810}
   m_Layer: 0
   m_Name: NPC Hina (Full)
   m_TagString: Untagged
@@ -693,6 +712,38 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!60 &3107336313410536810
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511785580884381370}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.38, y: 0.65}
+    newSize: {x: 0.37, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.009148419, y: -0.16690034}
+      - {x: -0.118647814, y: -0.21237528}
+      - {x: -0.14956611, y: -0.27684924}
+      - {x: -0.1372509, y: -0.31769815}
+      - {x: -0.016975164, y: -0.35071975}
+      - {x: 0.10080171, y: -0.33965367}
+      - {x: 0.11534575, y: -0.26005244}
 --- !u!1 &1511785581064323342
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,7 +847,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1511785581145590968
 RectTransform:
   m_ObjectHideFlags: 0
@@ -910,6 +961,7 @@ GameObject:
   - component: {fileID: 1511785581429472462}
   - component: {fileID: 1511785581429472460}
   - component: {fileID: 1511785581429472461}
+  - component: {fileID: 5151363619964181220}
   m_Layer: 0
   m_Name: 'NPC Hina (Normal) '
   m_TagString: Untagged
@@ -1006,6 +1058,38 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!60 &5151363619964181220
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511785581429472463}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.38, y: 0.65}
+    newSize: {x: 0.37, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.009148419, y: -0.16690034}
+      - {x: -0.118647814, y: -0.21237528}
+      - {x: -0.14956611, y: -0.27684924}
+      - {x: -0.1372509, y: -0.31769815}
+      - {x: -0.016975164, y: -0.35071975}
+      - {x: 0.10080171, y: -0.33965367}
+      - {x: 0.11534575, y: -0.26005244}
 --- !u!1 &5741351553154753199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,6 +1101,7 @@ GameObject:
   - component: {fileID: 5741351553154753202}
   - component: {fileID: 5741351553154753197}
   - component: {fileID: 5741351553154753196}
+  - component: {fileID: 753637174246238280}
   m_Layer: 0
   m_Name: NPC Hina (Level 1)
   m_TagString: Untagged
@@ -1113,6 +1198,38 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!60 &753637174246238280
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5741351553154753199}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.38, y: 0.65}
+    newSize: {x: 0.37, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.009148419, y: -0.16690034}
+      - {x: -0.118647814, y: -0.21237528}
+      - {x: -0.14956611, y: -0.27684924}
+      - {x: -0.1372509, y: -0.31769815}
+      - {x: -0.016975164, y: -0.35071975}
+      - {x: 0.10080171, y: -0.33965367}
+      - {x: 0.11534575, y: -0.26005244}
 --- !u!1 &5741351553488351279
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,7 +1279,7 @@ MonoBehaviour:
   interactIndicator: {fileID: 0}
   LocalDialogueAnimator: {fileID: 7050700167817462995}
   NPC_Dialogue: {fileID: 4900000, guid: 1be271d0776998049a62d8e51a6949dd, type: 3}
-  NPC_Quest: {fileID: 0}
+  NPC_Quest: {fileID: 11400000, guid: c49ead7afbbb81e4e90560b8b309c954, type: 2}
   Shop_NPC_UI: {fileID: 0}
   Sell_To_NPC_UI: {fileID: 0}
 --- !u!60 &5741351553488351277
@@ -1298,7 +1415,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3847465315639601023
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1437,7 +1554,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 296, y: 177.3}
+  m_AnchoredPosition: {x: 296, y: 156}
   m_SizeDelta: {x: 1044, y: 1562}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6182792190705315600
@@ -1468,7 +1585,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1983539453, guid: c21c02ed597dc1148ae6187a5b6a8206, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 96a99e404e6842444b9713b9a41c5cd2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

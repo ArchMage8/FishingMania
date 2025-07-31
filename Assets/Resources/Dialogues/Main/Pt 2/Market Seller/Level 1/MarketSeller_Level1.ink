@@ -1,9 +1,9 @@
 EXTERNAL EnablePlayerShop()
-Hey, welcome back!
+Hey, welcome back! #speaker: Shun #trigger: next
 ->main
 
 === main ===  
-What's up?
+What's up? 
 
     +[I got some fish I want to sell!]  
     ->section1

@@ -1,8 +1,8 @@
-Hmm?
-→ main
+Hmm? #speaker: Aoi #trigger: next
+->main
 
 === main ===
-If you're going to buy fish, talk to the other person manning the market.
+If you're going to buy fish, talk to the other person manning the market. 
     +[Don't you also work here?]
     ->section1
 

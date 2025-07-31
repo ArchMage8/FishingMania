@@ -1,4 +1,4 @@
-Ah, you're back!
+Ah, you're back! #speaker: Aoi #trigger: next
 ->main
 
 === main ===
@@ -12,13 +12,13 @@ Remember the board I told you about?
     
 
 === clarify ===
-It's the board I place all my special orders on...
+It's the board I place all my special orders on... 
 
-Ah, ok!
+Ah, ok! #speaker: Iris #trigger: clarify
 ->section1
 
 === section1 === 
-So here's my offer, everyday I'll put up some items I need for my orders.
+So here's my offer, everyday I'll put up some items I need for my orders. #speaker: Aoi #trigger: next
 And if you deliver them, I'll give you 3 times their normal price, just like before.
 How about it?
     +[Sure I'll take a look.]

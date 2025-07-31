@@ -1,6 +1,6 @@
 EXTERNAL EnableShop()
 
-Hey! welcome back!
+Hey! welcome back! #speaker: Aoi #trigger: next
 ->main
 
 === main ===
@@ -35,7 +35,7 @@ Oh, and I put up new orders everyday!
 === section2B ===
 A lot of different people, from restaurants to just normal townsfolk.
 
-Why don't they just buy fish from the store?
+Why don't they just buy fish from the store? #speaker: Iris #trigger: next
 
 Well, not all fish types are available on demand there. If someone urgently needs something in particular, they place a special order.
 ->END

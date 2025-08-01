@@ -10,7 +10,7 @@ VAR Success = false
 
 +{hasActiveQuest && correspondingNPC} -> Submit
 +{hasActiveQuest && !correspondingNPC} -> Busy
-+{!hasActiveQuest && !correspondingNPC} -> Start
++{!hasActiveQuest} -> Start
 
 
 === Start ===

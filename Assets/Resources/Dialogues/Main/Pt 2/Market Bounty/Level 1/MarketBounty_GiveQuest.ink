@@ -10,7 +10,7 @@ VAR Success = false
 
 +{hasActiveQuest && correspondingNPC} -> Submit
 +{hasActiveQuest && !correspondingNPC} -> Busy
-+{!hasActiveQuest && !correspondingNPC} -> Start
++{!hasActiveQuest} -> Start
 
 === Start ===
 Hey, are you still waiting for that shipment? #speaker: Iris #trigger: Start

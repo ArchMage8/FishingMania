@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115680136849310931}
-  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1357645620508587692}
-  m_RootOrder: 2
+  m_Father: {fileID: 1357645621422323406}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &7555509955575062482
 PolygonCollider2D:
@@ -85,13 +85,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777500722545200267}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1357645621637210010}
-  m_RootOrder: 2
+  m_Father: {fileID: 1357645620150028755}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &5568514184170571218
 PolygonCollider2D:
@@ -361,7 +361,6 @@ Transform:
   m_Children:
   - {fileID: 1357645621830448773}
   - {fileID: 1357645621305748207}
-  - {fileID: 7914073529867584680}
   m_Father: {fileID: 1357645620516386272}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -828,6 +827,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1357645620292775484}
+  - {fileID: 2592094035035298894}
   m_Father: {fileID: 1357645621637210010}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1438,7 +1438,6 @@ Transform:
   m_Children:
   - {fileID: 1357645620228042106}
   - {fileID: 1357645621422323406}
-  - {fileID: 6975451264729871564}
   m_Father: {fileID: 1357645620516386272}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2007,6 +2006,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1357645621843567383}
+  - {fileID: 7914073529867584680}
   m_Father: {fileID: 1357645619981078644}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2180,6 +2180,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1357645619835270248}
+  - {fileID: 6975451264729871564}
   m_Father: {fileID: 1357645620508587692}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2526,7 +2527,6 @@ Transform:
   m_Children:
   - {fileID: 1357645621069759790}
   - {fileID: 1357645620150028755}
-  - {fileID: 2592094035035298894}
   m_Father: {fileID: 1357645620516386272}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2864,13 +2864,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8613991305209566505}
-  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1357645619981078644}
-  m_RootOrder: 2
+  m_Father: {fileID: 1357645621305748207}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &5614620072172085052
 PolygonCollider2D:

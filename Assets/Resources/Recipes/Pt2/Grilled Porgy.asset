@@ -13,7 +13,15 @@ MonoBehaviour:
   m_Name: Grilled Porgy
   m_EditorClassIdentifier: 
   recipeName: Grilled Porgy
-  ingredients: []
+  ingredients:
+  - ingredientItem: {fileID: 11400000, guid: 7959e16ed4ba7944cbbc9386371ae918, type: 2}
+    quantityRequired: 0
+  - ingredientItem: {fileID: 11400000, guid: 4798220f7b50e084f93c7746200e96a1, type: 2}
+    quantityRequired: 0
+  - ingredientItem: {fileID: 11400000, guid: 49ec145bb7ada5542919ce042a67c82f, type: 2}
+    quantityRequired: 0
+  - ingredientItem: {fileID: 11400000, guid: 75f5c29e68af1e545a3da8eed368d335, type: 2}
+    quantityRequired: 0
   method: 0
   resultDish: {fileID: 11400000, guid: 8b895c8fbf1e57141af47bc550f04551, type: 2}
   perfectDish: {fileID: 11400000, guid: 564a214ea39e1ce46aac1c1020b66742, type: 2}

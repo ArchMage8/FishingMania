@@ -13,7 +13,15 @@ MonoBehaviour:
   m_Name: Grilled Trevally
   m_EditorClassIdentifier: 
   recipeName: Grilled Trevally
-  ingredients: []
+  ingredients:
+  - ingredientItem: {fileID: 11400000, guid: c96b9f1cf47394648be9be190e40b9a6, type: 2}
+    quantityRequired: 0
+  - ingredientItem: {fileID: 11400000, guid: 4798220f7b50e084f93c7746200e96a1, type: 2}
+    quantityRequired: 0
+  - ingredientItem: {fileID: 11400000, guid: 49ec145bb7ada5542919ce042a67c82f, type: 2}
+    quantityRequired: 0
+  - ingredientItem: {fileID: 11400000, guid: 2408e14756b37934994027aa8db3e9e6, type: 2}
+    quantityRequired: 0
   method: 0
   resultDish: {fileID: 11400000, guid: 9a92018c5d795c74d91e670eefbb6f06, type: 2}
   perfectDish: {fileID: 11400000, guid: 7f3d6825e716bc148999250fd775ea84, type: 2}

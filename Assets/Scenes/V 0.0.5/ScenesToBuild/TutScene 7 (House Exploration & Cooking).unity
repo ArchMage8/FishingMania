@@ -2601,6 +2601,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: CookingSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 7630881063763426432, guid: 3877ab18aaac43d4485dd6909872d5d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630881063763426432, guid: 3877ab18aaac43d4485dd6909872d5d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 963503296}
+    - target: {fileID: 7630881063763426432, guid: 3877ab18aaac43d4485dd6909872d5d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MovePlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630881063763426432, guid: 3877ab18aaac43d4485dd6909872d5d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LoadWithDestination, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630881063763426432, guid: 3877ab18aaac43d4485dd6909872d5d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630881063763426432, guid: 3877ab18aaac43d4485dd6909872d5d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3877ab18aaac43d4485dd6909872d5d5, type: 3}
 --- !u!1 &895729746 stripped

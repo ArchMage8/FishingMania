@@ -159,11 +159,13 @@ public class LoadWithDestination : MonoBehaviour
     {
         if(Teleport_Button != null)
         {
-            Button tempButton = Teleport_Button.GetComponent<Button>();
-            Image tempSpriteRenderer = Teleport_Button.GetComponent<Image>();
+            Destroy(Teleport_Button);
 
-            tempButton.enabled = false;
-            tempSpriteRenderer.enabled = false;
+            //Button tempButton = Teleport_Button.GetComponent<Button>();
+            //Image tempSpriteRenderer = Teleport_Button.GetComponent<Image>();
+
+            //tempButton.enabled = false;
+            //tempSpriteRenderer.enabled = false;
         }  
     }
 

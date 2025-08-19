@@ -36,7 +36,7 @@ public class Weather_AudioHandler : MonoBehaviour
         
         StopAllCoroutines();
 
-        Debug.Log("aa");
+       
 
         if (Weather_Handler.Instance.IsRainy)
         {

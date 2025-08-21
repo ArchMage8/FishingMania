@@ -18884,11 +18884,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4235041932646788991, guid: 46745d6b462b4994795b6503959d3e40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.12
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 4235041932646788991, guid: 46745d6b462b4994795b6503959d3e40, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.39
+      value: -0.95
       objectReference: {fileID: 0}
     - target: {fileID: 4235041932646788991, guid: 46745d6b462b4994795b6503959d3e40, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18949,7 +18949,7 @@ GameObject:
   - component: {fileID: 546847162}
   - component: {fileID: 546847163}
   m_Layer: 5
-  m_Name: BountyBoard
+  m_Name: BountyBoard UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19178,7 +19178,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 601780764}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.49, y: -5.6, z: -10.379339}
+  m_LocalPosition: {x: -2.35, y: 0.84, z: -10.379339}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -109125,10 +109125,18 @@ PrefabInstance:
       propertyPath: sceneLoader
       value: 
       objectReference: {fileID: 1870405847}
+    - target: {fileID: 1384155010817312533, guid: 8201a31cc47e75247979efc54cf059ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1384155010830150451, guid: 8201a31cc47e75247979efc54cf059ab, type: 3}
       propertyPath: interactIndicator
       value: 
       objectReference: {fileID: 539696825}
+    - target: {fileID: 1384155011111615135, guid: 8201a31cc47e75247979efc54cf059ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1384155011186608761, guid: 8201a31cc47e75247979efc54cf059ab, type: 3}
       propertyPath: interactIndicator
       value: 
@@ -109137,6 +109145,10 @@ PrefabInstance:
       propertyPath: interactIndicator
       value: 
       objectReference: {fileID: 539696825}
+    - target: {fileID: 1384155012429981025, guid: 8201a31cc47e75247979efc54cf059ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1384155012439619694, guid: 8201a31cc47e75247979efc54cf059ab, type: 3}
       propertyPath: Shop_NPC_UI
       value: 
@@ -109257,6 +109269,10 @@ PrefabInstance:
       propertyPath: interactIndicator
       value: 
       objectReference: {fileID: 539696825}
+    - target: {fileID: 5572628219290332270, guid: 8201a31cc47e75247979efc54cf059ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5572628220564149199, guid: 8201a31cc47e75247979efc54cf059ab, type: 3}
       propertyPath: Sell_To_NPC_UI
       value: 
@@ -109417,6 +109433,10 @@ PrefabInstance:
       propertyPath: interactIndicator
       value: 
       objectReference: {fileID: 539696825}
+    - target: {fileID: 8612627778445030513, guid: 8201a31cc47e75247979efc54cf059ab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8682169959456193804, guid: 8201a31cc47e75247979efc54cf059ab, type: 3}
       propertyPath: interactIndicator
       value: 

@@ -13,7 +13,7 @@ VAR Success = false
 +{!hasActiveQuest} -> Start
 
 === Start ===
-Hmm? Did you need something?
+Hmm? Did you need something? #speaker: Takeshi #trigger: Start
     +[Can we go to the other islands now?]
     ->Start1
     
@@ -21,23 +21,23 @@ Hmm? Did you need something?
     ->GenericExit
 
 === Start1 ===
-Do you have your ticket?
+Do you have your ticket? #speaker: Takeshi
 
-Well, about that....
+Well, about that... #speaker: Iris #trigger: next
 
-Look, you need that ticket to use the boat, it pays for the upkeep and dock fees after all...
+Look, you need that ticket to use the boat, it pays for the upkeep and dock fees after all... #speaker: Takeshi #trigger: next
 
     +[Where can I get a ticket]
     ->Start2
 
 === Start2 ===
-There should be worker in dark blue clothes somewhere around here...
+There should be worker in dark blue clothes somewhere around here... #speaker: Takeshi
 Just tell him you want to buy a travel ticket.
 
-Ah gotcha!
+Ah gotcha! #speaker: Iris #trigger: next
 
-So... Are you gonna go get it now?
-Cuz if so, I'll start prepping the boat.
+So... Are you gonna go get it now? #speaker: Takeshi #trigger: next
+Cuz if so, I'll start prepping the boat. 
     
     +[Yes! I'll be back soon]
     ->StartPrompt
@@ -47,15 +47,15 @@ Cuz if so, I'll start prepping the boat.
 
 
 === StartPrompt ===
-Alright, You need just 1 ticket by the way!
+Alright, You need just 1 ticket by the way! #speaker: Takeshi #trigger: next
 
 ~ SetActiveQuest()
 
-Sure! Be back soon!
+Sure! Be back soon! #speaker: Iris #trigger: next
 ->END
 
 === Submit ===
-Ah your back, ready to go?
+Ah your back, ready to go? #speaker: Takeshi #trigger: Submit
     +[Yep, lets go!]
     ->Sumbit1
     
@@ -66,21 +66,24 @@ Ah your back, ready to go?
     ->GenericExit
 
 === Sumbit1 ===
-You got the ticket?
+You got the ticket? #speaker: Takeshi 
     +[Got it right here!]
     ~ SubmitQuest()
     ->SumbitCheck
+    
+    +[Actually not yet...]
+    ->GenericExit
 
 === SubmitComplete ===
-Great! Lets go then!
+Great! Lets go then! #speaker: Takeshi
 ->END
 
 === SubmitIncomplete ===
-Ehm... Where is it?
+Ehm... Where is it? #speaker: Takeshi
 ->END
 
 === Busy ===
-Hmm? Did you need something?
+Hmm? Did you need something? #speaker: Takeshi #trigger: Busy
     +[Can we go to the other islands now?]
     ->Busy1
     
@@ -89,11 +92,11 @@ Hmm? Did you need something?
 
 
 === Busy1 ===
-Ehm... You look busy, maybe finish what you have to do first, then come back
+Ehm... You look busy, maybe finish what you have to do first, then come back #speaker: Takeshi
 ->END
 
 === GenericExit ===
-Hmm... Ok then!
+Hmm... Ok then! #speaker: Takeshi #trigger: Exit1
 ->END
 
 === SumbitCheck ===
@@ -104,9 +107,9 @@ Hmm... Ok then!
 }
 
 === QueryExit ===
-There should be worker in dark blue clothes somewhere around here...
+There should be worker in dark blue clothes somewhere around here... #speaker: Takeshi #trigger: Exit2
 Just tell him you want to buy a travel ticket.
 
-Ah gotcha!
+Ah gotcha! #speaker: Iris #trigger: next
 ->END
 

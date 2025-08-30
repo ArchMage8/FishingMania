@@ -17,6 +17,9 @@ public class StateManager : MonoBehaviour
             return;
         }
 
+        // Register this NPC's StateManager to the refresher
+        NPCStateRefresher.Instance?.Register(this);
+
         // Check that NPC exists in manager
         var exists = NPCManager.Instance?.npcTempList.Exists(npc => npc.npcName == npcDataSO.npcName);
         if (exists != true)
@@ -26,13 +29,10 @@ public class StateManager : MonoBehaviour
         }
 
         TransitionBoolHandler();
-        //AdjustVersion();
     }
 
     private void Update()
     {
-        //Debug.Log("Fia Level: " + NPCManager.Instance.GetFriendshipLevel(npcDataSO.npcName));
-        
         if (NPCManager.Instance.GetIsFullState(npcDataSO.npcName) && canCoroutine)
         {
             StartCoroutine(transitionChange());
@@ -43,6 +43,12 @@ public class StateManager : MonoBehaviour
     {
         if (npcDataSO != null)
             StartCoroutine(DelayedAdjust());
+    }
+
+    private void OnDisable()
+    {
+        // Unregister from refresher when disabled
+        NPCStateRefresher.Instance?.Unregister(this);
     }
 
     private IEnumerator DelayedAdjust()
@@ -82,20 +88,19 @@ public class StateManager : MonoBehaviour
     {
         if (npcDataSO == null) return;
 
-            bool isFull = NPCManager.Instance.GetIsFullState(npcDataSO.npcName);
-            
+        if (npcFull.gameObject != null)
+        {
             npcFull.SetActive(false);
+        }
 
-           //NPCManager.Instance.AddFriendshipLevel(npcDataSO.npcName);
-            NPCManager.Instance.ModifyIsFullState(npcDataSO.npcName, false);
+        NPCManager.Instance.ModifyIsFullState(npcDataSO.npcName, false);
 
-            int level = NPCManager.Instance.GetFriendshipLevel(npcDataSO.npcName);
+        int level = NPCManager.Instance.GetFriendshipLevel(npcDataSO.npcName);
 
-            for (int i = 0; i < npcObjects.Length; i++)
-            {
-                npcObjects[i].SetActive(i == level);
-            }
-        
+        for (int i = 0; i < npcObjects.Length; i++)
+        {
+            npcObjects[i].SetActive(i == level);
+        }
     }
 
     private void TransitionBoolHandler()
@@ -112,6 +117,7 @@ public class StateManager : MonoBehaviour
 
         npcFull.SetActive(true);
         InventoryManager.Instance.SomeUIEnabled = false;
+
         foreach (var obj in npcObjects)
         {
             obj.SetActive(false);

@@ -194,6 +194,7 @@ public class Daylight_Handler : MonoBehaviour
     {
         NPCManager.Instance.ResetNPCs();   
         NPCStateRefresher.Instance.RefreshAllNPCStates();
+        NPC_CriteriaChecker.Instance.RunChecksOnAll();
     }
 
     private void HandleNewDay_Visuals ()

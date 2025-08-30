@@ -130,32 +130,40 @@ public class PurchaseManager : MonoBehaviour
             return;
         }
 
+        int totalPrice = selectedItemPrice * purchaseQuantity;
+
         if (CanPurchase && purchaseQuantity > 0 && !ErrorEnabled)
         {
-            if (inventoryManager.CanAddItem(selectedItem, purchaseQuantity))
+            if (totalPrice <= moneyManager.playerBalance)
             {
-                int totalPrice = selectedItemPrice * purchaseQuantity;
 
-                moneyManager.ReduceMoney(totalPrice);
+                if (inventoryManager.CanAddItem(selectedItem, purchaseQuantity))
+                {
 
-                inventoryManager.AddItem(selectedItem, purchaseQuantity);
-                // Reset selection
-                ResetPurchaseDetails();
+                    moneyManager.ReduceMoney(totalPrice);
+
+                    inventoryManager.AddItem(selectedItem, purchaseQuantity);
+                    // Reset selection
+                    ResetPurchaseDetails();
+                }
+
+                else
+                {
+                    ErrorEnabled = true;
+                    InventoryError.SetActive(true);
+                    ErrorAnimator = InventoryError.GetComponent<Animator>();
+                    StartCoroutine(DisableError());
+                }
             }
 
             else
             {
                 ErrorEnabled = true;
-                InventoryError.SetActive(true);
-                ErrorAnimator = InventoryError.GetComponent<Animator>();
-            }
-        }
+                FinanceError.SetActive(true);
+                ErrorAnimator = FinanceError.GetComponent<Animator>();
 
-        else
-        {
-            ErrorEnabled = true;
-            FinanceError.SetActive(true);
-            ErrorAnimator = FinanceError.GetComponent<Animator>();
+                StartCoroutine(DisableError());
+            }
         }
     }
 

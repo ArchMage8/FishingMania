@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 395ce2fa2ebb7ce4ba712849e225ee5c, type: 3}
-  m_Name: Vendor Male
+  m_Script: {fileID: 11500000, guid: 2a3b027ba78c1964cb5e272ef1580070, type: 3}
+  m_Name: Pompano
   m_EditorClassIdentifier: 
-  npcName: Ren
-  questID: 4
-  questDescription: 
-  desiredItem: {fileID: 11400000, guid: 49ec145bb7ada5542919ce042a67c82f, type: 2}
-  requiredQuantity: 2
-  moneyReward: 200
+  itemName: Pompano
+  description: Not a pompous fish
+  icon: {fileID: 21300000, guid: ba03ed0a937992f41b51a8c54a7e0204, type: 3}
+  price: 40
+  itemType: 3

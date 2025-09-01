@@ -6,7 +6,7 @@ public class NPC_CriteriaChecker : MonoBehaviour
 {
     public static NPC_CriteriaChecker Instance { get; private set; }
 
-    private List<ConditionalNPC> conditionalNPCs = new List<ConditionalNPC>();
+    public List<ConditionalNPC> conditionalNPCs = new List<ConditionalNPC>();
 
     private void Awake()
     {

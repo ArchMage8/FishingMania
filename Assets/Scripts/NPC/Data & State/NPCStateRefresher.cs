@@ -6,7 +6,7 @@ public class NPCStateRefresher : MonoBehaviour
 {
     public static NPCStateRefresher Instance { get; private set; }
 
-    private List<StateManager> npcStateManagers = new List<StateManager>();
+    public List<StateManager> npcStateManagers = new List<StateManager>();
 
     private void Awake()
     {

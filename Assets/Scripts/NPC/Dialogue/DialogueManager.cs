@@ -542,8 +542,6 @@ public class DialogueManager : MonoBehaviour
             currentStory.variablesState["Success"] = true;
             QuestCompleted = true;
 
-            Debug.Log("ptoa");
-
             //Logic to update the NPC Quest
             NPCManager.Instance.AddFriendshipLevel(DialogueQuest.npcName);
             NPCManager.Instance.ModifyIsFullState(DialogueQuest.npcName, true);
@@ -585,6 +583,9 @@ public class DialogueManager : MonoBehaviour
     private void QuestCompleteUpdate()
     {
         NPCData npcData = NPCManager.Instance?.npcTempList.Find(npc => npc.npcName == DialogueQuest.npcName);
+
+        MoneyManager.Instance.AddToTempBalance(DialogueQuest.moneyReward);
+        MoneyManager.Instance.TransferToPermanentBalance();
 
         QuestManager.Instance.ResetActiveQuest();
 

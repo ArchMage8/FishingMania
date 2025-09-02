@@ -50,7 +50,6 @@ public class SignMessage_Trigger : MonoBehaviour
     {
         if (signPanel != null)
         {
-            Message = null;
             
             StartCoroutine(EnableBool());
             

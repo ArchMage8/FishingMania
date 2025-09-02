@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -24,7 +24,6 @@ public class Daylight_Handler : MonoBehaviour
     public bool VisualsTest_Day = false;
     private float lastCheckedHour = -1f;
 
-    //private float endDayResumeDelay = 0.5f;
     private bool exceptionExists;
 
     private bool NewDayHandled = false;
@@ -49,51 +48,44 @@ public class Daylight_Handler : MonoBehaviour
         {
             exceptionExists = false;
         }
-
         else
         {
             exceptionExists = true;
         }
-            UpdateLighting();
+
+        UpdateLighting();
     }
 
     private void Update()
     {
-        
         if (!TimeRunning)
-        {
             return;
-        }
 
         if (globalLight == null || dayDuration <= 0f)
-        {
             return;
-        }
 
         currentTime += Time.deltaTime;
         currentTime = Mathf.Repeat(currentTime, dayDuration);
 
         float currentHour = GetCurrentHour();
 
-        if(currentHour >= 5f && TimeLoopBack == true && NewDayHandled == false)
+        if (currentHour >= 5f && TimeLoopBack && !NewDayHandled)
         {
-            //Debug.Log("Potato");
             HandleNewDay_Visuals();
             HandleNewDay_System();
         }
 
-        if(currentHour > 5f)
+        if (currentHour > 5f)
         {
             TimeLoopBack = false;
+            NewDayHandled = false; // ✅ Reset here for next cycle
         }
-
-        else if(currentHour < 5f && currentHour > 0f)
+        else if (currentHour < 5f && currentHour > 0f)
         {
             TimeLoopBack = true;
         }
-        
-        float timePercent = currentTime / dayDuration;
 
+        float timePercent = currentTime / dayDuration;
 
         if (!exceptionExists)
         {
@@ -108,13 +100,10 @@ public class Daylight_Handler : MonoBehaviour
             {
                 globalLight.intensity = intensityOverDay.Evaluate(timePercent);
             }
-
         }
-
-        else if(exceptionExists)
+        else
         {
             globalLight.gameObject.SetActive(false);
-
         }
     }
 
@@ -145,8 +134,6 @@ public class Daylight_Handler : MonoBehaviour
         return currentTime;
     }
 
-    
-
     private void UpdateLighting()
     {
         float timePercent = currentTime / dayDuration;
@@ -163,12 +150,9 @@ public class Daylight_Handler : MonoBehaviour
         return (dayDuration / 24f) * Mathf.Clamp(hour, 0, 23);
     }
 
-    public float GetCurrentHour() 
+    public float GetCurrentHour()
     {
         return (currentTime / dayDuration) * 24f;
-
-        //To be used by external scripts to get the current time in hours
-        //Ex : if (Handler.GetCurrentHour == 5) do X
     }
 
     public void CallNewDay()
@@ -180,7 +164,6 @@ public class Daylight_Handler : MonoBehaviour
         HandleNewDay_Visuals();
         StartCoroutine(ResumeTimeAfterDelay());
         OnNewDayStarted?.Invoke();
-        
     }
 
     private IEnumerator ResumeTimeAfterDelay()
@@ -189,23 +172,20 @@ public class Daylight_Handler : MonoBehaviour
         TimeRunning = true;
     }
 
-
     private void HandleNewDay_System()
     {
-        NPCManager.Instance.ResetNPCs();   
+        NPCManager.Instance.ResetNPCs();
         NPCStateRefresher.Instance.RefreshAllNPCStates();
         NPC_CriteriaChecker.Instance.RunChecksOnAll();
     }
 
-    private void HandleNewDay_Visuals ()
+    private void HandleNewDay_Visuals()
     {
-        if (NewDayHandled == false)
+        if (!NewDayHandled)
         {
+            Debug.Log("Bananas");
             NewDayHandled = true;
             Weather_Handler.Instance.ResetWeather();
-            //Debug.Log("Weather Reset");
         }
-
-        NewDayHandled = false;
     }
 }
